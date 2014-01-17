@@ -224,7 +224,6 @@
             });
         };
         function changeRegionTypeTabs(e) {
-            alert(e);
             // If climate divisions are selected, change to climate divisions regionType tab,
             // and disable all other regionType tabs
             if (e === "climateDivision") {
