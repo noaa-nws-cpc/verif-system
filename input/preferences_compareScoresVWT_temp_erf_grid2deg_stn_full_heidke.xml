@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<preferences>
+	<!-- Forecast Type -->
+	<fcstType>8-14day</fcstType>
+	<!-- Number of Dates Included -->
+	<numDates>all</numDates>
+	<!-- Variable -->
+	<variable>temp</variable>
+	<!-- Spatial Type -->
+	<spatialType>grid2deg_stn</spatialType>
+	<!-- Score Type -->
+	<scoreType>Heidke</scoreType>
+	<!-- File 1 -->
+	<file1>
+		<!-- Name of text file 1 -->
+		<name>$VERIF_HOME/output/verif_temp_manual_11d_07d_grid2deg_1948days_heidke_totalCats_time_dateRange_20070101-20120501.txt</name>
+		<!-- Name of column containing valid date -->
+		<dateColumnName>Date</dateColumnName>
+		<!-- Format of the valid date -->
+		<dateColumnFormat>mm/dd/yyyy</dateColumnFormat>
+		<!-- The number of days or months the data is currently shifted -->
+		<dateOffset></dateOffset>
+		<!-- Name of column containing the score -->
+		<scoreColumnName>all_cats</scoreColumnName>
+		<!-- Number of columns -->
+		<columnCount>4</columnCount>
+	</file1>
+	<!-- File 2 -->
+	<file2>
+		<!-- Name of text file 2 -->
+		<name>$VERIF_HOME/output/verif_temp_manual_11d_07d_stn_1948days_heidke_totalCats_time_dateRange_20070101-20120501.txt</name>
+                <!-- Name of column containing valid date -->
+                <dateColumnName>Date</dateColumnName>
+                <!-- Format of the valid date -->
+                <dateColumnFormat>mm/dd/yyyy</dateColumnFormat>
+                <!-- The number of days or months the data is currently shifted -->
+                <dateOffset></dateOffset>
+                <!-- Name of column containing the score -->
+                <scoreColumnName>all_cats</scoreColumnName>
+                <!-- Number of columns -->
+                <columnCount>4</columnCount>
+	</file2>
+</preferences>

@@ -1,0 +1,77 @@
+<table cellspacing="0" cellpadding="2" width="137" border="0">
+
+        <!-- Do not remove this section. You will need this when the City,St/zip search is implemented nationwide.-->
+        <!-- <tr align="left" valign="top">
+                <td class="searchinput">
+                  <div id="Layer2" style="position:absolute; width:200px; height:115px; z-index:2; visibility: hidden">Search by city or zip code. Press enter or select the go button to submit request</div>
+                  <form method="POST" action="http://www.srh.noaa.gov/zipcity.php">
+                  <span class="yellow">Local forecast by<br>&quot;City, St&quot; or Zip Code</span><br>
+                  <input type="text" name="inputstring" size="9" value="City, St">
+                  <input type="submit" name="Go2" value="Go"></form></td>
+        </tr> -->
+        <tr>
+          <td class="searchinput" align="left">
+            <form action="http://www.firstgov.gov/fgsearch/index.jsp" name="query">
+              <input type="hidden" name="parsed" value="true">
+              <input type="hidden" name="rn" value="3">
+              <input type="hidden" name="in0" value="domain">
+<!--		  <input type="hidden" name="dom0" value="www.cpc.ncep.noaa.gov"> -->
+		  <!-- Change "center.noaa.gov" to your center\'s domain -->
+
+		  <span class="yellow">CPC Search</span><br>         
+		  <!-- Change "Center" to your center\'s initials -->
+		  <input type="text" name="mw0" id="search"  size="9" maxLength="256" value="CPC search"> 
+		  <!-- Change "Center" to your center's initials -->
+              <input type="submit" name="Go2" value="Go">
+          </form></td>
+        </tr>
+      <tr>
+         <td class="white">
+            <span class="yellow">Related Outlooks</span><br>
+            &nbsp;&nbsp;&nbsp;<a
+	    href="http://www.cpc.ncep.noaa.gov/products/predictions/610day/index.php" class="menu">6-10 Day</a><br>
+            &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/products/predictions/814day/index.php" class="menu">8-14 Day</a><br>
+	    &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/products/predictions/30day/" class="menu">Monthly</a><br>
+	    &nbsp;&nbsp;&nbsp;<a
+	    href="http://www.cpc.ncep.noaa.gov/products/predictions/long_range/seasonal.php?lead=1" class="menu">Seasonal</a><br>
+	    <br>
+	    
+	    <span class="yellow">Related Observations</span><br>
+            &nbsp;&nbsp;&nbsp;<a
+	    href="http://www.cpc.ncep.noaa.gov/products/tanal/temp_analyses.php"
+	    class="menu">Temperature</a><br>
+            &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/products/Global_Monsoons/American_Monsoons/NAMS_precip_monitoring.shtml"
+	    class="menu">Precipitation</a><br>
+	    <br>
+	    
+	    <span class="yellow">Related Verifications</span><br>
+            &nbsp;&nbsp;&nbsp;<a
+	    href="http://www.cpc.ncep.noaa.gov/products/predictions/short_range/verifications/html/"
+	    class="menu">6-10 Day / 8-14 Day</a><br>
+            &nbsp;&nbsp;&nbsp;<a
+	    href="http://www.cpc.ncep.noaa.gov/products/predictions/long_range/tools/briefing/mon_veri.grid.php"
+	    class="menu">Monthly</a><br>
+	    &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/products/predictions/long_range/tools/briefing/seas_veri.grid.php"
+	    class="menu">Seasonal</a><br><br>
+	    <!-- 
+	    &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/products/predictions/814day/index.php"
+	    class="menu">Interactive Web Tool</a><br>
+	    <br>
+	    -->
+	    
+	    <span class="yellow">About Us</span><br>
+            &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/information/who_we_are/mission.shtml" class="menu">Our Mission</a><br>
+            &nbsp;&nbsp;&nbsp;<a href="/information/who_we_are/" class="menu">Who We Are</a><br><br>
+
+            <span class="yellow">Contact Us</span><br>
+            &nbsp;&nbsp;&nbsp;<a href="http://www.cpc.ncep.noaa.gov/information/personnel/contacts.shtml" class="menu">CPC Information</a><br>
+            &nbsp;&nbsp;&nbsp;<a href="/comment-form.html" class="menu">CPC Web Team</a><br><br>           
+           
+          </td>
+
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td class="white" id="menuitem" align="center"><a href="http://www.firstgov.gov/"><img src="/nwscwi/firstgov_logo_color_110w.gif" alt="FirstGov.gov is the U.S. Government's official Web portal to all Federal, state and local government Web resources and services." border="0" height="30" width="110"></a></td>
+        </tr>
+      </table>

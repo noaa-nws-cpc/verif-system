@@ -1,0 +1,9 @@
+<p>The Heidke Skill Score (HSS) compares how often the forecast category correctly match the observed category, over and above the number of correct "hits" expected by chance alone. </p>
+<p>This score utilizes the number of correct and incorrect category hits. The values range from -50 to 100. A score of 100 indicates a perfect forecast and a score of -50 indicates a perfectly incorrect forecast. Scores greater than 0 indicate improvement compared to a random forecast and indicate skill.</p>
+<p>For monthly and seasonal forecasts, EC forecasts <i>are</i> included in scores when category type is set to include all.</p>
+<p>The equation for the score is:</p>
+<code>HSS (%) = 100 * (H - E) / (T - E)</code>
+<p>where H = Number of correct forecasts, E = Expected number of correct forecasts (1/3 of total), and T = Total number of valid forecast-observation pairs.</p>
+<p>The equation for the score including EC forecasts is:</p>
+<code>HSS<sub>withEC</sub> (%) = HSS * coverage</code>
+<p>where coverage = number of non EC forecasts/Total.</p>

@@ -1,0 +1,116 @@
+;####################################################################
+;        Verification System Data Import Configuration File         #
+;####################################################################
+;
+; This file uses an INI format to store settings for the Verification data
+; import scripts.
+;
+; Here are some properties of this file:
+;   - Each section of the file is preceded by a section name within []'s
+;   - Each setting is preceded by a comment block describing the setting
+;   - When a settings already has a value, then that is the preffered value
+;     and should be left as is, provided the system is installed closely
+;     following the instructions in the "How to Install" document.
+;   - When a setting does not have a value, you must add one
+;
+
+;--------------------------------------------------------------------
+; MySQL Settings
+;
+[mysql]
+;------------------
+; host:       server hosting the MySQL database
+;
+;   format:   servername.com, servername.ncep.noaa.gov, localhost, etc.
+;   example:  vp-cpccfmysql.ncep.noaa.gov
+host        = vp-cpccfmysql.ncep.noaa.gov
+;------------------
+; user:       MySQL username to use to access the databases
+;
+;   format:   first.last, fLast, userName, etc.
+;   example:  john.doe
+user        =
+;------------------
+; password:   Password for the MySQL username above
+password    =
+;------------------
+; db_fcst:    Name of the database storing the forecast data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_forecasts
+db_fcst     = cpc_forecasts
+;------------------
+; db_obs:     Name of the database storing the observation data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_observations
+db_obs      = cpc_observations
+;------------------
+; db_clim:    Name of the database storing the climatology data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_climatologies
+db_clim      = cpc_climatologies
+;------------------
+; db_vwt:     Name of the database storing reference data (station list, etc.)
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_reference
+db_ref      = cpc_reference
+;------------------
+; db_vwt:     Name of the database storing additional information needed by the VWT
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_vwt
+db_vwt      = cpc_vwt
+;------------------
+; dateFormat: Format of the 'date' data type in MySQL
+;
+;   format:   MM/dd/yyyy, yyyy-MM-dd, etc.
+;   example:  yyyy-MM-dd (this is the format required for MySQL)
+dateFormat  = yyyy-MM-dd
+
+;--------------------------------------------------------------------
+; Email Notification Settings
+;
+[email]
+;------------------
+; toEmail:    Email address to send the error log to
+;
+;   format:   first.last@email.com, someName@email.com, etc.
+;   example:  john.doe@noaa.gov
+toEmail     =
+;------------------
+; subject:    Subject of the email containing the error log
+;
+;   format:   A few words describing what this email is
+;                 note that the script will automatically generate a subject if
+;                 this is left blank, and this is recommended
+;   example:  Verif data import script error
+subject     =
+;------------------
+; fromEmail:  Email address to send the error log from
+;
+;             You email server needs to support SMTP without a password
+;
+;   format:   first.last@email.com, someName@email.com, etc.
+;   example:  cpc_processName@noaa.gov
+;                 using an email like in this example makes it easier to see
+;                 what process is notifying you of a problem
+fromEmail   = cpc_processName@noaa.gov
+;------------------
+; fromName:   Name to display in the "From" field of your email client
+;
+;             All emails from this process will appear to come from this name
+;
+;   format:   Name to display, nameToDisplay, etc.
+;   example:  Verif Data Import
+fromName    = Verif Data Import
+;------------------
+; logLevel:   Threshold of when to display a log message
+;
+;             See http://search.cpan.org/dist/Log-Log4perl/lib/Log/Log4perl.pm
+;
+;   format:   LOGLEVEL, loglevel, etc.
+;   example:  ERROR
+logLevel    = ERROR

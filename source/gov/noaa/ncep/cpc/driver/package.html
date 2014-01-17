@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+  @(#)package.html	1.60 98/01/27
+
+  Copyright 1998 Sun Microsystems, Inc. 901 San Antonio Road, 
+  Palo Alto, California, 94303, U.S.A.  All Rights Reserved.
+
+  This software is the confidential and proprietary information of Sun
+  Microsystems, Inc. ("Confidential Information").  You shall not
+  disclose such Confidential Information and shall use it only in
+  accordance with the terms of the license agreement you entered into
+  with Sun.
+
+  CopyrightVersion 1.2
+
+-->
+</head>
+<body bgcolor="white">
+
+Provides driver classes for back-end handling of creating verification score output. This means that you can supply specified parameters to the driver(s) to retrieve verification score data and/or a chart with this data plotted.
+<p>
+These classes are capable of accepting settings information regarding the type of verification score output and data to use to input for calculation and does the back-end work of getting the appropriate data and formatting the data specifically according to the settings provided as paramaters. This package contains two classes :
+<ul>
+<li>Class for accepting settings parameters and returning formatted score data as XML. This contains all the back-end functionality of getting data from the MySQL database, calculating scores, and formatting the score output data.
+<li> Class for doing a test run with hard-wired settings that also creates and displays a chart using the data accessed by the hard-wired settings. This can be ran on the command line. 
+</ul>
+<p>
+There is a main driver (VerificationDriver) that allows numerous settings to be submitted to a runDriver() method, which then creates and loads a Settings object, grabs the correct data depending on the submitted settings from a MySQL database, calculates a verification score, and formats the output according to the settings submitted. This program also has a main method with pre-defined hard-wired settings that instantiates the runDriver() method. No parameters or settings are allowed to be passed in at this time. Currently this is just for debugging and testing with set settings. This driver does not create any plots. It is left up to a higher-level application or program to create any plots using the display package.
+<p>
+Another driver program StaticRunDriver.java, does not allow any parameters to be passed in, and has hard-wired settings for testing and debugging. This allows a chart to be created from the command line. The display package is accessed automatically by this program and displays a window with a chart displaying data using hard-wired settings for testing.
+
+
+
+<h2>Package Specification</h2>
+
+##### FILL IN ANY SPECS NEEDED BY JAVA COMPATIBILITY KIT #####
+<ul>
+  <li><a href="">##### REFER TO ANY FRAMEMAKER SPECIFICATION HERE #####</a>
+</ul>
+
+<h2>Related Documentation</h2>
+
+For overviews, tutorials, examples, guides, and tool documentation, please see:
+<h2>Related Documentation</h2>
+
+For more information, see the following:
+<ul>
+  <li><a href="http://lnx92:8080/Verif_System/wiki/Coding_Team/UML_diagrams#FormatPackage">UML on Trac page</a>
+  <li><a href="http://lnx92:8080/Verif_System/browser/trunk/source/gov/noaa/ncep/cpc/format">Package source on Trac page</a>
+</ul>
+
+
+
+<!-- Put @see and @since tags down here. -->
+
+</body>
+</html>

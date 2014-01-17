@@ -1,0 +1,22 @@
+;####################################################################
+;       Verification System Tomcat Manager Configuration File       #
+;####################################################################
+;
+; This files stores the authentication information for interacting with
+; the Tomcat Manager directly from Ant. It contains sensitive information
+; and should be kept private with file permissions 600
+;
+; This file uses an INI format to store settings for the Verification data
+; import scripts.
+;
+; Here are some properties of this file:
+;   - Each section of the file is preceded by a section name within []'s
+;   - Each setting is preceded by a comment block describing the setting
+;   - When a settings already has a value, then that is the preffered value
+;     and should be left as is, provided the system is installed closely
+;     following the instructions in the "How to Install" document.
+;   - When a setting does not have a value, you must add one
+;
+tomcat_manager.username = 
+tomcat_manager.password = 
+

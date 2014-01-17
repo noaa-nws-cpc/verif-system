@@ -1,0 +1,45 @@
+/* Custom headings */
+h1 {
+    margin: 0 0 0.5em 0;
+    padding-top: 0.5em; /* Firefox bug? */
+    border-bottom: 1px solid #999;
+}
+/* Customize heading 1 */
+h1 {
+    /*color: #666;*/
+    font-size: 1.4em;
+    letter-spacing: normal;
+}
+/* Customize heading 2 */
+h2 {
+    font-size: 1.1em;
+    letter-spacing: normal;
+}
+/* Customize heading 3 */
+h3 {
+    font-size: 1.0em;
+    letter-spacing: normal;
+}
+/* Customize heading 4 */
+h4 {
+    font-size: 1.0em;
+    letter-spacing: normal;
+}
+/* Customize heading 5 */
+h5 {
+    font-size: 1.0em;
+    letter-spacing: normal;
+}
+
+/* Customize all text */
+body { padding-left: 24px }
+h1, h2, h3 { margin-left: -24px }
+h4 { margin-left: -16px }
+h5 { margin-left: -8px }
+
+/* Customize <pre> tags */
+pre.block {
+	border: 1px solid #999;
+	background-color: #EEE;
+	margin-left: 2em;
+}

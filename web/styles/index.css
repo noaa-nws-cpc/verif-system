@@ -1,0 +1,721 @@
+/*
+---------------------------------------------------------------------
+Global Styles
+---------------------------------------------------------------------
+*/
+
+/* Reset all padding and margins */
+form, fieldset {
+	padding: 0px;
+	margin: 0px;
+}
+/* Colorize all spans based on class */
+span.warning {
+	color: #F82;
+}
+span.error {
+	color: #F00;
+}
+.leftPadded {
+	padding-left: 40px;
+}
+
+/*
+---------------------------------------------------------------------
+Body
+---------------------------------------------------------------------
+*/
+body {
+	width: 100%;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+}
+html {
+	margin: 10px auto;
+	text-align: center;
+}
+
+/*
+---------------------------------------------------------------------
+Popup Fatal Error Messages
+---------------------------------------------------------------------
+*/
+#popup a:link, #popup a:visited {
+	color: blue;
+}
+
+/*
+---------------------------------------------------------------------
+Popup calendars
+---------------------------------------------------------------------
+*/
+img.ui-datepicker-trigger {
+	cursor: pointer;
+}
+#ui-datepicker-div {
+	font-size: 0.75em;
+}
+.ui-datepicker-title {
+	color: black;
+    font-weight: bold;
+}
+
+/*
+---------------------------------------------------------------------
+Div for drawing region highlighting
+---------------------------------------------------------------------
+*/
+#canvas {
+	position: relative;
+	height: auto;
+	width: auto;
+}
+
+/*
+-----------------------------------------------------------
+Tooltips
+-----------------------------------------------------------
+*/
+/* Style for '?'s used for popping up a tooltip */
+span[data-tooltip] {
+	cursor: pointer;
+	text-decoration: none;
+	border-bottom: 1px dotted #aaa;
+	color: blue;
+}
+#settingsPanel span[data-tooltip] {
+	font-size: 0.9em;
+	font-weight: bold;
+}
+.qtip-content {
+	background-color: red;
+}
+
+/*
+-----------------------------------------------------------
+Input field placeholder text
+-----------------------------------------------------------
+*/
+.placeholder {
+    color: #AAA;
+}
+/*
+---------------------------------------------------------------------
+Headers
+---------------------------------------------------------------------
+*/
+
+/* Banner Header */
+#banner {
+	display: block;
+}
+#banner h1 {
+	margin: 0px auto 10px auto;
+	font-size: 2.2em;
+	text-shadow: 5px 5px 10px #777;
+}
+
+/*
+-----------------------------------------------------------
+Help page
+-----------------------------------------------------------
+*/
+#help {
+	width: 840px;
+}
+
+/*
+---------------------------------------------------------------------
+Containers
+---------------------------------------------------------------------
+*/
+
+/* Outer Container */
+#outerContainer {
+	background-color: #C2E2ED;
+	display: inline-block;
+	margin: 0px auto;
+	padding: 20px 40px;
+	width: 900px;
+	text-align: center;
+	margin: 0px auto;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	box-shadow: 0px 0px 30px #444;
+	-webkit-box-shadow: 0px 0px 30px #444;
+	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+/* Inner Container */
+#innerContainer, #overviewContainer {
+	float:left;
+	display: block;
+	background-color: #2491BD;
+	width: auto;
+	margin: 0px auto;
+	padding: 10px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	text-align: center;
+	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+/* Overview Container */
+#overviewContainer {
+	margin-bottom: 10px;
+}
+
+/*
+---------------------------------------------------------------------
+Panels
+---------------------------------------------------------------------
+*/
+
+/* Admin Page Form Panel */
+#adminFormPanel {
+	width: 840px;
+}
+
+/* Admin Page data_settings Panel */
+#adminDataSettingsPanel {
+	width: 840px;
+}
+
+/* News Panel Notifications */
+#newsPanel { /* Panel itself */
+	width: 900px;
+}
+div.message { /* News messages */
+	padding: 5px;
+	margin: 0px auto 5px auto;
+	text-align: center;
+	display: table;
+	position: relative;
+	font-size: .8em;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+	clear: both;
+	box-shadow: 0px 0px 10px #777;
+	-webkit-box-shadow: 0px 0px 10px #777;
+	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+div.message-text { /* News messages text */
+	float: right;
+}
+div.message-close { /* News messages close box */
+	float: right;
+	margin-left: 10px;
+	width: 1em;
+	height: 1em;
+	padding: 0.0em;
+	font-weight: bold;
+	font-size: 1.2em;
+	display: inline-block;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	line-height: 1em;
+	border-width: 1px;
+	border-style: solid;
+}
+div.message-close:hover {/* Hovering over news messages close box */
+	cursor: pointer;
+}
+div.message.warning .message-close:hover { /* Colorize the warning close box on hover */
+	background-color: #900;
+}
+div.message.warning { /* Warnings */
+	background-color: #F99;
+	border-color: #F00;
+}
+div.message.warning .message-text { /* Warnings */
+	color: #300;
+}
+div.message.warning .message-close { /* Warnings */
+	border-color: #900;
+	color: #300;
+}
+
+div.message.note { /* Note */
+	background-color: #FF9;
+	border-color: #FF0;
+}
+div.message.note .message-text { /* Note */
+	color: #330;
+}
+div.message.note .message-close { /* Note */
+	border-color: #990;
+	color: #330;
+}
+div.message.note .message-close:hover { /* Colorize the note close box on hover */
+	background-color: #990;
+}
+
+/* All Panels */
+section.panel {
+	text-align: left;
+	background-color: #FFF;
+	margin: 10px;
+	padding: 10px;
+	float: left;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	font-size: 0.8em;
+	display: block;
+	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+/* All Panel Labels (using <h2>) */
+section.panel > h2 {
+	font-size: 1.3em;
+	border-bottom: 1px solid black;
+	margin: 0px 0px 5px 0px;
+	text-align: center;
+}
+/* All Panel <h3> tags */
+section.panel h3 {
+	font-size: 1.3em;
+	margin: 0px 0px 5px 0px;
+	text-decoration: underline;
+}
+/* All Panel <h4> tags */
+section.panel h3 {
+        font-weight:bold;
+        font-size: 1.1em;
+}
+/* All Panel numbers */
+p.panelNumber {
+	font-size: 1.5em;
+	color: red;
+	background-color: white;
+	border: 2px solid black;
+	font-weight: bold;
+	float: left;
+	margin: 0px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	margin-left: -5px;
+	margin-top: -5px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+
+/* Overview Panel */
+#overviewPanel {
+	width: auto;
+}
+#overviewPanel div.content {
+	padding: 5px;
+}
+#overviewPanel {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+/* datesValid Panel */
+#datesValidPanel {
+	margin-top: 0px; /* Forces it to line up with tabs above */
+	width: 500px;
+}
+#datesValidPanel p {
+	margin-right: 0px;
+}
+#datesValidPanel h3 {
+	font-size: 1.1em;
+	margin: 0px 0px 5px 0px;
+	text-align: center;
+	text-decoration: underline;
+}
+/* Regions Panel */
+#regionsPanel {
+	margin-top: 0px; /* Forces it to line up with tabs above */
+	width: 500px;
+}
+#regionsPanel p {
+	margin-right: 0px;
+}
+/* Settings Panel */
+#settingsPanel {
+	color: black;
+    text-align: left;
+	width: 300px;
+}
+/* settingsPanel ul */
+#settingsPanel ul {
+	padding: 0px;
+}
+/* settingsPanel li (row) */
+#settingsPanel ul li {
+	width: 100%;
+	display: block;
+	list-style-type: none;
+}
+/* settingsPanel reminder to scroll down */
+#settingsPanel span.runStatus {
+	float: right;
+	font-weight: bold;
+}
+/* Results Panel */
+#resultsPanel {
+	text-align: center;
+	width: 840px;
+}
+#resultsPanel h2 {
+	margin-bottom: 10px; /* Fix for bug in ticket #995 */
+}
+/* Error Panel */
+#errorPanel {
+	width: 840px;
+}
+#errorPanel {
+	font-weight: bold;
+}
+/* Info Panel */
+#infoPanel {
+	text-align: left;
+	width: 840px;
+}
+#infoPanel ul {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#infoPanel h4 {
+	font-size: 1.1em;
+	margin: 5px 0px 5px 0px;
+}
+#infoPanel code {
+	font-size: 1.3em;
+	margin-left: 2em;
+	border: 1px solid #AAA;
+	background-color: #EEE;
+	padding: 0.5em;
+}
+#infoPanel equationContainer {
+	background-color: #EEE;
+}
+#infoPanel img.equation {
+	margin-left: 2em;
+	border: 1px solid #AAA;
+	background-color: #EEE;
+	padding: 0.5em;
+}
+#infoPanel div.wrapper {
+	overflow-x: scroll;
+}
+/* Print Settings Panel */
+#printSettingsPanel {
+	width: 840px;
+	background-color: #BBB;
+}
+/* Tool selector */
+#toolSelector {
+	font-size: 0.8em;
+}
+#toolSelector span {
+	font-size: 1.3em;
+	font-weight: bold;
+}
+#toolSelector .rowHeader {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+#toolSelector .columnHeader {
+	font-size: 1.1em;
+	font-weight: bold;
+	text-align: right;
+}
+#toolSelector button.clearButton {
+	float: left;
+	background-color: white;
+	color: #C33;
+}
+#toolSelector button.clearButton span.clearButtonHover {
+	float: left;
+	background-color: #C33;
+	color: white
+}
+/* Chart Interaction Panel (describes to users how to interact with the chart) */
+#resultsInteractionPanel {
+	text-align: left;
+	float: right;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	border: 1px solid black;
+	padding: 5px;
+}
+#resultsInteractionPanel p.content {
+	padding: 0px;
+	margin: 0px;
+}
+#resultsInteractionPanel h3 {
+	text-align: center;
+	font-size: 1em;
+	margin: 0px 0px 5px 0px;
+	text-decoration: underline;
+}
+#resultsInteractionPanel ul {
+	margin: 0px;
+	padding: 0px 5px 0px 20px;
+}
+
+/*
+---------------------------------------------------------------------
+Divs
+---------------------------------------------------------------------
+*/
+
+/* All <div> Labels (using <h2>) */
+section.panel div h2 {
+	font-size: 1.1em;
+	margin: 0px 0px 5px 0px;
+	text-align: center;
+	text-decoration: underline;
+}
+/* datesValidType=selectMonths*/
+#datesValidPanel div[data-type=months] { /* Months div */
+	width: 50%;
+	text-align: center;
+	float: left;
+}
+#datesValidPanel div[data-type=months] div { /* Months div */
+	background-color: none;
+	text-align: center;
+}
+#datesValidPanel div[data-type=months] table {
+	border-collapse: collapse;
+	border: 1px solid #888;
+	margin-left: auto;
+	margin-right: auto;
+}
+#datesValidPanel div[data-type=months] table td {
+	border-collapse: collapse;
+	border: 1px solid #888;
+	padding: 3px;
+}
+#datesValidPanel div[data-type=months] table td:hover {
+	cursor: pointer;
+	background-color: #FBB;
+}
+#datesValidPanel div[data-type=months] table td.selected {
+	background-color: #FBB;
+}
+#datesValidPanel div[data-type=years] { /* Years div */
+	width: 50%;
+	text-align: left;
+	float: left;
+}
+#datesValidPanel div[data-type=years] table {
+	margin-left: auto;
+	margin-right: auto;
+}
+#datesValidPanel div[data-type=years] table td {
+	vertical-align: top;
+}
+#chartCustomizer {
+	text-align: left;
+	font-size: 0.9em;
+}
+#chartCustomizer h3 {
+	border-bottom: 1px solid black;
+}
+#chartCustomizer p.tabToClick {
+	background-color: #EEE;
+	display: inline-block;
+	margin: 0px 0px 0px 5px;
+	border: 1px solid #BBB;
+	padding: 2px;
+}
+
+#chartCustomizer section.tableOfContents li {
+	list-style-type: none;
+}
+/*
+---------------------------------------------------------------------
+Google Earth
+---------------------------------------------------------------------
+*/
+/* Google Earth div */
+#GoogleEarthMap {
+	width: 840px;
+	height: 500px;
+}
+/* Google Earth popup */
+table.googleTable td {
+	text-align: left;
+	font-size: 1em;
+}
+/* Google Earth Legend */
+#GoogleEarthLegend table {
+    border: thin solid black;
+    border-spacing: 0;
+	border-collapse:collapse;
+}
+#legend tr {
+    border: thin solid black;
+	text-align:center;
+}
+#legend td {
+    border: thin solid black;
+	padding: 2px 5px;
+	text-align:center;
+	font-size: 0.8em;
+}
+
+/*
+---------------------------------------------------------------------
+Settings Form
+---------------------------------------------------------------------
+*/
+#settingsForm {
+	padding: 0px;
+}
+/* settingsForm fieldset */
+#settingsForm fieldset > legend {
+	border-bottom: 1px dashed black;
+	margin: 0px auto 10px auto;
+	text-align: center;
+	width: 100%;
+	font-size: 1.1em;
+}
+#settingsForm fieldset {
+	border: none;
+	margin-bottom: 0px;
+}
+/* settingsForm text (general) */
+#settingsForm select, #settingsForm span.inputLabel, #settingsForm span, #settingsForm a, #settingsForm input {
+/* 	font-size: 1em; */
+}
+/* settingsForm labels (left column) */
+#settingsForm span.settingLabel {
+	width: 145px;
+	font-weight: bold;
+	font-size: 1em;
+	margin-bottom: 5px;
+	display: inline-block;
+	vertical-align: top;
+}
+/* settingsForm input elements (right column) */
+#settingsForm input, #settingsForm select, #settingsForm div, #settingsForm table {
+	display: inline-block; /* Helps with alignment */
+}
+
+/*
+-----------------------------------------------------------
+Collabsible headers
+-----------------------------------------------------------
+*/
+.collapsible-heading {
+	margin-bottom: 10px;
+	padding: 5px 10px;
+	cursor: pointer;
+	position: relative;
+	color: blue;
+	background-color: #EEE;
+	text-decoration:underline;
+	font-weight: bold;
+	border: thin solid black;
+}
+.collapsible-heading.expanded {
+	margin: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+	position: relative;
+	color: blue;
+	background-color: #EEE;
+	text-decoration:underline;
+	font-weight: bold;
+	border: thin solid black;
+	border-bottom: none;
+}
+.collapsible-content {
+	background-color:white;
+	border: thin solid black;
+	border-top: none;
+	padding: 5px 10px;
+}
+
+/*
+-----------------------------------------------------------
+Tabs
+-----------------------------------------------------------
+*/
+
+/*---------- General tabs settings ----------*/
+
+/* Remove the dotted outline around links/tabs */
+a {
+	outline: none;
+}
+ul.tabs {
+	float: none;
+	padding-left: 0px;
+	clear: both;
+	display: block;
+}
+ul.tabs li {
+	display: block;
+	float: left;
+	margin-bottom: 0px;
+}
+ul.tabs li.tabSeparator {
+	margin: 0px 1px 0px 5px;
+	font-size: 0.6em;
+	color: white;
+	font-weight: bold;
+}
+ul.tabs li a {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	-webkit-border-top-left-radius:4px;
+	-webkit-border-top-right-radius:4px;
+	box-shadow: 5px 5px 5px #444;
+	-webkit-box-shadow: 5px 5px 5px #444;
+	margin-left: 5px;
+	text-decoration: none;
+	display: block;
+/*	behavior: url(library/PIE.php); /* Add IE CSS3 support */
+}
+ul.tabs li:first-child a { /* First tab only */
+	margin-left: 15px;
+}
+
+/*---------- Page tabs ----------*/
+
+/* Select tabs, or tabs hovered over */
+ul.tabs.pageTabs li.selected a, ul.tabs.pageTabs a:hover {
+	color: #402e16;
+	background-color: #2491BD;
+}
+ul.tabs.pageTabs li a {
+	color: #402e16;
+	background: #CED2D5;
+	padding: 5px 15px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+/*---------- RegionsPanel tabs and datesValid tabs ----------*/
+ul.tabs.regionsPanelTabs, ul.tabs.datesValidTypeTabs {
+	clear: none;
+}
+ul.tabs.regionsPanelTabs li, ul.tabs.datesValidTypeTabs li {
+	margin-top: -0.55em; /* If you make the size of the a bigger, make this more negative */
+	float: left;
+}
+/* Select tabs, or tabs hovered over */
+ul.tabs.regionsPanelTabs li:first-child a, ul.tabs.datesValidTypeTabs li:first-child a { /* First tab only */
+	margin-left: 20px;
+}
+ul.tabs.regionsPanelTabs li a, ul.tabs.datesValidTypeTabs li a {
+	color: #444;
+	background: #B4B6B8;
+	padding: 2px 8px;
+	font-size: 0.75em;
+	font-weight: bold;
+}
+ul.tabs.regionsPanelTabs li.selected a, ul.tabs.regionsPanelTabs a:hover, ul.tabs.datesValidTypeTabs li.selected a, ul.tabs.datesValidTypeTabs a:hover {
+	color: black;
+	background-color: white;
+}

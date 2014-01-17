@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<preferences>
+	<!-- Forecast Type -->
+	<fcstType>longRange</fcstType>
+	<!-- Number of Dates Included -->
+	<numDates>all</numDates>
+	<!-- Variable -->
+	<variable>temp</variable>
+	<!-- Spatial Type -->
+	<spatialType>grid2deg</spatialType>
+	<!-- Score Type -->
+	<scoreType>RPSS</scoreType>
+	<!-- File 1 -->
+	<file1>
+		<!-- Name of text file 1 -->
+		<name>$VERIF_HOME/output/verif_temp_manual_02m_03m_grid2deg_192months_rpss_time.txt</name>
+		<!-- Name of column containing valid date -->
+		<dateColumnName>Date</dateColumnName>
+		<!-- Format of the valid date -->
+		<dateColumnFormat>mm/yyyy</dateColumnFormat>
+		<!-- The number of days or months the data is currently shifted -->
+		<dateOffset></dateOffset>
+		<!-- Name of column containing the score -->
+		<scoreColumnName>all_cats</scoreColumnName>
+		<!-- Number of columns -->
+		<columnCount>4</columnCount>
+	</file1>
+	<!-- File 2 -->
+	<file2>
+		<!-- Name of text file 2 -->
+		<name>/cpc/prod_tst/smarquardt/ScottsVerifScores/temp01.rpss.txt</name>
+		<!-- <name>/export/cpccfnfs/users/shandel/verification/land_air/long_range/conus/temp01.rpss.txt</name> -->
+		<!-- Name of column containing valid date -->
+		<dateColumnName>First_Target_Month</dateColumnName>
+		<!-- Format of the valid date -->
+		<dateColumnFormat>yyyymm</dateColumnFormat>
+		<!-- The number of days or months the data is currently shifted -->
+		<dateOffset>-1m</dateOffset>
+		<!-- Name of column containing the score -->
+		<scoreColumnName>RPSS</scoreColumnName>
+		<!-- Number of columns -->
+		<columnCount>3</columnCount>
+	</file2>
+</preferences>

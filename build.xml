@@ -1,0 +1,435 @@
+<project name="Verification System" default="compile_command_line_direct_access" basedir=".">
+	<description>
+		Verification Web Tool
+	</description>
+
+	<!-- Set global properties for this build -->
+	<property name="source" location="source"/>
+	<property name="classes" location="classes"/>
+	<property name="build" location="build"/>
+	<property name="logs" location="logs"/>
+	<property name="output" location="output"/>
+	<property name="library" location="library"/>
+	<property name="input" location="input"/>
+	<property name="web" location="web"/>
+	<property name="docs" location="docs"/>
+	<property name="scripts" location="scripts"/>
+	<property name="work" location="work"/>
+	<property name="styles" location="${web}/styles"/>
+
+	<!--
+	Load the Ant-Contrib package, which is a collection of additional
+	Ant tools (like if statement)
+	-->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${library}/java/ant-contrib.jar"/>
+		</classpath>
+	</taskdef>
+
+	<!--
+	Set the name of the war file if it's not set by the user (if this
+	property is already set, then this statement will not have any effect) 
+	-->
+	<property name="war_file_name" value="vwt.war" />
+
+	<!--==================================================================
+	                            Setup Tasks 
+	===================================================================-->
+
+	<!-- Remove all files and directories created by the build process -->
+	<target name="clean" description="Removes all files and directories built during compilation">
+		<!-- Delete documentation -->
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${docs}/api" includes="**/*"/>
+		</delete>
+		<!-- Delete all temp directories -->
+		<delete dir="${classes}"/>
+		<delete dir="${build}"/>
+		<delete dir="${work}"/>
+		<delete dir="${logs}"/>
+		<delete dir="${output}"/>	
+		<delete dir="${work}" />
+		<delete dir="{web}/library/java" />
+		<!-- Delete any .war files -->
+		<delete failonerror="false">
+			<fileset dir="." includes="*.war" />
+		</delete>
+		<delete file="${work}/VerificationSystemToolService.aar" />
+		<delete file="vwt.tar.gz" />
+	</target>
+
+	<!-- Generate necessary directory structure -->
+	<target name="makeDirs" description="Creates all necessary directories for the system to be build and run">
+		<mkdir dir="${work}" />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${logs}" />
+		<mkdir dir="${output}" />
+	</target>
+	
+	<!--==================================================================
+	                              Doc Tasks 
+	===================================================================-->
+	
+	<!-- Command to generate the javadoc files -->
+	<target name="doc_java" description="Generate documentation for all Java code" depends="makeDirs">
+		<javadoc verbose="no" classpathref="classpath" destdir="docs/api/java" sourcepath="${source}" packagenames="gov.noaa.ncep.cpc.*">
+		</javadoc>
+	</target>
+
+	<!-- Command to generate Perl documentation -->
+	<target name="doc_perl" description="Generate documentation for all Perl code" depends="makeDirs">
+		<!-- Create the Perl API directory -->
+		<mkdir dir="${docs}/api/perl"/>
+		<!-- Run pod2html on all Perl files -->
+		<apply executable="pod2html" dest="${docs}/api/perl" dir="${work}">
+			<fileset dir="${scripts}" includes="*.pl"/>
+			<arg line="--infile"/><srcfile/>
+			<arg line="--outfile"/><targetfile/>
+			<arg line="--css ${styles}/perldoc.css"/>
+			<mapper type="glob" from="*.pl" to="*.html"/>
+		</apply>
+		<apply executable="pod2html" dest="${docs}/api/perl" dir="${work}">
+			<fileset dir="${library}/perl" includes="*.pm"/>
+			<arg line="--infile"/><srcfile/>
+			<arg line="--outfile"/><targetfile/>
+			<arg line="--css ${styles}/perldoc.css"/>
+			<mapper type="glob" from="*.pm" to="*.html"/>
+		</apply>
+			<fileset dir="${library}/perl" includes="*.pm"/>
+		<!-- Remove <hr> tags from all generated html files -->
+		<replace dir="${docs}/api/perl">
+			<include name="**/*.html"/>
+			<replacetoken>&lt;hr /&gt;</replacetoken>
+			<replacevalue></replacevalue>
+		</replace>
+		<!-- Add an <h1> Table of Contents title -->
+		<replace dir="${docs}/api/perl">
+			<include name="**/*.html"/>
+			<replacetoken>&lt;p&gt;&lt;a name="__index__"&gt;&lt;/a&gt;&lt;/p&gt;</replacetoken>
+			<replacevalue>
+			&lt;h1&gt;TABLE OF CONTENTS&lt;/h1&gt;
+			&lt;p&gt;&lt;a name="__index__"&gt;&lt;/a&gt;&lt;/p&gt;
+			</replacevalue>
+		</replace>
+	</target>
+
+	<!-- Command to generate the JsDoc files -->
+	<target name="doc_javascript" description="Generate documentation for all Javascript code" depends="makeDirs">
+		<taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpathref="classpath" />
+ 			<jsdoctoolkit verbose="yes" includeundocumented="yes" includeunderscored="yes" includeprivate="yes" jsdochome="${library}/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}/api/javascript/">
+			<fileset dir="${web}/library">
+				<include name="**/*.js"/>
+				<exclude name="jquery.js"/>
+				<exclude name="jqueryTools.js"/>
+				<exclude name="jquery-ui/**"/>
+				<exclude name="scw.js"/>
+				<exclude name="showHideFormFields.js"/>
+				<exclude name="wz_jsgraphics.js"/>
+				<exclude name="mapper/*"/>
+				<exclude name="jquery-inputDefault/**"/>
+			</fileset>
+		</jsdoctoolkit>
+	</target>
+
+	<!-- Command to generate all documentation -->
+	<target name="doc_all" description="Generate documentation for all languages" depends="doc_java, doc_javascript, doc_perl"></target>
+
+	
+	<!--==================================================================
+	                            Compile Tasks 
+	===================================================================-->
+	
+	<!-- Compile for Direct Access Mode -->
+	<target name="compile_command_line_direct_access" description="Builds the Verification System in 'Command Line Direct Access' Mode (see README)" depends="makeDirs">
+		<!-- Set classpath -->
+		<set_classpath />
+		<!-- Compile Java sources -->
+		<compile_java_sources />
+		<!-- Create a client jar file -->
+		<compile_jar config-file-name="${input}/verif_direct_access.conf" jar-file-name="${build}/verif_client.jar" sign-jar="false"/>
+		<!-- Copy dependency jars into build directory -->
+		<mkdir dir="${build}/library/java"/>
+		<copy todir="${build}/library/java">
+			<fileset dir="${library}/java">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Compile for Command Line Web Services Mode -->
+	<target name="compile_command_line_web_services" description="Builds the Verification System in 'Command Line Web Services' Mode (see README)" depends="makeDirs">
+		<!-- Set classpath -->
+		<set_classpath />
+		<!-- Compile Java sources -->
+		<compile_java_sources />
+		<!-- Create a client jar file -->
+		<compile_jar config-file-name="${input}/verif_client.conf" jar-file-name="${build}/verif_client.jar" />
+		<!-- Copy dependency jars into build directory -->
+		<mkdir dir="${build}/library/java"/>
+		<copy todir="${build}/library/java">
+			<fileset dir="${library}/java">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+		<!-- Create a server jar file -->
+		<compile_jar config-file-name="${input}/verif_server.conf" jar-file-name="${build}/verif_server.jar" />
+		<!-- Generate web services file -->
+		<generate_web_services />
+		<!-- Build WAR file -->
+		<build_war_file war-file-name="${war_file_name}" />
+		<!-- Remove server jar -->
+		<delete file="${build}/verif_server.jar"/>
+	</target>
+
+	<!-- Compile for Web Tool Web Services Mode -->
+	<target name="compile_web_tool" description="Builds the Verification System in 'Web Tool' Mode (see README)" depends="makeDirs">
+		<!-- Set classpath -->
+		<set_classpath />
+		<!-- Compile Java sources -->
+		<compile_java_sources />
+		<!-- Create a client jar file -->
+		<compile_jar config-file-name="${input}/verif_client.conf" jar-file-name="${build}/verif_client.jar" sign-jar="true" />
+		<!-- Copy dependency jars into web directory -->
+		<mkdir dir="${web}/library/java"/>
+		<copy todir="${web}/library/java">
+			<fileset dir="${library}/java">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+		<!-- Sign dependency jar files -->
+		<for list="${classpathstr.commas}" param="file">
+			<sequential>
+				<signjar jar="${web}/@{file}" alias="vwt" storepass="cycl0nes"/>
+			</sequential>
+		</for>
+		<!-- Copy the client jar file into the web directory -->
+		<copy file="${build}/verif_client.jar" tofile="${web}/verif_client.jar"/>
+		<!-- Create a server jar file -->
+		<compile_jar config-file-name="${input}/verif_server.conf" jar-file-name="${build}/verif_server.jar" />
+		<!-- Generate web services file -->
+		<generate_web_services />
+		<!-- Build WAR file -->
+		<build_war_file war-file-name="${war_file_name}" />
+		<!-- Package web directory -->
+		<antcall target="package_web_dir" />
+		<!-- Remove server jar -->
+		<delete file="${build}/verif_server.jar"/>
+	</target>
+
+	<!--==================================================================
+	                              Run Tasks 
+	===================================================================-->
+
+	<!-- Runs the Verification System in "Direct Access Mode" -->
+	<target name="run_command_line_direct_access" description="Runs the Verification System in 'Command Line Direct Access' Mode (see README)">
+		<!-- Set classpath -->
+		<set_classpath />
+		<!-- Check for $VERIF_HOME environment variable -->
+		<check_for_env_var var="VERIF_HOME" />
+		<!-- Run Jar file -->
+		<java jar="${build}/verif_client.jar"
+		      fork="true"
+		      failonerror="true">
+			<arg value="-finput/settings.xml"/>
+			<arg value="-linput/logConfig.txt"/>
+	        <classpath>
+	    		<fileset dir="${library}/java" includes="**/*.jar"/>
+	    		<fileset dir="${classes}" includes="**/*.jar"/>
+	        </classpath>
+		</java>
+	</target>
+
+	<!-- Runs the Verification System in "Command Line Web Services" -->
+	<target name="run_command_line_web_services" depends="" description="Runs the Verification System in 'Command Line Web Services' Mode (see README)">
+		<!-- Set classpath -->
+		<set_classpath />
+		<!-- Check for $VERIF_HOME environment variable -->
+		<check_for_env_var var="VERIF_HOME" />
+		<java classname="gov.noaa.ncep.cpc.services.WebServiceRunDriver"
+		      fork="true"
+		      failonerror="true">
+			<arg value="-finput/settings.xml"/>
+			<arg value="-linput/logConfig.txt"/>
+	        <classpath>
+	    		<fileset dir="${library}/java" includes="**/*.jar"/>
+	    		<fileset dir="${build}" includes="verif_client.jar"/>
+	        </classpath>
+		</java>
+	</target>
+	
+	<!--==================================================================
+	                            Utility Tasks 
+	===================================================================-->
+	
+	<!-- Command to optimize the jar files -->
+	<target name="jaropt" description="Optimizes the main output jar file by removing unused classes">
+		<taskdef name="jaropt" classname="org.cmc.jaroptimizer.JarOptTask" classpathref="classpath" />
+		<!-- Optimize the client jar -->
+		<jaropt src="${build}/verif_client.jar" dst="${build}/temp.jar" stripNonClassFiles="false">
+			<includePattern>gov.noaa.ncep.cpc.*</includePattern>
+			<includePattern>org.apache.log4j.*</includePattern>
+			<includePattern>com.klg.jclass.*</includePattern>
+			<includePattern>com.mysql.jdbc.*</includePattern>
+		</jaropt>
+		<move file="${build}/temp.jar" tofile="${build}/verif_client.jar" />
+		<delete file="jaropt.log"/>
+		<!-- Optimize the server jar -->
+		<jaropt src="${build}/verif_server.jar" dst="${build}/temp.jar" stripNonClassFiles="false">
+			<includePattern>gov.noaa.ncep.cpc.*</includePattern>
+			<includePattern>org.apache.log4j.*</includePattern>
+			<includePattern>com.klg.jclass.*</includePattern>
+			<includePattern>com.mysql.jdbc.*</includePattern>
+		</jaropt>
+		<move file="${build}/temp.jar" tofile="${build}/verif_server.jar" />
+		<delete file="jaropt.log"/>
+	</target>
+	<!-- Package the web directory so it's easy to deploy on a web server -->
+	<target name="package_web_dir" description="Packages the web directory so it can be easily transferred to a web server">
+		<sequential>
+			<!-- Copy the server config file into the web directory (contains admin MySQL login info) -->
+			<!--<copy file="${input}/verif_server.conf" tofile="${web}/verif.conf"/>-->
+			<!-- Tar and compress the web directory -->
+			<tar tarfile="${build}/vwt.tar">
+				<tarfileset dir="${web}" prefix="vwt">
+				</tarfileset>
+			</tar>
+			<gzip destfile="${build}/vwt.tar.gz" src="${build}/vwt.tar"/>
+			<!-- Clean up -->
+			<delete file="${build}/vwt.tar"/>
+			<delete file="${web}/verif.conf"/>
+		</sequential>
+	</target>
+	
+	<!--==================================================================
+	                               Macros 
+	===================================================================-->
+	
+	<!-- Set classpathhhhhh -->
+	<macrodef name="set_classpath">
+		<sequential>
+			<!-- Set the classpath -->
+			<path id="classpath">
+				<fileset dir="${library}/java" includes="**/*.jar"/>
+				<fileset dir="${classes}" includes="**/*.jar"/>
+			</path>
+			<pathconvert targetos="unix" property="classpathstr.spaces" refid="classpath" pathsep=" ">
+				<map from="${basedir}/" to=""/>
+			</pathconvert>
+			<pathconvert targetos="unix" property="classpathstr.commas" refid="classpath" pathsep=",">
+				<map from="${basedir}/" to=""/>
+			</pathconvert>
+		</sequential>
+	</macrodef>
+
+	<!-- Check for an environment variable -->
+	<macrodef name="check_for_env_var">
+		<attribute name="var" />
+		<sequential>
+			<property environment="env" />
+			<fail unless="env.@{var}" message="Environment variable @{var} must be set." />
+		</sequential>
+	</macrodef>
+
+	<!-- Sign Jarfile -->
+	<macrodef name="sign_jar">
+		<sequential>
+			<signjar jar="${build}/verif_client.jar" alias="vwt" storepass="cycl0nes"/>
+		</sequential>
+	</macrodef>
+
+	<!-- Macro to compile the source Java files -->
+	<macrodef name="compile_java_sources">
+		<sequential>
+			<javac srcdir="${source}" destdir="${classes}" classpathref="classpath"/>
+		</sequential>
+	</macrodef>
+
+	<!--
+	Macro to create a jar file
+		Inputs:
+			config-file-name	Name of the config file to put in the resources directory
+			jar-file-name		Name of the resulting Jar file
+	-->
+	<macrodef name="compile_jar">
+		<attribute name="config-file-name" default="verif_client.conf" />
+		<attribute name="jar-file-name" default="verif_client.jar" />
+		<attribute name="sign-jar" default="false" />
+		<sequential>
+			<!-- Copy client config file into resources package -->
+			<copy file="@{config-file-name}" tofile="${classes}/gov/noaa/ncep/cpc/resources/verif.conf" failonerror="true" />
+			<!-- Create client jar file -->
+			<jar destfile="${build}/temp.jar" duplicate="preserve" filesetmanifest="merge">
+				<zipfileset dir="${classes}" excludes="**/*.jar, **/*.sig, "/>
+				<fileset dir="${input}/.." includes="input/*.html, input/logConfigApplet.txt"/>
+			</jar>
+			<!-- Remove the config file -->
+			<delete file="${classes}/gov/noaa/ncep/cpc/resources/verif.conf" />
+			<!-- Remove META-INF directory -->
+			<jar destfile="@{jar-file-name}">
+				<zipfileset src="${build}/temp.jar" excludes="META-INF/**" />
+			  	<manifest>
+			    	<attribute name="Main-Class" value="gov/noaa/ncep/cpc/driver/StaticRunDriver" />
+			    	<attribute name="Class-Path" value="${classpathstr.spaces}" />
+			  	</manifest>
+			</jar>
+			<!-- Delete the temporary jar file -->
+			<delete file="${build}/temp.jar" />
+			<!-- Sign the jar file -->
+			<if >
+				<equals arg1="@{sign-jar}" arg2="true"/>
+				<then>
+					<sign_jar/>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<!-- Generate web services .aar file -->
+	<macrodef name="generate_web_services">
+		<sequential>
+			<!-- Create the meta files -->
+			<mkdir dir="${work}" />
+			<mkdir dir="${work}/aar" />
+			<mkdir dir="${work}/aar/META-INF" />
+			<copy todir="${work}/aar/META-INF">
+	    	  <fileset includes="services.xml" dir="${input}"/>
+	    	</copy>
+			<!-- Create the .aar file -->
+			<jar destfile="${work}/VerificationSystemToolService.aar">
+				<fileset dir="${work}/aar"/>
+	    	</jar>
+			<!-- Clean up -->
+			<delete dir="${work}/aar"/>
+		</sequential>
+	</macrodef>
+
+	<!-- Build WAR file containing all Verification System files and the web services .aar file -->
+    <macrodef name="build_war_file">
+		<attribute name="war-file-name"/>
+		<sequential>
+			<!-- Unzip all axis2 files into a temp dir -->
+    	    <mkdir dir="${work}/axis2war"/>
+			<unzip src="${library}/java/axis2.war" dest="${work}/axis2war"/>
+			<!-- Copy the log config file in so logging on the server matches logging on the client -->
+			<copy file="${input}/logConfig.txt" tofile="${work}/axis2war/WEB-INF/classes/log4j.properties"/>
+			<!-- Put the .aar and our server jar files into the WEB-INF dir -->
+			<copy file="${work}/VerificationSystemToolService.aar" tofile="${work}/axis2war/WEB-INF/services/VerificationSystemToolService.aar" />
+		  	<copy file="${build}/verif_server.jar" tofile="${work}/axis2war/WEB-INF/lib/verif_client.jar" />
+			<copy todir="${work}/axis2war/WEB-INF/lib">
+				<fileset dir="${library}/java">
+					<include name="**/*.jar"/>
+				</fileset>
+			</copy>
+			<!-- Create a war file -->
+			<jar destfile="${build}/@{war-file-name}">
+		      <fileset dir="${work}/axis2war"/>
+		    </jar>
+			<!-- Clean up -->
+			<delete dir="${work}/axis2war"/>
+			<delete file="${work}/VerificationSystemToolService.aar" />
+		</sequential>
+    </macrodef>
+</project>
+

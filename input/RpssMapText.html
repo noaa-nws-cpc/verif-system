@@ -1,0 +1,11 @@
+<h3>Understanding the skill score</h3>
+<p>Ranked Probability Score (RPS) is a squared error score with respect to the cumulative probabilities for multi-category forecasts and whether or not the event occurred. The Ranked Probability Skill Score (RPSS) measures the improvement of the multi-category forecast relative to a reference forecast (the sample climatology). RPSS values range from -Infinity to 1. Forecasts made with higher probabilities are penalized heavily if they are wrong, and forecasts made with lower probabilities are penalized less severely if they are wrong, since they aren't expected to be correct as often. Conversely, forecasts made with higher probabilities are rewarded more heavily if they are correct, and forecasts made with lower probabilities are rewarded less heavily if they are correct.</p>
+<p>EC forecasts for monthly and seasonal forecasts <i>are</i> included in scores.</p>
+<p>The equation for the score is:</p>
+<code>RPSS = 1 - RPS<sub>forecast</sub>/RPS<sub>reference</sub></code> 
+<p>The RPS score representing a collection of forecasts in space or time is:</p>
+<div class="equationContainer">
+	<img class="equation" src="images/VWTEquation_RPS.png" alt="RPS = 1/n * SUM[(probB(k)-obsB(k))^2 + (probN(k)-obsN(k))^2 + (probA(k)-obsA(k))^2]" />
+</div>
+<p>where <i>n</i> is the total number of valid forecast-observation pairs. For the map, each forecast data point in time is evaluated and represents each <i>k<sub>th</sub></i> value. probB<sub>k</sub>, probN<sub>k</sub>, probA<sub>k</sub> are the probabilities of the below normal, near normal, and above normal forecast categories respectively at each point <i>k</i>, and obsB<sub>k</sub>, obsN<sub>k</sub>, obsA<sub>k</sub> are either 0 if that category was observed, or 1 if that category was not observed at each point <i>k</i>.</p>
+<p>The score is the sum of the squares of the difference between the forecast probability of each category and either "0" or "1" for the category observed at that point over all forecast points, divided by the total number of forecast points used. To get RPS<sub>forecast</sub>, the forecast probabilities are used. To get RPS<sub>reference</sub>, cumulative probabilities starting at 1/3 are used for each category.</p>

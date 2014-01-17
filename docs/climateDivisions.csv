@@ -1,0 +1,102 @@
+1,44.91,71.06,25633,Northern New England,N New England,72613
+2,44,70.07,21739,Northeast New England,Ne New England,72606
+3,43.68,74.39,28044,Northern New York,N New York,72617
+4,41.86,72.64,27126,Southern New England,S New England,72508
+5,42.22,78.55,28209,Eastern Great Lakes,E Grt Lakes,72528
+6,40.22,83.01,31008,Ohio,Ohio,72428
+7,39.31,76.03,30245,Mid-Atlantic Coast,Mid-Atl Coast,72408
+8,40.95,77.51,28351,Northern Appalachain,N Appalachns,72514
+9,38.83,80,31042,Central Appalachain,Cent Appalachns,72414
+10,36.95,77.69,29666,Coastal Virginia,Coastl Virg,72401
+11,35.92,82.38,30575,Southern Appalachain,S Appalachns,72326
+12,34.22,78.92,30556,Coastal Carolinas,Coastl Carolnas,723013
+13,34.89,80.74,34225,Interior Carolinas,Interior Carolnas,72314
+14,45.5,87.63,27765,Michigan Upper Pen.,Upper Mich,72743
+15,47.66,94.06,36687,Northern Minnisota,N Minn,72747
+16,47.48,98.75,36378,Eastern North Dakota,E North Dak,72753
+17,47.24,102.22,34287,Western North Dakota,W North Dak,72764
+18,46.95,105.62,42155,Eastern Montana,E Mont,72768
+19,48.23,110.29,26897,North-Central Montana,N-Cent Mont,72775
+20,46.24,109.52,39565,South Central Montana,S-Cent Mont,72677
+21,46.32,113.22,38521,Western Montana,W Mont,72773
+22,43.78,84.91,28060,North-Central Michigan,N-Cent Mich,72635
+23,41.64,84.71,25633,Southern Michigan,S Mich,72537
+24,40.17,87.64,33840,East-Central Illinois,E-Cent Ill,72438
+25,42.54,89.1,26930,Northern Illinois,N Ill,72641
+26,45.01,90.57,32182,Northern Wisconsin,N Wisc,72741
+27,44.83,93.49,31652,Southeastern Minnisota,Se Minn,72658
+28,44.92,96.7,32071,Eastern South Dakota,E South Dak,72654
+29,44.47,100.13,24771,Central South Dakota,Cent South Dak,72567
+30,44.24,102.88,25726,Western South Dakota,W South Dak,72662
+31,43.98,105.27,22393,Northeast Wyoming,Ne Wyoming,72659
+32,43.96,109.37,27974,Northwest Wyoming,Nw Wyoming,72460
+33,42,92.53,37078,Eastern Iowa,E Iowa,72546
+34,42.67,96.43,32073,Northwest Iowa,Nw Iowa,72557
+35,41.48,100.74,28304,Central Nebraska,Cent Nebraska,72562
+36,40.82,97.53,32046,Southern Nebraska,S Nebraska,72552
+37,42,104,26210,Western Nebraska/Cheyene,W Nebr/Cheyene,72566
+38,38.35,84.01,28287,Eastern Kentucky,E Kentucky,72421
+39,37.9,87.09,32683,Western Kentucky,W Kentucky,72432
+40,37.32,90.08,24627,Southeast Missouri,Se Missouri,72330
+41,39.73,90.78,27083,Northeast Missouri,Ne Missouri,72434
+42,39.04,93.65,24969,Northwest Missouri,Nw Missouri,72446
+43,38.03,95.79,33887,Eastern Kansas,E Kansas,72455
+44,38.6,98.27,29154,Central Kansas,Cent Kansas,72450
+45,38.17,100.78,35745,Western Kansas,W Kansas,72451
+46,39.82,103.44,29877,Northeast Colorado,Ne Colo,72469
+47,38.1,103.97,28188,Southeast Colorado,Se Colo,72464
+48,39.13,107.73,38519,Western Colorado,W Colo,72476
+49,41.94,108.26,35562,Southwest Wyoming,Sw Wyoming,72576
+50,35.31,86.54,26352,Central Tennessee,Cent Tenn,72327
+51,34.88,89.92,35395,Western Tennessee,W Tenn,72334
+52,35.71,93.89,42158,Ozark Mountains,Ozark Mountns,72344
+53,35.52,97.83,32876,Central Oklahoma,Cent Oklahoma,72353
+54,34.1,99.55,32480,Texas West Of Abilene,Tx W Of Abilene,72351
+55,34.5,101.64,39406,North High Plains Texas,N Hi Plains Tx,72363
+56,33.63,83.71,35349,Northern Georgia,N Georgia,72219
+57,33.27,86.55,29396,Northern Alabama,N Alabama,72228
+58,32.39,89.74,32595,Central Mississippi,Cent Mississippi,72235
+59,33.3,92.61,36127,Southern Arkansas,S Arkansas,72340
+60,31.77,94.88,33204,East Texas,E Tx,72247
+61,32.35,97.47,39005,Dallas Area Texas,Dallas Reg Tx,72259
+62,29.38,97.37,21467,San Antinio Area Texas,San Antonio Reg Tx,72253
+63,27.06,98.3,25023,Far Southern Texas,Far S Tx,72250
+64,30.56,100.08,35289,West-Central Texas,W-Cent Tx,72258
+65,30.82,103.55,36171,Western Texas Panhandle,W Tx Panhandle,72264
+66,31.04,83.18,36738,Jacksonville Florida Area,Jaxonvil Fla Reg,72206
+67,28.28,81.68,19676,Central Florida,Cent Fla,72205
+68,25.71,80.97,13510,Southern Florida,S Fla,72202
+69,30.81,86.86,29767,Florida Panhandle,Fla Panhandle,72223
+70,30.42,90.71,26141,Coastal Louisiana,Coastl Louisiana,72231
+71,30.37,93.82,23756,Coastal Texas Near Houston,Coastl Tx Nr Houst,72243
+72,48.11,117.92,19788,Northeast Washington,Nw Wash,72785
+73,46.15,117.23,22269,Pendleton Area Oregon,Pendelton Reg Oreg,72688
+74,46.5,120.09,30227,Central Washington,Cent Wash,72781
+75,47.31,122.2,19448,Seattle Area Washington,Seattle Reg Wash,72793
+76,47.86,123.32,6853,Washington Coast,Coastl Wash,72797
+77,43.15,112.94,25894,Eastern Idaho,E Idaho,72758
+78,44.6,114.4,34058,Idaho Central Mountains,Idaho Cent Mountns,72686
+79,42.98,116.54,24857,Southwest Idaho,Sw Idaho,72681
+80,43.23,120.63,35670,Eastern Oregon,E Oreg,72683
+81,44.09,122.6,21297,Oregon Coastal Valley,Oreg Coastl Valley,72694
+82,44.5,123.74,8369,Oregon Coast,Oreg Coast,72991
+83,40.5,110.92,22588,Northeast Utah,Ne Utah,72572
+84,38.35,111.07,39061,Southeast Utah,Se Utah,72472
+85,38.53,113.4,23267,Western Utah,W Utah,72520
+86,40.5,115.48,36279,Northeast Nevada,Ne Nevada,72582
+87,40.57,119.37,37261,Northwest Nevada,Nw Nevada,72488
+88,39.76,121.6,27073,Sacramento Area California,Sacrmnto Reg Calif,72591
+89,40.46,123.27,21551,Northern California Coast,N Calif Coast,72594
+90,38.06,116.23,33903,Central Nevada,Cent Nevada,72485
+91,36.37,119.83,33119,Fresno Area California,Fresno Reg Calif,72389
+92,36.42,121.3,10585,Central California Coast,Cent Calif Coast,72494
+93,33.96,118.26,14028,Southern California Coast,S Calif Coast,72295
+94,35.21,116.55,45640,Southeast California,Se Calif,72381
+95,36.01,114.35,23098,Las Vegas Nevada Area,Las Vegas Nev Reg,72386
+96,33.67,112.26,37533,Southwest Arizona,Sw Arizona,72278
+97,35.58,110.69,39777,Northeast Arizona,Ne Arizona,72374
+98,32.27,110.52,23294,Southeast Arizona,Se Arizona,72274
+99,36.59,106.66,39794,Northern New Mexico,N New Mex,72462
+100,34.32,103.82,36950,Eastern New Mexico,E New Mex,72268
+101,34,106.83,33665,Central New Mexico,Cent New Mex,72365
+102,32.3,107.19,18919,Southern New Mexico,S New Mex,72270

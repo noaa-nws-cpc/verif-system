@@ -1,0 +1,15 @@
+<h3>How to read the chart</h3>
+<p>See the "Tutorial" page (tab at top) for more information.</p>
+<h3>Understanding the skill score</h3>
+<p>The Brier Score (BS) is a squared error score with respect to the forecast probability of the forecast category and whether or not the category occurred. The Brier Skill Score (BSS) measures the improvement of the forecast relative to a reference forecast (the sample climatology). BSS values range from -Infinity to 1. Forecasts made with higher probabilities are penalized heavily if they are wrong, and forecasts made with lower probabilities are penalized less severely if they are wrong, since they aren't expected to be correct as often. Conversely, forecasts made with higher probabilities are rewarded more heavily if they are correct, and forecasts made with lower probabilities are rewarded less heavily if they are correct.</p>
+<p>If all categories together are selected, a weighted average of each of the three forecast categories is used. The weights for each category are the number valid forecast-observation pairs used to calculate each category's score.</p>
+<p>EC forecasts for monthly and seasonal forecasts <i>are not</i> included in scores.</p>
+<p>The equation for the score is:</p>
+<code>BSS = 1 - BS/BS<sub>reference</sub></code>
+<p>The BS score representing a collection of forecasts in space or time for a category is:</p>
+<div class="equationContainer">
+	<img class="equation" src="images/VWTEquation_BS.png" alt="BS = 1/n * SUM[(prob(k)-obs(k))^2]" />
+</div>
+<p>where <i>n</i> is the total number of valid forecast-observation pairs for a category. For the map, each forecast data point for a category in space is evaluated and represents each <i>k<sub>th</sub></i> value. prob<sub>k</sub> are the probabilities of the forecast categories at each point <i>k</i>, and obs<sub>k</sub> are either 0 if that category was observed, or 1 if that category was not observed at each point <i>k</i>.</p>
+<p>The score is the sum of the squares of the difference between the forecast probability of the forecast category and either "0" or "1" for the category observed at that point over all forecast points, divided by the total number of valid forecast-observation pairs for that category. To get the BS<sub>forecast</sub>, the forecast probabilities are used. To get BS<sub>reference</sub>, probabilities of 1/3 are used.</p>
+

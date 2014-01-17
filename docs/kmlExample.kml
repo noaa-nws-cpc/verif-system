@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+	<Placemark>
+		<name>MCO</name>
+		<styleUrl>#IconStyle00</styleUrl>
+		<description>HSS = 23.5</description>
+		<Point>
+			<lon>-122.0822035425683</lon>
+			<lat>37.42228990140251</lat>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>DCA</name>
+		<styleUrl>#IconStyle01</styleUrl>
+		<description>HSS = 14.5</description>
+		<Point>
+		<coordinates>-77.0415676,38.849297,0</coordinates>
+		</Point>
+	</Placemark>
+	
+	
+  
+
+	
+	<Style id="IconStyle00">
+		<IconStyle>
+		<Icon><href>000000.png</href></Icon>
+		<scale>1.000000</scale>
+		</IconStyle>
+		<LabelStyle>
+		<color>00000000</color>
+		<scale>0.000000</scale>
+		</LabelStyle>
+	</Style>
+	<Style id="IconStyle01">
+		<IconStyle>
+		<Icon><href>000001.png</href></Icon>
+		<scale>1.000000</scale>
+		</IconStyle>
+		<LabelStyle>
+		<color>00000000</color>
+		<scale>0.000000</scale>
+		</LabelStyle>
+	</Style>
+	<Style id="IconStyle04">
+		<IconStyle>
+		<Icon><href>000002.png</href></Icon>
+		<scale>1.000000</scale>
+		</IconStyle>
+		<LabelStyle>
+		<color>00000000</color>
+		<scale>0.000000</scale>
+		</LabelStyle>
+	</Style>
+	<Style id="IconStyle0131">
+		<IconStyle>
+		<Icon><href>000003.png</href></Icon>
+		<scale>1.000000</scale>
+		</IconStyle>
+		<LabelStyle>
+		<color>00000000</color>
+		<scale>0.000000</scale>
+		</LabelStyle>
+	</Style>
+
+	</Document>
+</kml>   

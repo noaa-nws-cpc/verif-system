@@ -1,0 +1,102 @@
+1,Northern New England
+2,Northeastern New England
+3,Northern New York
+4,Southern New England
+5,Eastern Great Lakes
+6,Ohio
+7,Mid-Atlantic Coast
+8,Northern Appalachians
+9,Central Appalachians
+10,Coastal Virginia
+11,Southern Appalachians
+12,Coastal Carolinas
+13,Interior Carolinas
+14,Upper Michigan
+15,Northern Minnesota
+16,Eastern North Dakota
+17,Western North Dakota
+18,Eastern Montana
+19,North-Central Montana
+20,South-Central Montana
+21,Western Montana
+22,North-Central Michigan
+23,Southern Michigan
+24,East-Central Illinois
+25,Northern Illinois
+26,Northern Wisconsin
+27,Southeastern Minnesota
+28,Eastern South Dakota
+29,Central South Dakota
+30,Western South Dakota
+31,Northeastern Wyoming
+32,Northwestern Wyoming
+33,Eastern Iowa
+34,Northwestern Iowa
+35,Central Nebraska
+36,Southern Nebraska
+37,Western Nebraska/Cheyenne
+38,Eastern Kentucky
+39,Western Kentucky
+40,Southeastern Missouri
+41,Northeastern Missouri
+42,Northwestern Missouri
+43,Eastern Kansas
+44,Central Kansas
+45,Western Kansas
+46,Northeastern Colorado
+47,Southeastern Colorado
+48,Western Colorado
+49,Southwestern Wyoming
+50,Central Tennessee
+51,Western Tennessee
+52,Ozark Mountains
+53,Central Oklahoma
+54,Texas West of Abilene
+55,Northern Hi Plains Texas
+56,Northern Georgia
+57,Northern Alabama
+58,Central Mississippi
+59,Southern Arkansas
+60,Eastern Texas
+61,"Dallas Region, Texas"
+62,"San Antonio Region, Texas"
+63,Far Southern Texas
+64,West-Central Texas
+65,Western Texas Panhandle
+66,"Jacksonville Region, Florida"
+67,Central Florida
+68,Southern Florida
+69,Florida Panhandle
+70,Coastal Louisiana
+71,Coastal Texas near Houston
+72,Northeastern Washington
+73,"Pendleton Region, Oregon"
+74,Central Washington
+75,"Seattle Region, Washington"
+76,Coastal Washington
+77,Eastern Idaho
+78,Idaho Central Mountains
+79,Southwestern Idaho
+80,Eastern Oregon
+81,Oregon Coastal Valley
+82,Oregon Coast
+83,Northeastern Utah
+84,Southeastern Utah
+85,Western Utah
+86,Northeastern Nevada
+87,Northwestern Nevada
+88,"Sacramento Region, California"
+89,Northern California Coast
+90,Central Nevada
+91,"Fresno Region, California"
+92,Central California Coast
+93,Southern California Coast
+94,Southeastern California
+95,"Las Vegas Region, Nevada"
+96,Southwestern Arizona
+97,Northeastern Arizona
+98,Southeastern Arizona
+99,Northern New Mexico
+100,Eastern New Mexico
+101,Central New Mexico
+102,Southern New Mexico

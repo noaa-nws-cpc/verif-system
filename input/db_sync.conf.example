@@ -1,0 +1,128 @@
+;####################################################################
+;                 Database Sync Configuration File                  #
+;####################################################################
+;
+; This file uses an INI format to store settings for the Verification
+; database syncing scripts.
+;
+; Here are some properties of this file:
+;   - Each section of the file is preceded by a section name within []'s
+;   - Each setting is preceded by a comment block describing the setting
+;   - When a settings already has a value, then that is the preffered value
+;     and should be left as is, provided the system is installed closely
+;     following the instructions in the "How to Install" document.
+;   - When a setting does not have a value, you must add one
+
+[source]
+;------------------
+; ssh_server:    Intermediate server to copy backup file to. The actual
+;                server hosting the database can be different. This was
+;                put in place because vp-cpccfmysql doesn't have home
+;                directories, and the backup file needs to be backed up to
+;                a directory before being restored to the destination database
+;
+;   format:   servername.com or servername.ncep.noaa.gov or localhost, etc.
+;   example:  vp-cpccf6.ncep.noaa.gov
+ssh_server  = vp-cpccf6.ncep.noaa.gov
+;------------------
+; ssh_user:    Username to use to connect to the ssh_server above
+;
+;   format:   username
+;   example:  user.tst
+ssh_user    =
+;------------------
+; db_host:    Server hosting the MySQL database
+;
+;   format:   servername.com or servername.ncep.noaa.gov or localhost, etc.
+;   example:  vp-cpccfmysql.ncep.noaa.gov
+db_host     = vp-cpccfmysql.ncep.noaa.gov
+;------------------
+; db_user:       MySQL username to use to access the databases
+;
+;   format:   first.last or fLast or userName, etc.
+;   example:  john.doe
+db_user     =
+;------------------
+; db_password:   Password for the MySQL username above
+db_password =
+;------------------
+; db_list:       List of databases to sync
+;
+;   format:   name1 name2 name3 (space delimited)
+;   example:  cpc_forecasts cpc_observations cpc_reference cpc_vwt
+db_list     = cpc_forecasts cpc_observations cpc_reference cpc_vwt
+
+[destination]
+;------------------
+; ssh_server:    Intermediate server to copy backup file to. The actual
+;                server hosting the database can be different. This was
+;                put in place because vp-cpccfmysql doesn't have home
+;                directories, and the backup file needs to be backed up to
+;                a directory before being restored to the destination database
+;
+;   format:   servername.com or servername.ncep.noaa.gov or localhost, etc.
+;   example:  vp-cpccf6.ncep.noaa.gov
+ssh_server  = wwwdev1.ncep.noaa.gov
+;------------------
+; ssh_user:    Username to use to connect to the ssh_server above
+;
+;   format:   username
+;   example:  user.tst
+ssh_user    =
+;------------------
+; db_host:    Server hosting the MySQL database
+;
+;   format:   servername.com or servername.ncep.noaa.gov or localhost, etc.
+;   example:  vp-cpccfmysql.ncep.noaa.gov
+db_host     = localhost
+;------------------
+; db_user:       MySQL username to use to access the databases
+;
+;   format:   first.last or fLast or userName, etc.
+;   example:  john.doe
+db_user     =
+;------------------
+; db_password:   Password for the MySQL username above
+db_password =
+
+[email]
+;------------------
+; toEmail:    Email address to send the error log to
+;
+;   format:   first.last@email.com, someName@email.com, etc.
+;   example:  john.doe@noaa.gov
+toEmail     =
+;------------------
+; subject:    Subject of the email containing the error log
+;
+;   format:   A few words describing what this email is
+;                 note that the script will automatically generate a subject if
+;                 this is left blank, and this is recommended
+;   example:  Verif data import script error
+subject     =
+;------------------
+; fromEmail:  Email address to send the error log from
+;
+;             You email server needs to support SMTP without a password
+;
+;   format:   first.last@email.com, someName@email.com, etc.
+;   example:  cpc_processName@noaa.gov
+;                 using an email like in this example makes it easier to see
+;                 what process is notifying you of a problem
+fromEmail   = cpc_processName@noaa.gov
+;------------------
+; fromName:   Name to display in the "From" field of your email client
+;
+;             All emails from this process will appear to come from this name
+;
+;   format:   Name to display, nameToDisplay, etc.
+;   example:  Verif Data Import
+fromName    = Verif Data Import
+;------------------
+; logLevel:   Threshold of when to display a log message
+;
+;             See http://search.cpan.org/dist/Log-Log4perl/lib/Log/Log4perl.pm
+;
+;   format:   LOGLEVEL, loglevel, etc.
+;   example:  ERROR
+logLevel    = ERROR

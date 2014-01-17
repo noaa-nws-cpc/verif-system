@@ -1,0 +1,20 @@
+;--------------------------------------------------------------------#
+;               Verification System Configuration File               #
+;--------------------------------------------------------------------#
+
+[mysql]
+host       = vp-cpccfmysql.ncep.noaa.gov
+user       = first.last
+password   = MyPassword
+db_fcst    = cpc_forecasts
+db_obs     = cpc_observations
+db_ref     = cpc_reference
+db_vwt     = 
+dateFormat = yyyy-MM-dd
+
+[email]
+toEmail   = first.last@noaa.gov
+subject   =
+fromEmail = cpc_processName@noaa.gov
+fromName  = Process Name
+logLevel  = ERROR

@@ -1,0 +1,131 @@
+;####################################################################
+;        Verification System Server-side Configuration File         #
+;####################################################################
+;
+; This file uses an INI format to store settings for the Verification data
+; import scripts.
+;
+; Here are some properties of this file:
+;   - Each section of the file is preceded by a section name within []'s
+;   - Each setting is preceded by a comment block describing the setting
+;   - When a settings already has a value, then that is the preffered value
+;     and should be left as is, provided the system is installed closely
+;     following the instructions in the "How to Install" document.
+;   - When a setting does not have a value, you must add one
+;
+
+;--------------------------------------------------------------------
+; MySQL Settings
+;
+[mysql]
+;------------------
+; host:       server hosting the MySQL database
+;
+;   format:   servername.com, servername.ncep.noaa.gov, localhost, etc.
+;   example:  vm-lnx-cpccfmysql.ncep.noaa.gov
+host        =
+;------------------
+; public_user:MySQL username to use to access the public databases (cpc_forecasts, cpc_observations, cpc_reference)
+;
+;   format:   first.last, fLast, userName, etc.
+;   example:  john.doe
+public_user =
+;------------------
+; public_password:   Password for the MySQL username above
+public_password    =
+;------------------
+; admin_user: MySQL username to use to access the admin database (cpc_vwt)
+;
+;   format:   first.last, fLast, userName, etc.
+;   example:  john.doe
+admin_user =
+;------------------
+; admin_password:   Password for the MySQL username above
+admin_password    =
+;------------------
+; db_fcst:    Name of the database storing the forecast data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_forecasts
+db_fcst     = cpc_forecasts
+;------------------
+; db_obs:     Name of the database storing the observation data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_observations
+db_obs      = cpc_observations
+;------------------
+; db_clim:    Name of the database storing the climatology data
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_climatologies
+db_obs      = cpc_climatologies
+;------------------
+; db_ref:     Name of the database storing reference data (station list, etc.)
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_reference
+db_ref      = cpc_reference
+;------------------
+; db_vwt:     Name of the database storing additional information needed by the VWT
+;
+;   format:   db_name, dbName, etc.
+;   example:  cpc_vwt
+db_vwt      = cpc_vwt
+;------------------
+; dateFormat: Format of the 'date' data type in MySQL
+;
+;   format:   MM/dd/yyyy, yyyy-MM-dd, etc.
+;   example:  yyyy-MM-dd (this is the format required for MySQL)
+dateFormat  = yyyy-MM-dd
+
+;--------------------------------------------------------------------
+; QC Settings
+;
+[qc]
+;------------------
+; goodDataThreshold: Percent good data needed for each day or location to pass
+;                    and thus have a score calculated for it. If this threhsold
+;                    is not satisfied, the score is replaced by a 'NaN' value.
+;                    For timeseries, there's a percent good data for each day
+;		     of the timeseries. For a map, there's a percent good data
+;		     for each location on the map.
+;
+;   format:   number
+;   example:  95
+goodDataThreshold  =
+
+;------------------
+; goodScoreThreshold: Percent good scores needed, after all scores have been
+;                     calculated. If this threhsold is not satisfied, all
+;                     scores are replaced by 'NaN' values. For timeseries,
+;                     this percentage is calculated based on the number of days
+;                     with a good score. For a map, this percentage is calculated
+;                     based on the number of locations with a good score.
+;
+;   format:   number
+;   example:  95
+goodScoreThreshold =
+
+;------------------
+; goodScoreThresholdReliability: Percent good scores needed, after all scores have been
+;                     calculated. If this threhsold is not satisfied, all
+;                     scores are replaced by 'NaN' values. For reliability
+;                     diagram, this percentage is calculated based on the number of days
+;                     and locations combined with a good score.
+;
+;   format:   number
+;   example:  95
+goodScoreThresholdReliability =
+
+
+;--------------------------------------------------------------------
+; Feedback Settings
+;
+[feedback]
+;------------------
+; email: Email address where to send any feedback to
+;
+;   format:   email@something.com
+;   example:  first.last@noaa.gov
+email =

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<preferences>
+	<!-- Forecast Type -->
+	<fcstType>seasonal</fcstType>
+	<!-- Number of Dates Included -->
+	<numDates>all</numDates>
+	<!-- Variable -->
+	<variable>precip</variable>
+	<!-- Spatial Type -->
+	<spatialType>grid2deg</spatialType>
+	<!-- Score Type -->
+	<scoreType>Heidke</scoreType>
+	<!-- File 1 -->
+	<file1>
+		<!-- Name of text file 1 -->
+		<name>$VERIF_HOME/output/verif_precip_manual_02m_03m_grid2deg_135months_heidke_totalCats_time_dateRange_20010115-20120315.txt</name>
+		<!-- Name of column containing valid date -->
+		<dateColumnName>Date</dateColumnName>
+		<!-- Format of the valid date -->
+		<dateColumnFormat>mm/yyyy</dateColumnFormat>
+		<!-- The number of days or months the data is currently shifted -->
+		<dateOffset></dateOffset>
+		<!-- Name of column containing the score -->
+		<scoreColumnName>all_cats</scoreColumnName>
+		<!-- Number of columns -->
+		<columnCount>4</columnCount>
+	</file1>
+	<!-- File 2 -->
+	<file2>
+		<!-- Name of text file 2 -->
+		<!-- <name>/export/cpccfnfs/users/shandel/verification/land_air/long_range/conus/prec01.heidke.txt</name> -->
+		<name>/cpc/prod_tst/smarquardt/ScottsVerifScores/prec01.heidke.txt</name>
+		<!-- Name of column containing valid date -->
+		<dateColumnName>1st_Target_Month</dateColumnName>
+		<!-- Format of the valid date -->
+		<dateColumnFormat>yyyymmdd</dateColumnFormat>
+		<!-- The number of days or months the data is currently shifted -->
+		<dateOffset>-1m</dateOffset>
+		<!-- Name of column containing the score -->
+		<scoreColumnName>All</scoreColumnName>
+		<!-- Number of columns -->
+		<columnCount>4</columnCount>
+	</file2>
+</preferences>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+  @(#)format.html	1.60 98/01/27
+
+  Copyright 1998 Sun Microsystems, Inc. 901 San Antonio Road, 
+  Palo Alto, California, 94303, U.S.A.  All Rights Reserved.
+
+  This software is the confidential and proprietary information of Sun
+  Microsystems, Inc. ("Confidential Information").  You shall not
+  disclose such Confidential Information and shall use it only in
+  accordance with the terms of the license agreement you entered into
+  with Sun.
+
+  CopyrightVersion 1.2
+
+-->
+</head>
+<body bgcolor="white">
+
+Provides format classes for back-end handling of formatting for various parts of the verification tool. This includes methods and classes for generic functions for formatting  as well as reading and writing XML.
+<p>
+These classes are capable of accepting Stats and Settings objects to format statistics data in XML format for JClass or Google Map to ingest to create a chart or map, respectively. Generic formatting methods are included as well, such as getting different versions or different primitive type versions of data. This package contains classes :
+<ul>
+<li>Format - Formats a loaded Stats object with data and can return formatted output based on the type of plot or output format requested.
+<li> FormatLibrary - Contains methods that the Format class accesses that performs the formatting functions. Also contains methods to do more general conversions, ie, converting between primitive types and obtaining alternate text versions of settings options.
+<li>FormatHTMLLibrary - Formats HTML used in the web GUI version, such as the summary information displayed in the bottom panel of the web GUI verification page.
+<li> XMLCreator - Method that uses level-2 DOM methods to create XML formatted statistics output. This can currently create formatted output for a JClass Chart.
+<li> Chart - Constructs a chart object with specific attributes that the XMLCreator uses.
+<li>GoogleEarth - Constructs an object used to create the attributes used for the Google Map display. 
+<li>IconMap - Formats data for legends for the Google Map plotted results.
+<li> XMLCounter - Counts the number of times a specific XML element is encountered. 
+<li> XMLReader - Reads and parses an XML file, specifically a settings XML file that contains the settings parameters to run the verification software tool for. This utilizes method(s) in XMLCounter to obtain the number of settings groupings to initialize arrays. 
+<li> Table - Formats for table output (not created yet).
+</ul>
+
+<h2>Package Specification</h2>
+
+##### FILL IN ANY SPECS NEEDED BY JAVA COMPATIBILITY KIT #####
+<ul>
+  <li><a href="">##### REFER TO ANY FRAMEMAKER SPECIFICATION HERE #####</a>
+</ul>
+
+<h2>Related Documentation</h2>
+
+For overviews, tutorials, examples, guides, and tool documentation, please see:
+
+<ul>
+  <li><a href="http://lnx92:8080/Verif_System/wiki/Coding_Team/UML_diagrams#FormatPackage">UML on Trac page</a>
+  <li><a href="http://lnx92:8080/Verif_System/browser/trunk/source/gov/noaa/ncep/cpc/format">Package source on Trac page</a>
+</ul>
+
+
+
+<!-- Put @see and @since tags down here. -->
+
+</body>
+</html>

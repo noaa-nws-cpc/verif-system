@@ -1,0 +1,27 @@
+# NOTES
+# when running a Java program from the console, you must
+# set the log.dir variable in this config file which is the path
+# to where the log file is written to. This variable can be set to
+# a global environment variable.
+# ie. java -Dlog.dir=$LOG4J MyApp logConfig.txt
+# where $LOG4J is a global environment variable set to the path of 
+# where the log file should be written to, MyApp is the Java program to 
+# run, and logConfig.txt is this file, the configuration file
+# - Email appenders also can be implemented
+
+# Set root logger level to DEBUG and two appenders
+# one appender to stdout, the other to a file.
+
+# Below is example of 2 formats of output with 1 type of logging level
+log4j.rootLogger=DEBUG, stdout
+
+# Set console output level
+#log4j.rootLogger=DEBUG,stdout
+
+# stdout is set to be a ConsoleAppender.
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+
+# stdout uses PatternLayout.
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%-4r [%t] %-5p %c %x - %m%n
+log4j.appender.stdout.Threshold=INFO
