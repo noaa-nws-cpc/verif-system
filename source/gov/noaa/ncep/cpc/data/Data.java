@@ -439,7 +439,12 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				// For climate divisions, use the 'id' column, otherwise use the regionType
+				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+					whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
+				} else {
+					whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				}
 			} // End if selectSeasonalSignal
 			// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 			else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -460,13 +465,24 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				// For climate divisions, use the 'id' column, otherwise use the regionType
+				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+					whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
+				} else {
+					whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				}
 				logger.debug("signalConditionStr is " + signalConditionStr + " whereClauseStr is " + whereClauseStr + " datesValidType is " + datesValidType);
 			} // End if selectSeasonalSignal
 			// If datesValidType is not "selectSeasonalSignal", then we just
 			// need the WHERE clause to include the date and id filters
 			else {
-				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				// For climate divisions, use the 'id' column, otherwise use the regionType
+				logger.debug("REGIONTYPE = " + regionType);
+				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+					whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
+				} else {
+					whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				}
 			}
 
 			//-----------------------------------------------------------
@@ -1039,7 +1055,12 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			// For climate divisions, use the 'id' column, otherwise use the regionType
+			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
+			} else {
+				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			}
 		} // End if selectSeasonalSignal
 		// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 		else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -1060,12 +1081,22 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			// For climate divisions, use the 'id' column, otherwise use the regionType
+			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
+			} else {
+				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			}
 		} // End if selectSeasonalSignal
 		// If datesValidType is not "selectSeasonalSignal", then we just
 		// need the WHERE clause to include the date and id filters
 		else {
-			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			// For climate divisions, use the 'id' column, otherwise use the regionType
+			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
+			} else {
+				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			}
 		}
 
 		//-----------------------------------------------------------
@@ -1310,7 +1341,13 @@ public class Data {
 		//
 		String whereClauseStr;
 		// For the where clause want all data for climo because it will match to retrieved obs later on
-		whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+		// For climate divisions, use the 'id' column, otherwise use the regionType
+		logger.debug("REGIONTYPE = " + regionType);
+		if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+			whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
+		} else {
+			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+		}
 
 		//-----------------------------------------------------------
 		// Build the ORDER BY organization clauses
