@@ -456,15 +456,18 @@
 			// When fcstType is changed to monthly or seasonal, change the spatial type and region
 			// type tabs
             $('#settingsForm select[name=fcstType]').change(function() {
-                // fcstType set to monthly or seasonal
-                if ($(this).val() === "monthly" || $(this).val() === "seasonal") {
-                   $('#settingsForm select[name=spatialType]').val('climateDivision');
-                   changeRegionTypeTabs('climateDivision');
-                }
-                // fcstType set to anything else (ERF)
-                else {
-                    $('#settingsForm select[name=spatialType]').val('station');
-                    changeRegionTypeTabs('station');
+                // For maps, just update the form
+                if (settings['outputType'] == "chart") {
+                    // fcstType set to monthly or seasonal
+                    if ($(this).val() === "monthly" || $(this).val() === "seasonal") {
+                    $('#settingsForm select[name=spatialType]').val('climateDivision');
+                    changeRegionTypeTabs('climateDivision');
+                    }
+                    // fcstType set to anything else (ERF)
+                    else {
+                        $('#settingsForm select[name=spatialType]').val('station');
+                        changeRegionTypeTabs('station');
+                    }
                 }
                 updateForm($(this));
             });
