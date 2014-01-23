@@ -440,7 +440,7 @@ public class Data {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
 				// For climate divisions, use the 'id' column, otherwise use the regionType
-				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 					whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
 				} else {
 					whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -466,7 +466,7 @@ public class Data {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
 				// For climate divisions, use the 'id' column, otherwise use the regionType
-				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 					whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
 				} else {
 					whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -478,7 +478,7 @@ public class Data {
 			else {
 				// For climate divisions, use the 'id' column, otherwise use the regionType
 				logger.debug("REGIONTYPE = " + regionType);
-				if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 					whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
 				} else {
 					whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -1056,7 +1056,7 @@ public class Data {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
 			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 				whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
 			} else {
 				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -1082,7 +1082,7 @@ public class Data {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
 			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 				whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
 			} else {
 				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -1092,7 +1092,7 @@ public class Data {
 		// need the WHERE clause to include the date and id filters
 		else {
 			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 				whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
 			} else {
 				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
@@ -1343,7 +1343,7 @@ public class Data {
 		// For the where clause want all data for climo because it will match to retrieved obs later on
 		// For climate divisions, use the 'id' column, otherwise use the regionType
 		logger.debug("REGIONTYPE = " + regionType);
-		if (regionType.compareToIgnoreCase("climateDivision") == 0) {
+		if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
 			whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
 		} else {
 			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
