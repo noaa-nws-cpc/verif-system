@@ -664,7 +664,7 @@ public class Database {
 
 		// Try to execute an SQL query
 		try {
-			sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE id RLIKE '(" + regionList + ")'";
+			sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + regionType + " RLIKE '(" + regionList + ")'";
 			logger.debug("Query to retrieve the location ID array: " + sqlQuery);
 			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
