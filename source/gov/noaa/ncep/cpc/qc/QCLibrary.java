@@ -700,11 +700,6 @@ public class QCLibrary {
 				}
 				// Populate with counts for all categories and models
 				scoreStats[i][k][0] = count;
-				// If count is zero, then warn the user about this model
-                if (count == 0) {
-                    logger.warn("No data found for model "+settingsObj.getFcstSourceArray()[i]+" during the specified period.");
-					Log.warning("No data found for model "+settingsObj.getFcstSourceArray()[i]+" during the specified period.");
-                }
 
 				// Calculate good data percent for total category only. Separate categories not included.
 				// (score count/total expected scores over dates/locations/bins)
@@ -722,7 +717,12 @@ public class QCLibrary {
 				}
 
 			}
-			logger.debug("num expected scores for total category: " + numExpectedScores[i] + " for model " + i);
+			// If count is zero, then warn the user about this model
+			if (scoreStats[i][0][0] == 0) {
+				logger.warn("No data found for model \""+settingsObj.getFcstSourceArray()[i]+"\" during the specified period.");
+				Log.warning("No data found for model \""+settingsObj.getFcstSourceArray()[i]+"\" during the specified period.");
+			}
+// 			logger.debug("num expected scores for total category: " + numExpectedScores[i] + " for model " + i);
 		}
 		return scoreStats;
 	}
@@ -766,7 +766,7 @@ public class QCLibrary {
 		float[][][] qcedScore = statsObj.getScoreCatFloatArray();
  		String[] fcstSourceArray = settingsObj.getFcstSourceArray();
 		String[] category = SettingsHashLibrary.getCategoryNames();
-                //int missingScoreCount = 0; // used to create pop up window if chart or map contains no scores (is blank)
+                int missingScoreCount = 0; // used to create pop up window if chart or map contains no scores (is blank)
                 referenceStringArray = dataObj.getReferenceArray();
                 logger.trace("Ref array in QCLibrary is : " + Arrays.toString(referenceStringArray));
 
@@ -833,46 +833,46 @@ public class QCLibrary {
 						//Log.warning(error,"#errorPanelText");
 
 			} // end j loop
-				//logger.trace("Number of locations or days missing scores for model " + i + " category " + k + ": " + count[i][k]);
-				//////////// TODO This commented out section is for ticket #1138, creating an alert on the VWT
+// 				logger.trace("Number of locations or days missing scores for model " + i + " category " + k + ": " + count[i][k]);
+				////////// TODO This commented out section is for ticket #1138, creating an alert on the VWT
 				// if all scores are NaN for the category selected, including total.
-				//////////////////////////
+				////////////////////////
 				// Print info about NaN scores to error panel on web tool for only the categories selected
 				// Count sets of missing scores
-				//if (count[i][k]==r) {
-					//logger.warn("All scores for model " + i + " and cat " + k + " are NaNs! There is nothing to plot!");
-					//error = "There may be no forecasts for the category selected, or all forecasts or observations are missing for model " + fcstSourceArray[i] + ", category " + category[k] + ", for the dates and locations selected.";
-					//String error2 = " Note, manual forecasts for the N category are very rare for monthly and seasonal forecasts.";
-					//if (settingsObj.getCategoryType().equals("total") && k==0) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	Log.warning(error,"#errorPanelText");
-					//}
-					//else if (settingsObj.getCategoryType().equals("separate") && (k==1 || k==3)) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	Log.warning(error,"#errorPanelText");
-					//}
-					//else if (settingsObj.getCategoryType().equals("separate") && (k==2)) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	if (settingsObj.getFcstType().equals("extendedRange")) {
-					//		Log.warning(error,"#errorPanelText");
-					//	}
-					//	else {
-					//		Log.warning(error.concat(error2),"#errorPanelText");
-					//	}
-					//}
-					//else if (settingsObj.getCategoryType().equals("B") && k==1) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	Log.warning(error,"#errorPanelText");
-					//}
-					//else if (settingsObj.getCategoryType().equals("N") && k==2) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	Log.warning(error.concat(error2),"#errorPanelText");
-					//}
-					//else if (settingsObj.getCategoryType().equals("A") && k==3) {
-					//	missingScoreCount = missingScoreCount + 1;
-					//	Log.warning(error,"#errorPanelText");
-					//}
-				//}
+// 				if (count[i][k]==r) {
+// 					logger.warn("All scores for model " + i + " and cat " + k + " are NaNs! There is nothing to plot!");
+// 					error = "There may be no forecasts for the category selected, or all forecasts or observations are missing for model " + fcstSourceArray[i] + ", category " + category[k] + ", for the dates and locations selected.";
+// 					String error2 = " Note, manual forecasts for the N category are very rare for monthly and seasonal forecasts.";
+// 					if (settingsObj.getCategoryType().equals("total") && k==0) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						Log.warning(error,"#errorPanelText");
+// 					}
+// 					else if (settingsObj.getCategoryType().equals("separate") && (k==1 || k==3)) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						Log.warning(error,"#errorPanelText");
+// 					}
+// 					else if (settingsObj.getCategoryType().equals("separate") && (k==2)) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						if (settingsObj.getFcstType().equals("extendedRange")) {
+// 							Log.warning(error,"#errorPanelText");
+// 						}
+// 						else {
+// 							Log.warning(error.concat(error2),"#errorPanelText");
+// 						}
+// 					}
+// 					else if (settingsObj.getCategoryType().equals("B") && k==1) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						Log.warning(error,"#errorPanelText");
+// 					}
+// 					else if (settingsObj.getCategoryType().equals("N") && k==2) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						Log.warning(error.concat(error2),"#errorPanelText");
+// 					}
+// 					else if (settingsObj.getCategoryType().equals("A") && k==3) {
+// 						missingScoreCount = missingScoreCount + 1;
+// 						Log.warning(error,"#errorPanelText");
+// 					}
+// 				}
 			logger.debug("number of scores removed: " + lowQualityScoreCount[i][0] + ", for model " + fcstSourceArray[i] + " category " + category[0] + " because good data % is below qc threshold of " + dataThreshold);
 			logger.debug("number of scores removed: " + lowQualityScoreCount[i][1] + ", for model " + fcstSourceArray[i] + " category " + category[1] + " because good data % is below qc threshold of " + dataThreshold);
 			logger.debug("number of scores removed: " + lowQualityScoreCount[i][2] + ", for model " + fcstSourceArray[i] + " category " + category[2] + " because good data % is below qc threshold of " + dataThreshold);

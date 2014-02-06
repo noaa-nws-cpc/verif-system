@@ -10,7 +10,6 @@ $models = array(
 	"ecmensm_00z",
 	"manual",
 	"auto",
-	"cdcgfs",
 	"naefs_00z","naefs_06z"
 );
 #--------------------------------------------------------------------
@@ -23,7 +22,6 @@ $tools = array(
 	"calibratedProb",
 	"reforecastCalibratedProb",
 	"uncalibratedProb",
-	"cdc"
 );
 ?>
 

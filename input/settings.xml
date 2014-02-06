@@ -2,15 +2,15 @@
 <data>
 <settings>
 	<variable>temp</variable>
-	<fcstSources>manual</fcstSources>
-	<leadTime>08d</leadTime>
-	<aveWindow>05d</aveWindow>
+	<fcstSources>manual,con</fcstSources>
+	<leadTime>02m</leadTime>
+	<aveWindow>03m</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>20120201,20120210</datesValid>
-	<regionType>climateRegion</regionType>
+	<datesValid>201301,201312</datesValid>
+	<regionType>climateDivision</regionType>
 	<regions>All</regions>
-	<spatialType>station</spatialType>
-	<outputType>chart</outputType>
+	<spatialType>climateDivision</spatialType>
+	<outputType>ascii</outputType>
 	<outputDimension>time</outputDimension>
 	<scoreType>heidke</scoreType>
 	<categoryType>total</categoryType>

@@ -42,8 +42,6 @@ existingFcstSources = new Array(
 "precip_calibratedProb_naefs_12z_11d_07d_stn",
 "precip_calibratedProb_naefs_18z_08d_05d_stn",
 "precip_calibratedProb_naefs_18z_11d_07d_stn",
-//"precip_calibratedProb_naefspara_00z_08d_05d_stn",
-//"precip_calibratedProb_naefspara_00z_11d_07d_stn",
 "precip_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn",
 "precip_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn",
 "temp_analog_canm_00z_08d_05d_stn",
@@ -116,8 +114,6 @@ existingFcstSources = new Array(
 "temp_calibratedProb_naefs_12z_11d_07d_stn",
 "temp_calibratedProb_naefs_18z_08d_05d_stn",
 "temp_calibratedProb_naefs_18z_11d_07d_stn",
-//"temp_calibratedProb_naefspara_00z_08d_05d_stn",
-//"temp_calibratedProb_naefspara_00z_11d_07d_stn",
 "temp_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn",
 "temp_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn"
 );
