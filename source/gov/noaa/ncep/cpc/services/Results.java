@@ -1,6 +1,7 @@
 package gov.noaa.ncep.cpc.services;
 
 import gov.noaa.ncep.cpc.stats.Stats;
+
 /*
  * This class is meant to encapsulate all the data needed by the verification system
  * tools applets when presenting the results to the user.
@@ -9,11 +10,12 @@ public class Results
 {
   public static int RESULT_TYPE_SUCCESS = 1;
   public static int RESULT_TYPE_ERROR = 2;
-  
+
   private int resultType;
   private String errorMessage;
+  private String[] warningMessages = {};
   private long timestamp;
-  
+
   //
   //
   // TODO: double check that there is not more data needed to send accross
@@ -27,7 +29,7 @@ public class Results
   private String[] locationLatArray;
   private String[] fcstDateValidBounds;
   private Stats stats;
-  
+
   public int getResultType()
   {
     return resultType;
@@ -43,6 +45,14 @@ public class Results
   public void setErrorMessage(String errorMessage)
   {
     this.errorMessage = errorMessage;
+  }
+  public String[] getWarningMessages()
+  {
+    return warningMessages;
+  }
+  public void setWarningMessages(String[] warningMessages)
+  {
+    this.warningMessages = warningMessages;
   }
   public long getTimestamp()
   {

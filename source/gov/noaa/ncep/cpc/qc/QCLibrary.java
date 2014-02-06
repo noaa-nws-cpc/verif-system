@@ -202,7 +202,7 @@ public class QCLibrary {
 	  @param ecType Either include equal chances (withEC) or do not include equal chances category forecasts (noEC)
       @return  2-d float array of # of valid fcst-ob pairs and % of valid pairs where the
 	  first dimension is Total,B,N,A and the 0th index of the second dimension is count
-	  and the 1st index of the second dimension is percent. It should be noted that the "good" count/percent for separate categories are based only on the matching obs since you inherently you do not have an expected number of forecasts in each category separately. Also, the total percent takes does not include EC forecasts as part of the expected # if "noEC" option is used. numEC is set to 0 by default prior to calling this method if "withEC" is selected or if there are no EC values. 
+	  and the 1st index of the second dimension is percent. It should be noted that the "good" count/percent for separate categories are based only on the matching obs since you inherently you do not have an expected number of forecasts in each category separately. Also, the total percent takes does not include EC forecasts as part of the expected # if "noEC" option is used. numEC is set to 0 by default prior to calling this method if "withEC" is selected or if there are no EC values.
 	 */
 	public static float[][] countGoodDataPairs(float fcstCat[], float obsCat[], int numExpectedFcstsPerScore, float numEC, String ecType) throws Exception  {
 		logger = Logger.getLogger(QCLibrary.class.getName());
@@ -234,11 +234,11 @@ public class QCLibrary {
 
 		// Calculate the percentage of fcst-ob matches that don't have NaNs
 		// If withEC, do not subtract # EC fcsts
-		
+
 		if (ecType.compareToIgnoreCase("withEC") == 0) {
 			goodDataPercent[0] = 100f * count[0]/numExpectedFcstsPerScore;
 			logger.trace("category: " + category[0]);
-			logger.trace("good data percent for total categories (100f * # good fcst-obs pairs/# expected pairs : " + goodDataPercent[0] + " = 100.0 * " + count[0] + " / " + numExpectedFcstsPerScore);		
+			logger.trace("good data percent for total categories (100f * # good fcst-obs pairs/# expected pairs : " + goodDataPercent[0] + " = 100.0 * " + count[0] + " / " + numExpectedFcstsPerScore);
 		}
 		// else if noEC
 		else if (ecType.compareToIgnoreCase("noEC") == 0) {
@@ -302,11 +302,11 @@ public class QCLibrary {
 
         /**
           Currently returns the same data as countGoodDataPairs(), except this method includes information in the log file about the # of good percent dry
-	  points associated with the fcst-obs pairs. There is a separate series of data stored in the climatology database that contains the percent of areas considered dry, which is input to the verification software along with the forecast and observations when this information is needed. Returns the number of matched fcst-obs pairs data used for calculating the score for a specific 
+	  points associated with the fcst-obs pairs. There is a separate series of data stored in the climatology database that contains the percent of areas considered dry, which is input to the verification software along with the forecast and observations when this information is needed. Returns the number of matched fcst-obs pairs data used for calculating the score for a specific
 	  time or location that do not have NaN values and the percentage of fcst-ob pairs excluding NaNs
           to total fcst-ob pairs calculated over 1 dimension for each category
           for score types other than reliability.
-	  The counts do not account for when the fcst and/or obs are collapsed to a 
+	  The counts do not account for when the fcst and/or obs are collapsed to a
 	  2 class system.
           The percentage is relative to all fcst-obs pairs (including NaNs) for the
           total category, and for each individual category it is relative to the
@@ -327,7 +327,7 @@ public class QCLibrary {
 
           @param fcstCat  1-d float array of forecast category (0-3) for a certain location or time.
           @param obsCat   1-d float array of observed category (0-3)
-          @param percentDry  1-d float array of percentDry 
+          @param percentDry  1-d float array of percentDry
           @param numExpectedFcstsPerScore integer of total expected forecasts
   	  @param numEC Number of forecasts that have EC (0.0f) as value associated with the passed forecast array
 	  @param ecType Either include equal chances (withEC) or do not include equal chances category forecasts (noEC)
@@ -338,7 +338,7 @@ public class QCLibrary {
         public static float[][] countGoodDataPairsDryCorrection(float fcstCat[], float obsCat[], float percentDry[], int numExpectedFcstsPerScore, float numEC, String ecType) throws Exception {
                 logger = Logger.getLogger(QCLibrary.class.getName());
                 logger.trace("Inside countGoodDataPairsDryCorrection");
-		
+
                 // Initialize variables
                 // NaNs are from missing data, weekends with no manual forecast, etc
                 int nanCount = 0;      // num of fcst-ob pairs with at least one NaN
@@ -349,10 +349,10 @@ public class QCLibrary {
                 int r=fcstCat.length;
                 int[] Total = new int[4];
                 int[] count = new int[4]; // good data pairs of fcst-obs
-		int[] countDry = new int[4]; // good # dry points 
+		int[] countDry = new int[4]; // good # dry points
                 String[] category = SettingsHashLibrary.getCategoryNames();
 		float[] percentDryData = new float[4];
-		
+
                 // QC for all categories together
                 // Determine number of non-NaN fcst-ob pairs
                 goodDataPercent[0] = 0;
@@ -376,13 +376,13 @@ public class QCLibrary {
                 // Get number of fcst-ob pairs that don't contain NaN
                 //float N = r - nanCount;
 		count[0] = r - nanCount;
-		
+
 		// Calculate the percentage of fcst-ob matches that don't have NaNs
 		// If withEC, do not subtract # EC fcsts
 		if (ecType.compareToIgnoreCase("withEC") == 0) {
 			goodDataPercent[0] = 100f * count[0]/numExpectedFcstsPerScore;
 			logger.trace("category: " + category[0]);
-			logger.trace("good data percent for total categories (100f * # good fcst-obs pairs/# expected pairs : " + goodDataPercent[0] + " = 100.0 * " + count[0] + " / " + numExpectedFcstsPerScore);		
+			logger.trace("good data percent for total categories (100f * # good fcst-obs pairs/# expected pairs : " + goodDataPercent[0] + " = 100.0 * " + count[0] + " / " + numExpectedFcstsPerScore);
 		}
 		// else if noEC
 		else if (ecType.compareToIgnoreCase("noEC") == 0) {
@@ -396,11 +396,11 @@ public class QCLibrary {
 			Log.fatal("Report invalid 'EC Type'.","#errorPanelText");
 			throw new Exception("Invalid ecType (Can either be 'withEC' or 'noEC'): " + ecType + " . Killing countGoodDataPairs()");
 		}
-		
+
                 // Populate QC stats for all cats together in output array
                 goodDataStats[0][0] = count[0];
                 goodDataStats[0][1] = goodDataPercent[0];
-		
+
 		// Assesss dry data points for logging
 		// Get # good dry data points, printed at end
 		countDry[0] = r- nanCountDry;
@@ -442,7 +442,7 @@ public class QCLibrary {
                                 goodDataPercent[k] = (float) 100f * count[k]/Total[k];
 				percentDryData[k] = (float) 100f * countDry[k]/Total[k];
                         }
-                     
+
 			logger.trace("good data percent for category: " + k + ": (100f * # valid fcst-obs-percentDry pairs/# total fcsts-obs-percentDry pairs per score): " +  goodDataPercent[k] + " = 100.0 * " + count[k] + " / " + Total[k]);
 
                         // Populate QC stats for each category in indexes 1-3 of output array
@@ -452,11 +452,11 @@ public class QCLibrary {
 
 		// Print dry data info
 		logger.trace("**** Dry station count info ****");
-		logger.trace("good percent dry data for total categories (doesn't impact QC currently)  (100f * # valid dry data points/(numExpectedFcstsPerScore - numEC)): " + 
-		percentDryData[0] + " = 100f * " + countDry[0] + " / (" + numExpectedFcstsPerScore + " - " +  numEC + " )"); 
-		logger.trace("For below category : " + percentDryData[1] + " = 100f * " + countDry[1] + " / " + Total[1]); 
-		logger.trace("For normal category : " + percentDryData[2] + " = 100f * " + countDry[2] + " / " + Total[2]); 
-		logger.trace("For above category : " + percentDryData[3] + " = 100f * " + countDry[3] + " / " + Total[3]); 
+		logger.trace("good percent dry data for total categories (doesn't impact QC currently)  (100f * # valid dry data points/(numExpectedFcstsPerScore - numEC)): " +
+		percentDryData[0] + " = 100f * " + countDry[0] + " / (" + numExpectedFcstsPerScore + " - " +  numEC + " )");
+		logger.trace("For below category : " + percentDryData[1] + " = 100f * " + countDry[1] + " / " + Total[1]);
+		logger.trace("For normal category : " + percentDryData[2] + " = 100f * " + countDry[2] + " / " + Total[2]);
+		logger.trace("For above category : " + percentDryData[3] + " = 100f * " + countDry[3] + " / " + Total[3]);
 		logger.trace("******************************");
 
                 return goodDataStats;
@@ -559,7 +559,7 @@ public class QCLibrary {
 	  the .3333 bin.
       If no forecasts are found this method returns a count of 0.
 
-      @param fcstProb 3-d float array of forecast probability 
+      @param fcstProb 3-d float array of forecast probability
       @param fcstCat  2-d float array of forecast category
       @param obsCat   2-d float array of observed category (0-3, for total,B,N,A)
       @param probabilityBinLowerThreshold 1-d float array of probability bin lower thresholds
@@ -627,7 +627,7 @@ public class QCLibrary {
 					}
 				}
                         } // end if to check for NaNs
-                    } // End loop 
+                    } // End loop
                 }
                 // Populate columns 1 - 3 with counts by category
 				// For the EC bin: A sum of EC forecasts and other categories at EC prob value (.3333)
@@ -652,7 +652,7 @@ public class QCLibrary {
         }
         return fcstCountArray;
     }  // end countFcstsPerBinWithEc
-		
+
 	/**
 	  Returns the count and percentage of scores (except reliability) that passed quality control in a 2-D array.
 	  Dimensions are [model][count/percent]. The 0th index of the third dimension (count/percent) is count and the 1st index is percent.
@@ -663,15 +663,16 @@ public class QCLibrary {
 	  Otherwise it is assumed that all dates/locations should have a score.
 	  For reliability this method does not apply, use getCountGoodDataReliability() instead.
 	  @param scoreCatFloatArray 3-d array scoreCatFloatArray
-	  @param numExpectedScores 1-d array numExpectedScores Total # of expected scores at the end of processing for each model
+	  @param numExpectedScores  1-d array numExpectedScores Total # of expected scores at the end of processing for each model
+	  @param settingsObj        Settings object
 	  @return 2-d float array containing the count and percentage of scores (except reliability) that passed quality control for the total category. Dimensions are [model][count/percent]. The separate categories are typically not able to be assessed for number of expected scores (especially hit based scores) so only the total category situation is contained. The 0th index of the third dimension (count/percent) is count and the 1st index is percent.
 	*/
-	public static float[][][] getCountGoodScores(float scoreCatFloatArray[][][], int numExpectedScores[]) {
+	public static float[][][] getCountGoodScores(float scoreCatFloatArray[][][], int numExpectedScores[], Settings settingsObj) {
 		logger = Logger.getLogger(QCLibrary.class.getName());
                 logger.trace("Inside getCountGoodScores - only considering for case of total");
 
 		int m = scoreCatFloatArray.length;  // number of models
-		int c = scoreCatFloatArray[0].length;  // number of categories 
+		int c = scoreCatFloatArray[0].length;  // number of categories
 		int r = scoreCatFloatArray[0][0].length; // number of dates/locations
 		float[][][] scoreStats = new float[m][c][2];
 		int count;
@@ -679,12 +680,12 @@ public class QCLibrary {
 		// Loop over models
 		for (int i=0; i<m; i++) {
 			logger.trace("------------ model : " + i + "-------------------");
-			// Loop over categories. Commented out section in case separate cats wanted to be 
+			// Loop over categories. Commented out section in case separate cats wanted to be
 			// assessed for future use. Not used currently for QC
-			// If statement used currently so only total category assessed.. 
+			// If statement used currently so only total category assessed..
 			for (int k=0; k<c; k++) {
 				count = 0;
-				logger.trace("-- category index : " + k + " --"); 
+				logger.trace("-- category index : " + k + " --");
 				// Loop over days/locations
 				for (int j=0; j<r; j++) {
 					logger.trace("- date/location index : " + j + " -");
@@ -699,6 +700,12 @@ public class QCLibrary {
 				}
 				// Populate with counts for all categories and models
 				scoreStats[i][k][0] = count;
+				// If count is zero, then warn the user about this model
+                if (count == 0) {
+                    logger.warn("No data found for model "+settingsObj.getFcstSourceArray()[i]+" during the specified period.");
+					Log.warning("No data found for model "+settingsObj.getFcstSourceArray()[i]+" during the specified period.");
+                }
+
 				// Calculate good data percent for total category only. Separate categories not included.
 				// (score count/total expected scores over dates/locations/bins)
 				if (k==0) {
@@ -706,14 +713,14 @@ public class QCLibrary {
 					logger.debug("For the total category : ");
 					logger.debug("# good scores " + count);
 					logger.debug("numExpectedScores " + numExpectedScores[i]);
-					logger.debug("goodScorePercent " + scoreStats[i][k][1]); 
+					logger.debug("goodScorePercent " + scoreStats[i][k][1]);
 				}
 				// For separate categories the percent is NaN since the number of
-	                       // expected forecats is not known (otherwise it is usually 100, based on the number of actual forecasts for that category) 
+	                       // expected forecats is not known (otherwise it is usually 100, based on the number of actual forecasts for that category)
 				else {
 					scoreStats[i][k][1] = Float.NaN;
 				}
-				
+
 			}
 			logger.debug("num expected scores for total category: " + numExpectedScores[i] + " for model " + i);
 		}
@@ -722,10 +729,10 @@ public class QCLibrary {
 
 	/**
 	  Removes scores below the good data percent quality control threshold specified in this method for scores other
-	  than reliability. Quality control is assessed separately for each forecast source. 
+	  than reliability. Quality control is assessed separately for each forecast source.
 	  Score quality control is only assessed by the total category. If a score does not pass qc
 	  for the total category then the score for that reference point (time or location) is replaced with NaN for the total category
-	  and each individual category. This is because it is not possible to calculate the 
+	  and each individual category. This is because it is not possible to calculate the
 	  percentage of scores by category since the number of expected scores is determined by the forecast and not
 	  known ahead of time.
 	  Dimensions are [model][category][day/location] (the same as scoreCatFloatArray in Stats).
@@ -763,9 +770,9 @@ public class QCLibrary {
                 referenceStringArray = dataObj.getReferenceArray();
                 logger.trace("Ref array in QCLibrary is : " + Arrays.toString(referenceStringArray));
 
-		String dataThresholdStr;  // This is read in from the config file 
-		float dataThreshold;   // String threshold value is converted to float 
-		
+		String dataThresholdStr;  // This is read in from the config file
+		float dataThreshold;   // String threshold value is converted to float
+
 		// Load server configuration file
 		Wini ini = null;
 		try {
@@ -783,17 +790,17 @@ public class QCLibrary {
 			Log.fatal("Could not read QC threshold data value from configuration file.","#errorPanelText");
 			throw(e);
 		}
-		
-		// Convert string to float 
+
+		// Convert string to float
 		try {
 			dataThreshold = Float.parseFloat(dataThresholdStr.trim());
 		}
 		catch (Exception e) {
-			logger.fatal("Could not obtain a QC data threshold properly from the configuration file. Make sure you have set a variable 'goodDataThreshold' in a section labled '[qc]'."); 
+			logger.fatal("Could not obtain a QC data threshold properly from the configuration file. Make sure you have set a variable 'goodDataThreshold' in a section labled '[qc]'.");
 			Log.fatal("Could not obtain a QC data threshold properly from the configuration file.","#errorPanelText");
 			throw(e);
 		}
-		
+
 		logger.debug("QC threshold for throwing out scores with insufficient good data is : " + dataThreshold);
 
 		// Check if goodDataPercentArray and goodDataCountArray are the same size
@@ -824,7 +831,7 @@ public class QCLibrary {
 						//error = "Warning, score has low quality! Model is " + i + ", category is " + category[k] + ", count is " + statsObj.getGoodDataCountArray()[i][k][j] + " , percentage is " + statsObj.getGoodDataPercentArray()[i][k][j] + ", location or date is " + referenceStringArray[j] + ".";
 						// Printing this warning is optional
 						//Log.warning(error,"#errorPanelText");
-				
+
 			} // end j loop
 				//logger.trace("Number of locations or days missing scores for model " + i + " category " + k + ": " + count[i][k]);
 				//////////// TODO This commented out section is for ticket #1138, creating an alert on the VWT
@@ -866,10 +873,10 @@ public class QCLibrary {
 					//	Log.warning(error,"#errorPanelText");
 					//}
 				//}
-			logger.debug("number of scores removed: " + lowQualityScoreCount[i][0] + ", for model " + fcstSourceArray[i] + " category " + category[0] + " because good data % is below qc threshold of " + dataThreshold); 
-			logger.debug("number of scores removed: " + lowQualityScoreCount[i][1] + ", for model " + fcstSourceArray[i] + " category " + category[1] + " because good data % is below qc threshold of " + dataThreshold); 
-			logger.debug("number of scores removed: " + lowQualityScoreCount[i][2] + ", for model " + fcstSourceArray[i] + " category " + category[2] + " because good data % is below qc threshold of " + dataThreshold); 
-			logger.debug("number of scores removed: " + lowQualityScoreCount[i][3] + ", for model " + fcstSourceArray[i] + " category " + category[3] + " because good data % is below qc threshold of " + dataThreshold); 
+			logger.debug("number of scores removed: " + lowQualityScoreCount[i][0] + ", for model " + fcstSourceArray[i] + " category " + category[0] + " because good data % is below qc threshold of " + dataThreshold);
+			logger.debug("number of scores removed: " + lowQualityScoreCount[i][1] + ", for model " + fcstSourceArray[i] + " category " + category[1] + " because good data % is below qc threshold of " + dataThreshold);
+			logger.debug("number of scores removed: " + lowQualityScoreCount[i][2] + ", for model " + fcstSourceArray[i] + " category " + category[2] + " because good data % is below qc threshold of " + dataThreshold);
+			logger.debug("number of scores removed: " + lowQualityScoreCount[i][3] + ", for model " + fcstSourceArray[i] + " category " + category[3] + " because good data % is below qc threshold of " + dataThreshold);
 		} // end i loop
 		/////////// TODO This is also part of ticket #1138 to print an alert on the VWT if all scores are NaNs for the
 		// selected category, including total.
@@ -893,18 +900,18 @@ public class QCLibrary {
 	} // end removeScoresWithLowQuality
 
         /**
-          Removes all scores for total category and separate categories if the percentage of valid scores (not a NaN) is below 
+          Removes all scores for total category and separate categories if the percentage of valid scores (not a NaN) is below
 	  good score percentage threshold. Quality control is assessed separately for each forecast source.
 	  This can result in a blank plot or an ASCII value with lots of NaN values. This method can be used for all scores
 	  including reliability.
 	  - you do not know the number of how many fcst-obs pairs are expected for a specific category making up the score value
 	  because the score is based on # hits of a specific category which would not be known. Therefore you cannot assess the
-	  count of # of good scores that result. Can still use the # of good scores in the total category scores to determine 
+	  count of # of good scores that result. Can still use the # of good scores in the total category scores to determine
 	  whether the separate category values should be replaced with 'NaN's. This assessment is purely based on the total cat results.
-	  
+
  	  For RPSS separate cats
 	  - DO NOT REMOVE ANY SEPARATE CATEGORIES. This level of QC-ing does not exist in this situation.
-	   
+
 	  Note, the static spatial plots do total category qc independently. They are set up
 	  to not create any plots if the number of scores is too low by reading the percent
 	  of good scores printed in the ascii file heading.
@@ -912,8 +919,8 @@ public class QCLibrary {
 	  account with values in goodScorePercentArray passed as the second argument.
           Otherwise it is assumed that all dates/locations should have a score.
           @param scoreCatFloatArray 3-d array Score values by category (scoreCatFloatArray). Dimensions are [model][category][day/location]
-          @param goodScorePercentArray 2-d array Percent of good scores in an array (goodScorePercentArray).Dimensions are [model][category] 
-	  @param scoreType Score type. This is needed to determine whether separate categories get replaced with 'NaN' values. RPSS would not get values replaced with 'NaN' in separate category. 
+          @param goodScorePercentArray 2-d array Percent of good scores in an array (goodScorePercentArray).Dimensions are [model][category]
+	  @param scoreType Score type. This is needed to determine whether separate categories get replaced with 'NaN' values. RPSS would not get values replaced with 'NaN' in separate category.
           @return 3-d float array of scores containing NaNs if replaced by this QC method.
         */
         public static float[][][] removeAllScoresIfBelowQCThreshold (float scoreCatFloatArray[][][], float goodScorePercentArray[][],String scoreType) throws Exception  {
@@ -926,7 +933,7 @@ public class QCLibrary {
                 float[][][] qcedScore = scoreCatFloatArray;;
 		String scoreThresholdStr;  // Threshold is read in from config file
 		float scoreThreshold;
-		
+
 		// Load server configuration file
 		Wini ini = null;
 		try {
@@ -938,7 +945,7 @@ public class QCLibrary {
 		}
 		// Try to read the QC threshold set by the server config file
 		try {
-			// if reliability read reliability threshold 
+			// if reliability read reliability threshold
 			if (scoreType.equals("reliability")) {
 				scoreThresholdStr = ini.get("qc","goodScoreThresholdReliability");
 			}
@@ -950,39 +957,39 @@ public class QCLibrary {
 			Log.fatal("Could not open server configuration file.","#errorPanelText");
 			throw(e);
 		}
-		
-		// Convert string to float 
+
+		// Convert string to float
 		try {
 			scoreThreshold = Float.parseFloat(scoreThresholdStr.trim());
 		}
 		catch (Exception e) {
-			logger.fatal("Could not obtain a QC number valid scores threshold properly from the configuration file. Make sure you have set a variable 'goodScoreThreshold' in a section labled '[qc]'."); 
+			logger.fatal("Could not obtain a QC number valid scores threshold properly from the configuration file. Make sure you have set a variable 'goodScoreThreshold' in a section labled '[qc]'.");
 			Log.fatal("Could not obtain a QC number valid scores threshold properly from the configuration file.","#errorPanelText");
 			throw(e);
 		}
-		
+
 		logger.debug("QC threshold for throwing out all scores if insufficient good scores is : " + scoreThreshold);
-		
+
 		for (int i=0;i<numPercentModels; i++){
 			logger.debug("The % good scores for categories total (individual cats should be NaN): " + goodScorePercentArray[i][0] + " B : "  + goodScorePercentArray[i][1] + " N : "  + goodScorePercentArray[i][2] + " A : "  + goodScorePercentArray[i][3]);
-		}	
-		
+		}
+
 		//---------------------------------------------------------
 		// PERFORM QC2 - Removing scores if the score threshold is not satisfied
 		//---------------------------------------------------------
 		// NEED TO ONLY ASSESS THE TOTAL CATEGORY - in scores that utilize # hits (heidke, brier) you do not know
 		// the counts of how many fcst-obs pairs make up a specific category when the score is calculated
-		// For RPSS separate cats, DO NOT REMOVE ANY SEPARATE CATEGORIES			
+		// For RPSS separate cats, DO NOT REMOVE ANY SEPARATE CATEGORIES
                 // Loop over models
                 for (int k=0; k<m; k++) {
 			// Check total category percentage for current model
 			logger.debug("Model " + k + ", total category, " + "goodScorePercent " + goodScorePercentArray[k][0]);
-			
+
 			if (goodScorePercentArray[k][0] < scoreThreshold) {
 				// Loop over days/locations and remove score for total category
 				// Scores for separate categories are also removed if the total category is
 				logger.info("Scores for entire plot did not pass qc percent threshold of " + scoreThreshold + " % ! Removing all scores for total category, model " + k);
-				
+
 				// Replace total category values with 'NaN'
 				for (int j=0; j<r; j++) {
 					qcedScore[k][0][j] = Float.NaN;

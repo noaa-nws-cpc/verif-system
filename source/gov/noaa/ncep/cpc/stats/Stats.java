@@ -29,8 +29,8 @@ public class Stats {
 	private float aveFcstProbArray[][][];     // average forecast probability per category per bin for x axis plotting values for reliability diagram, dimensions are [model][category][bin]
         private int goodScoreCountArray[][];      // total number of scores per model and category for entire plot, dimensions are [model][cat]
         private float goodScorePercentArray[][];  // ratio of scores that passed qc to the total number of possible scores (based on number of dates (weekdays for ERF) or locations) for entire plot, dimensions are [model][cat]
-	
-	private int numExpectedFcstsPerScore[];    // dimension is [model], excludes weekends for ERF otherwise its the size of the forecast array opposite of the outputDimension, for total category only, not valid for reliability,       
+
+	private int numExpectedFcstsPerScore[];    // dimension is [model], excludes weekends for ERF otherwise its the size of the forecast array opposite of the outputDimension, for total category only, not valid for reliability,
 	private int numExpectedScores[];   // dimension is [model], excludes weekends for ERF, total category only for scores except reliability. This should not be used in case of reliability. reliability utilizes numExpectedDataPairsReliability
 	private static Logger logger; // Initialize logger
 
@@ -41,7 +41,7 @@ public class Stats {
   	private float[] probabilityBinUpperThreshold;
  	 private float[] probabilityBinAxisLabels;
 	private String[] probabilityBinLabels;
-	
+
 	// Minimum score values allowed in averages - When a skill score is lower than the specified
 	// value, it gets set to the specified value before getting included in an average over space or
 	// time. This is because some dry locations can have really negative Heidke Skill Scores, which
@@ -108,7 +108,7 @@ public class Stats {
 		int numDatesInData = 0;
 		int numLocationsInData = 0;
 		float[][][] numDataByCategory; // Array of number of points in each category (B,N,A,EC). By default is 0.0f except for noEC
-		
+
 		// Set arrays with correct dimensions depending on output dimension
 		// For Time
 		// fcstCat3d[model][time][location]
@@ -142,7 +142,7 @@ public class Stats {
 		else if (settingsObj.getOutputDimension().compareToIgnoreCase("space") == 0) {
 			fcstProb4d=switchDimensions4d(dataObj.getFcstProb());
 			fcstCat3d=switchDimensions3d(dataObj.getFcstCat());
-			obsCat2d=switchDimensions2d(dataObj.getObsCat());		
+			obsCat2d=switchDimensions2d(dataObj.getObsCat());
 			numDatesInData = fcstCat3d[0][0].length; // Num Dates
 			numLocationsInData = fcstCat3d[0].length; // Num locations
 			// Do this only if dry location correction is enabled
@@ -177,17 +177,17 @@ public class Stats {
 		// !! The second and third dims switch depending on whether it is space or time as output dimension!!
 		// Second dimension should be the one with the reference points
 		// see further above for dims
-		m = fcstProb4d.length; 
+		m = fcstProb4d.length;
 		r = fcstProb4d[0].length;  // 2nd dim (ref points)
 		c = fcstProb4d[0][0].length;  //3rd dim
-		p = fcstProb4d[0][0][0].length; 
+		p = fcstProb4d[0][0][0].length;
 		logger.debug("prob array size m: " + m);
 		logger.debug("prob array size r: " + r);
 		logger.debug("prob array size c: " + c);
 		logger.debug("prob array size p: " + p);
 
-		int mm = fcstCat3d.length; 
-		int rr = fcstCat3d[0].length; 
+		int mm = fcstCat3d.length;
+		int rr = fcstCat3d[0].length;
 		int cc = fcstCat3d[0][0].length;
 		logger.debug("fcst cat array size mm: " + mm);
 		logger.debug("fcst cat array size rr: " + rr);
@@ -219,8 +219,8 @@ public class Stats {
 		if (ecType.compareToIgnoreCase("noEC") == 0) {
 			numDataByCategory = dataObj.getNumDataByCategory(fcstCat3d,settingsObj.getOutputDimension());
 		}
-	
-		
+
+
 		// QC that depends on the fcstType (includes removing EC forecasts if necessary)
 		if ( settingsObj.getFcstType().compareToIgnoreCase("extendedRange") == 0) {
 			// There should be no EC forecasts for extended range so zeros are bad data.
@@ -285,7 +285,7 @@ public class Stats {
 		fcstProb3d = new float[r][c][p];
 		fcstCat2d = new float[r][c];
 		goodScoreCountArray = new int[m][4];
-		goodScorePercentArray = new float[m][4]; 
+		goodScorePercentArray = new float[m][4];
 
 		// Define arrays based on number of models and number of probability bins
 		// if output dimension is probability
@@ -310,10 +310,10 @@ public class Stats {
 			goodDataCountArray   = new int[m][4][r];    // allocate memory
 			goodDataPercentArray = new float[m][4][r];  // allocate memory
 			aveFloatArray    = new float[m][4][2];      // allocate memory
-			numExpectedFcstsPerScore = new int[m];   
-			numExpectedScores = new int[m]; // For most scores (except reliability) only use total category 
+			numExpectedFcstsPerScore = new int[m];
+			numExpectedScores = new int[m]; // For most scores (except reliability) only use total category
 		}
-		
+
 		//////////////////////////////////////////////////////////////////
 		// For each forecast source:
 		//   - Retrieve # expected dates and locations.
@@ -325,74 +325,74 @@ public class Stats {
 			// Get # expected dates. If the source ends with "manual", don't count weekend forecasts as missing
 			if ( settingsObj.getFcstType().compareToIgnoreCase("extendedRange") == 0 && fcstSourceArray[k].matches("(.*_manual|manual)$")) {
 				logger.trace("Only using # of weekdays for # expected dates to calculate % good scores (case fcstType='extendedRange' and fcstSource is manual or a tool ran off the manual (_manual).'");
-				numExpectedDates[k] = dataObj.getNumWeekdays(); 	
-			} 	
+				numExpectedDates[k] = dataObj.getNumWeekdays();
+			}
 			// else Get # expected dates for all other situations from the data object
 			else {
 				logger.trace("Number of expected dates uses all days (weekends and weekdays)");
 				numExpectedDates[k] = dataObj.getNumUniqueFcstDates();
 			}
 			// Get # expected locations. If station, use reference table
-			// NOTE: Melissa is going to assume to always use the reference table in the situation of spatialType = station. 
+			// NOTE: Melissa is going to assume to always use the reference table in the situation of spatialType = station.
 			if ( settingsObj.getSpatialType().compareToIgnoreCase("station") == 0) {
 				numExpectedLocations[k] = dataObj.getNumExpectedLocations(fcstSourceArray[k],settingsObj.getFcstType(),settingsObj.getVariable(),settingsObj.getSpatialType(),settingsObj.getRefDBName());
 			}
 			// else get # expected locations for non-stations (ie. gridded). This is used instead of a Data.java get method
 			// because much of the location data is retrieved not based on returned data but purely from settings
-			// looking at look up reference tables. 
+			// looking at look up reference tables.
 			else {
-				numExpectedLocations[k] = numLocationsInData; 
+				numExpectedLocations[k] = numLocationsInData;
 			}
 			logger.debug("num expected dates: " + numExpectedDates[k] + " for model " + k);
 			logger.debug("num expected locations: " + numExpectedLocations[k] + " for model " + k);
 		}
-		
+
 		// Determine number of expected forecasts (used to calc percentage of valid data for each point
 		// for score types other than reliability) that go into a score value (numExpectedFcstsPerScore)
 		// and number of expected scores (used to calc % of valid qced scores over dates/location), which is the total # of scores
-		// expected by the end of processing. 
+		// expected by the end of processing.
 		// numExpectedScores is the # of total scores expected
 		// numExpectedFcstsPerScore is for each reference array value (ie. if time is outputDimension, # of dates of scores expected at the end of processing)
-		
-		
-				
-		// For reliability calculate numExpefctedDataPairsReliability. for total category it is num dates * num locations * 3 where 
-		// num dates and num locations uses the logic above. 
+
+
+
+		// For reliability calculate numExpefctedDataPairsReliability. for total category it is num dates * num locations * 3 where
+		// num dates and num locations uses the logic above.
 		// for separate category the qc method just use this value/3.
 		// Only the total is actually used
 		for (int k=0; k<fcstSourceArray.length; k++) {
 			// Get num expected data pairs for each fcst source and cat [fcstSource][total,B,N,A]
 			if (settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
-				
+
 				// Get numExpectedDataPairsReliability for separate categories (this would be used to assess each seprate category of data in the 'separate' category case)
 				// or specified category (ie. above_normal) but this would typically not be used because data is required to all have the same # good data pairs for each category
 				// If 'noEC' subtract # found EC values
 				if (ecType.compareToIgnoreCase("noEC") == 0) {
-					float numEC = 0; 
+					float numEC = 0;
 					// Since EC data points would be for each ref point need to sum over all ref points to get total
 					for (int i=0;i<numDataByCategory[0].length;i++) {
 						numEC = numEC + numDataByCategory[k][i][3];
 					}
 					logger.trace("Total # EC points across date and location : " + numEC);
-					// Get numExpectedDataPairsReliability for total category (# dates * # locations * 3 (total category) 
+					// Get numExpectedDataPairsReliability for total category (# dates * # locations * 3 (total category)
 					numExpectedDataPairsReliability[k][0] = ((numExpectedDates[k] * numExpectedLocations[k]) - (int) Math.round(numEC)) * 3;
 					numExpectedDataPairsReliability[k][1] = (numExpectedDates[k] * numExpectedLocations[k]) - (int) Math.round(numEC);
 					numExpectedDataPairsReliability[k][2] = (numExpectedDates[k] * numExpectedLocations[k]) - (int) Math.round(numEC);
 					numExpectedDataPairsReliability[k][3] = (numExpectedDates[k] * numExpectedLocations[k]) - (int) Math.round(numEC);
 					logger.trace("For fcst source " + fcstSourceArray[k]);
-					logger.trace("For each of total cats (same for each) # expected data pairs = ((# expected dates * # expected locations) - # EC fcsts : " + numExpectedDataPairsReliability[k][0] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") - " + (int) Math.round(numEC) + ") * 3");	
-					logger.trace("For each of separate cats (same for each) # expected data pairs = (# expected dates * # expected locations) - # EC fcsts : " + numExpectedDataPairsReliability[k][1] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") - " + (int) Math.round(numEC));			
+					logger.trace("For each of total cats (same for each) # expected data pairs = ((# expected dates * # expected locations) - # EC fcsts : " + numExpectedDataPairsReliability[k][0] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") - " + (int) Math.round(numEC) + ") * 3");
+					logger.trace("For each of separate cats (same for each) # expected data pairs = (# expected dates * # expected locations) - # EC fcsts : " + numExpectedDataPairsReliability[k][1] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") - " + (int) Math.round(numEC));
 				}
 				// If 'withEC' just multiply # expected dates * # expected locations
 				else if (ecType.compareToIgnoreCase("withEC") == 0) {
-					// Get numExpectedDataPairsReliability for total category (# dates * # locations * 3 (total category) 
+					// Get numExpectedDataPairsReliability for total category (# dates * # locations * 3 (total category)
 					numExpectedDataPairsReliability[k][0] = numExpectedDates[k] * numExpectedLocations[k] * 3;
 					numExpectedDataPairsReliability[k][1] = numExpectedDates[k] * numExpectedLocations[k];
 					numExpectedDataPairsReliability[k][2] = numExpectedDates[k] * numExpectedLocations[k];
-					numExpectedDataPairsReliability[k][3] = numExpectedDates[k] * numExpectedLocations[k];	
+					numExpectedDataPairsReliability[k][3] = numExpectedDates[k] * numExpectedLocations[k];
 					logger.trace("For fcst source " + fcstSourceArray[k]);
-					logger.trace("For each of total cats (same for each) # expected data pairs = (# expected dates * # expected locations) * 3: " + numExpectedDataPairsReliability[k][0] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") * 3");	
-					logger.trace("For each of separate cats (same for each) # expected data pairs = # expected dates * # expected locations : " + numExpectedDataPairsReliability[k][1] + " = " + numExpectedDates[k] + " * " + numExpectedLocations[k]);	
+					logger.trace("For each of total cats (same for each) # expected data pairs = (# expected dates * # expected locations) * 3: " + numExpectedDataPairsReliability[k][0] + " = (" + numExpectedDates[k] + " * " + numExpectedLocations[k] + ") * 3");
+					logger.trace("For each of separate cats (same for each) # expected data pairs = # expected dates * # expected locations : " + numExpectedDataPairsReliability[k][1] + " = " + numExpectedDates[k] + " * " + numExpectedLocations[k]);
 				}
 				// Else not a valid ecType option
 				else {
@@ -403,13 +403,13 @@ public class Stats {
 			}
 			// For all other scores that are not reliability, the numExpectedFcstsPerScore should be in the opposite dimension that outputDimension
 			else {
-				// If dimension is space, # expected forecasts per score should be # dates of forecasts that make up score 
+				// If dimension is space, # expected forecasts per score should be # dates of forecasts that make up score
 				// and # expected scores should be # expected locations
-				if (settingsObj.getOutputDimension().compareToIgnoreCase("space") == 0) {	
+				if (settingsObj.getOutputDimension().compareToIgnoreCase("space") == 0) {
 					numExpectedFcstsPerScore[k] = numExpectedDates[k];
 					numExpectedScores[k]= numExpectedLocations[k];
 				}
-				// If dimension is time, # expected forecasts per score should be # locations that make up score 
+				// If dimension is time, # expected forecasts per score should be # locations that make up score
 				// and # expected scores should be # expected dates
 				else if (settingsObj.getOutputDimension().compareToIgnoreCase("time") == 0) {
 					numExpectedFcstsPerScore[k] = numExpectedLocations[k];
@@ -422,13 +422,13 @@ public class Stats {
 					throw new Exception("Invalid output dimension for score. Unable to perform QC.");
 				}
 				logger.debug("num expected fcsts per score: " + numExpectedFcstsPerScore[k] + " for fcst source " + k);
-				logger.debug("num expected scores: " + numExpectedScores[k] + " for fcst source " + k);		
+				logger.debug("num expected scores: " + numExpectedScores[k] + " for fcst source " + k);
 			} // end if not reliability
 
-			
+
 		} // End fcst source loop
 		// Calculate score section
-		///////////////////////////////////////////// 
+		/////////////////////////////////////////////
 		// Loop over each model and extract time and location info and put into a temporary array one dimension smaller
 		for (int k=0; k<m; k++) {
 			// QC method is called for each day or location and returns a 1-d array (2 values)
@@ -446,7 +446,7 @@ public class Stats {
 					}
 				}
 			}
-			
+
 			// Calculate score over time and space together for scores that have probability
 			// as the output dimension, for example reliability scores.
 			// goodDataCountArray dims are [model][category][probability bin]
@@ -465,10 +465,10 @@ public class Stats {
 			}
 			else {  // For non-probability dimension scores
 				// Calculate score for the 2nd dimension (time or space depending on how arrays were loaded at the beginning of this method using the outputDimension)
-					
+
 				// For cat 2-D, arrays are broken down into 1-D arrays 1 day or location at a time
 				// For prob 3-D, arrays are broken down into 2-D arrays 1 day or location at a time
-				for (int i=0; i<r; i++) { 
+				for (int i=0; i<r; i++) {
 					for (int j=0; j<c; j++) { // For each of reference points
 						fcstCat1d[j] = fcstCat2d[i][j];
 						obsCat1d[j] = obsCat2d[i][j];
@@ -490,7 +490,7 @@ public class Stats {
 						// use dry station correction for heidke if applicable
 						else if (ecType.compareToIgnoreCase("noEC") == 0 && settingsObj.getDryLocationCorrection() ) {
 							tmpScore=StatsLibrary.calcHeidkeNoEcDryLocationCorrection(fcstCat1d, obsCat1d, percentDry1d);
-						}	
+						}
 						else if (ecType.compareToIgnoreCase("withEC") == 0) {
 							tmpScore=StatsLibrary.calcHeidkeWithEc(fcstCat1d, obsCat1d);
 						}
@@ -536,7 +536,7 @@ public class Stats {
 					goodDataCountArray[k][0][i] = (int) tmpStats[0][0];  // count for all cats
 					goodDataPercentArray[k][0][i] = tmpStats[0][1];      // percent for all cats
 					logger.trace("For total category model " + k + " Percent good data is : " + goodDataPercentArray[k][0][i]);
-					
+
 					// Get good data counts and percents for scores except RPSS
 					if (!(settingsObj.getScoreType().compareToIgnoreCase("rpss") == 0)) {
 						goodDataCountArray[k][1][i] = (int) tmpStats[1][0];  // count for B
@@ -561,20 +561,20 @@ public class Stats {
 				} // end for i loop for 1-d calculations
 			} // end else loop for both non-probability output dimension based stats
 		} // end k loop over models
-		
+
 		//for (int k=0; k<m; k++) {
 		//	for (int i=0; i<goodDataCountArray(0).length;i++) {
 		//		logger.trace("cat " + k + ", Num good data for each output dim " + goodDataCountArray[k] );
 		//	}
 		//}
-		
+
 		logger.debug("Rounding all arrays...");
 
 		//////////////////////////////////////////////////////////////////////////////
 		////// QC 1 Section - QC Each Score for Quality of Data //////////////////////
 		///////(valid non-NaN fcst-obs, or fcst-obs-dryStation data pairs) ///////////
 		//////////////////////////////////////////////////////////////////////////////
-		
+
 		// Round score array
 		if (settingsObj.getScoreType().compareToIgnoreCase("heidke") == 0 || settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
 			scoreCatFloatArray = FormatLibrary.roundToDecimal(scoreCatFloatArray,2);
@@ -592,26 +592,26 @@ public class Stats {
 			scoreCatFloatArray = QCLibrary.removeScoresWithLowQuality(settingsObj, this, dataObj);
 		}
 
-		// For reliability, there is no qc for individual scores (bins) - it is done on all bins together in one QC (QC 2) below  
+		// For reliability, there is no qc for individual scores (bins) - it is done on all bins together in one QC (QC 2) below
 		if (settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
 			// Round average forecast probability array (only exists for reliability diagram)
 			aveFcstProbArray = FormatLibrary.roundToDecimal(aveFcstProbArray,2);
 		}
-	
+
 		////// QC 2 Section - QC Over All Scores ////////////////////////
 		// QC all scores as a whole for all score data
 		/////////////////////////////////////////////////////////////////////
-		// For reliability 
+		// For reliability
 		// calculate % of good fcst-obs data pairs (over time, space, and category) for reliability
 		//  Remove all scores for all probability bins for all categories (total,B,N, or A)
 		// if the total category did not pass QC
-		// that did not pass the threshold score 
+		// that did not pass the threshold score
 		if (settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
 			float[][] goodDataCountArray2d = new float[m][4]; // [fcst source] [category total,b,n,a]
-			
+
 			// Count total count of good data pairs over all probability bins [model][category], use the goodDataCountArray to transform to 2-d
-			// For each model and category, add # good data pairs from all the probability bin			
-			
+			// For each model and category, add # good data pairs from all the probability bin
+
 			for (int i=0; i< goodDataCountArray.length; i++) { // each model
 				for (int j=0; j< goodDataCountArray[0].length; j++) { // each cat
 					for (int k=0; k< goodDataCountArray[0][0].length; k++) { // each bin
@@ -622,17 +622,17 @@ public class Stats {
 							goodDataCountArray2d[i][j] = (float) goodDataCountArray2d[i][j] + goodDataCountArray[i][j][k];
 						}
 					}
-				logger.trace("For model index " + i + " category index " + j + " # good data is " + goodDataCountArray2d[i][j]);			
+				logger.trace("For model index " + i + " category index " + j + " # good data is " + goodDataCountArray2d[i][j]);
 				}
 
 			}
-			
-			// For each model 
-			// Put # and % good data pairs for total. Separate cats would have same values for counts and % since 
+
+			// For each model
+			// Put # and % good data pairs for total. Separate cats would have same values for counts and % since
 			// as each other because of data processing. Only assessing based on total but values are included in separate cats anyways even though not
 			// expected to be used.
 			for (int i=0; i<m; i++) {
-				// Total count and %  
+				// Total count and %
 				// This is not really the count of scores, really count of data points (fcst-obs pairs)
 				goodScoreCountArray[i][0] = (int) goodDataCountArray2d[i][0]; // count all cats
 				goodScorePercentArray[i][0] = goodDataCountArray2d[i][0]/numExpectedDataPairsReliability[i][0]  * 100;  // percent for all cats
@@ -652,7 +652,7 @@ public class Stats {
 		else {
 			float[][][] tmpStats = new float[m][4][2]; // temp array for count and percent by category per model
 			// tmpStats includes both the good score count and percent (3rd dimension)
-                	tmpStats=QCLibrary.getCountGoodScores(scoreCatFloatArray, numExpectedScores);
+                	tmpStats=QCLibrary.getCountGoodScores(scoreCatFloatArray, numExpectedScores, settingsObj);
 			// Create array containing counts and percent of good scores for all cats
 			for (int k=0; k<m; k++) {
 				goodScoreCountArray[k][0] = (int) tmpStats[k][0][0];  // count for all cats
@@ -671,10 +671,10 @@ public class Stats {
 			// Valid for total category only, scores by category left as is.
 			// As a result, plots for total category may be blank, and plots for separate categories
 			// will have all scores that pass qc for that category.
-			// Note, the static plots do total category QC independently. They are 
+			// Note, the static plots do total category QC independently. They are
 			// set up to not create any plots if the number of scores is too low by reading the
 			// percent of good scores printed in the ascii file heading.
-			scoreCatFloatArray = QCLibrary.removeAllScoresIfBelowQCThreshold(scoreCatFloatArray,goodScorePercentArray,scoreType);		
+			scoreCatFloatArray = QCLibrary.removeAllScoresIfBelowQCThreshold(scoreCatFloatArray,goodScorePercentArray,scoreType);
 		}
 
 		///////// end score QC section ////////////////////
@@ -919,26 +919,26 @@ i	* The probabilities are based on the total number of forecasts and
         }
 
         /**
-         * Returns the percent of scores that passed quality control (non-reliability) OR the % of good (non-NaN) fcst-obs data pairs (reliability).  Number of expected used in the calculation is based on the # number of forecasts or # dates (# weekdays for ERF manual) for non-reliability scores, or based on # forecasts * # dates (* 3 categories) assessing all the fcst-obs pairs data used in the score calculation for reliability scores. 
-	 * For separate categories for non-reliability scores the percents are 'NaN's since the expected # of good scores are assumed to be unknown. For reliability, values are inserted for separate categories, but they would be the same to each other and total. Total is the only category used in all QC scores assessment. 
-         * Dimensions are [model][category] where category is Total,B,N,A. 
+         * Returns the percent of scores that passed quality control (non-reliability) OR the % of good (non-NaN) fcst-obs data pairs (reliability).  Number of expected used in the calculation is based on the # number of forecasts or # dates (# weekdays for ERF manual) for non-reliability scores, or based on # forecasts * # dates (* 3 categories) assessing all the fcst-obs pairs data used in the score calculation for reliability scores.
+	 * For separate categories for non-reliability scores the percents are 'NaN's since the expected # of good scores are assumed to be unknown. For reliability, values are inserted for separate categories, but they would be the same to each other and total. Total is the only category used in all QC scores assessment.
+         * Dimensions are [model][category] where category is Total,B,N,A.
          *
          * @return    2-d float array of percentage of # good scores to # expected scores  in dimension [fcst Source][total,B,N,A]
          */
         public float[][] getGoodScorePercentArray() {
                 return goodScorePercentArray;
-        }			
+        }
 
-	/**	
+	/**
 	* Returns the number of expected forecasts per score for each model for the total category.
 	* It excludes weekends for ERF for outputDimension of space, otherwise it assumes each day has a forecast
 	* for outputDimensions of space.
-	* For outputDimension of time, it is the number of locations. It assumes all locations have a 
+	* For outputDimension of time, it is the number of locations. It assumes all locations have a
 	* forecast each forecast time.
 	* Not valid for reliability diagram. It is not possible to know the probability for each bin
  	* before the forecast is made.
-	* For separate categories, the number of forecasts for each of the categories is not known before 
-	* the forecast is made. 
+	* For separate categories, the number of forecasts for each of the categories is not known before
+	* the forecast is made.
 	*
 	* @return 1-d int array of number of expected forecasts per score for each model
 	*/
@@ -950,8 +950,8 @@ i	* The probabilities are based on the total number of forecasts and
 	* Returns the number of expected scores for each model for the total category.
 	* It excludes weekends in the number for ERF manual for outputDimension of time, otherwise it assumes each day has a forecast
 	* for outputDimension of time.
-	* For outputDimension of space, it is the number of locations. It assumes all locations have a 
-	* forecast each forecast time. 
+	* For outputDimension of space, it is the number of locations. It assumes all locations have a
+	* forecast each forecast time.
 	*
 	* @return 1-d int array of number of expected scores per model
 	*/
@@ -1183,7 +1183,7 @@ i	* The probabilities are based on the total number of forecasts and
    * @return 1-d float array of probability values associated with probabilistic forecasts.
    */
    public static float
-   
+
    [] getProbabilityBinAxisLabelsExtRange() {
 	   // length must be one longer than the corresponding version of bins
 	   float[] probabilityBinAxisLabels = {0f,.1f,.2f,.33f,.4f,.5f,.6f,.7f,.8f,.9f,1.0f};
@@ -1240,9 +1240,9 @@ i	* The probabilities are based on the total number of forecasts and
 		return TempobsCat2d;
 	}
 
-	
+
     ////////////////////////////////////////
-    // Set methods 
+    // Set methods
     //
 
     /**
@@ -1254,7 +1254,7 @@ i	* The probabilities are based on the total number of forecasts and
 	}
 
     /**
-    * Sets scoreCatFloatArray 
+    * Sets scoreCatFloatArray
     */
 	public void setScoreCatFloatArray(float[][][] scoreCatFloatArray)
 	{
@@ -1292,10 +1292,10 @@ i	* The probabilities are based on the total number of forecasts and
         {
                 this.goodScorePercentArray = goodScorePercentArray;
         }
-		
+
 
     /**
-    * Sets numExpectedFcstsPerScore 
+    * Sets numExpectedFcstsPerScore
     */
         public void setNumExpectedFcstsPerScore(int[] numExpectedFcstsPerScore)
         {
@@ -1357,7 +1357,7 @@ i	* The probabilities are based on the total number of forecasts and
 	{
 		this.probabilityBinLabels = probabilityBinLabels;
 	}
-	
+
 
 } // end Stats class
 

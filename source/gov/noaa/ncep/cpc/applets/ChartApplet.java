@@ -18,6 +18,8 @@ import java.awt.Point;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JApplet;
 import javax.swing.JFileChooser;
@@ -56,7 +58,7 @@ public class ChartApplet extends JApplet {
 	static int runFlag = 0;
 
 	ServiceCallThread serviceCallThread = null;
-	
+
 	/**
 	Default constructor. Gets a reference to the current applet.
 	*/
@@ -129,9 +131,9 @@ public class ChartApplet extends JApplet {
 			plotChartObj.makeChart();
 			// Add the PlotChart object to the top pane (first item to add)
 			getContentPane().add(plotChartObj);
-			
-			
-			
+
+
+
 		  //
 			// "Note:  JavaScript code is treated like unsigned code. When a signed applet is accessed from
 			//  JavaScript code in an HTML page, the applet is executed within the security sandbox. This implies
@@ -143,7 +145,7 @@ public class ChartApplet extends JApplet {
 			//
 	    serviceCallThread = new ServiceCallThread();
 	    serviceCallThread.start();
-	    
+
 		}
 		catch (Exception e) {
 			e.printStackTrace(System.out);
@@ -221,7 +223,7 @@ specifications are separated by a semi-colon.:
 	*/
 
 	public int update(String variable, String fcstSource, String leadTime, String aveWindow, String datesValidType, String datesValid, String regionType, String regions, String spatialType, String outputType, String outputDimension, String scoreType, String categoryType, String ECType) {
-	  
+
 	  // Empty content in the messaging panel for a new run
 		Log.empty("#errorPanelText");
 		//-------------------------------------------------
@@ -239,14 +241,14 @@ specifications are separated by a semi-colon.:
 
 		// Retrieve the Results object
     logger.info("Calling services for results");
-    
+
     //
     // This call will request the serviceCallThread to query the data through
     // the web service. The call will cause the calling thread to wait until it is interrupted or
     // a result is retuned.
     //
     Results resultsObj = serviceCallThread.doQuery(settingsArray);
-    
+
     if (resultsObj == null || resultsObj.getResultType() == Results.RESULT_TYPE_ERROR)
     {
       logger.fatal("Can not run the driver for settings: " + Arrays.toString(settingsArray));
@@ -264,9 +266,9 @@ specifications are separated by a semi-colon.:
 	  plotChartObj.hideChart();
       return 0;
     }
-    
+
     settingsObj = new Settings(settingsArray);
-    
+
 		// Format the data, passing results and settings object
 		xmlString = Format.getFormattedData(resultsObj, settingsObj);
 		// Print out returned string
@@ -293,7 +295,7 @@ specifications are separated by a semi-colon.:
 		}
 
 		// Get score summary (high,low,ave) for each model and category for non reliability score types
-		// Print number of forecasts per bin for reliability diagram. This is temporary until we can 
+		// Print number of forecasts per bin for reliability diagram. This is temporary until we can
 		// plot a histogram.
 		String[][][] scoreSummaryArray;
 		String text = null;
@@ -366,12 +368,15 @@ specifications are separated by a semi-colon.:
 		appletFrames[0].setLocation(new Point(1400,0));
         appletFrames[0].setVisible(true);
 
-//		appletFrames[0].add(plotChartObj);
-
-// 		getContentPane().setLocation(new Point(0,0));
-// 		getContentPane().setLocation(new Point(1400, 0));
-// 			getContentPane().add(plotChartObj);
 		logger.info("End of applet update method");
+
+		//------------------------------------------------------------------------------------------
+		// Append all warning messages from the results object to the errorPanel
+		//
+		for (String msg : resultsObj.getWarningMessages())
+		{
+			Log.warning(msg,"#errorPanelText");
+		}
 		return 1;
 	}
 

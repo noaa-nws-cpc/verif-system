@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -338,6 +339,9 @@ specifications are separated by a semi-colon.:
         // Populate results
         results.setResultType(Results.RESULT_TYPE_SUCCESS);
         results.setErrorMessage("No Error");
+        String[] tempArray = new String[Globals.warningMessages.size()];
+		tempArray = Globals.warningMessages.toArray(tempArray);
+        results.setWarningMessages(tempArray);
         results.setStats(statsObj);
         results.setFormattedReferenceDatesArray(dataObj.getFormattedReferenceDatesArray());
         results.setLocationLatArray(dataObj.getLocationLatArray());

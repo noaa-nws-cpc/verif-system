@@ -2,6 +2,7 @@ package gov.noaa.ncep.cpc.qc;
 
 // Import needed packages
 import gov.noaa.ncep.cpc.format.FormatLibrary;
+import gov.noaa.ncep.cpc.driver.Globals;
 import netscape.javascript.JSObject;
 
 import org.apache.log4j.Logger;
@@ -89,6 +90,18 @@ public class Log {
 		catch (Exception e) {
 		}
  	} // End method warning()
+
+    /**
+    Overloaded version of the warning method that simply appends the given warning to list of
+    warning strings which will get appended to the errorPanel later on by the driver. The warning
+    strings are stored in the public Globals class.
+    @param warningStr  String of warning message.
+    */
+    public static void warning(String warningStr) {
+        logger.trace("web logging level WARNING being called");
+        // Append this string to a list of strings in the warning message
+        Globals.warningMessages.add(warningStr);
+    }
 
 	/**
 	Passes an error in String (HTML) format as well as the div to pass to in a web GUI,
