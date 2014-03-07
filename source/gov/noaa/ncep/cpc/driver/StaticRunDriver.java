@@ -76,6 +76,7 @@ public class StaticRunDriver {
 	<li>Closes the connection to the database
 	*/
 	public StaticRunDriver() throws Exception {
+		boolean webFlag = false; // Sets flag specifying that run-time is not initiated by web services.
 		String fileName = null;
 		// Load MySQL settings from a configuration file (this file resides on the
 		// actual filesystem, since this is being run on the command line
@@ -146,7 +147,7 @@ public class StaticRunDriver {
 
 
 			try {
-				driverObj.runDriver(settings);
+				driverObj.runDriver(settings,webFlag);
 			} catch (Exception e) {
 				logger.fatal("Can not run the driver for settings: " + Arrays.toString(settings));
 				Log.fatal("Can not run the driver","#errorPanelText");

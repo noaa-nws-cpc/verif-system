@@ -283,6 +283,7 @@ public class Data {
 		String outputDimension      = settingsObj.getOutputDimension();
 		String fcstType             = settingsObj.getFcstType();
 		String leadTimeUnit         = settingsObj.getLeadTimeUnit();
+		boolean webFlag		    = settingsObj.getWebFlag();
 		// Get the names of the databases
 		String fcstDBName = settingsObj.getFcstDBName();
 		String obsDBName  = settingsObj.getObsDBName();
@@ -439,12 +440,7 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				// For climate divisions, use the 'id' column, otherwise use the regionType
-				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-					whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
-				} else {
-					whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-				}
+				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 			} // End if selectSeasonalSignal
 			// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 			else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -465,24 +461,13 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				// For climate divisions, use the 'id' column, otherwise use the regionType
-				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-					whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
-				} else {
-					whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-				}
+				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 				logger.debug("signalConditionStr is " + signalConditionStr + " whereClauseStr is " + whereClauseStr + " datesValidType is " + datesValidType);
 			} // End if selectSeasonalSignal
 			// If datesValidType is not "selectSeasonalSignal", then we just
 			// need the WHERE clause to include the date and id filters
 			else {
-				// For climate divisions, use the 'id' column, otherwise use the regionType
-				logger.debug("REGIONTYPE = " + regionType);
-				if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-					whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
-				} else {
-					whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-				}
+				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 			}
 
 			//-----------------------------------------------------------
@@ -503,17 +488,24 @@ public class Data {
 			logger.debug("Retrieved results");
 
 			//-----------------------------------------------------------------
-			// Get the number of rows and halt the VWT if there are too many.
+			// Get the number of rows and halt the VWT if there are too many 
+			// ONLY IF IT IS INITIATED BY WEB SERVICES.
 			// This is because too many rows will make the applet run out of
 			// memory on the client or time out.
 			//
 			int numRows = Database.getNumRSRows(fcstResultSet);
 			logger.info("NUMROWS = "+numRows);
-			if (numRows > MAX_NUM_ROWS) {
-				logger.fatal("The forecast ResultSet contains "+numRows+" rows, which is greater than the maximum allowed number of rows ("+MAX_NUM_ROWS+")");
-				throw new Exception("The current selection contains too much data to verify. Please limit the number of dates or locations selected.");
+			logger.info("webflag is : " + webFlag);
+			if (webFlag == true) {
+				logger.info("Web flag is : " + webFlag + ", so will check to see if the number of rows of data exceeds allowable (" + numRows + ")");
+				if (numRows > MAX_NUM_ROWS) {
+					logger.fatal("The forecast ResultSet contains "+numRows+" rows, which is greater than the maximum allowed number of rows ("+MAX_NUM_ROWS+")");
+					throw new Exception("The current selection contains too much data to verify. Please limit the number of dates or locations selected.");
+				}
+				else {
+					logger.info("Number of rows of data are allowed. Continue processing...");
+				}
 			}
-
 			// If it is the first fcst source in the loop, save first and last dates to an array
 			if (f==0) {
 				// Get first and last dates from the first forecast dataset
@@ -1055,12 +1047,7 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-				whereClauseStr = signalConditionStr + "' AND locationList.id" + " RLIKE '(" + regionList + ")'";
-			} else {
-				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-			}
+			whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 		} // End if selectSeasonalSignal
 		// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 		else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -1081,22 +1068,12 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-				whereClauseStr = signalConditionStr + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
-			} else {
-				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-			}
+			whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 		} // End if selectSeasonalSignal
 		// If datesValidType is not "selectSeasonalSignal", then we just
 		// need the WHERE clause to include the date and id filters
 		else {
-			// For climate divisions, use the 'id' column, otherwise use the regionType
-			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-				whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
-			} else {
-				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-			}
+			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 		}
 
 		//-----------------------------------------------------------
@@ -1341,13 +1318,7 @@ public class Data {
 		//
 		String whereClauseStr;
 		// For the where clause want all data for climo because it will match to retrieved obs later on
-		// For climate divisions, use the 'id' column, otherwise use the regionType
-		logger.debug("REGIONTYPE = " + regionType);
-		if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-			whereClauseStr = dateFilter + " AND locationList.id" + " RLIKE '(" + regionList + ")'";
-		} else {
-			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
-		}
+		whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
 
 		//-----------------------------------------------------------
 		// Build the ORDER BY organization clauses

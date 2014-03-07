@@ -36,6 +36,7 @@ public class VerificationSystemServices
 
     Date date = new Date();
     results.setTimestamp(date.getTime());
+    boolean webFlag = true; // Sets flag specifying that run-time is initiated by web services.
 
     try {
     	// Load the MySQL driver
@@ -68,7 +69,7 @@ public class VerificationSystemServices
 
         VerificationDriver driverObj = new VerificationDriver();
         driverObj.setDbConnection(dbConnection);
-        driverObj.runDriver(settings);
+        driverObj.runDriver(settings,webFlag);
 
         results = driverObj.getResultsObj();
 

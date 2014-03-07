@@ -44,6 +44,7 @@ public class Settings {
 	private boolean dryLocationCorrection; // Specifies whether precip dry location correction is done 
 	private String homeDir;                // Home directory of the Verification System
 	private String ECType;                 // Existence of equal chances in the forecasts. Either non equal chances forecasts only or all forecasts
+	private boolean webFlag;		// Boolean of whether web services is or is not initiating run-time.
 	private String settingsMethod;         // Method of passing settings to driver
 	private String[] settingsArray;        // Array storing all settings
 	private String[] dateStringArray;      // String array of dates in verification period
@@ -602,6 +603,13 @@ scores by categories B,N,A, in that order.
 	}
     return name;
     }
+
+	/**
+	Returns the boolean value for the web flag. 'true' is returned if web services is initiating run-time, 'false' for not web services initiation.
+	*/
+	public boolean getWebFlag() {
+		return webFlag;
+	}
     
 	///// End get methods
 
@@ -888,6 +896,13 @@ Sets rference date string array
 		dateStringArray = referenceDateString;
 	}
 
+	/**
+	Sets the boolean value for the web flag. 'true' is returned if web services is initiating run-time, 'false' for not web services initiation.
+	*/
+	public void setWebFlag(boolean webFlag) {
+		this.webFlag = webFlag;
+	}
+
     ///// End set methods
 
 	/**
@@ -910,6 +925,7 @@ Sets rference date string array
 		logger.trace(" outputDimension | " + outputDimension);
 		logger.trace(" scoreType    | " + scoreType);
 		logger.trace(" categoryType | " + categoryType);
+		logger.trace(" ECType | " + ECType);
 		logger.trace("---------------------------");
 	}
 

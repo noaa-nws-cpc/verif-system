@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -73,74 +72,13 @@ Main engine of driver. Accepts settings parameters, and performs major back-end 
 <li> Creates a Format object. Uses the calculated score(s) and Settings object information to format the output statistics data appropriately for the scoreType and outputType.
 </ul>
 <p>
-@param settingsArray an array of String values of settings parameters
+@param settingsArray an array of String values of settings parameters. See settings object for details.
+@param webFlag Boolean value of 'true' if web services is initating the run-time, 'false' if web services is not initiating run-time.
 <p>
-The settings array should contain the following parameters in order :
-<p>
-<ul>
-<li> variable   -      Variable to perform verification for. (ie. temp, precip...)
-<li> fcstSources   -    List of forecast sources separated by commas. Logic downstream will separate these forecast sources appropriately. (ie. fcstSources = "manual, auto")
-<li> leadTime     -    Time to the center of the valid period. Format is ${numSpan}${unit}, where ${numSpan} is the number representing the lead time according to the following ${unit} unit of time. ${unit} can have the values of characters "d" and "m", for days and months, respectively. (ie. "05d" is a lead time of 5 days)
-<li> aveWindow   -     Width of valid period. Format is ${numSpan}${unit}, where ${numSpan} is the number of time units (according to type ${unit}) that the verification is over. ${unit} can have the values of characters "d" and "m", for days and months, respectively. (ie. "05d" is a valid period of 5 days)
-<li> datesValidType - Type of way to filter the data to verify for. Current available ways to filter:<br>
-<table border="1">
-<th>
-Filter method
-</th>
-<th>value of datesValidType
-<tr>
-	<td>Days in a range:</td>
-	<td>dateRange</td>
-</tr>
-<tr>
-	<td>Select months for all years:</td>
-	<td>selectMonths</td>
-</tr>
-<tr>
-	<td>Select months and select years:</td>
-	<td>selectMonthsYears</td>
-</tr>
-</table>
-<li> datesValid - Formatted string of date information representing how to filter the data to verify for as specified by datesValidType. These datesValid values applies to the valid date of forecast data. The format allows for multiple combined ways to filter.
-The set within one type of filtering is comma delimited, the different sets of filtering
-specifications are separated by a semi-colon.:
-<table border="1">
-<th>Verify forecasts valid for</th>
-<th>value of datesValidType</th>
-<th>value of datesValid</th>
-<tr>
-	<td>Days between 20090101 and 20090620</td>
-	<td>dateRange</td>
-	<td>20090101,20090620</td>
-</tr>
-<tr>
-	<td>January and July months for all years:</td>
-	<td>selectMonths</td>
-	<td>01,07</td>
-</tr>
-<tr>
-	<td>January and July months that are in the years 2000,2005,2010</td>
-	<td>selectMonthsYears</td>
-	<td>01,07;2000,2005,2010</td>
-</tr>
-</table>
-<li> regionType  -     Type of regional division to use for verification calculations. ie. regional climate centers, states, stations, etc. (ie. Regional climate centers, states...)
-<li> regions     -     Particular region(s) to perform verification for. (ie. Northeast, Midwest, New York, Maryland...)
-<li> spatialType  -    Type of storage of each data point. The datasets of forecasts and/or observations are made up of different types of ways that the data represents. (ie. station, gridded, climate division, etc.)
-<li> outputType   -    Method of displaying and/or producing output for a score. This is the representational format of the output data produced by the verification software. (ie. chart, map, table, etc.)
-<li> outputDimension - Dimension that the output represents. It would be the reference dimension that each of the score values represent. Examples of outputput dimension:
-<br>space - scores representing spatial points, ie. on a map
-<br>time - scores representing dates, ie. on a timeseries chart
-<br>probability - scores representing probability values, ie. reliability scores, where the scores represent an interval of probabilities of a forecast category
-<li> scoreType    -    Type of verification score to calculate. (ie. heidke, RPSS, etc)
-<li> categoryType  -   How to plot scores for the categories. (ie. all categories together or separately)
-</ul>
-<p>
-<b>Developer Notes </b>
-- Further cleaning and arranging can be done regarding the formatted output and how the output is created and returned.
+Notes:<p>
 - The String representing the Java SimpleDateFormat of the dates of the date issued of forecast data in the database is set in runDriver() to 'yyyy-MM-dd'. This assumes that all the dates in the database utilize this format. This is typically true because MySQL requires this format.
 */
-	public void runDriver(String[] settingsArray) throws Exception {
+	public void runDriver(String[] settingsArray, boolean webFlag) throws Exception {
 
 		// Initialize variables
 		String scoreValues [][];
@@ -151,6 +89,8 @@ specifications are separated by a semi-colon.:
 		logger.info("Creating a new Settings object...");
 		// Create a new Settings object with the settingsArray
 		settingsObj = new Settings(settingsArray);
+		// Set web flag
+		settingsObj.setWebFlag(webFlag); 
 		// Set the home directory in the settings object. This is the root path
 		// obtained by a global environment variable.
 		// By default the home variable is set to null.
@@ -339,9 +279,6 @@ specifications are separated by a semi-colon.:
         // Populate results
         results.setResultType(Results.RESULT_TYPE_SUCCESS);
         results.setErrorMessage("No Error");
-        String[] tempArray = new String[Globals.warningMessages.size()];
-		tempArray = Globals.warningMessages.toArray(tempArray);
-        results.setWarningMessages(tempArray);
         results.setStats(statsObj);
         results.setFormattedReferenceDatesArray(dataObj.getFormattedReferenceDatesArray());
         results.setLocationLatArray(dataObj.getLocationLatArray());
@@ -372,6 +309,7 @@ specifications are separated by a semi-colon.:
 	// element tag that specifies a new set of settings
 		String settingsSeparator = "settings";
 		Connection dbConnection = null;
+		boolean webFlag = false; // Set web flag to false if this class is ran, then not web services.
 
 		// Load MySQL settings from a configuration file
 		Wini ini = null;
@@ -429,7 +367,7 @@ specifications are separated by a semi-colon.:
 		driverObj.setDbConnection(dbConnection);
 		logger.info("Completed making database connection");
 		try {
-			driverObj.runDriver(settingsArray[0]);
+			driverObj.runDriver(settingsArray[0],webFlag);
 		} catch (Exception e) {
 			logger.fatal("Driver run failed: " + e);
 			Log.fatal("Driver run failed","#errorPanelText");
