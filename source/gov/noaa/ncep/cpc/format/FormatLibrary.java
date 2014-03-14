@@ -216,7 +216,7 @@ public class FormatLibrary {
 		try {
 			// Create a chart object
 			Chart chart = new Chart(chartDataName,probabilityBinAxisLabelsStringArray,aveFcstProbStringArray,scoreCatStringArray,fcstSourceArray,categoryType,scoreType);
-						// Call XML creator to create formatted XML for JClass
+			// Call XML creator to create formatted XML for JClass
 			XMLCreator xce = new XMLCreator(chart);
 			// Perform function of creating the XML, pass argument for type of XML output
 			// to format for ie., xce.createXML("chart"); will format for JClass chart
@@ -256,7 +256,6 @@ public class FormatLibrary {
 		// Get score String
 		String[][][] scoreCatStringArray = resultsObj.getStats().getScoreCatStringArray();
 		String categoryType = settingsObj.getCategoryType();
-
 		// Get first model of score data since spatial can only plot one set of model data for a display.
 		// Get the score data for the category to be verified (first dimension of the first index
 		// corresponds to the first and only model)
@@ -685,12 +684,12 @@ because method accepts and returns a float.
 		}
 		try {
 			// If category type is 'separate' or 'total' use the term 'Cats' in file name
-			if ((settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0)) {
-				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + categoryType + "Cats" + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
+			if ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("total") == 0)) {
+				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
 			}
 			// Else (ie individual categories) use the term 'Cat' in file name
 			else {
-			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + categoryType + "Cat" + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
+			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
 			 }
 		} catch (Exception e) {
 			logger.fatal("Cannot get the image file name");
@@ -781,12 +780,12 @@ because method accepts and returns a float.
 		}
 		try {
 			// If category type is 'separate' or 'total' use the term 'Cats' in file name
-			if ((settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0)) {
-				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + categoryType + "Cats" + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
+			if ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("total") == 0)) {
+				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
 			}
 			// Else (ie individual categories) use the term 'Cat' in file name
 			else {
-			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + categoryType + "Cat" + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
+			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
 			 }
 			// 
 		} catch (Exception e) {
@@ -889,5 +888,34 @@ because method accepts and returns a float.
 		uniqueArray = (String[]) uniqueList.toArray(new String[0]);
 		return uniqueArray;
 	}
+
+	public static String getOrdinalFor(double valueDouble) {
+		if (valueDouble-(int)valueDouble!=0) {
+			return "";
+		}
+		else
+		{
+			logger.trace("In getOrdinalFor " + valueDouble);
+			int value = (int) Math.ceil(valueDouble);
+			logger.trace("value is " + value);
+	 		int hundredRemainder = value % 100;
+		 	int tenRemainder = value % 10;
+			logger.trace("hundredRemainder is " + hundredRemainder);
+	 		if(hundredRemainder - tenRemainder == 10) {
+	  			return "th";
+		 	}
+	 
+	 		switch (tenRemainder) {
+	  			case 1:
+	   				return "st";
+		  		case 2:
+			   		return "nd";
+	  			case 3:
+	   				return "rd";
+			  	default:
+	   				return "th";
+	 		}
+		}
+	} 
 
 }  // end formatLibrary class

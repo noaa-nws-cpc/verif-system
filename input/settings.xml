@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <data>
 <settings>
-	<variable>precip</variable>
-	<fcstSources>reforecastCalibratedProb0_gfsensm_00z,reforecastCalibratedProb1_gfsensm_00z,reforecastCalibratedProb2_gfsensm_00z,reforecastCalibratedProb3_gfsensm_00z,reforecastCalibratedProb4_gfsensm_00z,reforecastCalibratedProb5_gfsensm_00z</fcstSources>
-	<leadTime>11d</leadTime>
-	<aveWindow>07d</aveWindow>
-	<datesValidType>selectMonths</datesValidType>
-	<datesValid>12,01,02</datesValid>
+	<variable>tmax</variable>
+	<fcstSources>manual,rfcstCalProbPtile10and90_gfsensm_00z</fcstSources>
+	<leadTime>08d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>dateRange</datesValidType>
+	<datesValid>20120201,20120510</datesValid>
 	<regionType>climateRegion</regionType>
 	<regions>All</regions>
-	<spatialType>station</spatialType>
-	<outputType>ascii</outputType>
-	<outputDimension>probability</outputDimension>
-	<scoreType>reliability</scoreType>
-	<categoryType>total</categoryType>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>time</outputDimension>
+	<scoreType>heidke</scoreType>
+	<categoryType>separate</categoryType>
 	<ECType>default</ECType>
 </settings>
 </data>

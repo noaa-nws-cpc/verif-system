@@ -7,6 +7,7 @@ import gov.noaa.ncep.cpc.format.FormatLibrary;
 import gov.noaa.ncep.cpc.qc.Log;
 import gov.noaa.ncep.cpc.services.Results;
 import gov.noaa.ncep.cpc.settings.Settings;
+import gov.noaa.ncep.cpc.settings.SettingsHashLibrary;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -806,84 +807,22 @@ public class PlotChart extends JPanel {
 			xAxisLabel = "Forecast Probability";
 		}
 		logger.debug("xAxisLabel: " + xAxisLabel);
-		// title
+		// Below if statements build parts of the chart title
         	String variable = settingsObj.getVariable();
 		String categoryType = settingsObj.getCategoryType();
 		String leadTime = settingsObj.getLeadTime();
-		String varString = null;
-		if (variable.equals("temp")) {
-			varString = "Temperature ";
-		}
-		else if (variable.equals("precip")) {
-			varString = "Precipitation ";
-		}
-		String fcstTypeString = null;
-		if (leadTime.equals("08d")) {
-			fcstTypeString = "6-10 Day ";
-		}
-		else if (leadTime.equals("11d")) {
-			fcstTypeString = "8-14 Day ";
-		}
-		else if (leadTime.equals("0pt5m")) {
-			fcstTypeString = "Revised Monthly (Lead 0) ";
-		}
-        else if (leadTime.equals("01m")) {
-			fcstTypeString = "Monthly (Lead 0.5) ";
-        }	
-        else if (leadTime.equals("02m")) {
-			fcstTypeString = "Seasonal (Lead 0.5) ";
-		}
-        else if (leadTime.equals("03m")) {
-		    fcstTypeString = "Seasonal (Lead 1.5) ";
-		}
-        else if (leadTime.equals("04m")) {
-		    fcstTypeString = "Seasonal (Lead 2.5) ";
-		}
-		else if (leadTime.equals("05m")) {
-		    fcstTypeString = "Seasonal (Lead 3.5) ";
-		}
-        else if (leadTime.equals("06m")) {
-		    fcstTypeString = "Seasonal (Lead 4.5) ";
-		}
-		else if (leadTime.equals("07m")) {
-		    fcstTypeString = "Seasonal (Lead 5.5) ";
-		}
-        else if (leadTime.equals("08m")) {
-		    fcstTypeString = "Seasonal (Lead 6.5) ";
-		}
-		else if (leadTime.equals("09m")) {
-		    fcstTypeString = "Seasonal (Lead 7.5) ";
-		}
-        else if (leadTime.equals("10m")) {
-			fcstTypeString = "Seasonal (Lead 8.5) ";
-		}
-		else if (leadTime.equals("11m")) {
-	        fcstTypeString = "Seasonal (Lead 9.5) ";
-	    }
-        else if (leadTime.equals("12m")) {
-	        fcstTypeString = "Seasonal (Lead 10.5) ";
-	    }
-	    else if (leadTime.equals("13m")) {
-	        fcstTypeString = "Seasonal (Lead 11.5) ";
-	    }
-		else if (leadTime.equals("14m")) {
-			fcstTypeString = "Seasonal (Lead 12.5) ";
-		}
-		String catString = null;
-		if (categoryType.equals("total")) {
-			catString = "";
-		}
-		else if (categoryType.equals("B")) {
-			catString = "(category B)";
-		}
-        else if (categoryType.equals("N")) {
-            catString = "(category N)";
-        }
-        else if (categoryType.equals("A")) {
-            catString = "(category A)";
-        }
-		else {
-			catString = "(separate categories)";
+		String aveWindow = settingsObj.getAveWindow();
+		String[] forecastSourceArray = settingsObj.getFcstSourceArray();
+		String varString;
+		String timescaleString=null;
+		String catString;
+		varString=SettingsHashLibrary.getSettingsLabel(variable);
+		catString=SettingsHashLibrary.getGenericCategoryLabel(categoryType,forecastSourceArray);
+		try {
+			timescaleString = settingsObj.getTimescale(leadTime,aveWindow);
+			logger.debug("timescale is " + timescaleString);
+		} catch (Exception e) {
+			logger.error("Could not get timescale");
 		}
 		int numDates = xAxisArray.length;
 		String labelTitle;
@@ -895,7 +834,10 @@ public class PlotChart extends JPanel {
 			scoreString = "Reliability Scores";
 		}
 		// Create title string
-		labelTitle = fcstTypeString + varString + scoreString + " " + catString;
+		// ToDo: Convert first letters to uppercase first
+
+		// Create chart label title
+		labelTitle = timescaleString + " " + varString + " " + scoreString + " (" + catString + ")";
 
 		// Fill in the displayLabels array with labels
 		displayLabels[0] = xAxisLabel; // x-axis label

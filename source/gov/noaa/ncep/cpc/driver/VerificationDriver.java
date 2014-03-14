@@ -103,7 +103,6 @@ Notes:<p>
 		// means ECType needs to be set automatically based on the lead/scoreType by setECType()
 		settingsObj.setECType(settingsObj.getECType());
 // 		logger.debug("Settings object memory size = " + MemoryUtil.deepMemoryUsageOf(settingsObj));
-
 		// Check for invalid options in settings (regions are not checked because for states and climate divisions
 		// there are too many to check)
 		try {

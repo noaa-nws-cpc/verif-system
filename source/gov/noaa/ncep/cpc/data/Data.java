@@ -427,7 +427,7 @@ public class Data {
 				signalType = signalInfo[0]; // Get signal type
 				signalValue = signalInfo[1]; // Get signal value
 			        // If signal is either positive or negative then assign query string
-				// ToDo: Can make variable thresholds, and make 3 cats instead of 2
+				// ToDo: Can make variable seasonal signal thresholds, and make 3 cats instead of 2
 			        // If 'positive'
 			        if (signalValue.compareToIgnoreCase("positive") == 0) {
 			               signalConditionStr = signalType + " >=0";

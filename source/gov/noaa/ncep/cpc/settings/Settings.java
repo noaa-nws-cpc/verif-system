@@ -9,6 +9,7 @@ import gov.noaa.ncep.cpc.qc.Log;
 import java.util.Arrays;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.apache.log4j.Logger;
@@ -228,7 +229,7 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	}
 
 	/**
-	Gets the forecast source
+	Returns a list of forecast sources separated by commas.
 
 	@return  The forecast source
 	*/
@@ -243,7 +244,7 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	'0pt5m', table name :temp_off_0pt5m_01m_stn . This would be what is passed in the settings as the lead time.
 	This string passed builds the table name in the database.
 	<br>
-	To get a numeric version of the lead time (without the lead time unit included), you can call the method in this class getLeadTimeValue.
+	To get a numeric version of the lead time (without the lead time unit included), you can call the method in this class getLeadTimeNumberFormat.
 	This would return '0.5' instead of '0pt5m' as this method would.
 	<br>
 	The lead time unit can be retrieved by calling getLeadTimeUnit() in this class as well.
@@ -254,13 +255,26 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	}
 
 	/**
-	Returns the lead time value (includingunit representing time). This should be a String representing a numeric value based on the leadTime. A non-integer value lead, ie. a leadTime of '0pt5m', is converted to a decimal formatted lead time, ie. '0.5m'. 0.5m would be the value returned in this case.
-	@return Lead time value of a numeric value as represented by a String.
+	Returns the lead time value as a String of the numeric value based on the leadTime. This includes the character at the end of the string with the lead time unit. A non-integer value lead, ie. a leadTime of '0pt5m', is converted to a decimal formatted lead time, ie. '0.5m'. 0.5m would be the value returned in this case.
+	@return Lead time value of a numeric value as represented by a String including the character at the end of the string with the time unit.
 	*/
 	public String getLeadTimeNumberFormat() {
 		// Convert a leadTime submitted value to SettingsHashLibrary.convertLeadTime(),
 		// This will convert a value representing a non-integer value with the string 'pt' to a decimal value,
 		String leadTimeConverted = leadTime.replaceAll("pt",".");
+		return leadTimeConverted;
+	}
+
+	/**
+	Returns the numeric portion of the lead time value as a non-zero padded number, with no character representing the lead time unit. ie. '08d' would be returned as '8'.
+	@return Time part without zero pads of the lead time value of a numeric value as represented by a String.
+	*/
+	public String getLeadTimeNumber() {
+		// Convert a leadTime submitted value to SettingsHashLibrary.convertLeadTime(),
+		// This will convert a value representing a non-integer value with the string 'pt' to a decimal value,
+		String leadTimeValue=getLeadTimeNumberFormat();
+		String leadTimeConverted = leadTimeValue.substring(0,leadTimeValue.length()-1);
+		
 		return leadTimeConverted;
 	}
 
@@ -300,6 +314,40 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	}
 
 	/**
+	Returns the numeric portion of the average time window as a String of the numeric value based on the leadTime. This includes the character at the end of the string with the lead time unit. A non-integer value ie. '0pt5m', is converted to a decimal formatted lead time, ie. '0.5m'. 0.5m would be the value returned in this case.
+	@return Lead time value of a numeric value as represented by a String.
+	*/
+	public String getAveWindowNumberFormat() {
+		// Convert a leadTime submitted value to SettingsHashLibrary.convertLeadTime(),
+		// This will convert a value representing a non-integer value with the string 'pt' to a decimal value,
+		String aveWindowConverted = aveWindow.replaceAll("pt",".");
+		return aveWindowConverted;
+	}
+
+	/**
+	Returns the numeric portion of the average window value as a non-zero padded number, with no character representing the average window time unit. ie. '08d' would be returned as '8'.
+	@return Time part without zero pads of the average window value of a numeric value as represented by a String.
+	*/
+	public String getAveWindowNumber() {
+		// Convert a leadTime submitted value to SettingsHashLibrary.convertLeadTime(),
+		// This will convert a value representing a non-integer value with the string 'pt' to a decimal value,
+		String aveWindowValue=getAveWindowNumberFormat();
+		logger.debug("aveWindowValue is " + aveWindowValue);
+		String aveWindowConverted = Integer.toString(Integer.parseInt(aveWindowValue.substring(0,aveWindowValue.length()-1)));
+		return aveWindowConverted;
+	}
+
+	/**
+	Returns the character of the aveWindow as a String value representing the average time window unit.
+	This method assumes it the unit is represented by a single character in the last character of the average time window string.
+	@return String of a single character representing the average time window unit.
+	*/
+	public String getAveWindowTimeUnit() {
+		String aveWindowUnit = aveWindow.substring(aveWindow.length()-1);
+		return aveWindowUnit;
+	}
+
+	/**
 	Gets the EC type, which is set by calling setECType. setECType needs to be called prior to using this method. Typically this occurs in a driver.
 
 	@return  The EC type
@@ -335,6 +383,7 @@ scores by categories B,N,A, in that order.
 	public String getCategoryType() {
 				return categoryType;
 	}
+
 
 	/**
 	Gets the datesValidType.
@@ -610,7 +659,106 @@ scores by categories B,N,A, in that order.
 	public boolean getWebFlag() {
 		return webFlag;
 	}
-    
+ 
+    /**
+    Returns the time scale as a String. Determined by using the aveWindow and leadTime settings.
+	@param String leadTime Lead time of forecast, formatted as a number followed by a character representing the time unit (ie.'08d','0pt5m')
+	@param String aveWindow Average time window, formatted as a number followed by a character representing the time unit (ie.'05d','03m')
+	@return String representing the time scale of the forecast
+    */ 
+    public String getTimescale(String leadTime, String aveWindow) throws Exception
+    {
+    	String timescale = null;
+	String leadTimeFinal = null;
+	logger.trace("Obtaining timescale (ie. for title string)");
+    	// Use toStringArray method in FormatLibrary to parse forecast source name
+	try {
+		// Get numeric value of aveWindow and leadTime
+		String leadTimeUnit=getLeadTimeUnit();
+		double leadTimeNum=Double.parseDouble(getLeadTimeNumber());
+		String aveWindowUnit=getAveWindowTimeUnit();
+		double aveWindowNum=Double.parseDouble(getAveWindowNumber());
+		// If aveWindow is '01d' set to 'Day $leadTime' ie. for leadTime 08d 'Day 8'
+		if (aveWindowUnit.compareToIgnoreCase("d")==0 && aveWindowNum == 1.0){
+			int decimal = (int)((leadTimeNum%1.0)*100);
+			// If it is a whole number, format as integer
+			if (decimal == 0) {
+				int leadTimeInt = (int) leadTimeNum;
+				leadTimeFinal = Integer.toString(leadTimeInt);
+			}
+			// Else leave as a double
+			else {
+				leadTimeFinal = Double.toString(leadTimeNum);
+			}
+			timescale="Day " + leadTimeFinal;
+		}
+		// Else if it is multiple days set as time range ie '6-10 Day'
+		else if (leadTimeUnit.compareToIgnoreCase("d")==0 && aveWindowNum>1.0) {
+			int leadTimeNumInt = (int) leadTimeNum;
+			int aveWindowNumInt = (int) aveWindowNum;
+			// Get first Day
+			int day1 = leadTimeNumInt - (aveWindowNumInt/2);
+			int day2 = leadTimeNumInt+ (aveWindowNumInt/2);
+			timescale=day1 + "-" + day2 + " Day";
+			logger.debug("day range is " + day1 + " to " + day2);
+		}
+		// If it is revised monthly, leadTimeUnit is 'M', leadTimeNum is 0.5, and aveWindowNum=01m
+		else if (leadTimeNum==0.5 && leadTimeUnit.compareToIgnoreCase("m")==0 && aveWindowNum==1.0 && aveWindowUnit.compareToIgnoreCase("m")==0)  {
+			double lead = leadTimeNum - 0.5;
+			int decimal = (int)((lead%1.0)*100);
+			// If it is a whole number, format as integer
+			if (decimal == 0) {
+				int leadTimeInt = (int) lead;
+				leadTimeFinal = Integer.toString(leadTimeInt);
+			}
+			// Else leave as a double
+			else {
+				leadTimeFinal = Double.toString(lead);
+			}
+			timescale="Revised Monthly (Lead " + leadTimeFinal + ")";				
+		} 
+		// Else if it is a monthly forecast (not revised), leadTime >=1 and aveWindow=01m do 'Monthly (lead $Num)'
+		else if (leadTimeNum>=1.0 && leadTimeUnit.compareToIgnoreCase("m")==0 && aveWindowNum==1.0 && aveWindowUnit.compareToIgnoreCase("m")==0) {
+			double lead = leadTimeNum - 0.5;
+			int decimal = (int)((lead%1.0)*100);
+			// If it is a whole number, format as integer
+			if (decimal == 0) {
+				int leadTimeInt = (int) lead;
+				leadTimeFinal = Integer.toString(leadTimeInt);
+			}
+			// Else leave as a double
+			else {
+				leadTimeFinal = Double.toString(lead);
+			}	
+			timescale="Monthly (Lead " + leadTimeFinal + ")";			
+		}
+		// Else if it is Seasonal ie. for lead time >=01m and aveWindow '03m'-> 'Seasonal (Lead 1.5 months)'
+		// Lead calculated by subtracting 1.5 from lead.
+		else if (leadTimeNum>=1.0 && leadTimeUnit.compareToIgnoreCase("m")==0 && aveWindowNum==3.0 && aveWindowUnit.compareToIgnoreCase("m")==0) {
+			double lead = leadTimeNum - 1.5;
+			int decimal = (int)((lead%1.0)*100);
+			// If it is a whole number, format as integer
+			if (decimal == 0) {
+				int leadTimeInt = (int) lead;
+				leadTimeFinal = Integer.toString(leadTimeInt);
+			}
+			// Else leave as a double
+			else {
+				leadTimeFinal = Double.toString(lead);
+			}		
+			timescale="Seasonal (Lead " + leadTimeFinal + " months)";
+		}	
+		// Else not a valid option of leadTime/aveWindow
+		else {
+			throw new Exception("Invalid options to create timescale label");
+		}
+	}
+	catch(Exception e) {
+    		logger.fatal("Could not return the timescale. Make sure the leadTime and aveWindow passed correctly." + e);
+		Log.fatal("Problem building timescale label","#errorPanelText");
+	}
+    return timescale;
+    }   
 	///// End get methods
 
 	/**
@@ -640,6 +788,8 @@ scores by categories B,N,A, in that order.
 	//---------------------------------------------------------------
 	// Set-methods
 	//---------------------------------------------------------------
+
+	
 
 	/**
 	Sets the name of the 5 required databases
@@ -825,7 +975,8 @@ scores by categories B,N,A, in that order.
 	*/
 	public void setCategoryType(String str) {
 				categoryType = str;
-	}
+	}	
+
 
     /**
     Sets the dates valid type

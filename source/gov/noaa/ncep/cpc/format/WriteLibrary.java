@@ -106,10 +106,11 @@ public class WriteLibrary {
 		Stats statsObj = resultsObj.getStats();
 
 		String leadTime = settingsObj.getLeadTime();
+		String categoryType = settingsObj.getCategoryType();
 		String[] referenceArray = null;
 		String header1 = "";
 		String header2 = "";
-		String[] header3;
+		String[] header3 = new String[4];
 		String header4 = "";
 		String[] latArray = null;
 		String[] lonArray = null;
@@ -120,6 +121,11 @@ public class WriteLibrary {
 		String[][][] validDataArray = null;
 		String[][][] numValidDataArray = null;
 		String[][][] pctValidDataArray = null;
+		String[] fcstSourceLength = new String[settingsObj.getFcstSourceArray().length];
+		String categoryLabel;
+		String[] categoryLabelLength = new String[settingsObj.getFcstSourceArray().length];
+		int defaultCategoryLabelLength = 15; // Default length to assign the category label/stats column.
+		//String[] categoryLabels;
 		// Parse the string into Date object
 		Date date;
 
@@ -213,7 +219,7 @@ public class WriteLibrary {
 		str.append(String.format("# Region type of input data: %1$-30s \n", settingsObj.getRegionType()));
 		str.append(String.format("# Regions included in verification: %s \n", settingsObj.getRegions()));
 		str.append(String.format("# Type of spatial formatting of the input data used in verification:  %s \n", settingsObj.getSpatialType()));
-		str.append(String.format("# Category type: %s %s\n", settingsObj.getCategoryType(),"categories"));
+		str.append(String.format("# Category type: %s %s\n", categoryType,"categories"));
 		str.append(String.format("# Output dimension: %s \n", settingsObj.getOutputDimension()));
 		str.append(String.format("# Type of date filtering: %s\n", settingsObj.getDatesValidType()));
 		str.append(String.format("# Date filtering options selected: %s\n", settingsObj.getDatesValid()));
@@ -228,10 +234,10 @@ public class WriteLibrary {
 			// Get the number of good scores for each forecast 
 			goodScoreCountArray = FormatLibrary.toStringArray(statsObj.getGoodScoreCountArray());
 					
-			logger.debug("Category is : " + settingsObj.getCategoryType());
+			logger.debug("Category is : " + categoryType);
 			// Loop through all models for % valid scores
 			for (int i=0; i<fcstSourceArray.length;i++) {
-			
+				
 				// IF RELIABILITY get the count and % good fcst-obs data pairs for each cat 
 				if (settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
 					// Get the percent of good data pairs for each forecast (NaNs for some situations)
@@ -239,83 +245,24 @@ public class WriteLibrary {
 					// Get the number of good data pairs for each forecast 
 					goodScoreCountArray = FormatLibrary.toStringArray(statsObj.getGoodScoreCountArray());
 					
-					// If total categories
-					if (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0) {
-						str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScorePercentArray[i][0]));
-						str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScoreCountArray[i][0]));
-					}
-					// If separate categories
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) {
-						str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast in all score calculations : %s \n", fcstSourceArray[i],goodScorePercentArray[i][0]));	// Show % from total cats, same as individual ones
-						str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast each separate category (each are the same) : %s \n", fcstSourceArray[i],goodScoreCountArray[i][1]));
-						
-					}
-					// If below normal category 
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("B") == 0) {
-						str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScorePercentArray[i][1])); // Show % from total cats, same as individual ones
-						str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s category : : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScoreCountArray[i][1]));
-
-					}
-					// If normal category
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("N") == 0) {
-						str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScorePercentArray[i][2])); // Show % from total cats, same as individual ones
-						str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s category : : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScoreCountArray[i][2]));
-
-					}
-					// If above normal category 
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("A") == 0) {
-						str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScorePercentArray[i][3])); // Show % from total cats, same as individual ones
-						str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s category : : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScoreCountArray[i][3]));
-
-					}
-					// If category doesnt exist, show error
-					else {
-						logger.fatal("Could not write to ASCII file, invalid category type : " + settingsObj.getCategoryType());
-						Log.fatal("Report invalid category type for writing to ASCII file", "#errorPanelText");
-					}
+					// Get category label associated with the forecast source
+					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,fcstSourceArray[i]); 
+					str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s : %s \n", fcstSourceArray[i],categoryLabel,goodScorePercentArray[i][0]));
+					str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s : %s \n", fcstSourceArray[i],categoryLabel,goodScoreCountArray[i][0]));
 				}
+				
 				// If NOT RELIABILITY
 				// For the below goodScorePerecentArray and goodScoreCountArray - both are retrieved, even though in
 				// some situations values could be NaN - formatting logic below this uses one of the two arrays
 				// depending on the scoreType, categoryType, etc.
 				else {
-				
-				
+					// Get category label
+					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,fcstSourceArray[i]);
 					// For each index in the category dimension, write a value
 					// The stats array always has the category values for total,B,N,A.
-					// If total categories selected, write out 0th index from array => Write out # and % valid scores
-					if (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0) {
-						// Write the scores in the 'total' categories index
-						str.append(String.format("# Percent of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScorePercentArray[i][0]));
-						str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],settingsObj.getCategoryType(),goodScoreCountArray[i][0]));
-					}
-					// If separate categories, write out 1st, to last index
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) {
-						// Get labels for categories represented in the array of goodscoredata
-						String[] categoryLabels = FormatLibrary.toStringArray(SettingsHashLibrary.getCategoryLabels(settingsObj.getCategoryType()),",");
-						// Print score counts for each category
-						for (int j=1; j<goodScorePercentArray[0].length; j++) {
-							str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],categoryLabels[j-1],goodScoreCountArray[i][j]));
-						}
-					}
-					// If below normal category only use index k=1
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("B") == 0) {
-						str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],SettingsHashLibrary.getCategoryLabels("B"),goodScoreCountArray[i][1]));
-
-					}
-					// If normal category only use index k=2
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("N") == 0) {
-						str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],SettingsHashLibrary.getCategoryLabels("N"),goodScoreCountArray[i][2]));
-					}
-					// If below normal category only use index k=1
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("A") == 0) {
-						str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],SettingsHashLibrary.getCategoryLabels("A"),goodScoreCountArray[i][3]));
-					}
-					// If category type doesn't exist, error
-					else {
-						logger.fatal("Could not write to ASCII file, invalid category type : " + settingsObj.getCategoryType());
-						Log.fatal("Report invalid category type for writing to ASCII file", "#errorPanelText");
-					}
+					// Write the scores in the 'total' categories index
+					str.append(String.format("# Percent of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],categoryLabel,goodScorePercentArray[i][0]));
+					str.append(String.format("# Number of valid scores for %s forecast %s category : %s \n", fcstSourceArray[i],categoryLabel,goodScoreCountArray[i][0]));
 				} // End non-reliability
 			} // End for loop for fcst sources
 		} // End try
@@ -332,16 +279,15 @@ public class WriteLibrary {
 		header1 = SettingsHashLibrary.getReferenceDimensionLabel(settingsObj.getOutputDimension());
 		// Replace all spaces by underscores for the ascii output for col 1
 		header1 = header1.replace(" ","_");
-		// Get category labels for columns, since its an array, the underscore replacement is done later on in a loop
-		header3 = FormatLibrary.toStringArray(SettingsHashLibrary.getCategoryLabels(settingsObj.getCategoryType()),",");
-		
+
+
 		// WRITE COLUMN HEADER FOR VALID DATA (% or #) AND SET VARIABLE validDataArray TO APPROPRIATE ASSOCIATED DATA TO BE WRITTEN LATER ON 
 		// If output dimension is time or space, then get label for perecent good data
 		// if dimension is probability, then get label for num valid points
 		// Get labels for number of good data points
 		// If total categories use following logic
 		//validDataArray = new String[validDataArrayTemp.length][validDataArrayTemp[0].length][validDataArrayTemp[0][0].length];
-		if (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0) {
+		if (categoryType.compareToIgnoreCase("total") == 0) {
 			if ((settingsObj.getOutputDimension().compareToIgnoreCase("space") == 0) || (settingsObj.getOutputDimension().compareToIgnoreCase("time") == 0)) {
 				header4 = SettingsHashLibrary.getPerecentValidScoresLabel(settingsObj.getOutputDimension());
 				validDataArray = pctValidDataArray;
@@ -356,7 +302,7 @@ public class WriteLibrary {
 			}
 		}
 		// If separate use following logic
-		else if ((settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("B") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("N") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("A") == 0)) {
+		else if ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("B") == 0) || (categoryType.compareToIgnoreCase("N") == 0) || (categoryType.compareToIgnoreCase("A") == 0)) {
 			// For all cases (heidke, brier, reliability, use % valid data
 			if (settingsObj.getScoreType().compareToIgnoreCase("rpss") == 0) {
 				header4 = "N/A"; // In the case of separate RPSS, this header and its associated info should not be written to output
@@ -388,20 +334,92 @@ public class WriteLibrary {
 		}
 		// For each forecast source, create a header for the forecast source and a score header
 		for (int i=0; i<fcstSourceArray.length;i++) {
+			// Get all possible category labels associated with this forecast source i
+			// header3[0] - total cats, header[1] - lower cat, header[2] - normal cat, header[3] - above cat
+			// Also replace all spaces by underscores for the ascii output for category col headers
+			header3[0] = SettingsHashLibrary.getCategoryLabel("total",fcstSourceArray[i]).replace(" ","_");
+			header3[1] = SettingsHashLibrary.getCategoryLabel("B",fcstSourceArray[i]).replace(" ","_");
+			header3[2] = SettingsHashLibrary.getCategoryLabel("N",fcstSourceArray[i]).replace(" ","_");
+			header3[3] = SettingsHashLibrary.getCategoryLabel("A",fcstSourceArray[i]).replace(" ","_");
+			// Get the character length of fcst source (used for headers and later for data formatting)
+			// header2 is forecast source
 			header2 = "Forecast Source";
 			// Replace all spaces by underscores for the ascii output for col 2
 			header2 = header2.replace(" ","_");
-			str.append(String.format("%-40s",header2));
+			// Get character length of forecast source
+			logger.trace("fcst char len for forecast source: " + fcstSourceArray[i] + " is " + Integer.toString(fcstSourceArray[i].length()));
+			// Set char length for fcst source col			
+			// If the forecast source length is less than length of header2 then set to length of header 2			
+			// Add 1 space for delimeter			
+			if (fcstSourceArray[i].length() < header2.length()) {
+				fcstSourceLength[i] = Integer.toString(header2.length()+1);
+			}
+			// Else set to the fcst source length + 1
+			else {
+				fcstSourceLength[i] = Integer.toString(fcstSourceArray[i].length()+1);
+			}
+			// Set col length of category/stats col
+			// If the category label is greater than the default assigned length, then set length to category label length
+			// otherwise the default size set from defaultCategoryLabelLength will be used.
+			if (header3[i].length() > defaultCategoryLabelLength) {
+				categoryLabelLength[i] = Integer.toString(header3[i].length()+1);
+			}	
+			else {
+				categoryLabelLength[i] = Integer.toString(defaultCategoryLabelLength+1);
+			}
+			str.append(String.format("%-"+fcstSourceLength[i]+"s",header2));
 			// For each of the category labels, write a header for the column
-			for (int j=0; j<header3.length; j++) {
-				logger.debug("Header is " + header3[j]);
-				// Replace all spaces by underscores for the ascii output for category col headers
-				header3[j] = header3[j].replace(" ","_");
-				str.append(String.format("%1$-15s",header3[j]));
+			// For each index in the category dimension, write a value
+			// The stats array always has the category values for total,B,N,A.
+			// If total categories selected, write out 0th index
+			if (categoryType.compareToIgnoreCase("total") == 0) {
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[0]));
 				// Add num valid points label
 				str.append(String.format("%1$-25s",header4));
 			}
-		}
+			// If separate categories, write out 1st, to last index
+			else if (categoryType.compareToIgnoreCase("separate") == 0) {
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[1]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[2]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[3]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));
+			}
+			// If below normal category only use index k=1
+			else if (categoryType.compareToIgnoreCase("B") == 0) {
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[1]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));
+			}
+			// If normal category only use index k=2
+			else if (categoryType.compareToIgnoreCase("N") == 0) {
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[2]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));				
+			}
+			// If below normal category only use index k=1
+			else if (categoryType.compareToIgnoreCase("A") == 0) {
+				// Add category label
+				str.append(String.format("%1$-"+categoryLabelLength[0]+"s",header3[3]));
+				// Add num valid points label
+				str.append(String.format("%1$-25s",header4));				
+			}
+			// If category type doesn't exist, error
+			else {
+				logger.fatal("Could not write to ASCII file, invalid category type : " + categoryType);
+				Log.fatal("Report invalid category type for writing to ASCII file", "#errorPanelText");
+			}
+		} // End for each forecast source
 
 		// Add new line
 		str.append("\n");
@@ -439,7 +457,6 @@ public class WriteLibrary {
 		if (validDataArray == null) {
 			throw new Exception("Array with information about the valid data is null.");
 		}
-		
 		try {
 		// For each reference array value write date data
 		for (int i=0; i<referenceArray.length;i++) {
@@ -455,48 +472,48 @@ public class WriteLibrary {
 			// For each forecast source write forecast source and score information
 			for (int j=0; j<fcstSourceArray.length;j++) {
 				// If separate category and RPSS, do not print any valid data array. Typically caught in validation earlier in run.
-				if ((settingsObj.getScoreType().compareToIgnoreCase("rpss") == 0) &&  ((settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("B") == 0) || (settingsObj.getCategoryType().compareToIgnoreCase("N") == 0)  || (settingsObj.getCategoryType().compareToIgnoreCase("A") == 0)) ) {
-					logger.fatal("Could not write to ASCII file, invalid category type for RPSS and separate categories case. Category type is : " + settingsObj.getCategoryType() + ". Needs to be of value separate, B, N, or A in this case.");
+				if ((settingsObj.getScoreType().compareToIgnoreCase("rpss") == 0) &&  ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("B") == 0) || (categoryType.compareToIgnoreCase("N") == 0)  || (categoryType.compareToIgnoreCase("A") == 0)) ) {
+					logger.fatal("Could not write to ASCII file, invalid category type for RPSS and separate categories case. Category type is : " + categoryType + ". Needs to be of value separate, B, N, or A in this case.");
 					Log.fatal("Report invalid category type for writing to ASCII file", "#errorPanelText");
 					throw new Exception("Could not write to ASCII file, invalid category type for RPSS and separate categories case (including for individual categories B,N, or A");
 				}
 				// For other cases do below logic, ie. category type is total. This writes the forecast source and stats and valid data info
 				else {
 					// Add forecast source info to string buffer
-					str.append(String.format("%1$-40s",fcstSourceArray[j]));
+					str.append(String.format("%1$-"+fcstSourceLength[j]+"s",fcstSourceArray[j]));
 					// For each index in the category dimension, write a value
 					// The stats array always has the category values for total,B,N,A.
 					// If total categories selected, write out 0th index
-					if (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0) {
+					if (categoryType.compareToIgnoreCase("total") == 0) {
 						// Write the scores in the 'total' categories index
-						str.append(String.format("%1$-15s",statsArray[j][0][i]));
+						str.append(String.format("%1$-"+categoryLabelLength[0]+"s",statsArray[j][0][i]));
 						str.append(String.format("%1$-25s",validDataArray[j][0][i]));
 					}
 					// If separate categories, write out 1st, to last index
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) {
+					else if (categoryType.compareToIgnoreCase("separate") == 0) {
 						for (int k=1; k<statsArray[0].length; k++) {
-							str.append(String.format("%1$-15s",statsArray[j][k][i]));
+							str.append(String.format("%1$-"+categoryLabelLength[0]+"s",statsArray[j][k][i]));
 							str.append(String.format("%1$-25s",validDataArray[j][k][i]));
 						}
 					}
 					// If below normal category only use index k=1
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("B") == 0) {
-						str.append(String.format("%1$-15s",statsArray[j][1][i]));
+					else if (categoryType.compareToIgnoreCase("B") == 0) {
+						str.append(String.format("%1$-"+categoryLabelLength[0]+"s",statsArray[j][1][i]));
 						str.append(String.format("%1$-25s",validDataArray[j][1][i]));
 					}
 					// If normal category only use index k=2
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("N") == 0) {
-						str.append(String.format("%1$-15s",statsArray[j][2][i]));
+					else if (categoryType.compareToIgnoreCase("N") == 0) {
+						str.append(String.format("%1$-"+categoryLabelLength[0]+"s",statsArray[j][2][i]));
 						str.append(String.format("%1$-25s",validDataArray[j][2][i]));
 					}
 					// If below normal category only use index k=1
-					else if (settingsObj.getCategoryType().compareToIgnoreCase("A") == 0) {
-						str.append(String.format("%1$-15s",statsArray[j][3][i]));
+					else if (categoryType.compareToIgnoreCase("A") == 0) {
+						str.append(String.format("%1$-"+categoryLabelLength[0]+"s",statsArray[j][3][i]));
 						str.append(String.format("%1$-25s",validDataArray[j][3][i]));
 					}
 					// If category type doesn't exist, error
 					else {
-						logger.fatal("Could not write to ASCII file, invalid category type : " + settingsObj.getCategoryType());
+						logger.fatal("Could not write to ASCII file, invalid category type : " + categoryType);
 						Log.fatal("Report invalid category type for writing to ASCII file", "#errorPanelText");
 					}
 					

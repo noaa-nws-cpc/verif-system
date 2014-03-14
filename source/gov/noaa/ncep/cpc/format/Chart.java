@@ -134,6 +134,7 @@ public class Chart {
     	return categoryType;
     }
 
+
 	// Score Type
 	public String getScoreType() {
 		return scoreType;
@@ -173,8 +174,9 @@ public class Chart {
     	this.categoryType = categoryType;
     }
 
+
 	public void setScoreType(String scoreType) {
-		this.categoryType = categoryType;
+		this.scoreType = scoreType;
 	}
 
 	// End get/set methods
