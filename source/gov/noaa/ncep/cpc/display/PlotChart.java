@@ -375,7 +375,6 @@ public class PlotChart extends JPanel {
 		numSeries = dataView.getNumSeries();
 		JCMarker markers[] = new JCMarker[numSeries];
 		JCMarker markerZeroValue = new JCMarker();
-
 		// Handle axes//
 		// If reliability score type selected, set x and y axis to same lengths to make chart plot symmetrical
 		JCAxis yaxis = dataView.getYAxis();
@@ -408,12 +407,32 @@ public class PlotChart extends JPanel {
 			logger.trace("Series # : " + i + " Symbol Size : " + symbolSize);
 			// Set symbol size
 			dataView.getChartStyle(i).setSymbolSize(symbolSize);
+			// For reliability, a reference line is drawn first underneath other lines of scores with a hidden legend
+			// Set first reference line to invisible in legend
+			if (scoreType.compareToIgnoreCase("reliability") == 0) {
+				logger.trace("Drawing first data series (ref line) but invisible in legend and setting last series (duplicate ref line) visible in legend but not drawn on chart.");
+				dataView.getSeries(0).setVisibleInLegend(false);
+				// Set the last series (2nd reference line) as invisible, but keep default of setting legend label visible.
+				// This was done because the reference label in the legend should display last after the forecast sources
+				dataView.getSeries(numSeries-1).setVisible(false);
+			}
+			else {
+				// If not reliability, show the first series.
+				dataView.getSeries(0).setVisibleInLegend(true);
+				logger.trace("NOT Reliability! So should show first data series in legend");
+			}
+			// See whether first item is visible in legend
+			logger.trace("isVisibleInLegend = " + dataView.getSeries(0).isVisibleInLegend());
 			int colorIndex;
 			// Set line and symbol colors for line plots
-			// For reliability, a black reference line is the first xml data set and
-			// is plotted last underneath other lines
+
+			// but now set the last data series from the XML (redundant version of reference line data) 
 			if (scoreType.compareToIgnoreCase("reliability") == 0) {
 				colorIndex = i+1;
+				if (i==numSeries-1) {
+					// Set last series (hidden line version of reference line) to black
+					colorIndex=1;
+				}
 			}
 			else {
 				colorIndex = i+2;
@@ -475,7 +494,6 @@ public class PlotChart extends JPanel {
 					default: logger.warn("Not enough colors specified for the data series!");
 				} // end switch
 		} // end for
-
 		// For scores other than reliability and "total" categories, plot an average line
 		// Do not plot average lines for separate categories, only all cats together
 		if (settingsObj.getCategoryType().compareToIgnoreCase("total") == 0 && !(settingsObj.getScoreType().equals("reliability")) ) {
@@ -514,15 +532,15 @@ public class PlotChart extends JPanel {
 				}
 			}
 		}
-		// If non reliability score but SEPARATE categories selected, no average lines so set cols appropriately
-		else if (settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0 && !(settingsObj.getScoreType().compareToIgnoreCase("reliability")  == 0) ) {
-			logger.debug("Its separate and NOT reliability!");
+		// If SEPARATE categories selected, no average lines so set cols appropriately
+		else if (settingsObj.getCategoryType().compareToIgnoreCase("separate") == 0) {
 			numColsInt = 3;
+			logger.trace("Separate categories, so using # cols for legend : " + numColsInt);
 		}
 		// For all other situations, just set the number of columns to 4 by default
 		else {
 			numColsInt = 4; // The max is 4, but for fewer than 3 models and total, there will
-							// be only 2-3 columns including the reference line.
+			logger.trace("Using # cols for legend : " + numColsInt);
 		}
 		// draw a line at 0
 		if ( !(scoreType.equals("reliability")) ) {
@@ -629,7 +647,7 @@ public class PlotChart extends JPanel {
 			for(int i=0;i<pLabelsDouble.length;i++) {
 				// At the axis value pLabelsDouble[i], put the pLabel
 				xNewLabels[i] = new JCValueLabel(pLabelsDouble[i], pLabels[i]);
-				logger.debug("i = " + i + " label : " + xNewLabels[i] + "pLabel " + pLabels[i]);
+				logger.trace("i = " + i + " label : " + xNewLabels[i] + "pLabel " + pLabels[i]);
 			}
 			yAxis.setMax(pLabelsDouble[pLabelsDouble.length-1]);
 			xAxis.setValueLabels(xNewLabels);
@@ -666,7 +684,7 @@ public class PlotChart extends JPanel {
 		legend.recalc();
 		int getNumCols = legend.getNumColumns();
 		int getNumRows = legend.getNumRows();
-		logger.debug("Returned # cols is : " + getNumCols + " Calculated # rows are : " + getNumRows);
+		logger.trace("Returned # cols is : " + getNumCols + " Calculated # rows are : " + getNumRows);
 		// Set legend features
 		JComponent legendFeature = chart.getLegend();
 		// Legend font settings
@@ -687,7 +705,7 @@ public class PlotChart extends JPanel {
 		// Set the first index to create labels for
 		// For reliability, must start at index 1, not 0 because the reference line is the
 		// first series. For all other score types, use 0.
-			int numDataSeries;
+		int numDataSeries;
 		if (scoreType.compareToIgnoreCase("reliability") == 0) {
 			firstSeriesIndex = 1;
 			numDataSeries = numSeries-1;
@@ -923,7 +941,6 @@ public class PlotChart extends JPanel {
 	Updates chart using event dispatcher methods/applications, including Applet usage of PlotChart. The web application version of the verification web tool accesses this method to update the chart dynamically. This optimizes updating of the chart without recreating the entire chart object each time selections are changed by the user in the web tool. This method calls other methods to recalculate and redisplay parts of the chart with updated information and data.
 	*/
 	public static class UpdateChart implements Runnable {
-
 		protected static PlotChart plotChart;
 
 		UpdateChart(PlotChart plotChart) {

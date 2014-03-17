@@ -171,11 +171,11 @@ public class FormatLibrary {
 		// Get the number of models
 		int numScoreCatStringArrayRows = scoreCatStringArray.length;
 
-		logger.debug("number of scores bins = " + numScoreCatStringArrayCols);
-		logger.debug("number of ave fcst prob bins = " + numAveFcstProbStringArrayCols);
-		logger.debug("number of models = " + numScoreCatStringArrayRows);
-		logger.debug("number of probs bins = " + numProbStringArrayCols);
-		logger.debug("number of bin labels = " + numProbLabelsStringArray + " (should be 1 more than # of bins)");
+		logger.trace("number of scores bins = " + numScoreCatStringArrayCols);
+		logger.trace("number of ave fcst prob bins = " + numAveFcstProbStringArrayCols);
+		logger.trace("number of models = " + numScoreCatStringArrayRows);
+		logger.trace("number of probs bins = " + numProbStringArrayCols);
+		logger.trace("number of bin labels = " + numProbLabelsStringArray + " (should be 1 more than # of bins)");
 
 		// Check if the probabilityBinThresholdStringArray and scoreArray have the same # of columns
 		if ((numProbStringArrayCols == numScoreCatStringArrayCols) && (numProbStringArrayCols == numAveFcstProbStringArrayCols)) {
@@ -339,7 +339,7 @@ public class FormatLibrary {
 	  @return 2-d array of String values
 	 */
 	public static String[] toStringArray(float[] f) {
-		logger.debug("Converting float array to String array");
+		logger.trace("Converting float array to String array");
 		int m=f.length;
 		String[] s = new String[m];
 		logger.trace("m = " + m );
@@ -355,7 +355,7 @@ public class FormatLibrary {
 	  @return 2-d array of String values
 	 */
 	public static String[][] toStringArray(float[][] f) {
-		logger.debug("Converting 2d float array to String array");
+		logger.trace("Converting 2d float array to String array");
 		int m=f.length;         // num of models
 		int c=f[0].length;      // num of pts
 		String[][] s = new String[m][c];
@@ -374,7 +374,7 @@ public class FormatLibrary {
 	  @return 3-d array of String values
 	 */
 	public static String[][][] toStringArray(float[][][] f) {
-		logger.debug("Converting 3d float array to String array");
+		logger.trace("Converting 3d float array to String array");
 		int m=f.length;         // num of models
 		int c=f[0].length;      // num of pts
 		int r=f[0][0].length;
@@ -396,7 +396,7 @@ public class FormatLibrary {
 	  @return 2-d array of String values
 	 */
 	public static String[][] toStringArray(int[][] f) {
-		logger.info("Converting int array to String array");
+		logger.trace("Converting int array to String array");
 		int m=f.length;         // num of models
 		int c=f[0].length;      // num of pts
 		String[][] s = new String[m][c];
@@ -414,7 +414,7 @@ public class FormatLibrary {
 	  @return 3-d array of String values
 	 */
 	public static String[][][] toStringArray(int[][][] f) {
-		logger.info("Converting int array to String array");
+		logger.trace("Converting int array to String array");
 		int m=f.length;         // num of models
 		int c=f[0].length;      // num of pts
 		int r=f[0][0].length;

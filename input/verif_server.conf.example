@@ -23,7 +23,7 @@
 ;
 ;   format:   servername.com, servername.ncep.noaa.gov, localhost, etc.
 ;   example:  vm-lnx-cpccfmysql.ncep.noaa.gov
-host        =
+host        = 
 ;------------------
 ; public_user:MySQL username to use to access the public databases (cpc_forecasts, cpc_observations, cpc_reference)
 ;
@@ -85,10 +85,10 @@ dateFormat  = yyyy-MM-dd
 [qc]
 ;------------------
 ; goodDataThreshold: Percent good data needed for each day or location to pass
-;                    and thus have a score calculated for it. If this threhsold
+;                    and thus have a score calculated for it. If this threhsold 
 ;                    is not satisfied, the score is replaced by a 'NaN' value.
-;                    For timeseries, there's a percent good data for each day
-;		     of the timeseries. For a map, there's a percent good data
+;                    For timeseries, there's a percent good data for each day 
+;		     of the timeseries. For a map, there's a percent good data 
 ;		     for each location on the map.
 ;
 ;   format:   number
@@ -97,7 +97,7 @@ goodDataThreshold  =
 
 ;------------------
 ; goodScoreThreshold: Percent good scores needed, after all scores have been
-;                     calculated. If this threhsold is not satisfied, all
+;                     calculated. If this threhsold is not satisfied, all 
 ;                     scores are replaced by 'NaN' values. For timeseries,
 ;                     this percentage is calculated based on the number of days
 ;                     with a good score. For a map, this percentage is calculated
@@ -109,7 +109,7 @@ goodScoreThreshold =
 
 ;------------------
 ; goodScoreThresholdReliability: Percent good scores needed, after all scores have been
-;                     calculated. If this threhsold is not satisfied, all
+;                     calculated. If this threhsold is not satisfied, all 
 ;                     scores are replaced by 'NaN' values. For reliability
 ;                     diagram, this percentage is calculated based on the number of days
 ;                     and locations combined with a good score.
@@ -117,15 +117,3 @@ goodScoreThreshold =
 ;   format:   number
 ;   example:  95
 goodScoreThresholdReliability =
-
-
-;--------------------------------------------------------------------
-; Feedback Settings
-;
-[feedback]
-;------------------
-; email: Email address where to send any feedback to
-;
-;   format:   email@something.com
-;   example:  first.last@noaa.gov
-email =

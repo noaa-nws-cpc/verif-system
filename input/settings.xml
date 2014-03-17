@@ -2,18 +2,19 @@
 <data>
 <settings>
 	<variable>tmax</variable>
-	<fcstSources>manual,rfcstCalProbPtile10and90_gfsensm_00z</fcstSources>
+	<fcstSources>rfcstCalProbPtile10and90_gfsensm_00z</fcstSources>
 	<leadTime>08d</leadTime>
 	<aveWindow>01d</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>20120201,20120510</datesValid>
-	<regionType>climateRegion</regionType>
+	<datesValid>20130101,20130112</datesValid>
+	<regionType>climateDivision</regionType>
 	<regions>All</regions>
 	<spatialType>gridded</spatialType>
 	<outputType>chart</outputType>
-	<outputDimension>time</outputDimension>
-	<scoreType>heidke</scoreType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
 	<categoryType>separate</categoryType>
+	<categoryLabelType>percentiles</categoryLabelType>
 	<ECType>default</ECType>
 </settings>
 </data>

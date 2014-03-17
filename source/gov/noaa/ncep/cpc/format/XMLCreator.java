@@ -652,13 +652,41 @@ public class XMLCreator {
 					// Append y-data to data-series element
 					dataSeriesEle.appendChild(scoreArrayEle);
 				}
-
-            	chartEle.appendChild(dataSeriesEle);
+		chartEle.appendChild(dataSeriesEle);			
         	} // End loop through category
 
 			// after first loop for ref line, return to normal looping
 			startIndex = startIndexOrig; 
 		} // end model loop
+		// Add a second version of the reference line in XML for plotting legend/line correctly later on
+            	// Create data-series label
+          	String dataSeriesLabel;
+		dataSeriesLabel = "Reference";
+           	// Create data-series value element
+            	Element dataSeriesEle = dom.createElement("data-series");
+		Text dataSeriesLabelText = dom.createTextNode(dataSeriesLabel);
+		dataSeriesLabelText = dom.createTextNode(dataSeriesLabel);
+         	Element dataSeriesLabelEle = dom.createElement("data-series-label");
+		dataSeriesLabelEle.appendChild(dataSeriesLabelText); // Append text to label element
+		dataSeriesEle.appendChild(dataSeriesLabelEle);
+            	// Append the data series label as a child of the data series element
+		dataSeriesEle.appendChild(dataSeriesLabelEle);
+		String[] refDataValuesArray = chart.getChartReferenceArray();
+		for (int i=0;i<refDataValuesArray.length;i++) {
+			Element refDataEle = dom.createElement("x-data");
+			Text refDataText = dom.createTextNode(refDataValuesArray[i]);
+			refDataEle.appendChild(refDataText);
+			dataSeriesEle.appendChild(refDataEle);
+		}
+		for (int i=0;i<refDataValuesArray.length;i++) {
+			Element refDataEle = dom.createElement("y-data");
+			Text refDataText = dom.createTextNode(refDataValuesArray[i]);
+			refDataEle.appendChild(refDataText);
+			dataSeriesEle.appendChild(refDataEle);
+					
+		}
+		chartEle.appendChild(dataSeriesEle);			
+		//------------------------------------------
 		return chartEle;
 	}
 

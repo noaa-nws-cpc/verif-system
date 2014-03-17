@@ -494,10 +494,9 @@ public class Data {
 			// memory on the client or time out.
 			//
 			int numRows = Database.getNumRSRows(fcstResultSet);
-			logger.info("NUMROWS = "+numRows);
-			logger.info("webflag is : " + webFlag);
+			logger.trace("webflag is : " + webFlag);
 			if (webFlag == true) {
-				logger.info("Web flag is : " + webFlag + ", so will check to see if the number of rows of data exceeds allowable (" + numRows + ")");
+				logger.trace("Web flag is : " + webFlag + ", so will check to see if the number of rows of data exceeds allowable (" + numRows + ")");
 				if (numRows > MAX_NUM_ROWS) {
 					logger.fatal("The forecast ResultSet contains "+numRows+" rows, which is greater than the maximum allowed number of rows ("+MAX_NUM_ROWS+")");
 					throw new Exception("The current selection contains too much data to verify. Please limit the number of dates or locations selected.");
