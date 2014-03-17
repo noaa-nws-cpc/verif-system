@@ -110,7 +110,7 @@ public class IconMap {
 	// Brier icons
 	private static	String[] iconArrayBrier= {"./images/dot_darkBlue.png","./images/dot_medBlue.png","./images/dot_medGreen.png","dot_white.png","./images/dot_yellow.png","./images/dot_mustard.png","./images/dot_orange.png","./images/dot_brightRed.png","./images/dot_darkRed.png","./images/dot_fuschia.png","./images/dot_purple.png"};
 	// RPSS icons		
-	private static	String[] iconArrayRPSS= {"./images/dot_darkBlue.png","./images/dot_medBlue.png","./images/dot_medGreen.png","dot_white.png","./images/dot_yellow.png","./images/dot_mustard.png","./images/dot_orange.png","./images/dot_brightRed.png","./images/dot_darkRed.png","./images/dot_fuschia.png","./images/dot_purple.png"};
+	private static	String[] iconArrayRPSS= {"./images/dot_darkBlue.png","./images/dot_medBlue.png","./images/dot_medGreen.png","./images/dot_white.png","./images/dot_yellow.png","./images/dot_mustard.png","./images/dot_orange.png","./images/dot_brightRed.png","./images/dot_darkRed.png","./images/dot_fuschia.png","./images/dot_purple.png"};
 
 	// !!! Set the Null icon !!!
 	// This is the String variable icon associated with a value not in the set range 
