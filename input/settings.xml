@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
 <data>
 <settings>
-	<variable>tmax</variable>
-	<fcstSources>rfcstCalProbPtile10and90_gfsensm_00z</fcstSources>
-	<leadTime>08d</leadTime>
-	<aveWindow>01d</aveWindow>
+	<variable>temp</variable>
+	<fcstSources>manual</fcstSources>
+	<leadTime>11d</leadTime>
+	<aveWindow>07d</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>20130101,20130112</datesValid>
-	<regionType>climateDivision</regionType>
+	<datesValid>20120514,20120514</datesValid>
+	<regionType>climateRegion</regionType>
 	<regions>All</regions>
-	<spatialType>gridded</spatialType>
+	<spatialType>station</spatialType>
 	<outputType>chart</outputType>
 	<outputDimension>probability</outputDimension>
 	<scoreType>reliability</scoreType>
 	<categoryType>separate</categoryType>
-	<categoryLabelType>percentiles</categoryLabelType>
 	<ECType>default</ECType>
 </settings>
 </data>

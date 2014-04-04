@@ -371,7 +371,7 @@ public class PlotChart extends JPanel {
 		int symbolSize = 6;
 		// Get the ChartDataView
 		ChartDataView dataView = chart.getDataView(0);
-		int numSeries;
+		int numSeries; // Number of lines of data (additive, ie, separate categories and multi-models each count as one series)
 		numSeries = dataView.getNumSeries();
 		JCMarker markers[] = new JCMarker[numSeries];
 		JCMarker markerZeroValue = new JCMarker();
@@ -392,7 +392,11 @@ public class PlotChart extends JPanel {
 
 		// Set sizes of symbols so that each of the series have a different size symbol
 		// to prevent overlapping. Have the last series have the smallest symbol size
+		logger.trace("Number of series : " + numSeries);
 		for (int i=0;i<numSeries;i++) {
+			// Reset the series to be visible by default, will reset to false later on if needed
+			dataView.getSeries(i).setVisible(true);
+			logger.trace("** Attempting to reset series to visible.** Series # " + i + " visibility is : " + dataView.getSeries(i).isVisible());
 			// Calculate a size for the symbol
 			// The min and max symbol sizes to use are set at the top of this method.
 			// Below logic allows for the case that there are more series to plot than
@@ -409,18 +413,21 @@ public class PlotChart extends JPanel {
 			dataView.getChartStyle(i).setSymbolSize(symbolSize);
 			// For reliability, a reference line is drawn first underneath other lines of scores with a hidden legend
 			// Set first reference line to invisible in legend
-			if (scoreType.compareToIgnoreCase("reliability") == 0) {
-				logger.trace("Drawing first data series (ref line) but invisible in legend and setting last series (duplicate ref line) visible in legend but not drawn on chart.");
+			if (scoreType.compareToIgnoreCase("reliability") == 0)  {
 				dataView.getSeries(0).setVisibleInLegend(false);
 				// Set the last series (2nd reference line) as invisible, but keep default of setting legend label visible.
 				// This was done because the reference label in the legend should display last after the forecast sources
-				dataView.getSeries(numSeries-1).setVisible(false);
+				if (i == numSeries-1) {
+					logger.trace("It is the last series. Set to not visible. i = " + i); 
+					dataView.getSeries(numSeries-1).setVisible(false);	
+				}
 			}
 			else {
 				// If not reliability, show the first series.
 				dataView.getSeries(0).setVisibleInLegend(true);
 				logger.trace("NOT Reliability! So should show first data series in legend");
 			}
+			logger.trace("Series # " + i + " visibility is : " + dataView.getSeries(i).isVisible());
 			// See whether first item is visible in legend
 			logger.trace("isVisibleInLegend = " + dataView.getSeries(0).isVisibleInLegend());
 			int colorIndex;
