@@ -433,9 +433,11 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		# The new reforecast-calibrated forecast tool has a single header line, unlike
 		# GEMPAK ascii data files, so don't skip any lines, otherwise skip 1.
 		my %columnIndex;
-		if ($args{tool} =~ /reforecastCalibratedProb\d?/) {
+		if ($args{tool} =~ /(reforecastCalibratedProb[0-9]*|rfcstCalProb[0-9]*)/) {
+			$logger->debug("HEADER=0");
 			%columnIndex = file_getColumns('FILE',0);
 		} else {
+			$logger->debug("HEADER=1");
 			%columnIndex = file_getColumns('FILE',1);
 		}
 
@@ -1024,6 +1026,10 @@ sub data_qc {
 		$_[0]{prob_below}  = "NULL";
 		$_[0]{prob_normal} = "NULL";
 		$_[0]{prob_above}  = "NULL";
+	}
+	# Set the normal category if it's not provided
+	if ($_[0]{prob_normal} == 0 and $_[0]{prob_below} != 0) {
+		$_[0]{prob_normal} = 1 - ($_[0]{prob_below} + $_[0]{prob_above});
 	}
 }
 
