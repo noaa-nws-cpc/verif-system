@@ -8,7 +8,7 @@ fcst_type=$1
 cd $VERIF_HOME
 # Run the Perl driver with args based on the forecast type
 if [[ $fcst_type == 'ERF' ]] ; then
-	./scripts/db_test_findMissing_batch.pl -f ERF -loglevel error -email -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*' > $VERIF_HOME/logs/db_test_findMissing_ERF.log 2>&1
+	./scripts/db_test_findMissing_batch.pl -f ERF -loglevel error -email > $VERIF_HOME/logs/db_test_findMissing_ERF.log 2>&1
 elif [[ $fcst_type == 'monthly' ]] ; then
 	./scripts/db_test_findMissing_batch.pl -f monthly -loglevel error -email > $VERIF_HOME/logs/db_test_findMissing_monthly.log 2>&1
 elif [[ $fcst_type == 'revised_monthly' ]] ; then
