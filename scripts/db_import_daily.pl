@@ -262,12 +262,6 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model ecmensm -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model canm -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model canm -cycle 00z";
-		# CDC
-#		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool cdc";
-#		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cdcgfs";
-#		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model cdcgfs";
-#		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model cdcgfs";
-#		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model cdcgfs";
 		# Reforecast-Calibrated Forecast
 		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool reforecastCalibratedProb";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
@@ -275,7 +269,7 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
 		# Reforecast-Uncalibrated Forecast
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool reforecastUncalibratedProb";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstUncalProb";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
