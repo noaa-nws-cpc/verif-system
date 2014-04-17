@@ -122,10 +122,8 @@ if ($args{fcstType} eq "ERF") {
 	system "$childScript $options -d observation -g grid2deg -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_05d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
 	system "$childScript $options -d forecast    -g stn      -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_05d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
 	system "$childScript $options -d forecast    -g grid2deg -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_05d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
-	unless (defined($start_date) and defined($end_date)) {
-		$start_date = UnixDate("2 weeks ago",'%Y%m%d');
-		$end_date   = UnixDate("5 days ago",'%Y%m%d');
-	}
+	$start_date = UnixDate("2 weeks ago",'%Y%m%d');
+	$end_date   = UnixDate("5 days ago",'%Y%m%d');
 	system "$childScript $options -d observation -g stn      -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_07d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
 	system "$childScript $options -d observation -g grid2deg -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_07d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
 	system "$childScript $options -d forecast    -g stn      -s $start_date -e $end_date -f extendedRange -loglevel $args{logLevel} -tableinclude '_07d_' -tableexclude '.*([Bb]eta|Prob[0-9]+|ProbObs|cdc).*'";
