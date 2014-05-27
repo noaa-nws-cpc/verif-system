@@ -29,12 +29,12 @@
 
 	<!--
 	Set the name of the war file if it's not set by the user (if this
-	property is already set, then this statement will not have any effect) 
+	property is already set, then this statement will not have any effect)
 	-->
 	<property name="war_file_name" value="vwt.war" />
 
 	<!--==================================================================
-	                            Setup Tasks 
+	                            Setup Tasks
 	===================================================================-->
 
 	<!-- Remove all files and directories created by the build process -->
@@ -48,7 +48,7 @@
 		<delete dir="${build}"/>
 		<delete dir="${work}"/>
 		<delete dir="${logs}"/>
-		<delete dir="${output}"/>	
+		<delete dir="${output}"/>
 		<delete dir="${work}" />
 		<delete dir="{web}/library/java" />
 		<!-- Delete any .war files -->
@@ -67,11 +67,11 @@
 		<mkdir dir="${logs}" />
 		<mkdir dir="${output}" />
 	</target>
-	
+
 	<!--==================================================================
-	                              Doc Tasks 
+	                              Doc Tasks
 	===================================================================-->
-	
+
 	<!-- Command to generate the javadoc files -->
 	<target name="doc_java" description="Generate documentation for all Java code" depends="makeDirs">
 		<javadoc verbose="no" classpathref="classpath" destdir="docs/api/java" sourcepath="${source}" packagenames="gov.noaa.ncep.cpc.*">
@@ -136,11 +136,11 @@
 	<!-- Command to generate all documentation -->
 	<target name="doc_all" description="Generate documentation for all languages" depends="doc_java, doc_javascript, doc_perl"></target>
 
-	
+
 	<!--==================================================================
-	                            Compile Tasks 
+	                            Compile Tasks
 	===================================================================-->
-	
+
 	<!-- Compile for Direct Access Mode -->
 	<target name="compile_command_line_direct_access" description="Builds the Verification System in 'Command Line Direct Access' Mode (see README)" depends="makeDirs">
 		<!-- Set classpath -->
@@ -201,7 +201,7 @@
 		<!-- Sign dependency jar files -->
 		<for list="${classpathstr.commas}" param="file">
 			<sequential>
-				<signjar jar="${web}/@{file}" alias="vwt" storepass="cycl0nes"/>
+				<signjar jar="${web}/@{file}" alias="ncep" storepass="cycl0nes"/>
 			</sequential>
 		</for>
 		<!-- Copy the client jar file into the web directory -->
@@ -219,7 +219,7 @@
 	</target>
 
 	<!--==================================================================
-	                              Run Tasks 
+	                              Run Tasks
 	===================================================================-->
 
 	<!-- Runs the Verification System in "Direct Access Mode" -->
@@ -258,11 +258,11 @@
 	        </classpath>
 		</java>
 	</target>
-	
+
 	<!--==================================================================
-	                            Utility Tasks 
+	                            Utility Tasks
 	===================================================================-->
-	
+
 	<!-- Command to optimize the jar files -->
 	<target name="jaropt" description="Optimizes the main output jar file by removing unused classes">
 		<taskdef name="jaropt" classname="org.cmc.jaroptimizer.JarOptTask" classpathref="classpath" />
@@ -301,11 +301,11 @@
 			<delete file="${web}/verif.conf"/>
 		</sequential>
 	</target>
-	
+
 	<!--==================================================================
-	                               Macros 
+	                               Macros
 	===================================================================-->
-	
+
 	<!-- Set classpathhhhhh -->
 	<macrodef name="set_classpath">
 		<sequential>
@@ -335,7 +335,7 @@
 	<!-- Sign Jarfile -->
 	<macrodef name="sign_jar">
 		<sequential>
-			<signjar jar="${build}/verif_client.jar" alias="vwt" storepass="cycl0nes"/>
+			<signjar jar="${build}/verif_client.jar" alias="ncep" storepass="cycl0nes"/>
 		</sequential>
 	</macrodef>
 
@@ -370,8 +370,15 @@
 			<jar destfile="@{jar-file-name}">
 				<zipfileset src="${build}/temp.jar" excludes="META-INF/**" />
 			  	<manifest>
+			    	<attribute name="Application-Name" value="CPC Verification Web Tool" />
 			    	<attribute name="Main-Class" value="gov/noaa/ncep/cpc/driver/StaticRunDriver" />
 			    	<attribute name="Class-Path" value="${classpathstr.spaces}" />
+			    	<attribute name="Permissions" value="all-permissions" />
+					<attribute name="Manifest-Version" value="1.0" />
+					<attribute name="Application-Library-Allowable-Codebase" value="*" />
+					<attribute name="Caller-Allowable-Codebase" value="*" />
+					<attribute name="Codebase" value="*" />
+					<attribute name="Sealed" value="*" />
 			  	</manifest>
 			</jar>
 			<!-- Delete the temporary jar file -->
