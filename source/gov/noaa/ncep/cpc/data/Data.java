@@ -59,6 +59,7 @@ public class Data {
 	private ResultSet obsResultSet = null; // Observation ResultSet
 	private ResultSet fcstResultSet = null; // Observation ResultSet
 	private ResultSet climResultSet = null; // Observation ResultSet
+	private String locationListCol = null;
 	String sdfSourceFormat = null; // String of how date issued values are formatted in the database
 	// Initialize empty database connection
 	Connection dbConnection = null; // MySQL connection
@@ -342,6 +343,16 @@ public class Data {
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
 		regionList = Sql.regionsToRegex(regions);
+		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
+		// then use the 'id' column from locationList. Otherwise use the regionType column itself.
+		if (regionType.compareToIgnoreCase("climateDivision") == 0 && spatialType.compareToIgnoreCase("climateDivision") == 0)
+		{
+			locationListCol = "id";
+		}
+		else
+		{
+			locationListCol = regionType;
+		}
 
 		//-----------------------------------------------------------
 		// Determine $dateName
@@ -440,7 +451,7 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				whereClauseStr = signalConditionStr + "' AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 			} // End if selectSeasonalSignal
 			// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 			else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -461,13 +472,13 @@ public class Data {
 				else {
 					signalConditionStr = signalType + "='" + signalValue;
 				}
-				whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				whereClauseStr = signalConditionStr + " AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 				logger.debug("signalConditionStr is " + signalConditionStr + " whereClauseStr is " + whereClauseStr + " datesValidType is " + datesValidType);
 			} // End if selectSeasonalSignal
 			// If datesValidType is not "selectSeasonalSignal", then we just
 			// need the WHERE clause to include the date and id filters
 			else {
-				whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+				whereClauseStr = dateFilter + " AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 			}
 
 			//-----------------------------------------------------------
@@ -960,6 +971,18 @@ public class Data {
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
 		regionList = Sql.regionsToRegex(regions);
+		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
+		// then use the 'id' column from locationList. Otherwise use
+		// the regionType column itself.
+		if (regionType.compareToIgnoreCase("climateDivision") == 0 && spatialType.compareToIgnoreCase("climateDivision") == 0)
+		{
+			locationListCol = "id";
+		}
+		else
+		{
+			locationListCol = regionType;
+		}
+
 
 		//-----------------------------------------------------------
 		// Determine $dateName
@@ -1046,7 +1069,7 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			whereClauseStr = signalConditionStr + "' AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			whereClauseStr = signalConditionStr + "' AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 		} // End if selectSeasonalSignal
 		// If datesValidType = "selectSeasonalSignal", then build appropriate WHERE clause
 		else if (datesValidType.compareToIgnoreCase("selectMonthlySignal") == 0) {
@@ -1067,12 +1090,12 @@ public class Data {
 			else {
 				signalConditionStr = signalType + "='" + signalValue;
 			}
-			whereClauseStr = signalConditionStr + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			whereClauseStr = signalConditionStr + " AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 		} // End if selectSeasonalSignal
 		// If datesValidType is not "selectSeasonalSignal", then we just
 		// need the WHERE clause to include the date and id filters
 		else {
-			whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+			whereClauseStr = dateFilter + " AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 		}
 
 		//-----------------------------------------------------------
@@ -1260,6 +1283,17 @@ public class Data {
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
 		regionList = Sql.regionsToRegex(regions);
+		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
+		// then use the 'id' column from locationList. Otherwise use the regionType column itself.
+		if (regionType.compareToIgnoreCase("climateDivision") == 0 && spatialType.compareToIgnoreCase("climateDivision") == 0)
+		{
+			locationListCol = "id";
+		}
+		else
+		{
+			locationListCol = regionType;
+		}
+
 
 		//-----------------------------------------------------------
 		// Determine $dateName
@@ -1317,7 +1351,7 @@ public class Data {
 		//
 		String whereClauseStr;
 		// For the where clause want all data for climo because it will match to retrieved obs later on
-		whereClauseStr = dateFilter + " AND locationList." + regionType + " RLIKE '(" + regionList + ")'";
+		whereClauseStr = dateFilter + " AND locationList." + locationListCol + " RLIKE '(" + regionList + ")'";
 
 		//-----------------------------------------------------------
 		// Build the ORDER BY organization clauses
