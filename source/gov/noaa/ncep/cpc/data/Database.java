@@ -24,6 +24,7 @@ public class Database {
 	// Initialize variables
 	//---------------------------------------------------------------
 	static Logger logger = Logger.getLogger(gov.noaa.ncep.cpc.data.Database.class);
+	static float missingValue = -999; // Missing value flag in DB
 
 	//---------------------------------------------------------------
 	// Methods involving the result set of a database query
@@ -260,11 +261,11 @@ public class Database {
 					rs.next();
 					// Get probabilites, then set them to NULL if they were NULL in the DB
 					fcstProb[d][l][0] = rs.getFloat("prob_below");
-					if (rs.wasNull()) {fcstProb[d][l][0] = Float.NaN;}
+					if (rs.wasNull() || fcstProb[d][l][0] == missingValue) {fcstProb[d][l][0] = Float.NaN;}
 					fcstProb[d][l][1] = rs.getFloat("prob_normal");
-					if (rs.wasNull()) {fcstProb[d][l][1] = Float.NaN;}
+					if (rs.wasNull() || fcstProb[d][l][0] == missingValue) {fcstProb[d][l][1] = Float.NaN;}
 					fcstProb[d][l][2] = rs.getFloat("prob_above");
-					if (rs.wasNull()) {fcstProb[d][l][2] = Float.NaN;}
+					if (rs.wasNull() || fcstProb[d][l][0] == missingValue) {fcstProb[d][l][2] = Float.NaN;}
 				}
 			}
 		} catch (Exception e) {
