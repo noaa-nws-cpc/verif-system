@@ -50,7 +50,7 @@
 		<delete dir="${logs}"/>
 		<delete dir="${output}"/>
 		<delete dir="${work}" />
-		<delete dir="{web}/library/java" />
+		<delete dir="${web}/library/java" />
 		<!-- Delete any .war files -->
 		<delete failonerror="false">
 			<fileset dir="." includes="*.war" />
