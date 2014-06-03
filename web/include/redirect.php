@@ -28,6 +28,7 @@
 				<li><a href=www.java.com/en/download/installed.jsp" target="_blank">Click here</a> to see whether you have Java installed.</li>
 				<li>If not, <a href=www.java.com/en/download/index.jsp" target="_blank">Click here</a> to download and install the Java plugin.</li>
 				<li>Note that after you install the Java plugin, you will need to restart your browser in order for the plugin to take effect.</li>
+				<li>Sometimes Java will ask you if you want to <b>activate the plugin</b> when you access the VWT. Click "yes" or "activate" if prompted.</li>
 			</ul>
 		</li>
 		<li>
