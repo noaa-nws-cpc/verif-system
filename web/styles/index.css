@@ -203,22 +203,26 @@ div.message-text { /* News messages text */
 	float: right;
 }
 div.message-close { /* News messages close box */
-	float: right;
-	margin-left: 10px;
-	width: 1em;
-	height: 1em;
+	position: absolute;
+	top:-8px;
+	right:-8px;
 	padding: 0.0em;
+	text-align: center;
 	font-weight: bold;
-	font-size: 1.2em;
-	display: inline-block;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	line-height: 1em;
-	border-width: 1px;
-	border-style: solid;
+	font-size: 16px;
+	display: block;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	line-height: 15px;
+	background-color: black;
+	border: 2px solid white;
+	color: white;
+	width: 16px;
+	height: 16px;
 }
 div.message-close:hover {/* Hovering over news messages close box */
 	cursor: pointer;
+	background-color: #888;
 }
 div.message.warning .message-close:hover { /* Colorize the warning close box on hover */
 	background-color: #900;
@@ -241,13 +245,6 @@ div.message.note { /* Note */
 }
 div.message.note .message-text { /* Note */
 	color: #330;
-}
-div.message.note .message-close { /* Note */
-	border-color: #990;
-	color: #330;
-}
-div.message.note .message-close:hover { /* Colorize the note close box on hover */
-	background-color: #990;
 }
 
 /* All Panels */
