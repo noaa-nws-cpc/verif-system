@@ -625,7 +625,7 @@
 		</section>
 		<!-- Message informing users how to deal with Java confirmation boxes -->
 		<p id="user_tip-Java_confirmation_boxes"></p>
-		<script>$('#user_tip-Java_confirmation_boxes').message("Before you can use the tool, 1 or 2 Java-related windows will popup. For the 1st window, check the box and click \"Run\". If there's a 2nd window, click \"Allow\" or \"Don't Block\". Note that sometimes the popup window is hidden behind the browser.",'note')</script>
+		<script>$('#user_tip-Java_confirmation_boxes').message("The VWT has currently only been fully tested in <b>Firefox</b> on Mac, Windows, and Linux. We cannot guarantee that the tool will work in any other browser. <a href=\"http://www.mozilla.org/en-US/firefox/new\" target=\"_blank\">Click here</a> to download. <br><br>Before you can use the tool, 1 or 2 Java-related windows will popup. For the 1st window, check the box and click \"Run\". If there's a 2nd window, click \"Allow\" or \"Don't Block\". <i>Note that sometimes the popup window is hidden behind the browser.</i><br><br>If you have any issues or suggestions, please click the \"Feedback\" button on the bottom right.",'note')</script>
 		<div id="overviewContainer">
 			<section id="overviewPanel" class="panel">
 				<div class="content">
