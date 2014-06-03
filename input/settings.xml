@@ -3,17 +3,17 @@
 <settings>
 	<variable>temp</variable>
 	<fcstSources>manual</fcstSources>
-	<leadTime>11d</leadTime>
-	<aveWindow>07d</aveWindow>
+	<leadTime>02m</leadTime>
+	<aveWindow>03m</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>20120514,20120514</datesValid>
-	<regionType>climateRegion</regionType>
+	<datesValid>201205,201209</datesValid>
+	<regionType>climateDivision</regionType>
 	<regions>All</regions>
-	<spatialType>station</spatialType>
+	<spatialType>gridded</spatialType>
 	<outputType>chart</outputType>
-	<outputDimension>probability</outputDimension>
-	<scoreType>reliability</scoreType>
-	<categoryType>separate</categoryType>
+	<outputDimension>time</outputDimension>
+	<scoreType>heidke</scoreType>
+	<categoryType>total</categoryType>
 	<ECType>default</ECType>
 </settings>
 </data>
