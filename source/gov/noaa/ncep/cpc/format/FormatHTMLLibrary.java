@@ -141,7 +141,7 @@ public class FormatHTMLLibrary {
 						// If spatialType is 'gridded' display the # of locations instead of list
 						// The referenceText is replaced with "at" in this situation.
 						if (settingsObj.getSpatialType().compareToIgnoreCase("gridded")==0) {
-							text = text.concat("<li>" + fcstSourcesArray[i] + " forecast is <font color=\"red\">" + scoreSummaryArray[i][j][0] + "</font> " + "at " + scoreSummaryArray[i][j][7] + " location(s) </li>");
+							text = text.concat("<li>" + fcstSourcesArray[i] + " forecast is <font color=\"red\">" + scoreSummaryArray[i][j][2] + "</font> " + "at " + scoreSummaryArray[i][j][7] + " location(s) </li>");
 						}
 						else {
 							text = text.concat("<li>" + fcstSourcesArray[i] + " forecast is <font color=\"red\">" + scoreSummaryArray[i][j][2] + "</font> " + referenceText + " " + scoreSummaryArray[i][j][3] + " </li>");

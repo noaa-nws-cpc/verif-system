@@ -3,11 +3,11 @@
 <settings>
 	<variable>temp</variable>
 	<fcstSources>manual</fcstSources>
-	<leadTime>02m</leadTime>
-	<aveWindow>03m</aveWindow>
+	<leadTime>08d</leadTime>
+	<aveWindow>05d</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>201205,201209</datesValid>
-	<regionType>climateDivision</regionType>
+	<datesValid>20140101,20140228</datesValid>
+	<regionType>climateRegion</regionType>
 	<regions>All</regions>
 	<spatialType>gridded</spatialType>
 	<outputType>chart</outputType>

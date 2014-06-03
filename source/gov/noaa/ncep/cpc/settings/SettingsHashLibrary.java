@@ -152,7 +152,7 @@ public class SettingsHashLibrary {
         */
         public static String[] getCategoryNames() {
 		String[] categoryNames = new String[4];
-		categoryNames[0] = "Total";
+		categoryNames[0] = "total";
 		categoryNames[1] = "B";
 		categoryNames[2] = "N";
 		categoryNames[3] = "A";
