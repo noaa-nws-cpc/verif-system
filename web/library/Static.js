@@ -41,7 +41,7 @@ Static = {
 		// Right now fcstSource is always manual. This could be made a form variable in the future.
 		settings['fcstSource'] = "manual";
 		// Right now categoryType is always total. This could be made a form variable in the future.
-		settings['categoryType'] = "total";
+		settings['categoryType'] = "Combined Categories";
 		//-----------------------------------------------------------
 		// Settings
 		//-----------------------------------------------------------
