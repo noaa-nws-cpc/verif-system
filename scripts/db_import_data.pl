@@ -11,7 +11,7 @@ db_import_data - A Perl script to import ascii forecast and observation data int
  Required arguments:
    General:
      -d, -datatype         Type of data being processed                forecast or observation
-     -v, -variable         variable to process                         temp or precip
+     -v, -variable         variable to process                         temp, tmax, tmin or precip
      -a, -avewindow        averaging window with appended units        05d, 07d, 01m, 03m
      -g, -spatialtype      type of spatial data                        cd, stn, grid2deg
      -s, -startdate        date to begin processing                    yyyymmdd (yyyymm for longRange)
@@ -1104,7 +1104,7 @@ sub validateArgs {
 	#--------------------------------------------------------------------
 	# variable
 	#--------------------------------------------------------------------
-	$regex = 'temp|precip';
+	$regex = 'temp|tmax|tmin|precip';
 	unless (defined($args{variable}) and $args{variable} =~ m/\b($regex)\b/) { pod2usage("\nThe -variable option was not set properly. Must match the following regex: $regex\n"); }
 	#--------------------------------------------------------------------
 	# aveWindow
