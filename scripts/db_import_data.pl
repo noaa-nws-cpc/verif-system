@@ -171,7 +171,9 @@ $mysqlSettings{'database'} = mysql_getDatabaseName();
 $mysqlSettings{'settingsTable'} = "$mysqlSettings{db_ref}.dataSettings";
 $mysqlSettings{'dataTable'} = mysql_getDataTableName();
 # Determine fcstType based on the leadTime
-if ($args{'aveWindow'} =~ /m$/) {
+if ($args{'aveWindow'} eq '01d') {
+	$args{fcstType} = "probabilisticHazards";
+} elsif ($args{'aveWindow'} =~ /m$/) {
 	$args{fcstType} = "longRange";
 } elsif ($args{'aveWindow'} =~ /d$/) {
 	$args{fcstType} = "extendedRange";
@@ -188,7 +190,7 @@ if ($args{'aveWindow'} =~ /m$/) {
 # Other
 my @mysqlColumns;
 if ($args{'dataType'} eq "forecast") {
-	if ($args{'fcstType'} eq "extendedRange") {
+	if ($args{'fcstType'} =~ /extendedRange|probabilisticHazards/) {
 		@mysqlColumns = ('id','cdf','prob_below','prob_normal','prob_above');
 	} elsif ($args{'fcstType'} eq "longRange") {
 		@mysqlColumns = ('id','cdf','prob_below','prob_normal','prob_above','skill','standardAnomaly');
@@ -433,11 +435,14 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		# The new reforecast-calibrated forecast tool has a single header line, unlike
 		# GEMPAK ascii data files, so don't skip any lines, otherwise skip 1.
 		my %columnIndex;
-		if ($args{tool} =~ /(reforecastCalibratedProb[0-9]*|rfcstCalProb[0-9]*|rfcstUncalProb[0-9]*)/) {
-			$logger->debug("HEADER=0");
+		if ($args{tool} =~ /(reforecastCalibratedProb[0-9]*|rfcstCalProb|rfcstUncalProb[0-9]*)/) {
+			$logger->debug("Not skipping any header lines");
+			%columnIndex = file_getColumns('FILE',0);
+		} elsif ($args{'dataType'} eq "observation" and $args{variable} =~ /tmax|tmin/) {
+			$logger->debug("Not skipping any header lines");
 			%columnIndex = file_getColumns('FILE',0);
 		} else {
-			$logger->debug("HEADER=1");
+			$logger->debug("Skipping 1 header line");
 			%columnIndex = file_getColumns('FILE',1);
 		}
 
@@ -812,7 +817,7 @@ sub mysql_insertData {
 		if ($args{'tool'} eq "kleinCat") {
 			$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, cdf, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'cdf'},$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
 		# ERF data has no skill or standard anomaly
-		} elsif ($args{fcstType} eq "extendedRange") {
+		} elsif ($args{fcstType} =~ /extendedRange|probabilisticHazards/) {
 			$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
 		# LLF data
 		} elsif ($args{fcstType} eq "longRange") {
@@ -906,7 +911,12 @@ sub file_getFileName {
 	# Some data will use the lead start and end (ex. d08_d14 in filename)
 	my $leadStart = $leadTimeNum - ($aveWindowNum - 1)/2;
 	my $leadEnd   = $leadTimeNum + ($aveWindowNum - 1)/2;
-	my $leadRange = sprintf('%s%02d_%s%02d',$leadTimeUnit,$leadStart,$leadTimeUnit,$leadEnd);
+	my $leadRange;
+	if ($args{'aveWindow'} eq '01d') {
+		$leadRange = sprintf('%s%02d',$leadTimeUnit,$leadStart,$leadTimeUnit);
+	} else {
+		$leadRange = sprintf('%s%02d_%s%02d',$leadTimeUnit,$leadStart,$leadTimeUnit,$leadEnd);
+	}
 	# Since the DB is storing the path with variables in it ($cycle, $leadTime, etc.), we
 	# must use Perl's eval() function to take those strings from the DB, and convert them
 	# into Perl code, so the value of the variable can be obtained. In this case, we'll
@@ -1157,7 +1167,7 @@ sub validateArgs {
 		# longRange
 		if ($args{aveWindow} =~ m/\b\d{2}m\b/) {
 			$regex = '\d{2}m|\dpt5m';
-		# extendedRange
+		# extendedRange or probabilisticHazards
 		} elsif ($args{aveWindow} =~ m/\b\d{2}d\b/) {
 			$regex = '\d{2}d';
 		}
