@@ -164,7 +164,6 @@ sub mysql_tableExists {
 		return 0;
 	}
 	my $sqlQuery = "SHOW TABLES FROM $databaseName LIKE '$tableName'";
-# 	print "SQL Query: $sqlQuery\n";
 	my $results = $databaseConnection->query($sqlQuery);
 	if ($results->numrows() > 0) {
 		return 1;

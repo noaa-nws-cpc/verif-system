@@ -435,7 +435,7 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		# The new reforecast-calibrated forecast tool has a single header line, unlike
 		# GEMPAK ascii data files, so don't skip any lines, otherwise skip 1.
 		my %columnIndex;
-		if ($args{tool} =~ /(reforecastCalibratedProb[0-9]*|rfcstCalProb|rfcstUncalProb[0-9]*)/) {
+		if ($args{tool} =~ /(rfcstCalProb|rfcstUncalProb|rfcstCalProb[0-9]*|rfcstCalBCProb[0-9]*|rfcstCalBCTrailingProb[0-9]*|rfcstUncalProb[0-9]*|rfcstCalBCCenteredProb[0-9]*)/) {
 			$logger->debug("Not skipping any header lines");
 			%columnIndex = file_getColumns('FILE',0);
 		} elsif ($args{'dataType'} eq "observation" and $args{variable} =~ /tmax|tmin/) {

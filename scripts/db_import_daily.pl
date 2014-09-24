@@ -263,17 +263,43 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model canm -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model canm -cycle 00z";
 		# Reforecast-Calibrated Forecast
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool reforecastCalibratedProb";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCalProb";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCalProb";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
 		# Reforecast-Uncalibrated Forecast
 		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstUncalProb";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstUncalProb";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfsensm -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
 
 		#------------------------------------------------------------
 		# Gridded

@@ -3,16 +3,15 @@
 startdate='20110601'
 enddate='20130531'
 vars='temp precip'
-scores='heidke rpss reliability'
-skip_verif=1
 scores='reliability'
+skip_verif=1
 
 # Check for VERIF_HOME environment variable
 [ -z $VERIF_HOME ] && { echo "\$VERIF_HOME environment variable needs to be defined first..."; exit 1; }
 
 cd $VERIF_HOME
 
-if [[ skip_verif == 0 ]]; then
+if [[ $skip_verif == 0 ]]; then
 	#------------------------------------------------------------------------------
 	# Verify all sensitivity cases
 	#

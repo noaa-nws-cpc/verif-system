@@ -485,7 +485,7 @@ sub calcNumMissing {
 	# Construct the SQL to retrieve the list of spatial points with missing data
 	#
 	# Manual weekends - Don't count NULLs as missing, because there are always NULLs
-	if ($args{dataType} eq "forecast" && mysql_getSettingFromTableName($table,"fcstSource") eq "manual" && mysql_getSettingFromTableName($table,"fcstType") eq "extendedRange" && ($dayOfTheWeek == 6 || $dayOfTheWeek == 7)) {
+	if ($args{dataType} eq "forecast" && (mysql_getSettingFromTableName($table,"fcstSource") eq "manual" or mysql_getSettingFromTableName($table,"model") eq "manual") && mysql_getSettingFromTableName($table,"fcstType") eq "extendedRange" && ($dayOfTheWeek == 6 || $dayOfTheWeek == 7)) {
 		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $database.$table WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
 	# Everything else - Counting NULLs or not is left up to the user
 	} else {
