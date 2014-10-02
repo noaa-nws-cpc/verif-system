@@ -20,7 +20,7 @@ $tools = array(
 	"kleinProb",
 	"analog",
 	"calibratedProb",
-	"reforecastCalibratedProb",
+	"rfcstCalProb",
 	"uncalibratedProb",
 );
 ?>
