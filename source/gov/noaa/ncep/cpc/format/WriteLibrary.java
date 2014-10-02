@@ -6,6 +6,7 @@ import gov.noaa.ncep.cpc.services.Results;
 import gov.noaa.ncep.cpc.settings.Settings;
 import gov.noaa.ncep.cpc.settings.SettingsHashLibrary;
 import gov.noaa.ncep.cpc.stats.Stats;
+import gov.noaa.ncep.cpc.stats.StatsLibrary;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -271,7 +272,59 @@ public class WriteLibrary {
 			Log.fatal("COuld not get header information regaring the perecent of valid scores.","#errorPanelText");
 			throw e;
 		}
+        // Score Summary
+		int startIndex = 0;
+		int endIndex = 0;
+		if (settingsObj.getCategoryType().equals("separate")) {
+			startIndex = 1;
+			endIndex = 3;
+		}
+		else if (settingsObj.getCategoryType().equals("B")) {
+			startIndex = 1;
+			endIndex = 1;
+		}
+		else if (settingsObj.getCategoryType().equals("N")) {
+			startIndex = 2;
+			endIndex = 2;
+		}
+		else if (settingsObj.getCategoryType().equals("A")) {
+			startIndex = 3;
+			endIndex = 3;
+		}
+		// Create text associated with each of the categories to use in the info panel text
+		// The number of elements should be identical to the category array size
+		String[] categoryText = {"including all categories","the below normal category","the normal category", "the above normal category"};
+		//---------------------------------------------------
+		// Parse string of forecast sources into a String array
+		//---------------------------------------------------
+		String fcstSources = settingsObj.getFcstSources();
+		logger.debug("String of long forecast sources is : " + fcstSources);
+		String delims = "[,]"; // Syntax that denotes separate items
+		String[] fcstSourcesArray = fcstSources.split(delims);
+		// Get 3-D array of score information
+		String[][][] scoreSummaryArray;
+		scoreSummaryArray = StatsLibrary.getScoreSummaryArrayEachModel(resultsObj.getStats(), resultsObj.getReferenceArray());
+    	if (!(settingsObj.getScoreType().equals("reliability"))) {
+		str.append("------------------------------------------------------------------------ \n");
+        str.append("#                             Score Summary                             \n");
+        //---------------------------------------------------
+		// Print the average scores
+		//---------------------------------------------------
+		// Loop over categories
+			for (int j=startIndex;j<(endIndex+1);j++) {
+				str.append("# The average " + settingsObj.getScoreType() + " score(s) for "+ categoryText[j] +" for the : \n");
+				// Loop over forecasts
+				for (int i=0; i<fcstSourcesArray.length; i++) {
+					str.append("# " + fcstSourcesArray[i] + " forecast is " + scoreSummaryArray[i][j][4] + " with " + scoreSummaryArray[i][j][5] + " values \n");
+				}
+// 					// Print a line to separate the text output for each category
+// 					if (settingsObj.getOutputType().equals("chart") && settingsObj.getCategoryType().equals("separate") && j<endIndex) {
+// 						text = text.concat("<hr>");
+// 					}
+			} // End category loop
+        }
 		str.append("######################################################################## \n");
+        
 		logger.debug("Finished creating header for ASCII output...");
 		
 		// WRITE COLUMN HEADERS

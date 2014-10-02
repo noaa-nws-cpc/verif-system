@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <data>
 <settings>
-	<variable>temp</variable>
-	<fcstSources>manual</fcstSources>
-	<leadTime>08d</leadTime>
-	<aveWindow>05d</aveWindow>
-	<datesValidType>dateRange</datesValidType>
-	<datesValid>20140101,20140228</datesValid>
-	<regionType>climateRegion</regionType>
-	<regions>All</regions>
-	<spatialType>gridded</spatialType>
-	<outputType>chart</outputType>
-	<outputDimension>time</outputDimension>
-	<scoreType>heidke</scoreType>
-	<categoryType>total</categoryType>
-	<ECType>default</ECType>
+        <variable>tmax</variable>
+        <fcstSources>rfcstCalProbPtile15and85_gfsensm_00z</fcstSources>
+        <leadTime>08d</leadTime>
+        <aveWindow>01d</aveWindow>
+        <datesValidType>dateRange</datesValidType>
+        <datesValid>20130101,20131231</datesValid>
+        <regionType>climateRegion</regionType>
+        <regions>all</regions>
+        <spatialType>gridded</spatialType>
+        <outputType>chart</outputType>
+        <outputDimension>time</outputDimension>
+        <scoreType>rpss</scoreType>
+        <categoryType>total</categoryType>
+        <ECType>default</ECType>
 </settings>
-</data>
 
+</data>
