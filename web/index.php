@@ -8,7 +8,7 @@
 // 	}
 	// Get the page
 	if (! empty($_GET['page'])) {
-		$page = $_GET['page'];
+		$page = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
 	} else {
 		// Default to chart
 		$page = "chart";
@@ -615,6 +615,11 @@
 			$('input,textarea,:input').attr('autocomplete', 'off');
 		});
 	</script>
+	<?php
+		// 2014-10-15 / Sherry Jones / CSRF fix
+		// ONLY UNCOMMENT THIS ON THE PUBLIC SERVER, THIS FILE IS NOT YET AVAILABLE INTERNALLY
+//		require_once '/var/www/cpcvwt/htdocs/ncep_common/csrf-magic.php';
+	?>
 </head>
 <body class="center" onload="checkForJava();">
 	<div id="outerContainer">
