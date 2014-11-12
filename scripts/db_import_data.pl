@@ -64,7 +64,7 @@ BEGIN {
 
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use lib "$HOME/library/perl";
@@ -259,9 +259,9 @@ $logger->info("
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{host},$mysqlSettings{database},$mysqlSettings{user},$mysqlSettings{password});
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 unless ($db) {
-	$logger->fatal("  Cannot connect to the MySQL server: " . Mysql->errmsg() . "\n");
+	$logger->fatal("  Cannot connect to the MySQL server: $DBI::errstr\n");
 	exit;
 }
 $logger->info("  Successfully connected to the MySQL server...\n");
@@ -271,8 +271,8 @@ if (!$mysqlSettings{database}) {
 	exit;
 } else {
 	# Try to select the database
-	unless($db->selectdb($mysqlSettings{database})) {
-		$logger->fatal("  Cannot connect to the MySQL database $mysqlSettings{database}: " . Mysql->errmsg() . "\n");
+	unless($db->do("use $mysqlSettings{database}")) {
+		$logger->fatal("  Cannot connect to the MySQL database $mysqlSettings{database}: $DBI::errstr\n");
 		exit;
 	};
 }
@@ -506,7 +506,8 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 	}
 	$logger->debug("Query to find missing data: $sqlQuery\n");
 	# Execuate the SQL query
-	my $results = $db->query($sqlQuery);
+    my $results = $db->prepare($sqlQuery);
+    $results->execute();
 	# Get the number of locations missing
 	my $numRows = $results->rows;
 	# If we found any missing data, then fill
@@ -695,8 +696,9 @@ sub mysql_dataTableExists {
 	} elsif ($args{'dataType'} eq "observation") {
 		$sqlQuery = "SHOW TABLES FROM $mysqlSettings{'database'} LIKE '$mysqlSettings{'dataTable'}'";
 	}
-	my $results = $db->query($sqlQuery);
-	if ($results->numrows() > 0) {
+	my $results = $db->prepare($sqlQuery);
+	$results->execute();
+	if ($results->rows > 0) {
 		return 1;
 	} else {
 		return 0;
@@ -727,12 +729,13 @@ sub mysql_getDataSettings {
 		$sqlQuery = "SELECT * FROM $mysqlSettings{'settingsTable'} WHERE dataType='$args{'dataType'}' AND variable='$args{'variable'}' AND fcstType='$args{'fcstType'}' AND spatialType='$args{'spatialType'}'";
 	}
  	$logger->debug("SQL to get dataSettings: $sqlQuery\n");
-	my $results = $db->query($sqlQuery);
-	if ($results->numrows()  < 1) {
+	my $results = $db->prepare($sqlQuery);
+	$results->execute();
+	if ($results->rows  < 1) {
 		return 0;
 	} else {
-		my %tempHash = $results->fetchhash;
-		@dataSettings{ keys %tempHash } = values %tempHash;
+		my $tempHash = $results->fetchrow_hashref();
+		%dataSettings = %$tempHash;
 		return 1;
 	}
 }
@@ -746,9 +749,9 @@ Currently either the I<forecasts> or I<observations> database will be selected
 =cut
 sub mysql_setDatabase {
 	if ($args{dataType} eq "forecast") {
-		$db->query("use $mysqlSettings{'database'}") or die "Can't switch to the forecasts database: $!\n";
+		$db->do("use $mysqlSettings{'database'}") or die "Can't switch to the forecasts database: $!\n";
 	} elsif ($args{dataType} eq "observation") {
-		$db->query("use $mysqlSettings{'database'}") or die "Can't switch to the observations database: $!\n";
+		$db->do("use $mysqlSettings{'database'}") or die "Can't switch to the observations database: $!\n";
 	}
 }
 
@@ -778,7 +781,8 @@ sub mysql_deleteDay {
 		return -1;
 	}
 	$logger->debug("SQL to get days to delete: $sqlQuery\n");
-	my $results = $db->query($sqlQuery);
+	my $results = $db->prepare($sqlQuery);
+	$results->execute();
 }
 
 =head2 mysql_wipeTable(mysqlTable)
@@ -794,7 +798,7 @@ The database in question depends on the I<dataType> variable.
 sub mysql_wipeTable {
 	my $mysqlTable = $_[0];
 	my $sqlQuery = "TRUNCATE $mysqlTable";
-	my $results = $db->query($sqlQuery);
+	my $results = $db->do($sqlQuery);
 }
 
 =head2 mysql_insertData(date,data)
@@ -834,7 +838,7 @@ sub mysql_insertData {
 	}
 	$logger->debug("      Query to insert observations: $sqlQuery\n");
 	# Submit query
-	$db->query($sqlQuery);
+	$db->do($sqlQuery);
 }
 
 #--------------------------------------------------------------------
@@ -925,7 +929,7 @@ sub file_getFileName {
 	my $dateFormatStr;
 	my $evalStr = "\$dateFormatStr = \"$dataSettings{'pathName'}/$dataSettings{'fileName'}\"";
 	$logger->debug("Evaluation string to retrieve file name: $evalStr\n");
-	eval("$evalStr");
+    eval($evalStr);
 	my $fileName = &UnixDate($date,$dateFormatStr);
 	# Remove excess '/'s
 	$fileName =~ s/\/\//\//g;
