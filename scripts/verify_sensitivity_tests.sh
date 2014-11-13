@@ -4,7 +4,31 @@ startdate='20110601'
 enddate='20130531'
 vars='temp precip'
 scores='reliability'
-skip_verif=1
+season='MAM'
+skip_verif=0
+
+# Set dates
+if [[ $season == 'DJF' ]] ; then
+	datesValidType='selectMonthsYears'
+	datesValid='01,02,12;2011,2012,2013'
+	datesInFile='01-02-12_2011-2012-2013'
+elif [[ $season == 'MAM' ]] ; then
+	datesValidType='selectMonthsYears'
+	datesValid='03,04,05;2011,2012,2013'
+	datesInFile='03-04-05_2011-2012-2013'
+elif [[ $season == 'JJA' ]] ; then
+	datesValidType='selectMonthsYears'
+	datesValid='06,07,08;2011,2012,2013'
+	datesInFile='06-07-08_2011-2012-2013'
+elif [[ $season == 'SON' ]] ; then
+	datesValidType='selectMonthsYears'
+	datesValid='09,10,11;2011,2012,2013'
+	datesInFile='09-10-11_2011-2012-2013'
+else
+	datesValidType='dateRange'
+	datesValid="$startdate,$enddate"
+	datesInFile='$startdate-$enddate'
+fi
 
 # Check for VERIF_HOME environment variable
 [ -z $VERIF_HOME ] && { echo "\$VERIF_HOME environment variable needs to be defined first..."; exit 1; }
@@ -25,6 +49,7 @@ if [[ $skip_verif == 0 ]]; then
 			else
 				outputDimension='time'
 			fi
+			
 			# Loop over all cases
 			for case in $(seq 0 11); do
 				# Create settings.xml
@@ -34,8 +59,8 @@ if [[ $skip_verif == 0 ]]; then
 	    <fcstSources>rfcstCalProb${case}_gfsensm_00z</fcstSources>
 	    <leadTime>11d</leadTime>
 	    <aveWindow>07d</aveWindow>
-	    <datesValidType>dateRange</datesValidType>
-	    <datesValid>$startdate,$enddate</datesValid>
+	    <datesValidType>$datesValidType</datesValidType>
+	    <datesValid>$datesValid</datesValid>
 	    <regionType>climateRegion</regionType>
 	    <regions>All</regions>
 	    <spatialType>station</spatialType>
@@ -81,13 +106,13 @@ for score in $scores; do
 	# Loop over variables
 	for var in temp precip ; do
 		# Create date/probability column
-		tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_totalCats_${outputDimension}_dateRange_${startdate}-${enddate}.txt | awk "BEGIN {print \"$first_col_header\"} {print \$1}" | sed '/^$/d' > temp1.txt
+		tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"$first_col_header\"} {print \$1}" | sed '/^$/d' > temp1.txt
 		# Loop over cases
 		filecount=2
 		filelist="temp1.txt"
 		for case in $(seq 0 11); do
 			# Create score column for this case
-			tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_totalCats_${outputDimension}_dateRange_${startdate}-${enddate}.txt | awk "BEGIN {print \"case$case\"} {print \$3}" | sed '/^$/d' > temp${filecount}.txt
+			tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$3}" | sed '/^$/d' > temp${filecount}.txt
 			# Add this file to the file list
 			filelist="$filelist temp${filecount}.txt"
 			filecount=$((filecount+1))
@@ -97,13 +122,13 @@ for score in $scores; do
 		# For reliability, make a file with counts as well
 		if [ $score == 'reliability' ]; then
 			# Create probability column
-			tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_totalCats_${outputDimension}_dateRange_${startdate}-${enddate}.txt | awk "BEGIN {print \"probability\"} {print \$1}" | sed '/^$/d' > temp1.txt
+			tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"probability\"} {print \$1}" | sed '/^$/d' > temp1.txt
 			# Loop over cases
 			filecount=2
 			filelist="temp1.txt"
 			for case in $(seq 0 11); do
 				# Create score column for this case
-				tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_totalCats_${outputDimension}_dateRange_${startdate}-${enddate}.txt | awk "BEGIN {print \"case$case\"} {print \$4}" | sed '/^$/d' > temp${filecount}.txt
+				tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$4}" | sed '/^$/d' > temp${filecount}.txt
 				# Add this file to the file list
 				filelist="$filelist temp${filecount}.txt"
 				filecount=$((filecount+1))
