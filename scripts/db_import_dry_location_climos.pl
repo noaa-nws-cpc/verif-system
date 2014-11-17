@@ -48,7 +48,7 @@ BEGIN {
 
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use lib "$HOME/library/perl";
@@ -189,9 +189,9 @@ $logger->info($welcome_message);
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysql_settings{host},$mysql_settings{database},$mysql_settings{user},$mysql_settings{password});
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 unless ($db) {
-	$logger->fatal("  Cannot connect to the MySQL server: " . Mysql->errmsg() . "\n");
+	$logger->fatal("  Cannot connect to the MySQL server: " . $DBI::errstr . "\n");
 	exit;
 }
 $logger->info("  Successfully connected to the MySQL server...\n");
@@ -202,7 +202,7 @@ if (!$mysql_settings{database}) {
 } else {
 	# Try to select the database
 	unless($db->selectdb($mysql_settings{database})) {
-		$logger->fatal("  Cannot connect to the MySQL database $mysql_settings{database}: " . Mysql->errmsg() . "\n");
+		$logger->fatal("  Cannot connect to the MySQL database $mysql_settings{database}: " . $DBI::errstr . "\n");
 		exit;
 	};
 }
@@ -266,7 +266,7 @@ while (my $line = <FILE>) {
 			my $sql_query = "INSERT INTO $mysql_settings{data_table_name}(id, date_valid, percentDry) VALUES('$id', '$mysql_date', " . $percents[($month - 1)] . ")";
 			$logger->debug("  SQL query to insert daily climo percentDry: $sql_query");
 			# Submit SQL statement
-			$db->query($sql_query);
+			$db->do($sql_query);
 		}
 	}
 }
@@ -447,6 +447,6 @@ sub mysql_wipe_table {
 	my $mysql_table = $_[0];
 	my $sql_query = "TRUNCATE $mysql_table";
 	$logger->debug("  SQL to delete everything from the data table: $sql_query");
-	my $results = $db->query($sql_query);
+	my $results = $db->do($sql_query);
 }
 

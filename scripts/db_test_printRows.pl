@@ -43,7 +43,7 @@ BEGIN {
 use lib "$HOME/library/perl";
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Pod::Usage;
 use ConfigFile;
@@ -81,6 +81,7 @@ if ($help or $argsMissing) {
 # Read in MySQL settings from a configuration file
 my $configFile="$HOME/input/verif_data.conf";
 my %mysqlSettings = load_settings($configFile,"multi");
+print "$mysqlSettings{host}\n";
 # Set the rest of the MySQL settings
 $mysqlSettings{'database'} = 'forecasts';
 $mysqlSettings{'table'} = "${variable}_${source}_${lead}_${avewindow}_${spatialtype}";
@@ -105,12 +106,12 @@ print "--------------------------------------------------------------------
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "Cannot connect to MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 print "  Successfully connected to database...\n";
 # If the table doesn't exist, exit the script
 $sqlQuery = "SHOW TABLES LIKE '$mysqlSettings{'table'}'";
-$results = $db->query($sqlQuery);
-if ($results->numrows() > 0) {
+my $results = $db->prepare($sqlQuery) ; $results->execute();
+if ($results->rows > 0) {
 	print "  Table '$mysqlSettings{'table'}' exists...\n";
 } else {
 	print "  Table '$mysqlSettings{'table'}' does not exist, exiting...\n";
@@ -142,7 +143,7 @@ for ($date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 	# Print how many rows now exist
 	$sqlDate = date_str2mysql(date_mach2str($date));
 	$sqlQuery = "select * from reference.stations JOIN $mysqlSettings{'table'} using(id) where date_issued='$sqlDate'";
-	$results = $db->query($sqlQuery);
+	$results = $db->prepare($sqlQuery) ; $results->execute();
 	$numRows = $results->rows;
 	print "$sqlDate: Found $numRows rows...\n";
 }

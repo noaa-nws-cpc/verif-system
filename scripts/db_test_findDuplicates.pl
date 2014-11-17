@@ -31,7 +31,7 @@ db_test_findDuplicates.pl - A Perl script to check for duplicate forecast and/or
 
 =head1 REQUIRES
 
-Pod::Usage, Getopt::Long, Mysql, Time::Local, Date::Manip, Log::Log4perl
+Pod::Usage, Getopt::Long, DBI, Time::Local, Date::Manip, Log::Log4perl
 
 =head1 SEE ALSO
 
@@ -56,7 +56,7 @@ use lib "$HOME/library/perl";
 use Pod::Usage;
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use Switch;
@@ -216,7 +216,7 @@ $logger->info("
 # Make a connection to the database
 #--------------------------------------------------------------------
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "Cannot connect to MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 
 #--------------------------------------------------------------------
 # Get all tables
@@ -235,7 +235,7 @@ if ($args{tableFilter}) {
 }
 $logger->debug("Query to find all $mysqlSettings{database} tables: $sqlQuery");
 # Execute the SQL query
-my $results = $db->query($sqlQuery);
+my $results = $db->do($sqlQuery);
 # Initialize an empty hash to store the number of duplicates for each table
 my %daysWithDuplicates = ();
 my %numDuplicates = ();
@@ -331,7 +331,7 @@ sub calcNumDuplicates {
 	$sqlQuery = "SELECT id, COUNT(*) AS num FROM $database.$table WHERE $dateColumn='$sqlDate' GROUP BY id, $dateColumn HAVING num > 1";
 	$logger->debug("Query to find duplicates: $sqlQuery");
 	# Execute the SQL query
-	my $results = $db->query($sqlQuery);
+	my $results = $db->do($sqlQuery);
 	# Get the number of duplicates
 	my $numDuplicates = $results->rows;
 	return $numDuplicates;

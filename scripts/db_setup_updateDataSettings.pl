@@ -15,7 +15,7 @@ BEGIN {
 
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use Cwd 'abs_path';
@@ -95,13 +95,13 @@ print "
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "Cannot connect to the MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 print "  Successfully connected to the MySQL server...\n";
 # Connect to the database
 if (!$mysqlSettings{'database'}) {
 	die "  There is no database specified, check your -datatype flag...\n";
 } else {
-	$db->selectdb($mysqlSettings{'database'}) or die "Cannot connect to the MySQL database $mysqlSettings{'database'}: $!\n";
+    $db->do("use $mysqlSettings{'database'}") or die "Can't switch to the database: $!\n"; 
 }
 
 #--------------------------------------------------------------------
@@ -123,8 +123,7 @@ mysql_wipeTable($db, $mysqlSettings{'database'}, $mysqlSettings{'settingsTable'}
 # Insert data settings into settings table
 #
 $sqlQuery = "LOAD DATA LOCAL INFILE '$file' INTO TABLE $mysqlSettings{'database'}.$mysqlSettings{'settingsTable'} FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n' IGNORE 1 LINES";
-$results = $db->query($sqlQuery);
-$affectedRows = $results->affectedrows($sqlQuery);
+$affectedRows = $db->do($sqlQuery);
 print "  Added $affectedRows rows\n";
 
 sub printUsage {
@@ -164,8 +163,8 @@ sub mysql_tableExists {
 		return 0;
 	}
 	my $sqlQuery = "SHOW TABLES FROM $databaseName LIKE '$tableName'";
-	my $results = $databaseConnection->query($sqlQuery);
-	if ($results->numrows() > 0) {
+    my $results = $databaseConnection->prepare($sqlQuery) ; $results->execute(); 
+	if ($results->rows > 0) {
 		return 1;
 	} else {
 		return 0;
@@ -178,5 +177,5 @@ sub mysql_wipeTable {
 		warn("mysql_tableExists requires more args...\n");
 	}
 	my $sqlQuery = "TRUNCATE $databaseName.$tableName";
-	$results = $db->query($sqlQuery);
+	$results = $databaseConnection->do($sqlQuery);
 }

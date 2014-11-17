@@ -167,7 +167,7 @@ use warnings;
 use Getopt::Long;
 use Date::Manip;
 use Switch;
-use Mysql;
+use DBI;
 use Pod::Usage;
 use Log::Log4perl;
 use LWP::Simple;
@@ -305,7 +305,7 @@ $logger->info("
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "  Cannot connect to MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 
 #--------------------------------------------------------------------
 # Ensure the required table exists. If it does not, create it.
@@ -315,9 +315,9 @@ if (mysql_tableExists($mysqlSettings{database}, $mysqlSettings{table})) {
 } else {
 	$logger->info("  Creating MySQL table \'$mysqlSettings{'table'}\'...");
 	$sqlQuery = "CREATE TABLE $mysqlSettings{'table'} (date_valid DATE)";
-	$db->query($sqlQuery) or die "Cannot create table $mysqlSettings{'table'}: $!";
+	$db->do($sqlQuery) or die "Cannot create table $mysqlSettings{'table'}: $!";
 	$sqlQuery = "CREATE INDEX index_date ON $mysqlSettings{'table'} (date_valid)";
-	$db->query($sqlQuery) or die "Cannot create index on column date_valid: $!";
+	$db->do($sqlQuery) or die "Cannot create index on column date_valid: $!";
 }
 #--------------------------------------------------------------------
 # Ensure the required column (climate phenomena type) exists. If it does not, create it.
@@ -327,9 +327,9 @@ if (mysql_colExists($args{climPhenom}, $mysqlSettings{table})) {
 	$logger->info("	MySQL column \'$args{'climPhenom'}\' exists in table \'$mysqlSettings{'table'}\'");
 } else {
 	$sqlQuery = "ALTER TABLE $mysqlSettings{'table'} ADD $args{'climPhenom'} VARCHAR(20)";
-	$db->query($sqlQuery) or die "Could not add column $args{'climPhenom'} in table \'$mysqlSettings{'table'}\': $!";
+	$db->do($sqlQuery) or die "Could not add column $args{'climPhenom'} in table \'$mysqlSettings{'table'}\': $!";
 	$sqlQuery = "CREATE INDEX index_".(lc($args{climPhenom}))." ON $mysqlSettings{'table'} ($args{climPhenom})";
-	$db->query($sqlQuery) or die "Cannot create index on column $args{climPhenom}: $!";
+	$db->do($sqlQuery) or die "Cannot create index on column $args{climPhenom}: $!";
 }
 #--------------------------------------------------------------------
 # If the "destroy" option is set, removing all data from the table
@@ -557,8 +557,8 @@ sub mysql_tableExists {
 	my $tableName = $_[1];
 	my $sqlQuery = "SHOW TABLES FROM $dbName LIKE '$tableName'";
 	$logger->debug("  [mysql_tableExists()] SQL query: $sqlQuery");
-	my $results = $db->query($sqlQuery);
-	if ($results->numrows() > 0) {
+    my $results = $db->prepare($sqlQuery) ; $results->execute(); 
+	if ($results->rows > 0) {
 		return 1;
 	} else {
 		return 0;
@@ -584,8 +584,8 @@ sub mysql_colExists {
 	my $sqlQuery = "SHOW columns from $tableName WHERE field='$varName'";
 	$logger->debug("  [mysql_insertData] SQL query: $sqlQuery");
 	$logger->debug("  [mysql_tableExists()] SQL query: $sqlQuery");
-	my $results = $db->query($sqlQuery);
-	if ($results->numrows() > 0) {
+    my $results = $db->prepare($sqlQuery) ; $results->execute(); 
+	if ($results->rows > 0) {
 		return 1;
 	} else {
 		return 0;
@@ -610,7 +610,7 @@ sub mysql_wipeTable {
 	# Generate SQL query
 	my $sqlQuery = "TRUNCATE ${database}.${table}";
 	$logger->debug("  Truncating ${database}.${table}...");
-	my $results = $db->query($sqlQuery);
+	my $results = $db->do($sqlQuery);
 }
 
 =head2 mysql_countRows(date)
@@ -635,9 +635,9 @@ sub mysql_countRows {
 	my $sqlQuery = "SELECT * FROM $mysqlSettings{'database'}.$mysqlSettings{'table'} WHERE date_valid='$date'";
 	$logger->debug("  [mysql_countRows()] SQL query: $sqlQuery");
 	# Execute query
-	my $results = $db->query($sqlQuery);
-	$logger->debug("  [mysql_countRows()] Returning " . $results->numrows() . " rows");
-	return $results->numrows();
+    my $results = $db->prepare($sqlQuery) ; $results->execute(); 
+	$logger->debug("  [mysql_countRows()] Returning " . $results->rows . " rows");
+	return $results->rows;
 }
 
 =head2 mysql_updateData(date,climphenom,value)
@@ -657,7 +657,7 @@ sub mysql_updateData {
 	my $sqlQuery = "UPDATE $mysqlSettings{table} SET $climPhenom='$value' WHERE date_valid='$date'";
 	$logger->debug("  [mysql_updateData()] SQL query: $sqlQuery");
 	# Submit query
-	$db->query($sqlQuery);
+	$db->do($sqlQuery);
 }
 
 =head2 mysql_insertData(date,value)
@@ -675,7 +675,7 @@ sub mysql_insertData {
 	my $sqlQuery = "INSERT INTO $mysqlSettings{table} (date_valid, $args{climPhenom}) VALUES ('$date','$value')";
 	$logger->debug("  [mysql_insertData] SQL query: $sqlQuery");
 	# Submit query
-	$db->query($sqlQuery);
+	$db->do($sqlQuery);
 }
 
 sub checkArgs {

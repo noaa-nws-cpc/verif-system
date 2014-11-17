@@ -72,7 +72,7 @@ use lib "$HOME/library/perl";
 use Pod::Usage;
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use Switch;
@@ -215,7 +215,7 @@ if ($args{emailOpt})			{ $optionsSet = $optionsSet . "  -email\n"; }
 # Make a connection to the database
 #--------------------------------------------------------------------
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "Cannot connect to MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password});
 
 #--------------------------------------------------------------------
 # Get all tables
@@ -238,7 +238,7 @@ if ($args{tableInclude} and $args{tableExclude}) {
 }
 $logger->debug("Query to find all $mysqlSettings{database} tables: $sqlQuery");
 # Execute the SQL query
-my $results = $db->query($sqlQuery);
+my $results = $db->prepare($sqlQuery) ; $results->execute();
 # Initialize an empty hash to store the missing days for each table
 my %daysMissing    = ();
 my %numMissing     = ();
@@ -501,7 +501,7 @@ sub calcNumMissing {
 	}
 	$logger->debug("Query to find missing data: $sqlQuery");
 	# Execute the SQL query
-	my $results = $db->query($sqlQuery);
+    my $results = $db->prepare($sqlQuery) ; $results->execute();
 	# Get the number of locations missing
 	my $numRows = $results->rows;
 	return $numRows;
@@ -519,7 +519,7 @@ sub getTotalSpatialPoints {
 	# Construct an SQL query
 	my $sqlQuery = "SELECT * FROM $mysqlSettings{db_ref}.$args{spatialType}";
 	# Execute the SQL query
-	my $results = $db->query($sqlQuery);
+    my $results = $db->prepare($sqlQuery) ; $results->execute();
 	# Get the number of locations missing
 	my $numRows = $results->rows;
 	return $numRows;
@@ -555,8 +555,8 @@ sub mysql_getDataOwner {
 	}
 	$logger->debug("Query to get the data owner for table $table: $sqlQuery");
 	# Execute query to get data owner
-	$results = $db->query($sqlQuery);
-	my @resultsArray = $results->fetchrow;
+    my $results = $db->prepare($sqlQuery) ; $results->execute();
+	my @resultsArray = $results->fetchrow_array();
 	return $resultsArray[0];
 }
 
@@ -598,8 +598,8 @@ sub mysql_getNumExpectedLocations {
 	}
 	$logger->debug("Query to get the number of locations for table $table: $sqlQuery");
 	# Execute query to get data owner
-	my $results = $db->query($sqlQuery);
-	my @resultsArray = $results->fetchrow;
+    my $results = $db->prepare($sqlQuery) ; $results->execute();
+	my @resultsArray = $results->fetchrow_array();
 	return $resultsArray[0];
 }
 

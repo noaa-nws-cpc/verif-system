@@ -4,7 +4,7 @@
 use warnings;
 
 use Switch;
-use Mysql;
+use DBI;
 use Getopt::Long;
 use Time::Local;
 use Date::Manip;

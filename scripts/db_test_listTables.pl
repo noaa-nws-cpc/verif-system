@@ -39,7 +39,7 @@ BEGIN {
 use lib "$HOME/library/perl";
 use Getopt::Long;
 use Switch;
-use Mysql;
+use DBI;
 use Time::Local;
 use Date::Manip;
 use Pod::Usage;
@@ -83,14 +83,14 @@ $mysqlSettings{'database'} = $database;
 # Make a connection to the database
 #
 # Connect to MySQL server
-my $db = Mysql->connect($mysqlSettings{'host'},$mysqlSettings{'database'},$mysqlSettings{'user'},$mysqlSettings{'password'}) or die "Cannot connect to MySQL server: $!\n";
+my $db = DBI->connect("DBI:mysql:$mysqlSettings{database};host=$mysqlSettings{host}",$mysqlSettings{user},$mysqlSettings{password}); 
 
 #--------------------------------------------------------------------
 # List all tables in this database
 #
 $sqlQuery = "SHOW TABLES FROM  $mysqlSettings{database}";
 # Execuate the SQL query
-$results = $db->query($sqlQuery);
+my $results = $db->prepare($sqlQuery) ; $results->execute(); 
 # Loop over each table and print out
 while (my $table = $results->fetchrow_array) {
 	print "$table\n";
