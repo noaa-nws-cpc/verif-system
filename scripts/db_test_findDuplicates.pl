@@ -167,7 +167,8 @@ log4perl.appender.Mailer.from                      = \"$emailSettings{fromName}\
 log4perl.appender.Mailer.subject                   = $emailSettings{subject}
 log4perl.appender.Mailer.layout                    = Log::Log4perl::Layout::PatternLayout
 log4perl.appender.Mailer.layout.ConversionPattern  = \%m\%n
-log4perl.appender.Mailer.Threshold                 = $emailSettings{logLevel}
+log4perl.appender.Mailer.Threshold                 = $emailSettings{logLevel},
+log4perl.appender.Mailer.buffered                  = 0
 ";
 }
 # Now set up the full logger config string
@@ -245,8 +246,18 @@ while (my $table = $results->fetchrow_array) {
 	#--------------------------------------------------------------------
 	# Calculate epoch dates
 	#--------------------------------------------------------------------
-	my $epochDate = ParseDate($args{startDate});
-	my $epochEnd  = ParseDate($args{endDate});
+	my $epochDate;
+	my $epochEnd;
+	if ($args{fcstType} eq "extendedRange")
+	{
+		$epochDate = ParseDate($args{startDate});
+		$epochEnd  = ParseDate($args{endDate});
+	}
+	elsif ($args{fcstType} eq "longRange")
+	{
+		$epochDate = ParseDate($args{startDate}.'15');
+		$epochEnd  = ParseDate($args{endDate}.'15');
+	}
 	#--------------------------------------------------------------------
 	# Loop over all days
 	#--------------------------------------------------------------------

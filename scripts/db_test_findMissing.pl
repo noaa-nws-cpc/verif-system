@@ -177,7 +177,8 @@ if (defined($args{emailOpt})) {
 'log4perl.appender.Mailer.subject'					=> "$emailSettings{subject}",
 'log4perl.appender.Mailer.layout'					=> "Log::Log4perl::Layout::PatternLayout",
 'log4perl.appender.Mailer.layout.ConversionPattern'	=> "\%m\%n",
-'log4perl.appender.Mailer.Threshold'				=> "$emailSettings{logLevel}"
+'log4perl.appender.Mailer.Threshold'				=> "$emailSettings{logLevel}",
+'log4perl.appender.Mailer.buffered' => 0
 ));
 }
 # Initialize the logger
@@ -270,8 +271,13 @@ while (my $table = $results->fetchrow()) {
 	my $epochDate;
 	my $epochEnd;
 	# Convert from the date string to epoch date
-	$epochDate = ParseDate($args{startDate});
-	$epochEnd  = ParseDate($args{endDate});
+	if ($args{startDate} =~ m/\b\d{8}\b/) {
+		$epochDate = ParseDate($args{startDate});
+		$epochEnd  = ParseDate($args{endDate});
+	} else {
+		$epochDate = ParseDate($args{startDate}.'15');
+		$epochEnd  = ParseDate($args{endDate}.'15');
+	}
 	# For forecasts, shift the date given (valid date) to the issued date
 	# by subtracting the lead time
 	if ($args{dataType} eq "forecast") {

@@ -1232,17 +1232,20 @@ sub compareDates() {
     my $dateStr2 = $_[1];
     my $dateFormat;
     # Validate dates
+    my $dateObj1;
+    my $dateObj2;
     if ($dateStr1 =~ m/\b\d{8}\b/ and $dateStr2 =~ m/\b\d{8}\b/) {
-        $dateFormat = "%Y%m%d"
+        $dateFormat = "%Y%m%d";
+        $dateObj1 = ParseDate($dateStr1);
+    	$dateObj2 = ParseDate($dateStr2);
     } elsif ($dateStr1 =~ m/\b\d{6}\b/ and $dateStr2 =~ m/\b\d{6}\b/) {
-        $dateFormat = "%Y%m"
+        $dateFormat = "%Y%m";
+        $dateObj1 = ParseDate($dateStr1.'15');
+    	$dateObj2 = ParseDate($dateStr2.'15');
     } else {
         warn "compareDates() Cannot compare these two dates";
         return;
     }
-    # Create new Date objects
-    my $dateObj1 = ParseDate($dateStr1);
-    my $dateObj2 = ParseDate($dateStr2);
 
     return Date_Cmp($dateObj1,$dateObj2);
 }

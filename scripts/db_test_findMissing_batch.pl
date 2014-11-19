@@ -155,6 +155,7 @@ if ($args{fcstType} eq "seasonal") {
 		$start_date = UnixDate("1 years ago",'%Y%m');
 		$end_date   = UnixDate("2 months ago",'%Y%m');
 	}
+	print "$childScript $options -d observation -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'\n";
 	system "$childScript $options -d observation -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
 	system "$childScript $options -d observation -g grid2deg -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
 	system "$childScript $options -d forecast    -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
