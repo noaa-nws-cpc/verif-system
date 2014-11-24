@@ -1,11 +1,12 @@
 #!/bin/sh
 
-startdate='20110601'
-enddate='20130531'
-vars='temp precip'
+startdate='20110101'
+enddate='20131231'
+vars='precip'
 scores='reliability'
-season='MAM'
-skip_verif=0
+season='all'
+cases='5 8 7'
+skip_verif=1
 
 # Set dates
 if [[ $season == 'DJF' ]] ; then
@@ -27,7 +28,7 @@ elif [[ $season == 'SON' ]] ; then
 else
 	datesValidType='dateRange'
 	datesValid="$startdate,$enddate"
-	datesInFile='$startdate-$enddate'
+	datesInFile="$startdate-$enddate"
 fi
 
 # Check for VERIF_HOME environment variable
@@ -51,7 +52,7 @@ if [[ $skip_verif == 0 ]]; then
 			fi
 			
 			# Loop over all cases
-			for case in $(seq 0 11); do
+			for case in $cases; do
 				# Create settings.xml
 				xml="
 	<settings>
@@ -62,7 +63,7 @@ if [[ $skip_verif == 0 ]]; then
 	    <datesValidType>$datesValidType</datesValidType>
 	    <datesValid>$datesValid</datesValid>
 	    <regionType>climateRegion</regionType>
-	    <regions>All</regions>
+	    <regions>NE,SE,MW,S,HP,W</regions>
 	    <spatialType>station</spatialType>
 	    <outputType>ascii</outputType>
 	    <outputDimension>$outputDimension</outputDimension>
@@ -110,7 +111,7 @@ for score in $scores; do
 		# Loop over cases
 		filecount=2
 		filelist="temp1.txt"
-		for case in $(seq 0 11); do
+		for case in $cases; do
 			# Create score column for this case
 			tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$3}" | sed '/^$/d' > temp${filecount}.txt
 			# Add this file to the file list
@@ -126,7 +127,7 @@ for score in $scores; do
 			# Loop over cases
 			filecount=2
 			filelist="temp1.txt"
-			for case in $(seq 0 11); do
+			for case in $cases; do
 				# Create score column for this case
 				tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$4}" | sed '/^$/d' > temp${filecount}.txt
 				# Add this file to the file list

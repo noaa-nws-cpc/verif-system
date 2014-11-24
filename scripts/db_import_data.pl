@@ -438,9 +438,9 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		if ($args{tool} =~ /(rfcstCalProb|rfcstUncalProb|rfcstCalProb[0-9]*|rfcstCalBCProb[0-9]*|rfcstCalBCTrailingProb[0-9]*|rfcstUncalProb[0-9]*|rfcstCalBCCenteredProb[0-9]*)/) {
 			$logger->debug("Not skipping any header lines");
 			%columnIndex = file_getColumns('FILE',0);
-		} elsif ($args{'dataType'} eq "observation" and $args{variable} =~ /tmax|tmin/) {
-			$logger->debug("Not skipping any header lines");
-			%columnIndex = file_getColumns('FILE',0);
+#		} elsif ($args{'dataType'} eq "observation") {
+#			$logger->debug("Not skipping any header lines");
+#			%columnIndex = file_getColumns('FILE',0);
 		} else {
 			$logger->debug("Skipping 1 header line");
 			%columnIndex = file_getColumns('FILE',1);

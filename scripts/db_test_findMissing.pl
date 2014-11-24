@@ -178,7 +178,7 @@ if (defined($args{emailOpt})) {
 'log4perl.appender.Mailer.layout'					=> "Log::Log4perl::Layout::PatternLayout",
 'log4perl.appender.Mailer.layout.ConversionPattern'	=> "\%m\%n",
 'log4perl.appender.Mailer.Threshold'				=> "$emailSettings{logLevel}",
-'log4perl.appender.Mailer.buffered' => 0
+'log4perl.appender.Mailer.buffered' => 1
 ));
 }
 # Initialize the logger
