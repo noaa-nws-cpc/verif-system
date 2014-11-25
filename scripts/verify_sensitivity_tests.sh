@@ -6,7 +6,7 @@ vars='precip'
 scores='heidke rpss reliability'
 seasons='all DJF MAM JJA SON'
 cases='0 1 2 3 4 5 6 7 8 9 10 11'
-skip_verif=0
+skip_verif=1
 
 # Check for VERIF_HOME environment variable
 [ -z $VERIF_HOME ] && { echo "\$VERIF_HOME environment variable needs to be defined first..."; exit 1; }
@@ -88,15 +88,6 @@ for season in $seasons; do
 	#------------------------------------------------------------------------------
 	# Combine all cases into one CSV
 	#
-	# Create empty files to store final verif
-	for score in $scores; do
-		> ../output/temp_${score}_${season}.csv
-		> ../output/precip_${score}_${season}.csv
-		if [[ $score == 'reliability' ]]; then
-			> ../output/temp_reliability_count_${season}.csv
-			> ../output/precip_reliability_count_${season}.csv
-		fi
-	done
 	# Loop over score
 	for score in $scores; do
 		# Set outputDimension
@@ -108,15 +99,19 @@ for season in $seasons; do
 			first_col_header='date'
 		fi
 		# Loop over variables
-		for var in temp precip ; do
+		for var in $vars ; do
+			> ../output/${var}_${score}_${season}.csv
+			if [[ $score == 'reliability' ]]; then
+				> ../output/${var}_reliability_count_${season}.csv
+			fi
 			# Create date/probability column
-			tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"$first_col_header\"} {print \$1}" | sed '/^$/d' > temp1.txt
+			grep -v '^#' ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"$first_col_header\"} {print \$1}" | sed '/^$/d' > temp1.txt
 			# Loop over cases
 			filecount=2
 			filelist="temp1.txt"
 			for case in $cases; do
 				# Create score column for this case
-				tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$3}" | sed '/^$/d' > temp${filecount}.txt
+				grep -v '^#' ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$3}" | sed '/^$/d' > temp${filecount}.txt
 				# Add this file to the file list
 				filelist="$filelist temp${filecount}.txt"
 				filecount=$((filecount+1))
@@ -126,13 +121,13 @@ for season in $seasons; do
 			# For reliability, make a file with counts as well
 			if [ $score == 'reliability' ]; then
 				# Create probability column
-				tail -n +21 ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"probability\"} {print \$1}" | sed '/^$/d' > temp1.txt
+				grep -v '^#' ../output/verif_${var}_rfcstCalProb0_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"probability\"} {print \$1}" | sed '/^$/d' > temp1.txt
 				# Loop over cases
 				filecount=2
 				filelist="temp1.txt"
 				for case in $cases; do
 					# Create score column for this case
-					tail -n +21 ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$4}" | sed '/^$/d' > temp${filecount}.txt
+					grep -v '^#' ../output/verif_${var}_rfcstCalProb${case}_gfsensm_00z_11d_07d_stn_${score}_CombinedCategories_${outputDimension}_${datesValidType}_${datesInFile}.txt | awk "BEGIN {print \"case$case\"} {print \$4}" | sed '/^$/d' > temp${filecount}.txt
 					# Add this file to the file list
 					filelist="$filelist temp${filecount}.txt"
 					filecount=$((filecount+1))
