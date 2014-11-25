@@ -305,7 +305,7 @@ public class WriteLibrary {
 		String[][][] scoreSummaryArray;
 		scoreSummaryArray = StatsLibrary.getScoreSummaryArrayEachModel(resultsObj.getStats(), resultsObj.getReferenceArray());
     	if (!(settingsObj.getScoreType().equals("reliability"))) {
-		str.append("------------------------------------------------------------------------ \n");
+		str.append("#----------------------------------------------------------------------- \n");
         str.append("#                             Score Summary                             \n");
         //---------------------------------------------------
 		// Print the average scores
