@@ -21,7 +21,7 @@ db_import_data - A Perl script to import ascii forecast and observation data int
      -l, -leadtime         lead time with appended units               08d, 11d, 02m...14m
    fcstsource=tool:
      -t, -tool             Specific tool to process                    kleinCat, analogs...
-     -m, -model            Specific model tool is based on             gfs, gfsensm, canm, ecm, ecmensm, cdcgfs, naefs
+     -m, -model            Specific model tool is based on             gfs, gefs, cmce, ecm, ecens, cdcgfs, naefs
      -c, -cycle            Specific model cycle                        00z, 06z, 12z, 18z, al
 
    Note: -cycle not required for model = (obs, manual, auto, or cdcgfs)

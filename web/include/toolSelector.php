@@ -4,10 +4,10 @@
 #
 $models = array(
 	"gfs_00z","gfs_06z",
-	"gfsensm_00z","gfsensm_06z","gfsensm_al",
-	"canm_00z",
+	"gefs_00z","gefs_06z","gefs_al",
+	"cmce_00z",
 	"ecm_00z",
-	"ecmensm_00z",
+	"ecens_00z",
 	"manual",
 	"auto",
 	"naefs_00z","naefs_06z"

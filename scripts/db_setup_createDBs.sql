@@ -84,13 +84,13 @@ CREATE TABLE `auto_700` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `canm_00_500`
+-- Table structure for table `cmce_00_500`
 --
 
-DROP TABLE IF EXISTS `canm_00_500`;
+DROP TABLE IF EXISTS `cmce_00_500`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `canm_00_500` (
+CREATE TABLE `cmce_00_500` (
   `date` date default NULL,
   `d3_nh` float default NULL,
   `d3_na` float default NULL,
@@ -114,13 +114,13 @@ CREATE TABLE `canm_00_500` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `canm_00_700`
+-- Table structure for table `cmce_00_700`
 --
 
-DROP TABLE IF EXISTS `canm_00_700`;
+DROP TABLE IF EXISTS `cmce_00_700`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `canm_00_700` (
+CREATE TABLE `cmce_00_700` (
   `date` date default NULL,
   `d3_nh` float default NULL,
   `d3_na` float default NULL,
@@ -144,13 +144,13 @@ CREATE TABLE `canm_00_700` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `canm_12_500`
+-- Table structure for table `cmce_12_500`
 --
 
-DROP TABLE IF EXISTS `canm_12_500`;
+DROP TABLE IF EXISTS `cmce_12_500`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `canm_12_500` (
+CREATE TABLE `cmce_12_500` (
   `date` date default NULL,
   `d3_nh` float default NULL,
   `d3_na` float default NULL,
@@ -174,13 +174,13 @@ CREATE TABLE `canm_12_500` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `canm_12_700`
+-- Table structure for table `cmce_12_700`
 --
 
-DROP TABLE IF EXISTS `canm_12_700`;
+DROP TABLE IF EXISTS `cmce_12_700`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `canm_12_700` (
+CREATE TABLE `cmce_12_700` (
   `date` date default NULL,
   `d3_nh` float default NULL,
   `d3_na` float default NULL,
@@ -6338,13 +6338,13 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `cpc_forecasts` /*!40100 DEFAULT CHARAC
 USE `cpc_forecasts`;
 
 --
--- Table structure for table `precip_analog_canm_00z_08d_05d_stn`
+-- Table structure for table `precip_analog_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_analog_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_canm_00z_08d_05d_stn` (
+CREATE TABLE `precip_analog_cmce_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6357,13 +6357,13 @@ CREATE TABLE `precip_analog_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_canm_00z_11d_07d_stn`
+-- Table structure for table `precip_analog_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_analog_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_canm_00z_11d_07d_stn` (
+CREATE TABLE `precip_analog_cmce_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6395,13 +6395,13 @@ CREATE TABLE `precip_analog_ecm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_ecmensm_00z_08d_05d_stn`
+-- Table structure for table `precip_analog_ecens_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_ecmensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_analog_ecens_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_ecmensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_analog_ecens_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6414,13 +6414,13 @@ CREATE TABLE `precip_analog_ecmensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_ecmensm_00z_11d_07d_stn`
+-- Table structure for table `precip_analog_ecens_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_ecmensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_analog_ecens_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_ecmensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_analog_ecens_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6509,13 +6509,13 @@ CREATE TABLE `precip_analog_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `precip_analog_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_analog_gefs_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6528,13 +6528,13 @@ CREATE TABLE `precip_analog_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_analog_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_analog_gefs_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6547,13 +6547,13 @@ CREATE TABLE `precip_analog_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `precip_analog_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `precip_analog_gefs_06z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6566,13 +6566,13 @@ CREATE TABLE `precip_analog_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `precip_analog_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `precip_analog_gefs_06z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6585,13 +6585,13 @@ CREATE TABLE `precip_analog_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_al_08d_05d_stn`
+-- Table structure for table `precip_analog_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `precip_analog_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6604,13 +6604,13 @@ CREATE TABLE `precip_analog_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_analog_gfsensm_al_11d_07d_stn`
+-- Table structure for table `precip_analog_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_analog_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_analog_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_analog_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `precip_analog_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6739,13 +6739,13 @@ CREATE TABLE `precip_calibratedCat_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedCat_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `precip_calibratedCat_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedCat_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedCat_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedCat_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_calibratedCat_gefs_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -6759,13 +6759,13 @@ CREATE TABLE `precip_calibratedCat_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedCat_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_calibratedCat_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedCat_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedCat_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedCat_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_calibratedCat_gefs_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6778,13 +6778,13 @@ CREATE TABLE `precip_calibratedCat_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedCat_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `precip_calibratedCat_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedCat_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedCat_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedCat_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `precip_calibratedCat_gefs_06z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -6798,13 +6798,13 @@ CREATE TABLE `precip_calibratedCat_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedCat_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `precip_calibratedCat_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedCat_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedCat_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedCat_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `precip_calibratedCat_gefs_06z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6817,13 +6817,13 @@ CREATE TABLE `precip_calibratedCat_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `precip_calibratedProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `precip_calibratedProb_gefs_al_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -6836,13 +6836,13 @@ CREATE TABLE `precip_calibratedProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_calibratedProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `precip_calibratedProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_calibratedProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_calibratedProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_calibratedProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `precip_calibratedProb_gefs_al_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8750,13 +8750,13 @@ CREATE TABLE `precip_ocn_14m_03m_cd` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb0_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb0_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb0_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8769,13 +8769,13 @@ CREATE TABLE `precip_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb10_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb10_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb10_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8788,13 +8788,13 @@ CREATE TABLE `precip_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb11_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb11_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb11_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8807,13 +8807,13 @@ CREATE TABLE `precip_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb1_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb1_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb1_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8826,13 +8826,13 @@ CREATE TABLE `precip_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb2_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb2_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb2_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8845,13 +8845,13 @@ CREATE TABLE `precip_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb3_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb3_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb3_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8864,13 +8864,13 @@ CREATE TABLE `precip_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb4_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb4_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb4_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8883,13 +8883,13 @@ CREATE TABLE `precip_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb5_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb5_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb5_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8902,13 +8902,13 @@ CREATE TABLE `precip_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb6_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb6_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb6_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8921,13 +8921,13 @@ CREATE TABLE `precip_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb7_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb7_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb7_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8940,13 +8940,13 @@ CREATE TABLE `precip_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb8_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb8_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb8_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8959,13 +8959,13 @@ CREATE TABLE `precip_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb9_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb9_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb9_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8978,13 +8978,13 @@ CREATE TABLE `precip_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb_gefs_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -8997,13 +8997,13 @@ CREATE TABLE `precip_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_reforecastCalibratedProb_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_reforecastCalibratedProb_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_reforecastCalibratedProb_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9289,13 +9289,13 @@ CREATE TABLE `precip_smlr_14m_03m_cd` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_canm_00z_08d_05d_stn`
+-- Table structure for table `temp_analog_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_analog_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_canm_00z_08d_05d_stn` (
+CREATE TABLE `temp_analog_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9308,13 +9308,13 @@ CREATE TABLE `temp_analog_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_canm_00z_11d_07d_stn`
+-- Table structure for table `temp_analog_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_analog_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_canm_00z_11d_07d_stn` (
+CREATE TABLE `temp_analog_cmce_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9346,13 +9346,13 @@ CREATE TABLE `temp_analog_ecm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_ecmensm_00z_08d_05d_stn`
+-- Table structure for table `temp_analog_ecens_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_ecmensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_analog_ecens_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_ecmensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_analog_ecens_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9365,13 +9365,13 @@ CREATE TABLE `temp_analog_ecmensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_ecmensm_00z_11d_07d_stn`
+-- Table structure for table `temp_analog_ecens_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_ecmensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_analog_ecens_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_ecmensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_analog_ecens_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9460,13 +9460,13 @@ CREATE TABLE `temp_analog_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `temp_analog_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_analog_gefs_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9479,13 +9479,13 @@ CREATE TABLE `temp_analog_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_analog_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_analog_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9498,13 +9498,13 @@ CREATE TABLE `temp_analog_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `temp_analog_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `temp_analog_gefs_06z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9517,13 +9517,13 @@ CREATE TABLE `temp_analog_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `temp_analog_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `temp_analog_gefs_06z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9536,13 +9536,13 @@ CREATE TABLE `temp_analog_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_analog_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_analog_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9555,13 +9555,13 @@ CREATE TABLE `temp_analog_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_analog_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_analog_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_analog_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_analog_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_analog_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_analog_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9610,13 +9610,13 @@ CREATE TABLE `temp_auto_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_calibratedProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_calibratedProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_calibratedProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_calibratedProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_calibratedProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_calibratedProb_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -9629,13 +9629,13 @@ CREATE TABLE `temp_calibratedProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_calibratedProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_calibratedProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_calibratedProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_calibratedProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_calibratedProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_calibratedProb_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -10894,13 +10894,13 @@ CREATE TABLE `temp_kleinCat_auto_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_canm_00z_08d_05d_stn`
+-- Table structure for table `temp_kleinCat_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_canm_00z_08d_05d_stn` (
+CREATE TABLE `temp_kleinCat_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -10914,13 +10914,13 @@ CREATE TABLE `temp_kleinCat_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_canm_00z_11d_07d_stn`
+-- Table structure for table `temp_kleinCat_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_canm_00z_11d_07d_stn` (
+CREATE TABLE `temp_kleinCat_cmce_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -10954,13 +10954,13 @@ CREATE TABLE `temp_kleinCat_ecm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_ecmensm_00z_08d_05d_stn`
+-- Table structure for table `temp_kleinCat_ecens_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_ecmensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_ecens_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_ecmensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_kleinCat_ecens_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -10974,13 +10974,13 @@ CREATE TABLE `temp_kleinCat_ecmensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_ecmensm_00z_11d_07d_stn`
+-- Table structure for table `temp_kleinCat_ecens_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_ecmensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_ecens_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_ecmensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_kleinCat_ecens_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11074,13 +11074,13 @@ CREATE TABLE `temp_kleinCat_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `temp_kleinCat_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11094,13 +11094,13 @@ CREATE TABLE `temp_kleinCat_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_kleinCat_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11114,13 +11114,13 @@ CREATE TABLE `temp_kleinCat_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `temp_kleinCat_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_06z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11134,13 +11134,13 @@ CREATE TABLE `temp_kleinCat_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `temp_kleinCat_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_06z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11154,13 +11154,13 @@ CREATE TABLE `temp_kleinCat_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_kleinCat_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11174,13 +11174,13 @@ CREATE TABLE `temp_kleinCat_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinCat_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_kleinCat_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinCat_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinCat_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinCat_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_kleinCat_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -11234,13 +11234,13 @@ CREATE TABLE `temp_kleinCat_manual_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinProb_canm_00z_08d_05d_stn`
+-- Table structure for table `temp_kleinProb_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinProb_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinProb_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinProb_canm_00z_08d_05d_stn` (
+CREATE TABLE `temp_kleinProb_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -11253,13 +11253,13 @@ CREATE TABLE `temp_kleinProb_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinProb_canm_00z_11d_07d_stn`
+-- Table structure for table `temp_kleinProb_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinProb_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinProb_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinProb_canm_00z_11d_07d_stn` (
+CREATE TABLE `temp_kleinProb_cmce_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -11272,13 +11272,13 @@ CREATE TABLE `temp_kleinProb_canm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_kleinProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_kleinProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_kleinProb_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -11291,13 +11291,13 @@ CREATE TABLE `temp_kleinProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_kleinProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_kleinProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_kleinProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_kleinProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_kleinProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_kleinProb_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12037,13 +12037,13 @@ CREATE TABLE `temp_ocn_14m_03m_cd` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb0_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb0_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb0_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12056,13 +12056,13 @@ CREATE TABLE `temp_reforecastCalibratedProb0_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb10_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb10_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb10_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12075,13 +12075,13 @@ CREATE TABLE `temp_reforecastCalibratedProb10_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb11_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb11_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb11_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12094,13 +12094,13 @@ CREATE TABLE `temp_reforecastCalibratedProb11_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb1_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb1_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb1_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12113,13 +12113,13 @@ CREATE TABLE `temp_reforecastCalibratedProb1_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb2_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb2_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb2_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12132,13 +12132,13 @@ CREATE TABLE `temp_reforecastCalibratedProb2_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb3_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb3_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb3_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12151,13 +12151,13 @@ CREATE TABLE `temp_reforecastCalibratedProb3_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb4_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb4_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb4_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12170,13 +12170,13 @@ CREATE TABLE `temp_reforecastCalibratedProb4_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb5_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb5_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb5_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12189,13 +12189,13 @@ CREATE TABLE `temp_reforecastCalibratedProb5_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb6_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb6_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb6_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12208,13 +12208,13 @@ CREATE TABLE `temp_reforecastCalibratedProb6_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb7_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb7_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb7_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12227,13 +12227,13 @@ CREATE TABLE `temp_reforecastCalibratedProb7_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb8_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb8_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb8_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12246,13 +12246,13 @@ CREATE TABLE `temp_reforecastCalibratedProb8_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb9_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb9_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb9_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12265,13 +12265,13 @@ CREATE TABLE `temp_reforecastCalibratedProb9_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProbObs_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `temp_reforecastCalibratedProbObs_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProbObs_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProbObs_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProbObs_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProbObs_gefs_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12284,13 +12284,13 @@ CREATE TABLE `temp_reforecastCalibratedProbObs_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProbObs_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProbObs_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProbObs_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProbObs_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProbObs_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProbObs_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12303,13 +12303,13 @@ CREATE TABLE `temp_reforecastCalibratedProbObs_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb_gefs_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12322,13 +12322,13 @@ CREATE TABLE `temp_reforecastCalibratedProb_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_reforecastCalibratedProb_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_reforecastCalibratedProb_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_reforecastCalibratedProb_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_reforecastCalibratedProb_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12614,13 +12614,13 @@ CREATE TABLE `temp_smlr_14m_03m_cd` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_uncalibratedProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_uncalibratedProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_uncalibratedProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_uncalibratedProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_uncalibratedProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_uncalibratedProb_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12633,13 +12633,13 @@ CREATE TABLE `temp_uncalibratedProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_uncalibratedProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_uncalibratedProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_uncalibratedProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_uncalibratedProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_uncalibratedProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_uncalibratedProb_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -12700,13 +12700,13 @@ CREATE TABLE `precip_neuralCat_auto_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_canm_00z_08d_05d_stn`
+-- Table structure for table `precip_neuralCat_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_canm_00z_08d_05d_stn` (
+CREATE TABLE `precip_neuralCat_cmce_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12720,13 +12720,13 @@ CREATE TABLE `precip_neuralCat_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_canm_00z_11d_07d_stn`
+-- Table structure for table `precip_neuralCat_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_canm_00z_11d_07d_stn` (
+CREATE TABLE `precip_neuralCat_cmce_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12760,13 +12760,13 @@ CREATE TABLE `precip_neuralCat_ecm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_ecmensm_00z_08d_05d_stn`
+-- Table structure for table `precip_neuralCat_ecens_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_ecmensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_ecens_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_ecmensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_neuralCat_ecens_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12780,13 +12780,13 @@ CREATE TABLE `precip_neuralCat_ecmensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_ecmensm_00z_11d_07d_stn`
+-- Table structure for table `precip_neuralCat_ecens_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_ecmensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_ecens_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_ecmensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_neuralCat_ecens_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12880,13 +12880,13 @@ CREATE TABLE `precip_neuralCat_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `precip_neuralCat_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_00z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12900,13 +12900,13 @@ CREATE TABLE `precip_neuralCat_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `precip_neuralCat_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12920,13 +12920,13 @@ CREATE TABLE `precip_neuralCat_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `precip_neuralCat_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_06z_08d_05d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12940,13 +12940,13 @@ CREATE TABLE `precip_neuralCat_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `precip_neuralCat_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_06z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12960,13 +12960,13 @@ CREATE TABLE `precip_neuralCat_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_al_08d_05d_stn`
+-- Table structure for table `precip_neuralCat_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -12980,13 +12980,13 @@ CREATE TABLE `precip_neuralCat_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralCat_gfsensm_al_11d_07d_stn`
+-- Table structure for table `precip_neuralCat_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralCat_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralCat_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralCat_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `precip_neuralCat_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13040,13 +13040,13 @@ CREATE TABLE `precip_neuralCat_manual_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralProb_canm_00z_08d_05d_stn`
+-- Table structure for table `precip_neuralProb_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralProb_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralProb_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralProb_canm_00z_08d_05d_stn` (
+CREATE TABLE `precip_neuralProb_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13059,13 +13059,13 @@ CREATE TABLE `precip_neuralProb_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralProb_canm_00z_11d_07d_stn`
+-- Table structure for table `precip_neuralProb_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralProb_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralProb_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralProb_canm_00z_11d_07d_stn` (
+CREATE TABLE `precip_neuralProb_cmce_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13078,13 +13078,13 @@ CREATE TABLE `precip_neuralProb_canm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `precip_neuralProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `precip_neuralProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `precip_neuralProb_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13097,13 +13097,13 @@ CREATE TABLE `precip_neuralProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `precip_neuralProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `precip_neuralProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `precip_neuralProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `precip_neuralProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precip_neuralProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `precip_neuralProb_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13156,13 +13156,13 @@ CREATE TABLE `temp_neuralCat_auto_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_canm_00z_08d_05d_stn`
+-- Table structure for table `temp_neuralCat_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_canm_00z_08d_05d_stn` (
+CREATE TABLE `temp_neuralCat_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13176,13 +13176,13 @@ CREATE TABLE `temp_neuralCat_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_canm_00z_11d_07d_stn`
+-- Table structure for table `temp_neuralCat_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_canm_00z_11d_07d_stn` (
+CREATE TABLE `temp_neuralCat_cmce_00z_11d_07d_stn` (
   `id` varchar(10) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13216,13 +13216,13 @@ CREATE TABLE `temp_neuralCat_ecm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_ecmensm_00z_08d_05d_stn`
+-- Table structure for table `temp_neuralCat_ecens_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_ecmensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_ecens_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_ecmensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_neuralCat_ecens_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13236,13 +13236,13 @@ CREATE TABLE `temp_neuralCat_ecmensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_ecmensm_00z_11d_07d_stn`
+-- Table structure for table `temp_neuralCat_ecens_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_ecmensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_ecens_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_ecmensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_neuralCat_ecens_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13336,13 +13336,13 @@ CREATE TABLE `temp_neuralCat_gfs_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_00z_08d_05d_stn`
+-- Table structure for table `temp_neuralCat_gefs_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_00z_08d_05d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13356,13 +13356,13 @@ CREATE TABLE `temp_neuralCat_gfsensm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_00z_11d_07d_stn`
+-- Table structure for table `temp_neuralCat_gefs_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_00z_11d_07d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13376,13 +13376,13 @@ CREATE TABLE `temp_neuralCat_gfsensm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_06z_08d_05d_stn`
+-- Table structure for table `temp_neuralCat_gefs_06z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_06z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_06z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_06z_08d_05d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_06z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13396,13 +13396,13 @@ CREATE TABLE `temp_neuralCat_gfsensm_06z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_06z_11d_07d_stn`
+-- Table structure for table `temp_neuralCat_gefs_06z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_06z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_06z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_06z_11d_07d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_06z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13416,13 +13416,13 @@ CREATE TABLE `temp_neuralCat_gfsensm_06z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_neuralCat_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13436,13 +13436,13 @@ CREATE TABLE `temp_neuralCat_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralCat_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_neuralCat_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralCat_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralCat_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralCat_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_neuralCat_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `cdf` float default NULL,
@@ -13496,13 +13496,13 @@ CREATE TABLE `temp_neuralCat_manual_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralProb_canm_00z_08d_05d_stn`
+-- Table structure for table `temp_neuralProb_cmce_00z_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralProb_canm_00z_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralProb_cmce_00z_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralProb_canm_00z_08d_05d_stn` (
+CREATE TABLE `temp_neuralProb_cmce_00z_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13515,13 +13515,13 @@ CREATE TABLE `temp_neuralProb_canm_00z_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralProb_canm_00z_11d_07d_stn`
+-- Table structure for table `temp_neuralProb_cmce_00z_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralProb_canm_00z_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralProb_cmce_00z_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralProb_canm_00z_11d_07d_stn` (
+CREATE TABLE `temp_neuralProb_cmce_00z_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13534,13 +13534,13 @@ CREATE TABLE `temp_neuralProb_canm_00z_11d_07d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralProb_gfsensm_al_08d_05d_stn`
+-- Table structure for table `temp_neuralProb_gefs_al_08d_05d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralProb_gfsensm_al_08d_05d_stn`;
+DROP TABLE IF EXISTS `temp_neuralProb_gefs_al_08d_05d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralProb_gfsensm_al_08d_05d_stn` (
+CREATE TABLE `temp_neuralProb_gefs_al_08d_05d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
@@ -13553,13 +13553,13 @@ CREATE TABLE `temp_neuralProb_gfsensm_al_08d_05d_stn` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `temp_neuralProb_gfsensm_al_11d_07d_stn`
+-- Table structure for table `temp_neuralProb_gefs_al_11d_07d_stn`
 --
 
-DROP TABLE IF EXISTS `temp_neuralProb_gfsensm_al_11d_07d_stn`;
+DROP TABLE IF EXISTS `temp_neuralProb_gefs_al_11d_07d_stn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_neuralProb_gfsensm_al_11d_07d_stn` (
+CREATE TABLE `temp_neuralProb_gefs_al_11d_07d_stn` (
   `id` int(11) default NULL,
   `date_issued` date default NULL,
   `prob_below` float default NULL,
