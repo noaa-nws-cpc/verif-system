@@ -119,15 +119,11 @@
 									</tr>
 									<tr>
 										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="smlr" title="SMLR forecast"/><span>SMLR</span></td>
-										<td></td>
+										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="ocn" title="OCN forecast"/><span>OCN</span></td>
 									</tr>
 									<tr>
 										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="cca" title="CCA forecast"/><span>CCA</span></td>
 										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="cfs" title="CFS forecast"/><span>CFS</span></td>
-									</tr>
-									<tr>
-										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="ocn" title="OCN forecast"/><span>OCN</span></td>
-										<td><input type=<?php print "\"$inputType\""?> name="fcstSource" value="con" title="CON forecast"/><span>CON</span></td>
 									</tr>
 								</table>
 							</div>
