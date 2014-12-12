@@ -158,8 +158,8 @@ if ($args{fcstType} eq "seasonal") {
 	print "$childScript $options -d observation -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'\n";
 	system "$childScript $options -d observation -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
 	system "$childScript $options -d observation -g grid2deg -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
-	system "$childScript $options -d forecast    -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
-	system "$childScript $options -d forecast    -g grid2deg -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$'";
+	system "$childScript $options -d forecast    -g cd       -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$' -tableexclude '.*_cfs_(08|09|10|11|12|13|14)m_03m_cd'";
+	system "$childScript $options -d forecast    -g grid2deg -s $start_date -e $end_date -f longRange -loglevel $args{logLevel} -tableinclude '_03m_[A-Za-z0-9]+\$' -tableexclude '.*_cfs_(08|09|10|11|12|13|14)m_03m_grid2deg'";
 }
 
 #--------------------------------------------------------------------
