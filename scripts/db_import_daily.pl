@@ -299,7 +299,7 @@ my $logger = Log::Log4perl::get_logger("");
 
 		#------------------------------------------------------------
 		# Gridded
-		
+
 		# Manual
 		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d";
@@ -322,12 +322,6 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 0pt5m -avewindow 01m";
 		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
 		runSeasonal($staticArgs, 2, 2); # Only lead 1 for now
-		# CON
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
-		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
-		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
-		runSeasonal($staticArgs, 2, 14);
 		#------------------------------------------------------------
 		# ClimateDivision
 		#
@@ -338,12 +332,6 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 0pt5m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 0pt5m -avewindow 01m";
 		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
-		runSeasonal($staticArgs, 2, 14);
-		# CON
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
-		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
-		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
 		runSeasonal($staticArgs, 2, 14);
 		# SMLR
 		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource smlr";
