@@ -623,7 +623,7 @@ public class Database {
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 
 		// Determine the number of dates and locations
 		try {
@@ -661,7 +661,7 @@ public class Database {
 		String sqlQuery = null;
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 
 		// Try to execute an SQL query
 		try {
@@ -709,7 +709,7 @@ public class Database {
 		String sqlQuery = null;
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 		// Try to execute an SQL query
 		try {
 			sqlQuery = "SELECT name AS locationName FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")'";
@@ -754,7 +754,7 @@ public class Database {
 		String[] locationLonLatArray = null;
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 
 		// Try to execute an SQL query
 		try {
@@ -797,7 +797,7 @@ public class Database {
 		String[] locationLonArray = null;
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 
 		// Try to execute an SQL query
 		try {
@@ -841,7 +841,7 @@ public class Database {
 		String[] locationLatArray = null;
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 
 		// Try to execute an SQL query
 		try {

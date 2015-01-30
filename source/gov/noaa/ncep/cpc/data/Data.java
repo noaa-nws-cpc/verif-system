@@ -342,7 +342,7 @@ public class Data {
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
 		// then use the 'id' column from locationList. Otherwise use the regionType column itself.
 		if (regionType.compareToIgnoreCase("climateDivision") == 0 && spatialType.compareToIgnoreCase("climateDivision") == 0)
@@ -970,7 +970,7 @@ public class Data {
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
 		// then use the 'id' column from locationList. Otherwise use
 		// the regionType column itself.
@@ -1282,7 +1282,7 @@ public class Data {
 		// Convert the regions to a comma-separated list of strings,
 		// each surrounded by single quotes (eg. 'TX','LA','MS')
 		//-----------------------------------------------------------
-		regionList = Sql.regionsToRegex(regions);
+		regionList = Sql.regionsToRegex(regions, regionType);
 		// If spatialType is 'climateDivision' and regionType is 'climateDivision',
 		// then use the 'id' column from locationList. Otherwise use the regionType column itself.
 		if (regionType.compareToIgnoreCase("climateDivision") == 0 && spatialType.compareToIgnoreCase("climateDivision") == 0)
