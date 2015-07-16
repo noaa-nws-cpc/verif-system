@@ -434,20 +434,15 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		#     keys   indicate the names of the text file columns
 		#     values indicate the placement of each text file column, starting with zero
 		#
-		# The new reforecast-calibrated forecast tool has a single header line, unlike
-		# GEMPAK ascii data files, so don't skip any lines, otherwise skip 1.
+		# For example, the new reforecast-calibrated forecast tool has a single
+        # header line, unlike GEMPAK ascii data files, so the GEMPAK files need the
+        # -skip-header option.
 		my %columnIndex;
         if ($skipHeaderOpt) {
-			$logger->debug("Skipping the header line");
+			$logger->debug("Skipping a header line");
 			%columnIndex = file_getColumns('FILE',1);
-        } elsif ($args{tool} =~ /(rfcstCalProb|rfcstUncalProb|rfcstCalProb[0-9]*|rfcstCalBCProb[0-9]*|rfcstCalBCTrailingProb[0-9]*|rfcstUncalProb[0-9]*|rfcstCalBCCenteredProb[0-9]*)/) {
-			$logger->debug("Not skipping any header lines");
-			%columnIndex = file_getColumns('FILE',0);
-		} elsif ($args{'dataType'} eq "observation") {
-			$logger->debug("Not skipping any header lines");
-			%columnIndex = file_getColumns('FILE',0);
 		} else {
-			$logger->debug("Skipping 1 header line");
+			$logger->debug("Not skipping a header line");
 			%columnIndex = file_getColumns('FILE',0);
 		}
 
@@ -505,9 +500,9 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 	my $sqlQuery;
 	# Construct the SQL to retrieve the list of locations with missing data
 	if ($args{'dataType'} eq "forecast") {
-		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.date_issued FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $mysqlSettings{'database'}.$mysqlSettings{'dataTable'} WHERE date_issued='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
+		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.date_issued FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $mysqlSettings{'database'}.`$mysqlSettings{'dataTable'}` WHERE date_issued='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
 	} elsif ($args{'dataType'} eq "observation") {
-		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.date_valid FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $mysqlSettings{'database'}.$mysqlSettings{'dataTable'} WHERE date_valid='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing"
+		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.date_valid FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $mysqlSettings{'database'}.`$mysqlSettings{'dataTable'}` WHERE date_valid='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing"
 	}
 	$logger->debug("Query to find missing data: $sqlQuery\n");
 	# Execuate the SQL query
@@ -779,9 +774,9 @@ sub mysql_deleteDay {
 	my $date = $_[0];
 	my $sqlQuery;
 	if ($args{'dataType'} eq "forecast") {
-		$sqlQuery = "DELETE FROM $mysqlSettings{'dataTable'} WHERE date_issued='" . date_str2mysql($date) . "'";
+		$sqlQuery = "DELETE FROM `$mysqlSettings{'dataTable'}` WHERE date_issued='" . date_str2mysql($date) . "'";
 	} elsif ($args{'dataType'} eq "observation") {
-		$sqlQuery = "DELETE FROM $mysqlSettings{'dataTable'} WHERE date_valid='" . date_str2mysql($date) . "'";
+		$sqlQuery = "DELETE FROM `$mysqlSettings{'dataTable'}` WHERE date_valid='" . date_str2mysql($date) . "'";
 	} else {
 		return -1;
 	}
@@ -824,22 +819,22 @@ sub mysql_insertData {
 	if ($args{'dataType'} eq "forecast") {
 		# Some tools don't have CDF columns
 		if ($args{'tool'} eq "kleinCat") {
-			$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, cdf, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'cdf'},$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
+			$sqlQuery = "INSERT INTO `$mysqlSettings{'dataTable'}` (id, date_issued, cdf, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'cdf'},$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
 		# ERF data has no skill or standard anomaly
 		} elsif ($args{fcstType} =~ /extendedRange|probabilisticHazards/) {
-			$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
+			$sqlQuery = "INSERT INTO `$mysqlSettings{'dataTable'}` (id, date_issued, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
 		# LLF data
 		} elsif ($args{fcstType} eq "longRange") {
 			# Every spatialType, except grid2deg, and all fcstSources, except manual and con, have skill and standard anomaly
 			if ($args{spatialType} eq "grid2deg" or $args{fcstSource} eq "manual" or $args{fcstSource} eq "con") {
-				$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
+				$sqlQuery = "INSERT INTO `$mysqlSettings{'dataTable'}` (id, date_issued, prob_below, prob_normal, prob_above) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'})";
 			} else {
-				$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_issued, prob_below, prob_normal, prob_above, skill, standardAnomaly) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'},$data{'skill'},$data{'standardAnomaly'})";
+				$sqlQuery = "INSERT INTO `$mysqlSettings{'dataTable'}` (id, date_issued, prob_below, prob_normal, prob_above, skill, standardAnomaly) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'prob_below'},$data{'prob_normal'},$data{'prob_above'},$data{'skill'},$data{'standardAnomaly'})";
 			}
 		}
 	# Observation data
 	} elsif ($args{'dataType'} eq "observation") {
-		$sqlQuery = "INSERT INTO $mysqlSettings{'dataTable'} (id, date_valid, category) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'category'})";
+		$sqlQuery = "INSERT INTO `$mysqlSettings{'dataTable'}` (id, date_valid, category) VALUES (\'$data{'id'}\',\'$mysqlDate\',$data{'category'})";
 	}
 	$logger->debug("      Query to insert observations: $sqlQuery\n");
 	# Submit query
