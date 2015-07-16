@@ -31,6 +31,7 @@ db_import_data - A Perl script to import ascii forecast and observation data int
    -validdate        Assume dates are when the forecast is valid, not issued
    -destroy          Delete the entire database table before importing
    -convert          If -spatialtype is set to stn, convert to cd before import
+   -skip-header      Skip the header line in the input text file
    -loglevel         Sets the log4perl logging level (DEBUG, INFO, WARN,ERROR, FATAL)
    -logfile          specifies a log file name, instead of printing to the screen
    -email            email any errors to the process owner
@@ -79,7 +80,7 @@ use warnings;
 #--------------------------------------------------------------------
 # Get command line arguments
 #
-my (%dataSettings, @dataSettings, $startDate, $endDate, $validDateOpt, $destroyOpt, %args, $help, $headerLine, %data);
+my (%dataSettings, @dataSettings, $startDate, $endDate, $validDateOpt, $destroyOpt, %args, $help, $headerLine, %data, $skipHeaderOpt);
 GetOptions ('datatype|d=s'		=> \$args{dataType},
 			'variable|v=s'		=> \$args{variable},
 			'fcstsource|f=s'	=> \$args{fcstSource},
@@ -91,6 +92,7 @@ GetOptions ('datatype|d=s'		=> \$args{dataType},
 			'spatialtype|g=s'	=> \$args{spatialType},
 			'startdate|s=s'		=> \$startDate,
 			'enddate|e=s'		=> \$endDate,
+			'skip-header'		=> \$skipHeaderOpt,
 			'destroy'       	=> \$destroyOpt,
 			'validdate'			=> \$validDateOpt,
 			'loglevel=s'		=> \$args{logLevel},
@@ -435,15 +437,18 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 		# The new reforecast-calibrated forecast tool has a single header line, unlike
 		# GEMPAK ascii data files, so don't skip any lines, otherwise skip 1.
 		my %columnIndex;
-		if ($args{tool} =~ /(rfcstCalProb|rfcstUncalProb|rfcstCalProb[0-9]*|rfcstCalBCProb[0-9]*|rfcstCalBCTrailingProb[0-9]*|rfcstUncalProb[0-9]*|rfcstCalBCCenteredProb[0-9]*)/) {
+        if ($skipHeaderOpt) {
+			$logger->debug("Skipping the header line");
+			%columnIndex = file_getColumns('FILE',1);
+        } elsif ($args{tool} =~ /(rfcstCalProb|rfcstUncalProb|rfcstCalProb[0-9]*|rfcstCalBCProb[0-9]*|rfcstCalBCTrailingProb[0-9]*|rfcstUncalProb[0-9]*|rfcstCalBCCenteredProb[0-9]*)/) {
 			$logger->debug("Not skipping any header lines");
 			%columnIndex = file_getColumns('FILE',0);
-#		} elsif ($args{'dataType'} eq "observation") {
-#			$logger->debug("Not skipping any header lines");
-#			%columnIndex = file_getColumns('FILE',0);
+		} elsif ($args{'dataType'} eq "observation") {
+			$logger->debug("Not skipping any header lines");
+			%columnIndex = file_getColumns('FILE',0);
 		} else {
 			$logger->debug("Skipping 1 header line");
-			%columnIndex = file_getColumns('FILE',1);
+			%columnIndex = file_getColumns('FILE',0);
 		}
 
 		#--------------------------------------------------------------------
