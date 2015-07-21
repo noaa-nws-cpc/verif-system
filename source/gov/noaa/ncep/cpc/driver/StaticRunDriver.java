@@ -190,14 +190,19 @@ public class StaticRunDriver {
 			}
 			// If this is a CHART (timeseries or reliability diagram) run...
 			else if (outputType.equals("chart")) {
-				// Create a PlotChart object
-				chart = new PlotChart();
-				chart.setSettingsObj(settingsObj);
-				chart.setResultsObj(resultsObj);
-				// Set the Applet size so JClass can set a size for the image
-				chart.setChartSize(660,500);
-				// Get the XML string of stats formatted for display from the driver
-				String xmlString = driverObj.getXMLString();
+				try {
+				    // Create a PlotChart object
+				    chart = new PlotChart();
+				    chart.setSettingsObj(settingsObj);
+				    chart.setResultsObj(resultsObj);
+				    // Set the Applet size so JClass can set a size for the image
+				    chart.setChartSize(660,500);
+				} catch (Exception e) {
+					logger.fatal("Could not create plotchart and/or set chart objects properly: " + e);
+					System.exit(0);
+				}
+			    // Get the XML string of stats formatted for display from the driver
+			    String xmlString = driverObj.getXMLString();
 				// Create the chart and also saves as file
 				try {
 					chart.makeStaticChart(xmlString);
@@ -302,7 +307,7 @@ the logger configuration file for log4j Apache software.
 		//-------------------------------------------------
 		// Get the log config file
 		logConfigFile = cmd.getOptionValue("l");
-    System.out.println(" ----------------- " + logConfigFile);
+        System.out.println(" ----------------- " + logConfigFile);
 		if (Requirements.pathExists(logConfigFile) == false) {
 			logger.fatal("Log config file \"" + logConfigFile + "\" does not exist!");
 			System.exit(0);

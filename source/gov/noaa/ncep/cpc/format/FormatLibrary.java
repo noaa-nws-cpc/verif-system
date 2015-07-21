@@ -113,7 +113,7 @@ public class FormatLibrary {
 
 		// Create a chart object
 		try {
-			Chart chart = new Chart(chartDataName,intXscoreCatStringArray,referenceArray,scoreCatStringArray,fcstSourceArray,categoryType,scoreType);
+			Chart chart = new Chart(chartDataName,intXscoreCatStringArray,referenceArray,scoreCatStringArray,fcstSourceArray,categoryType,scoreType,settingsObj.getVariable());
 			// Call XML creator to create formatted XML for JClass
 			XMLCreator xce = new XMLCreator(chart);
 			// Perform function of creating the XML, pass argument for type of XML output
@@ -215,7 +215,7 @@ public class FormatLibrary {
 		//aveFcstProbStringArray
 		try {
 			// Create a chart object
-			Chart chart = new Chart(chartDataName,probabilityBinAxisLabelsStringArray,aveFcstProbStringArray,scoreCatStringArray,fcstSourceArray,categoryType,scoreType);
+			Chart chart = new Chart(chartDataName,probabilityBinAxisLabelsStringArray,aveFcstProbStringArray,scoreCatStringArray,fcstSourceArray,categoryType,scoreType, settingsObj.getVariable());
 			// Call XML creator to create formatted XML for JClass
 			XMLCreator xce = new XMLCreator(chart);
 			// Perform function of creating the XML, pass argument for type of XML output
@@ -685,11 +685,11 @@ because method accepts and returns a float.
 		try {
 			// If category type is 'separate' or 'total' use the term 'Cats' in file name
 			if ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("total") == 0)) {
-				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
+				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,variable).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
 			}
 			// Else (ie individual categories) use the term 'Cat' in file name
 			else {
-			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
+			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,variable).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".png";
 			 }
 		} catch (Exception e) {
 			logger.fatal("Cannot get the image file name");
@@ -781,11 +781,11 @@ because method accepts and returns a float.
 		try {
 			// If category type is 'separate' or 'total' use the term 'Cats' in file name
 			if ((categoryType.compareToIgnoreCase("separate") == 0) || (categoryType.compareToIgnoreCase("total") == 0)) {
-				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
+				fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,variable).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
 			}
 			// Else (ie individual categories) use the term 'Cat' in file name
 			else {
-			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,fcstSourceArray).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
+			 	fileName =  prefix + "_" + variable + "_" + fcstSource + "_" + leadTime + "_" + aveWindow + "_" + SettingsHashLibrary.getSpatialTypeTableName(spatialType) + "_" + scoreType + "_" + SettingsHashLibrary.getGenericCategoryLabel(categoryType,variable).replaceAll("\\s+","") + "_" + outputDimension + "_" + datesValidType + "_" + datesValidStr + ".txt";
 			 }
 			// 
 		} catch (Exception e) {

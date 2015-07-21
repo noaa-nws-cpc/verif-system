@@ -108,6 +108,7 @@ public class WriteLibrary {
 
 		String leadTime = settingsObj.getLeadTime();
 		String categoryType = settingsObj.getCategoryType();
+        String variable = settingsObj.getVariable();
 		String[] referenceArray = null;
 		String header1 = "";
 		String header2 = "";
@@ -246,8 +247,8 @@ public class WriteLibrary {
 					// Get the number of good data pairs for each forecast 
 					goodScoreCountArray = FormatLibrary.toStringArray(statsObj.getGoodScoreCountArray());
 					
-					// Get category label associated with the forecast source
-					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,fcstSourceArray[i]); 
+					// Get category label associated with the variable
+					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,variable); 
 					str.append(String.format("# Percent of valid fcst-obs pairs of data for %s forecast %s : %s \n", fcstSourceArray[i],categoryLabel,goodScorePercentArray[i][0]));
 					str.append(String.format("# Number of valid fcst-obs pairs of data for %s forecast %s : %s \n", fcstSourceArray[i],categoryLabel,goodScoreCountArray[i][0]));
 				}
@@ -258,7 +259,8 @@ public class WriteLibrary {
 				// depending on the scoreType, categoryType, etc.
 				else {
 					// Get category label
-					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,fcstSourceArray[i]);
+					categoryLabel = SettingsHashLibrary.getCategoryLabel(categoryType,variable);
+                    logger.debug("!!! category label : " + categoryLabel);
 					// For each index in the category dimension, write a value
 					// The stats array always has the category values for total,B,N,A.
 					// Write the scores in the 'total' categories index
@@ -390,10 +392,10 @@ public class WriteLibrary {
 			// Get all possible category labels associated with this forecast source i
 			// header3[0] - total cats, header[1] - lower cat, header[2] - normal cat, header[3] - above cat
 			// Also replace all spaces by underscores for the ascii output for category col headers
-			header3[0] = SettingsHashLibrary.getCategoryLabel("total",fcstSourceArray[i]).replace(" ","_");
-			header3[1] = SettingsHashLibrary.getCategoryLabel("B",fcstSourceArray[i]).replace(" ","_");
-			header3[2] = SettingsHashLibrary.getCategoryLabel("N",fcstSourceArray[i]).replace(" ","_");
-			header3[3] = SettingsHashLibrary.getCategoryLabel("A",fcstSourceArray[i]).replace(" ","_");
+			header3[0] = SettingsHashLibrary.getCategoryLabel("total",variable).replace(" ","_");
+			header3[1] = SettingsHashLibrary.getCategoryLabel("B",variable).replace(" ","_");
+			header3[2] = SettingsHashLibrary.getCategoryLabel("N",variable).replace(" ","_");
+			header3[3] = SettingsHashLibrary.getCategoryLabel("A",variable).replace(" ","_");
 			// Get the character length of fcst source (used for headers and later for data formatting)
 			// header2 is forecast source
 			header2 = "Forecast Source";

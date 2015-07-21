@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <data>
 <settings>
-        <variable>tmax</variable>
-        <fcstSources>rfcstCalProbPtile15and85_gfsensm_00z</fcstSources>
-        <leadTime>08d</leadTime>
-        <aveWindow>01d</aveWindow>
-        <datesValidType>dateRange</datesValidType>
-        <datesValid>20130101,20131231</datesValid>
-        <regionType>climateRegion</regionType>
-        <regions>all</regions>
-        <spatialType>gridded</spatialType>
-        <outputType>chart</outputType>
-        <outputDimension>time</outputDimension>
-        <scoreType>rpss</scoreType>
-        <categoryType>total</categoryType>
-        <ECType>default</ECType>
+	<variable>tmax-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>08d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>dateRange</datesValidType>
+	<datesValid>20140101,20140131</datesValid>
+	<regionType>climateDivision</regionType>
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>ascii</outputType>
+	<outputDimension>space</outputDimension>
+	<scoreType>heidke</scoreType>
+	<categoryType>B</categoryType>
+	<categoryLabelType>percentiles</categoryLabelType>
+	<ECType>default</ECType>
 </settings>
-
 </data>
+

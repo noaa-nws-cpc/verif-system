@@ -498,7 +498,7 @@ public class PlotChart extends JPanel {
 						dataView.getChartStyle(i).setLineColor(Color.lightGray);
 						dataView.getChartStyle(i).setSymbolShape(JCSymbolStyle.DIAMOND);
 						dataView.getChartStyle(i).setSymbolColor(Color.lightGray); break;
-					default: logger.warn("Not enough colors specified for the data series!");
+					default: logger.warn("Not enough colors specified for the data series!");;
 				} // end switch
 		} // end for
 		// For scores other than reliability and "total" categories, plot an average line
@@ -571,6 +571,7 @@ public class PlotChart extends JPanel {
 				Log.error("Could not display the line at y=0. " ,"#errorPanelText");
 			}
 		}
+
 		// Update X-Axis
 		JCAxis xAxis = chart.getDataView(0).getXAxis();
 		JCAxisTitle xAxisTitle = new JCAxisTitle(xAxisLabel);
@@ -583,16 +584,20 @@ public class PlotChart extends JPanel {
 		// to get around the inability to do this with point labels
 		JCValueLabel vLabels[] = xAxis.getValueLabels();
 		JCValueLabel labels[] = xAxis.getGeneratedValueLabels();
+        logger.trace("Labels are : " + Arrays.toString(labels));
 		for (int i = 0; i < labels.length; i++) {
 			JCValueLabel label = labels[i];
 			if (label != null && !label.getChartText().isVisible()) {
 				vLabels[i].setDrawTick(false);
 				vLabels[i].setDrawGrid(false);
 			}
+            if (label == null) {
+                logger.fatal("Labels are null");
+			    Log.fatal("Error encountered trying to format back-end results. Report an error serializing resluts and returning them.", "#errorPanelText");
+            }
 		}
 		xAxis.setChanged(true, Changeable.RECALC);
 		xAxis.setVisible(true); // Show the x-axis
-
 		// Update Y-AXIS
 		// Create Y-axis label
 		JCAxis yAxis = chart.getDataView(0).getYAxis();
@@ -667,13 +672,11 @@ public class PlotChart extends JPanel {
 			yAxis.setMinIsDefault(true);
 		}
 		yAxis.setVisible(true); // Show the y-axis
-
 		// LEGEND
 		// Set the number of columns of the legend (rows are set automatically by JClass)
 		legend.setNumColumns(numColsInt);
 		// Set legend size to be dynamic, but sets legend location (X,Y)
 		chart.setLayoutHints(legend, new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
-		
 		// If there is only one column, set orientation to vertical. This solves issue of legend
 		// incorrectly being placed next to the chart
 		if (numColsInt == 1) {
@@ -842,7 +845,7 @@ public class PlotChart extends JPanel {
 		String timescaleString=null;
 		String catString;
 		varString=SettingsHashLibrary.getSettingsLabel(variable);
-		catString=SettingsHashLibrary.getGenericCategoryLabel(categoryType,forecastSourceArray);
+		catString=SettingsHashLibrary.getGenericCategoryLabel(categoryType, variable);
 		try {
 			timescaleString = settingsObj.getTimescale(leadTime,aveWindow);
 			logger.debug("timescale is " + timescaleString);
@@ -957,7 +960,6 @@ public class PlotChart extends JPanel {
 		public void run() {
 			plotChart.updateChartData(ChartApplet.xmlString);
 			plotChart.chart.recalc();
-			// Pass labels?
 			plotChart.updateLabels();
 			plotChart.chart.recalc();
 			plotChart.chart.revalidate();

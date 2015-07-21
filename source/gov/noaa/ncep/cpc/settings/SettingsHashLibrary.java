@@ -132,6 +132,9 @@ public class SettingsHashLibrary {
 		stringHash.put("climate region","climateRegion");
 		// Spatial Type
 		stringHash.put("climate division","climateDivision");//climate division
+        // Try to split the setting to retrieve the first piece delimited by a '-' if it exists in the name
+        settingStr = settingStr.split("-")[0];
+        logger.trace("Variable label is : " + stringHash.get(settingStr));
 		// Forecast Type (timescale)
 		// See Settings.getTimescale()
 		// Category Label 
@@ -161,7 +164,7 @@ public class SettingsHashLibrary {
 
 
 	/**
-	Returns an array of possible units that can be used to obtain ie. category labels. This unit would be part of the forecast table name. For example, tmax_rfcstCalProbPtile10and90_gfsensm_00z_08d_01d_grid2deg. 
+	Returns an array of possible units that can be used to obtain ie. category labels. 
 	@return Array of allowable category units, typically used for labeling what the 3-category structure of data would be assigned.
 	*/
 	public static String[] getPossibleCategoryUnitsArray() {
@@ -177,10 +180,10 @@ public class SettingsHashLibrary {
 	/**
 	Returns the appropriate category label. Not the same as category type which is currently still constrained in the internal code to be either 'B','N', or 'A'. These labels would be associated with these 3 category types and would display in output. These should not be too long, since they are also used for column headers in the ASCII output.
 	@param category Category type from the settings object
-	@param forecastSource A single forecast source to get the appropriate category label for. For forecast sources with percentiles, the forecastSource would be used to retrieve the percentile number to build the label.
+	@param variable Name of variable used (e.g. tmax-ptile-15-and-85). This is used to retrieve the percentile or full field value to build the label.
 	@return A category label with details about thresholds assigned to the categories (if it is not symmetric terciles)
 	*/
-	public static String getCategoryLabel(String category, String forecastSource) {
+	public static String getCategoryLabel(String category, String variable) {
 		Pattern pattern;
 		Matcher matcher;
 	
@@ -200,15 +203,17 @@ public class SettingsHashLibrary {
 		}
 		logger.trace("category units list is : " + possibleCategoryUnitsList);
 
-		// Try to create category labels based off of the forecast source
+		// Try to create category labels based off of the variable
 		try {
 			// Get the category label unit
-			// Get percentile from the forecast source name 
-			pattern = Pattern.compile(".*(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)_.*",Pattern.CASE_INSENSITIVE);
-			matcher = pattern.matcher(forecastSource);
+			// Get percentile from the variable
+            String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
+            logger.trace("regex is " + regex);
+			pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+			matcher = pattern.matcher(variable);
 			matcher.find();
-			logger.trace("Forecast source: " + forecastSource);
-			// If there is a valid threshold unit found for categories in the forecast source
+			logger.trace("Variable: " + variable);
+			// If there is a valid threshold unit found for categories in the variable
 			if (matcher.matches() == true) {
 				logger.trace("Getting category labels for non-symmetric terciles");
 				logger.debug("regex1 - " + matcher.group(1));
@@ -259,18 +264,18 @@ public class SettingsHashLibrary {
 			return stringHash.get(category);
 		} else {
 			Log.error("Could not create a label for category " + category , "#errorPanelText");
-			logger.warn("Could not create a label for category " + category + " for forecast source " + forecastSource + ".");
+			logger.warn("Could not create a label for category " + category + " for variable " + variable + ".");
 			return category;
 		}
 	}
 
 /**
-	Returns the appropriate generic category label, less detailed than getCategoryLabel(). Creates one type of label based on an array of forecast sources to provide a label that would work for all types of forecast sources. Not the same as category type which is currently still constrained in the internal code to be either 'B','N', or 'A'. These labels would be associated with these 3 category types and would display in output. If ANY of the forecast sources are non-symmetric tercile categories (one of the values set in getPossibleCategoryUnitsArray() then the categories are referenced as 'combined categories' (category type 'total'), 'lower category' ('B'),'middle' ('N'),'upper' ('A'), 'separate categories' ('separate')). For symmetric terciles (no forecast source containing an option from getPossibleCategoryUnitsArray()), B,N,A is used in labels.  
+	Returns the appropriate generic category label, less detailed than getCategoryLabel(). Creates one type of label based on the variable name to provide a label. Not the same as category type which is currently still constrained in the internal code to be either 'B','N', or 'A'. These labels would be associated with these 3 category types and would display in output. If the variable name contains non-symmetric tercile categories (one of the values set in getPossibleCategoryUnitsArray() then the categories are referenced as 'combined categories' (category type 'total'), 'lower category' ('B'),'middle' ('N'),'upper' ('A'), 'separate categories' ('separate')). For symmetric terciles (no forecast source containing an option from getPossibleCategoryUnitsArray()), B,N,A is used in labels.  
 	@param category Category type from the settings object
-	@param forecastSourceArray String array of forecast sources
+	@param variable String variable name
 	@return A generic category label associated with category type
 	*/
-	public static String getGenericCategoryLabel(String category,String[] forecastSourceArray) {
+	public static String getGenericCategoryLabel(String category,String variable) {
 		Pattern pattern;
 		Matcher matcher;
 		boolean hasSymmetricTercile = true;
@@ -279,6 +284,7 @@ public class SettingsHashLibrary {
 		// Get list of possible units
 		String[] possibleCategoryUnits = getPossibleCategoryUnitsArray();
 		String possibleCategoryUnitsList="";
+        logger.info("Getting the generic cateogory label");
 		// Build the array into a string separate by pipes for the regex
 		for (int i=0; i<possibleCategoryUnits.length; i++) {
 			if (i==0) {
@@ -290,20 +296,23 @@ public class SettingsHashLibrary {
 		}
 		logger.trace("category units list is : " + possibleCategoryUnitsList);
 
-		// For each of the forecast sources check if any match one of the non-symmetric units
-		// By default, hasSymmetricTercile is set to true. If it encounters a forecast source that is not symmetric, sets to false.
-		for (int i=1; i<forecastSourceArray.length; i++) {
-			logger.trace("forecast source = " + forecastSourceArray[i]);
-			// Get the category label unit
-			// Get percentile from the forecast source name 
-			pattern = Pattern.compile(".*(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)_.*",Pattern.CASE_INSENSITIVE);
-			matcher = pattern.matcher(forecastSourceArray[i]);
-			matcher.find();
-			// If there is a valid threshold unit found for categories in the forecast source
-			if (matcher.matches() == true) {
-				hasSymmetricTercile = false;
-			}
+		// check if the variable has any match one of the non-symmetric units
+		// By default, hasSymmetricTercile is set to true. 
+		
+		logger.trace("variable = " + variable);
+		// Get the category label unit
+		// Get percentile from the variable
+
+        String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
+        logger.trace("regex is " + regex);
+		pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		matcher = pattern.matcher(variable);
+		matcher.find();
+		// If there is a valid threshold unit found for categories in the variable name
+		if (matcher.matches() == true) {
+			hasSymmetricTercile = false;
 		}
+		
 		logger.trace("hasSymmetricTercile : " + hasSymmetricTercile);
 		//  determine what label to assign
 		if (hasSymmetricTercile == true) {
@@ -330,7 +339,7 @@ public class SettingsHashLibrary {
 			return category;
 		}
 		
-	}
+	} // End getGenericCategoryLabel()
 
 	/**
 	comma-delimited list of the index(ces) used in data arrays in the software used to store data associated with a specific category type.

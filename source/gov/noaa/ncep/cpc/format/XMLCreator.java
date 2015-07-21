@@ -260,6 +260,7 @@ public class XMLCreator {
 		//rootEle.setAttribute("name",chart.getChartName());
 		logger.trace("In createChartElementTimeseries(chart)");	
 		String[] category = SettingsHashLibrary.getCategoryNames();
+        String variable = chart.getVariable();
 		// Set chart name
 		Element chartEle = dom.createElement("chart-data");
 		chartEle.setAttribute("name", chart.getChartName());
@@ -361,31 +362,11 @@ public class XMLCreator {
 					}
 				}
 
-				try {
-				logger.trace("Get legend info");
-				// Use pattern matcher to see if there are thresholds listed in the forecast source name
-					pattern = Pattern.compile(".*(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)_.*",Pattern.CASE_INSENSITIVE);
-					matcher = pattern.matcher(fcstSourceArray[indexDataset]);
-					matcher.find();
-					// If there is a valid threshold unit found for categories in the forecast source
-					if (matcher.matches() == true) {
-						logger.trace("Creating legend for asymmetric categories for forecast source " + fcstSourceArray[indexDataset]);
-						// Remove snippet with category threshold info = 
-						//String testPattern = "(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)";
-						logger.trace("Removing any forecast source name snippet with regex pattern: " + "(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)");
-						dataSeriesLabel = fcstSourceArray[indexDataset].replaceAll("(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)","");
-					}
-					else {
-						logger.trace("Creating legend for symmetric categories for forecast source " + fcstSourceArray[indexDataset]);
-						dataSeriesLabel = fcstSourceArray[indexDataset];
-					}
-				} // End try
-				catch (Exception e) {
-					logger.fatal("Could not create legend labels from the forecast source: " + fcstSourceArray[indexDataset] + " , " + e);
-				}
+			
+				dataSeriesLabel = fcstSourceArray[indexDataset];
 				
 				// Get category individually
-				categoryLabel = SettingsHashLibrary.getCategoryLabel(category[j],chart.getFcstSourceArray()[indexDataset]);
+				categoryLabel = SettingsHashLibrary.getCategoryLabel(category[j],chart.getVariable());
 				dataSeriesLabel = dataSeriesLabel.concat(" " + categoryLabel);
 				
 				Text dataSeriesLabelText = dom.createTextNode(dataSeriesLabel);
@@ -442,17 +423,18 @@ public class XMLCreator {
 		Pattern pattern;
 		Matcher matcher;
 
-	        logger.trace("In createChartElementReliability(chart)");
-		String[] category = SettingsHashLibrary.getCategoryNames();
-			// Set chart name
-			Element chartEle = dom.createElement("chart-data");	
-			chartEle.setAttribute("name", chart.getChartName());
+        logger.trace("In createChartElementReliability(chart)");
+	    String[] category = SettingsHashLibrary.getCategoryNames();
+        String variable = chart.getVariable();
+		// Set chart name
+		Element chartEle = dom.createElement("chart-data");	
+		chartEle.setAttribute("name", chart.getChartName());
 
-	        // Get array of point (reference) values (the prob bins)
-			String[] referenceArray = chart.getChartReferenceArray();
+        // Get array of point (reference) values (the prob bins)
+		String[] referenceArray = chart.getChartReferenceArray();
 
-	        // Get size of reference array
-			int numDateCols = referenceArray.length;
+        // Get size of reference array
+		int numDateCols = referenceArray.length;
 			
 	        //------------------------------------------
 	        // Create xml data point labels (values are probability bins)
@@ -564,32 +546,9 @@ public class XMLCreator {
 						possibleCategoryUnitsList = possibleCategoryUnitsList + "|" + possibleCategoryUnits[i];
 					}
 				}
-
-				try {
-				logger.trace("Get legend info");
-				// Use pattern matcher to see if there are thresholds listed in the forecast source name
-					pattern = Pattern.compile(".*(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)_.*",Pattern.CASE_INSENSITIVE);
-					matcher = pattern.matcher(fcstSourceArray[indexDataset]);
-					matcher.find();
-					// If there is a valid threshold unit found for categories in the forecast source
-					if (matcher.matches() == true) {
-						logger.trace("Creating legend for asymmetric categories for forecast source " + fcstSourceArray[indexDataset]);
-						// Remove snippet with category threshold info = 
-						//String testPattern = "(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)";
-						logger.trace("Removing any forecast source name snippet with regex pattern: " + "(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)");
-						dataSeriesLabel = fcstSourceArray[indexDataset].replaceAll("(" + possibleCategoryUnitsList + ")([0-9pt]+)and([0-9pt]+)","");
-					}
-					else {
-						logger.trace("Creating legend for symmetric categories for forecast source " + fcstSourceArray[indexDataset]);
-						dataSeriesLabel = fcstSourceArray[indexDataset];
-					}
-				} // End try
-				catch (Exception e) {
-					logger.fatal("Could not create legend labels from the forecast source: " + fcstSourceArray[indexDataset] + " , " + e);
-				}
-				
+                dataSeriesLabel = fcstSourceArray[indexDataset];	
 				// Get category individually
-				categoryLabel = SettingsHashLibrary.getCategoryLabel(category[j],chart.getFcstSourceArray()[indexDataset]);
+				categoryLabel = SettingsHashLibrary.getCategoryLabel(category[j],chart.getVariable());
 				dataSeriesLabel = dataSeriesLabel.concat(" " + categoryLabel);
 			} // End else not first dataset
 			Text dataSeriesLabelText = dom.createTextNode(dataSeriesLabel);

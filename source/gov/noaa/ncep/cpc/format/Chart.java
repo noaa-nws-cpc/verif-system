@@ -25,6 +25,7 @@ public class Chart {
 	private String[] fcstSourceArray; // Forecast source(s)
 	private String categoryType;      // category type from settings obj
 	private String scoreType;         // score type from settings obj
+    private String variable;        // Variable type
 	// End Declare variables
 	//---------------------------------------------------------------------------
 
@@ -39,7 +40,7 @@ public class Chart {
 	@param categoryType String of the category type.
 	@param scoreType String of the score type.
 	*/
-	public Chart(String chartName, String[] intXdataValuesArray, String[] referenceArray, String[][][] scoreArray, String[] fcstSourceArray, String categoryType, String scoreType) {
+	public Chart(String chartName, String[] intXdataValuesArray, String[] referenceArray, String[][][] scoreArray, String[] fcstSourceArray, String categoryType, String scoreType, String variable) {
 		// Add the passed parameters(attributes) of values to the created chart object
 		this.chartName = chartName;
 		this.intXdataValuesArray = intXdataValuesArray;
@@ -48,6 +49,7 @@ public class Chart {
 		this.fcstSourceArray =fcstSourceArray;
 		this.categoryType = categoryType;
 		this.scoreType = scoreType;
+        this.variable = variable;
 	}
 
 	/**
@@ -61,7 +63,7 @@ public class Chart {
 	@param categoryType String of the category type.
 	@param scoreType String of the score type.
 	*/
-	public Chart(String chartName, String[] referenceArray, String[][][]xdataScoreArray, String[][][] scoreArray, String[] fcstSourceArray, String categoryType, String scoreType) {
+	public Chart(String chartName, String[] referenceArray, String[][][]xdataScoreArray, String[][][] scoreArray, String[] fcstSourceArray, String categoryType, String scoreType, String variable) {
 		// Add the passed parameters(attributes) of values to the created chart object
 		this.chartName = chartName;
 		this.referenceArray = referenceArray;
@@ -70,6 +72,7 @@ public class Chart {
 		this.fcstSourceArray =fcstSourceArray;
 		this.categoryType = categoryType;
 		this.scoreType = scoreType;
+        this.variable = variable;
 	}
 
         /**
@@ -90,6 +93,7 @@ public class Chart {
                 this.referenceArray = referenceArray;
                 this.scoreArray = scoreArray;
                 this.fcstSourceArray =fcstSourceArray;
+                this.variable = variable;
         }
 
 	//---------------------------------------------------------------------------
@@ -140,7 +144,10 @@ public class Chart {
 		return scoreType;
 	}
 
-
+	// Variable
+	public String getVariable() {
+		return variable;
+	}
 	//---------------------------------------------------------------------------
 	//  Set Methods 
 	//---------------------------------------------------------------------------
@@ -177,6 +184,10 @@ public class Chart {
 
 	public void setScoreType(String scoreType) {
 		this.scoreType = scoreType;
+	}
+
+	public void setVariable(String variable) {
+		this.variable = variable;
 	}
 
 	// End get/set methods

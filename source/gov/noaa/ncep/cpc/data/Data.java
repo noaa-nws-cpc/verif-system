@@ -371,7 +371,7 @@ public class Data {
 			// Determine $table
 			//-----------------------------------------------------------
 			// Data table name
-			dataTableName = Sql.getDataTableName(variable, fcstSource, leadTime, aveWindow, spatialType);
+			dataTableName = "`" + Sql.getDataTableName(variable, fcstSource, leadTime, aveWindow, spatialType) + "`";
 			// Reference table name
 			refTableName = Sql.getRefTableName(spatialType);
 
@@ -961,7 +961,7 @@ public class Data {
 		// Determine $table
 		//-----------------------------------------------------------
 		// Data table name
-		dataTableName = Sql.getDataTableName(variable, aveWindow, spatialType);
+		dataTableName = "`" + Sql.getDataTableName(variable, aveWindow, spatialType) + "`";
 		// Reference table name
 		refTableName = Sql.getRefTableName(spatialType);
 		//-----------------------------------------------------------
@@ -1272,7 +1272,7 @@ public class Data {
 		// Determine table
 		//-----------------------------------------------------------
 		// Data table name
-		dataTableName = Sql.getDataTableName("percentDry", aveWindow, "1971-2000", spatialType);
+		dataTableName = "`" + Sql.getDataTableName("percentDry", aveWindow, "1971-2000", spatialType) + "`";
 
 		// Reference table name
 		refTableName = Sql.getRefTableName(spatialType);
