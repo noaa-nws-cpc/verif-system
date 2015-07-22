@@ -22,9 +22,8 @@ public class StatsLibrary {
 	 * the score will be incorrect.
 	 * See calcHeidkeWithEc to verify using EC forecasts.
 	 * This method ignores NaNs, and if no fcst-ob pairs are found it returns NaN.
-	 * The number of categories to verify is set to 3.  
 	 * HeidkeNoEC=(numCorrect - numExpected)/(count - numExpected) 
-	 * where numExpected is (count/number of categories) and count is the number of valid fcst-ob pairs.
+	 * where numExpected for a category is calculated by count * probability of the forecast being in a specific category, and count is the number of valid fcst-ob pairs.
 	 * The Heidke score utilizes the number of correct and incorrect category hits.
 	 * The values for heidke scores range from -50 to 100. A score of 100 indicates a perfect
 	 * forecast, and a score of -50 indicates a perfectly incorrect forecast. Scores greater
@@ -108,6 +107,8 @@ public class StatsLibrary {
 					}
 				} // end if to check cat
 			}
+            // This should be count * window size in probability generically (ie. including cases for extremes, where
+            // the numExpected would not be the same for each category.
 			numExpected[k] = (float) count[k]/numCats;    // Number of random fcsts expected to be correct
 			// Calculate score if there is at least one fcst-ob pair
 			if (count[k] > 0) {
@@ -125,6 +126,67 @@ public class StatsLibrary {
 		}
 		return heidke;
 	}  // end calcHeidkeNoEc 1-D
+
+	/**
+	 * Returns a single heidke score of non EC forecasts calculated over 2 dimensions.  
+	* EC forecasts (zeros) should be removed from all models before use or
+	* the score will be incorrect.
+	* See calcHeidkeWithEc to verify using EC forecasts.
+	 * This method ignores NaNs, and if no fcst-ob pairs are found it returns NaN.
+	* HeidkeNoEC=(numCorrect - numExpected)/(count - numExpected)
+	*where numExpected for a category is calculated by count * probability of the forecast being in a specific category, and count is the number of valid fcst-ob pairs.
+    * @param fcstCat  1-d float array of forecast categories
+    * @param obsCat   1-d float array of observed categories
+    *
+    * @return  float value of score calculated over 2 dimensions
+	*/
+	public static float calcHeidkeNoEc(float fcstCat[][], float obsCat[][]) {
+		logger = Logger.getLogger(StatsLibrary.class.getName());
+		logger.trace("In calcHeidkeNoEc scalculating heidke non EC 2-d");
+
+		// Initialize variables for this score
+		// NaNs are from missing data, weekends with no manual forecast, etc
+		int numCats = 3;      // Number of forecast categories (a,b,n)
+		int numCorrect = 0;   // num correct forecasts
+		float numExpected;    // num of random fcsts expected to be correct
+		float singleRawScore; // value returned
+		int nanCount = 0;     // num of fcst-ob pairs with at least one NaN 
+		int r=fcstCat.length;     // Get number of rows(Days)
+		int c=fcstCat[0].length;  // Get number of columns(Locations) (assuming same # of cols in each row)
+		int T;                    // total number of valid fcst-ob pairs
+
+		// Calculate number of correct fcsts
+		for (int i=0; i<r; i++) {
+			for (int j=0; j<c; j++) {
+				if (fcstCat[i][j] == obsCat[i][j]) {
+					numCorrect=numCorrect+1;
+				}
+				if ( Float.isNaN(fcstCat[i][j]) || Float.isNaN(obsCat[i][j]) ) {
+					nanCount = nanCount + 1;
+				}
+			}
+		}
+
+		// Determine total number of pairs without any NaNs
+		T = (r*c) - nanCount;
+        // This should be count * window size in probability generically (ie. including cases for extremes, where
+        // the numExpected would not be the same for each category.
+		numExpected = (float) T/numCats;    // Number of random fcsts expected to be correct
+
+		// Calculate score if there is at least one fcst-ob pair
+		if (T > 0) {		
+			singleRawScore = (100 * ((numCorrect-numExpected) / (T-numExpected)));
+		} 
+		// If there are not fcst-obs pairs, score is undefined
+		else {
+			singleRawScore = Float.NaN;
+		}
+
+		logger.trace("heidke = " + singleRawScore);
+		return singleRawScore;
+	}  // end calcHeidkeNoEc 2-D
+
+	/////////////////////////////////////////////////////////////
 
         /**
          * Returns heidke score of non EC forecasts calculated over 1 dimension for
@@ -163,36 +225,36 @@ public class StatsLibrary {
          * @return      1-d float array of score calculated over 1 dimension for Total,B,N,A
          */
         public static float[] calcHeidkeNoEcDryLocationCorrection(float fcstCat[], float obsCat[], float percentDry[]) {
-                logger = Logger.getLogger(StatsLibrary.class.getName());
-                logger.trace("In calcHeidkeNoEcDryLocationCorrection calculating heidke non EC dry area correction 1-d");
-                // Initialize variables for this score
-                // NaNs are from missing data, weekends with no manual forecast, etc
-                int numCats = 3;                     // Number of forecast categories (a,b,n)
-                int[] numCorrect = new int[4];       // num correct forecasts
-                float[] numExpected = new float[4];  // num of random fcsts expected to be correct
-                float[] expected = new float[fcstCat.length];  // expected value depending on a specific location and fcstCat 
-                float[] heidke = new float[4];       // value returned
-                int nanCount;                        // num of fcst-ob pairs with at least one NaN
-                int[] count = new int[4];            // total number of valid fcst-ob pairs
-                int r=fcstCat.length;
-                int[] Total = new int[4];            // total number of fcsts
-                String[] category = SettingsHashLibrary.getCategoryNames();
-		int percentDryCount;
-		int arid2classFcstCount;
-		int arid2classObsCount;
-		int semiArid2classFcstCount;
-		int semiArid2classObsCount;
+            logger = Logger.getLogger(StatsLibrary.class.getName());
+            logger.trace("In calcHeidkeNoEcDryLocationCorrection calculating heidke non EC dry area correction 1-d");
+            // Initialize variables for this score
+            // NaNs are from missing data, weekends with no manual forecast, etc
+            int numCats = 3;                     // Number of forecast categories (a,b,n)
+            int[] numCorrect = new int[4];       // num correct forecasts
+            float[] numExpected = new float[4];  // num of random fcsts expected to be correct
+            float[] expected = new float[fcstCat.length];  // expected value depending on a specific location and fcstCat 
+            float[] heidke = new float[4];       // value returned
+            int nanCount;                        // num of fcst-ob pairs with at least one NaN
+            int[] count = new int[4];            // total number of valid fcst-ob pairs
+            int r=fcstCat.length;
+            int[] Total = new int[4];            // total number of fcsts
+            String[] category = SettingsHashLibrary.getCategoryNames();
+		    int percentDryCount;
+		    int arid2classFcstCount;
+		    int arid2classObsCount;
+		    int semiArid2classFcstCount;
+		    int semiArid2classObsCount;
 
-                // Dry location correction
-		logger.trace("doing dry location correction");
-                for (int k=1; k<(numCats+1); k++) {
-                        logger.trace("category: " + category[k]);
-                        // Initialize counters
-			percentDryCount = 0;
-			arid2classFcstCount = 0;
-			arid2classObsCount = 0;
-			semiArid2classFcstCount = 0;
-			semiArid2classObsCount = 0;
+            // Dry location correction
+		    logger.trace("doing dry location correction");
+            for (int k=1; k<(numCats+1); k++) {
+                logger.trace("category: " + category[k]);
+                // Initialize counters
+			    percentDryCount = 0;
+			    arid2classFcstCount = 0;
+			    arid2classObsCount = 0;
+			    semiArid2classFcstCount = 0;
+			    semiArid2classObsCount = 0;
                         // Loop over each forecast
                         for (int i=0; i<r; i++) {
 				if (Float.isNaN(percentDry[i])) {
@@ -241,12 +303,12 @@ public class StatsLibrary {
 							if (k==1) {
 								expected[i] = (float) 0.667;
 							}
-                                	                else if (k==2) {
-                                	                        expected[i] = (float) 0;
-                                	                }
-                                	                else if (k==3) {
-                                	                        expected[i] = (float) 0.333;
-                                	                }
+        	                else if (k==2) {
+        	                        expected[i] = (float) 0;
+        	                }
+        	                else if (k==3) {
+        	                        expected[i] = (float) 0.333;
+        	                }
 							// Collapse to a 2 class system for arid locations
 							if (fcstCat[i] == 2) {
 								logger.trace("orig fcstCat " + fcstCat[i]);
@@ -537,66 +599,7 @@ public class StatsLibrary {
 		return heidke;
 	}  // end calcHeidkeWithEc 1-D
 
-	/**
-	 * Returns a single heidke score of non EC forecasts calculated over 2 dimensions.  
-	* EC forecasts (zeros) should be removed from all models before use or
-	* the score will be incorrect.
-	* See calcHeidkeWithEc to verify using EC forecasts.
-	 * This method ignores NaNs, and if no fcst-ob pairs are found it returns NaN.
-	 * The number of categories to verify is set to 3.
-	* HeidkeNoEC=(numCorrect - numExpected)/(Total - numExpected)
-	* where numExpected is (Total/number of categories) and Total is the number of valid fcst-ob pairs.
-	*
-    * @param fcstCat  1-d float array of forecast categories
-    * @param obsCat   1-d float array of observed categories
-    *
-    * @return  float value of score calculated over 2 dimensions
-	*/
-	public static float calcHeidkeNoEc(float fcstCat[][], float obsCat[][]) {
-		logger = Logger.getLogger(StatsLibrary.class.getName());
-		logger.trace("In calcHeidkeNoEc scalculating heidke non EC 2-d");
 
-		// Initialize variables for this score
-		// NaNs are from missing data, weekends with no manual forecast, etc
-		int numCats = 3;      // Number of forecast categories (a,b,n)
-		int numCorrect = 0;   // num correct forecasts
-		float numExpected;    // num of random fcsts expected to be correct
-		float singleRawScore; // value returned
-		int nanCount = 0;     // num of fcst-ob pairs with at least one NaN 
-		int r=fcstCat.length;     // Get number of rows(Days)
-		int c=fcstCat[0].length;  // Get number of columns(Locations) (assuming same # of cols in each row)
-		int T;                    // total number of valid fcst-ob pairs
-
-		// Calculate number of correct fcsts
-		for (int i=0; i<r; i++) {
-			for (int j=0; j<c; j++) {
-				if (fcstCat[i][j] == obsCat[i][j]) {
-					numCorrect=numCorrect+1;
-				}
-				if ( Float.isNaN(fcstCat[i][j]) || Float.isNaN(obsCat[i][j]) ) {
-					nanCount = nanCount + 1;
-				}
-			}
-		}
-
-		// Determine total number of pairs without any NaNs
-		T = (r*c) - nanCount;
-		numExpected = (float) T/numCats;    // Number of random fcsts expected to be correct
-
-		// Calculate score if there is at least one fcst-ob pair
-		if (T > 0) {		
-			singleRawScore = (100 * ((numCorrect-numExpected) / (T-numExpected)));
-		} 
-		// If there are not fcst-obs pairs, score is undefined
-		else {
-			singleRawScore = Float.NaN;
-		}
-
-		logger.trace("heidke = " + singleRawScore);
-		return singleRawScore;
-	}  // end calcHeidkeNoEc 2-D
-
-	/////////////////////////////////////////////////////////////
 
 	/**
 	 * Returns ranked probability skill score calculated over 1 dimension.

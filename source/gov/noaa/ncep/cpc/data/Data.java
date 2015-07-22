@@ -18,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -651,7 +653,7 @@ public class Data {
 			logger.debug("Calculating category from probabilities...");
 			for (int d=0; d<numFcstDates; d++) {
 				for (int l=0; l<numFcstLocations; l++) {
-					fcstCat[f][d][l] = getFcstCategoryArray(fcstProb[f][d][l],fcstSource,fcstType);
+					fcstCat[f][d][l] = getFcstCategoryArray(fcstProb[f][d][l],fcstSource,fcstType,variable);
 				}
 			}
 			logger.debug("///////////////////////////////////////////");
@@ -692,7 +694,9 @@ public class Data {
 	  @param fcstType Type of forecast (extendedRange or longRange)
 	  @return Float array of values representing forecast categories based on passed probabilities.
 	 */
-	public float getFcstCategoryArray(float[] fcstProb, String fcstSource, String fcstType) {
+	public float getFcstCategoryArray(float[] fcstProb, String fcstSource, String fcstType, String variable) {
+		Pattern pattern;
+		Matcher matcher;
 		float fcstCat = Float.NaN;
 		// If the fcstProbs are NaN, then so is the category
 		if (Float.isNaN(fcstProb[0]) || Float.isNaN(fcstProb[1]) || Float.isNaN(fcstProb[2])) {
@@ -732,20 +736,53 @@ public class Data {
 				// Use Scott's method, which always picks a below or above, unless
 				// both are below 1/3.
 			} else {
-				// If both A and B are below 1/3, pick N
-				if (Float.compare(fcstProb[0],0.3333f) < 0 && Float.compare(fcstProb[2],0.3333f) < 0) {
-					fcstCat = 2;
-					// If this is seasonal and A==B==N, pick EC (0)
-				} else if (fcstType.compareToIgnoreCase("longRange")==0 && fcstProb[0]==fcstProb[1] && fcstProb[0]==fcstProb[2]) {
-					fcstCat = 0;
-					// Otherwise pick the greater of A or B
-				} else {
-					if (Float.compare(fcstProb[0],fcstProb[2]) > 0) {
-						fcstCat = 1;
-					} else {
-						fcstCat = 3;
-					}
-				}
+                // If one of the possible categories for extremes are being processed, then use different logic to select category        			        // Get the category label unit
+                String possibleCategoryUnitsList = SettingsHashLibrary.getPossibleCategoryUnitsList();
+                String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
+                logger.trace("regex is " + regex);
+			    pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+			    matcher = pattern.matcher(variable);
+			    matcher.find();        
+                if (matcher.matches() == true) {
+                    logger.debug("Getting favored category based on an extreme for " + matcher.group(1));
+                    // If both A and B are below 0.20 (the minimum forecast probability expected to consider as a usable probability), pick N
+                   if (Float.compare(fcstProb[0],0.2f) < 0 && Float.compare(fcstProb[2],0.2f) < 0) {
+					    fcstCat = 2;
+				    }             
+                    // If this is seasonal and A==B==N, pick EC (0)
+                    else if (fcstType.compareToIgnoreCase("longRange")==0 && fcstProb[0]==fcstProb[1] && fcstProb[0]==fcstProb[2]) {
+					    fcstCat = 0;
+				    }
+                    // Else pick the greater of A or B
+                    else {
+				        if (Float.compare(fcstProb[0],fcstProb[2]) > 0) {
+					        fcstCat = 1;
+				        } else {
+					        fcstCat = 3;
+				        }
+				    }
+                    logger.trace("Fcst prob for B: " + fcstProb[0] + " AL " + fcstProb[2]);
+                    logger.trace("Favored category is (1=B,2=N,3=A,0=EC(long range only)" + fcstCat);
+                }
+				// Else, assume terciles are being processed. If both A and B are below 1/3, pick N
+                else {
+                    logger.debug("Getting favored category based on terciles.");
+				    if (Float.compare(fcstProb[0],0.3333f) < 0 && Float.compare(fcstProb[2],0.3333f) < 0) {
+					    fcstCat = 2;
+				    }
+                    // If this is seasonal and A==B==N, pick EC (0)
+                    else if (fcstType.compareToIgnoreCase("longRange")==0 && fcstProb[0]==fcstProb[1] && fcstProb[0]==fcstProb[2]) {
+					    fcstCat = 0;
+				    }
+			        // Otherwise pick the greater of A or B
+                    else {
+				        if (Float.compare(fcstProb[0],fcstProb[2]) > 0) {
+					        fcstCat = 1;
+				        } else {
+					        fcstCat = 3;
+				        }
+				    }
+                }
 			}
 		}
 		//logger.trace("In getFcstCategoryArray - picked " + fcstCat);

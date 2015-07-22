@@ -164,7 +164,7 @@ public class SettingsHashLibrary {
 
 
 	/**
-	Returns an array of possible units that can be used to obtain ie. category labels. 
+	Returns an array of possible units that can be used to obtain ie. category labels. These are currently assumed to represent extremes and may therefore impact logic suh as how the favored category is selected in Data.java. These may be used to determine if an extreme is being processed.
 	@return Array of allowable category units, typically used for labeling what the 3-category structure of data would be assigned.
 	*/
 	public static String[] getPossibleCategoryUnitsArray() {
@@ -176,6 +176,27 @@ public class SettingsHashLibrary {
 		categoryUnits[4]="in";
 		return categoryUnits;
 	}
+
+    /**
+    Returns a pipe delimited list of possible category units that can be used for a regex command. These are obtained from the list in getPOssibleCategoryUnitsArray(). These may be used to determine if an extreme is being processed.
+    @return Pipe delimited list of allowable category units.
+    */
+    public static String getPossibleCategoryUnitsList() {
+		// Get list of possible units
+		String[] possibleCategoryUnits = getPossibleCategoryUnitsArray();
+		String possibleCategoryUnitsList="";
+		// Build the array into a string separate by pipes for the regex
+		for (int i=0; i<possibleCategoryUnits.length; i++) {
+			if (i==0) {
+				possibleCategoryUnitsList = possibleCategoryUnits[i];
+			}
+			else {
+				possibleCategoryUnitsList = possibleCategoryUnitsList + "|" + possibleCategoryUnits[i];
+			}
+		}
+		logger.trace("category units list is : " + possibleCategoryUnitsList);
+        return possibleCategoryUnitsList;
+    }
 
 	/**
 	Returns the appropriate category label. Not the same as category type which is currently still constrained in the internal code to be either 'B','N', or 'A'. These labels would be associated with these 3 category types and would display in output. These should not be too long, since they are also used for column headers in the ASCII output.
@@ -216,9 +237,9 @@ public class SettingsHashLibrary {
 			// If there is a valid threshold unit found for categories in the variable
 			if (matcher.matches() == true) {
 				logger.trace("Getting category labels for non-symmetric terciles");
-				logger.debug("regex1 - " + matcher.group(1));
-				logger.debug("regex - " + matcher.group(2));
-				logger.debug("regex2 - " + matcher.group(3));
+				logger.trace("regex1 - " + matcher.group(1));
+				logger.trace("regex2 - " + matcher.group(2));
+				logger.trace("regex3 - " + matcher.group(3));
 				String val1Str = matcher.group(2);
 				String val2Str = matcher.group(3);
 				String valUnit = matcher.group(1);
