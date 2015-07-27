@@ -163,64 +163,6 @@ public class StatsLibrary {
 		return heidke;
 	}  // end calcHeidkeNoEc 1-D
 
-	/**
-	 * Returns a single heidke score of non EC forecasts calculated over 2 dimensions.  
-	* EC forecasts (zeros) should be removed from all models before use or
-	* the score will be incorrect.
-	* See calcHeidkeWithEc to verify using EC forecasts.
-	 * This method ignores NaNs, and if no fcst-ob pairs are found it returns NaN.
-	* HeidkeNoEC=(numCorrect - numExpected)/(count - numExpected)
-	*where numExpected for a category is calculated by count * probability of the forecast being in a specific category, and count is the number of valid fcst-ob pairs.
-    * @param fcstCat  1-d float array of forecast categories
-    * @param obsCat   1-d float array of observed categories
-    *
-    * @return  float value of score calculated over 2 dimensions
-	*/
-	public static float calcHeidkeNoEc(float fcstCat[][], float obsCat[][], String variable) {
-		logger = Logger.getLogger(StatsLibrary.class.getName());
-		logger.trace("In calcHeidkeNoEc scalculating heidke non EC 2-d");
-
-		// Initialize variables for this score
-		// NaNs are from missing data, weekends with no manual forecast, etc
-		int numCats = 3;      // Number of forecast categories (a,b,n)
-		int numCorrect = 0;   // num correct forecasts
-		float numExpected;    // num of random fcsts expected to be correct
-		float singleRawScore; // value returned
-		int nanCount = 0;     // num of fcst-ob pairs with at least one NaN 
-		int r=fcstCat.length;     // Get number of rows(Days)
-		int c=fcstCat[0].length;  // Get number of columns(Locations) (assuming same # of cols in each row)
-		int T;                    // total number of valid fcst-ob pairs
-
-		// Calculate number of correct fcsts
-		for (int i=0; i<r; i++) {
-			for (int j=0; j<c; j++) {
-				if (fcstCat[i][j] == obsCat[i][j]) {
-					numCorrect=numCorrect+1;
-				}
-				if ( Float.isNaN(fcstCat[i][j]) || Float.isNaN(obsCat[i][j]) ) {
-					nanCount = nanCount + 1;
-				}
-			}
-		}
-
-		// Determine total number of pairs without any NaNs
-		T = (r*c) - nanCount;
-        // This should be count * window size in probability generically (ie. including cases for extremes, where
-        // the numExpected would not be the same for each category.
-		numExpected = (float) T/numCats;    // Number of random fcsts expected to be correct
-
-		// Calculate score if there is at least one fcst-ob pair
-		if (T > 0) {		
-			singleRawScore = (100 * ((numCorrect-numExpected) / (T-numExpected)));
-		} 
-		// If there are not fcst-obs pairs, score is undefined
-		else {
-			singleRawScore = Float.NaN;
-		}
-
-		logger.trace("heidke = " + singleRawScore);
-		return singleRawScore;
-	}  // end calcHeidkeNoEc 2-D
 
 	/////////////////////////////////////////////////////////////
 

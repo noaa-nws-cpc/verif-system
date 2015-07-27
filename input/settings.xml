@@ -10,8 +10,8 @@
 	<regionType>climateDivision</regionType> 
 	<regions>All</regions>
 	<spatialType>gridded</spatialType>
-	<outputType>chart</outputType>
-	<outputDimension>time</outputDimension>
+	<outputType>ascii</outputType>
+	<outputDimension>space</outputDimension>
 	<scoreType>heidke</scoreType>
 	<categoryType>separate</categoryType>
 	<ECType>default</ECType>
