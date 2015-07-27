@@ -485,7 +485,7 @@ public class Stats {
 					float[] tmpScore = new float[4];    // temp array for heidke and Brier scores by category
 					if (settingsObj.getScoreType().compareToIgnoreCase("heidke") == 0) {
 						if (ecType.compareToIgnoreCase("noEC") == 0 && !(settingsObj.getDryLocationCorrection()) ) {
-							tmpScore=StatsLibrary.calcHeidkeNoEc(fcstCat1d, obsCat1d);
+							tmpScore=StatsLibrary.calcHeidkeNoEc(fcstCat1d, obsCat1d,settingsObj.getVariable());
 						}
 						// use dry station correction for heidke if applicable
 						else if (ecType.compareToIgnoreCase("noEC") == 0 && settingsObj.getDryLocationCorrection() ) {

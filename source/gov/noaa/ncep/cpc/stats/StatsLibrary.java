@@ -25,16 +25,16 @@ public class StatsLibrary {
 	 * HeidkeNoEC=(numCorrect - numExpected)/(count - numExpected) 
 	 * where numExpected for a category is calculated by count * probability of the forecast being in a specific category, and count is the number of valid fcst-ob pairs.
 	 * The Heidke score utilizes the number of correct and incorrect category hits.
-	 * The values for heidke scores range from -50 to 100. A score of 100 indicates a perfect
-	 * forecast, and a score of -50 indicates a perfectly incorrect forecast. Scores greater
-	 * than 0 indicate improvement compared to a random forecast and indicate skill.
+	 * The values for heidke scores range from -50 to 100 for even terciles. A score of 100 indicates a perfect
+	 * forecast, and a score of -50 indicates a perfectly incorrect forecast. This would be different for percentiles that are not even in the terciles (extremes). The minimum HSS would be -p/(1-p), where p is the probability of climatology forecasting the percentile (e.g. 0.15 for the 15th and 85th percentiles). The maximum would always be 1. Scores greater than 0 indicate improvement compared to a random forecast and indicate skill.
 	 *
 	 * @param fcstCat  1-d float array of forecast categories
 	 * @param obsCat   1-d float array of observed categories
+     * @param variable String of the variable. Potentially used to extract thresholds associated with forecast categories.
 	 *
 	 * @return	1-d float array of score calculated over 1 dimension for Total,B,N,A
 	 */
-	public static float[] calcHeidkeNoEc(float fcstCat[], float obsCat[]) {
+	public static float[] calcHeidkeNoEc(float fcstCat[], float obsCat[], String variable) throws Exception {
 		logger = Logger.getLogger(StatsLibrary.class.getName());
 		logger.trace("In calcHeidkeNoEc calculating heidke non EC 1-d");
 
@@ -43,46 +43,30 @@ public class StatsLibrary {
 		int numCats = 3;      		     // Number of forecast categories (a,b,n)
 		int[] numCorrect = new int[4];         // num correct forecasts
 		float[] numExpected = new float[4];  // num of random fcsts expected to be correct
-		float[] heidke = new float[4];	     // value returned
+		float[] heidke = new float[4];	     // value returned, Heidke score, can contain NaNs
+        float[]tempHeidke = new float[4]; // Temp heidke array, containing 0s instead of NaNs (to enable averaging for total cats)
 		int nanCount; 		             // num of fcst-ob pairs with at least one NaN  
 		int[] count = new int[4];            // total number of valid fcst-ob pairs
 		int r=fcstCat.length;   
 		int[] Total = new int[4];	     // total number of fcsts
+        float[] expectedProbability = new float[3]; // Probability associated with each category (for noneven terciles)
 		String[] category = SettingsHashLibrary.getCategoryNames();
+        // See if an extreme is being processed
+        boolean isEvenTerciles = SettingsHashLibrary.isEvenTerciles(variable);
 
-		// Calculate heidke for all categories
-		// Initialize counters
-		numCorrect[0] = 0;
-		nanCount = 0;
-		// Calculate number of correct fcsts
-		for (int i=0; i<r; i++) {
-			// Java correctly ignores NaNs here
-			// If there are any NaN, it won't get into this if statement
-			if (fcstCat[i] == obsCat[i]) {
-				numCorrect[0]=numCorrect[0]+1;
-			}
-			// Count number of fcst-ob pairs with at least one NaN
-			if ( Float.isNaN(fcstCat[i]) || Float.isNaN(obsCat[i]) ) {
-				nanCount = nanCount + 1;
-			}
-		}
-		// Determine total number of pairs without any NaNs
-		count[0] = r - nanCount;
-		numExpected[0] = (float) count[0]/numCats;    // Number of random fcsts expected to be correct
-		Total[0] = r;
-
-		// Calculate score if there is at least one fcst-ob pair
-		if (count[0] > 0) {
-			heidke[0] = (100 * ((numCorrect[0]-numExpected[0]) / (count[0]-numExpected[0])));
-		} 
-		// If there are not fcst-obs pairs, score is undefined
-		else {
-			heidke[0] = Float.NaN;
-		}
-		logger.trace("heidke for all cats = " + heidke[0]);
-		logger.trace("numCorrect " + numCorrect[0]);
-		logger.trace("# of good pairs " + count[0]);
-		logger.trace("numExpected " + numExpected[0]);
+        // For non even terciles get the expected probability associated with each category
+        if (isEvenTerciles == false) {
+            try {
+                String[] categoryThresholds = SettingsHashLibrary.getCategoryThresholds(variable);
+                expectedProbability[0] = Float.valueOf(categoryThresholds[0])/100;
+                expectedProbability[1] = (Float.valueOf(categoryThresholds[1])-Float.valueOf(categoryThresholds[0]))/100;
+                expectedProbability[2] = 1-(Float.valueOf(categoryThresholds[1])/100);
+                logger.trace("Category thresholds for non-even terciles : " + categoryThresholds[0] + " and " + categoryThresholds[1]);
+                logger.trace("Expected probs for each category : " + expectedProbability[0] + " , " + expectedProbability[1] + " , " + expectedProbability[2]);
+            } catch(Exception e) {
+                throw e;
+            }
+        }
 
 		// Calculate heidke by category
 		for (int k=1; k<(numCats+1); k++) {
@@ -93,7 +77,7 @@ public class StatsLibrary {
 			Total[k] = 0;
 			// Loop over each forecast 
 			for (int i=0; i<r; i++) {
-				// Count number of correct fcsts for the current category
+				// Determine various category pieces of information for Heidke
 				if (fcstCat[i] == (k)) {  
 					// Count total fcsts for current category (obs may be NaN)
 					Total[k] = Total[k] + 1;
@@ -107,23 +91,75 @@ public class StatsLibrary {
 					}
 				} // end if to check cat
 			}
-            // This should be count * window size in probability generically (ie. including cases for extremes, where
-            // the numExpected would not be the same for each category.
-			numExpected[k] = (float) count[k]/numCats;    // Number of random fcsts expected to be correct
+
+            // For non even terciles get the num expected for each category    
+            if (isEvenTerciles == false) {
+
+                logger.trace("Calculating num expected for non even tercile for category : " + k);
+                if (k == 1) {
+                    numExpected[k] = (float) count[k] * expectedProbability[0];
+                }
+                if (k == 2) {
+                    numExpected[k] = (float) count[k] * expectedProbability[1];
+                }
+                if (k == 3) {
+                    numExpected[k] = (float) count[k] * expectedProbability[2];
+                }
+            }
+            // Else assume even terciles
+            else {
+                // The numExpected is count * window size in probability (ie. including cases for extremes, where
+			    numExpected[k] = (float) count[k]/numCats;    // Number of random fcsts expected to be correct
+            }   
+
+
 			// Calculate score if there is at least one fcst-ob pair
 			if (count[k] > 0) {
-				heidke[k] = (100 * ((numCorrect[k]-numExpected[k]) / (count[k]-numExpected[k])));
+				heidke[k] = 100 * ((numCorrect[k]-numExpected[k]) / (count[k]-numExpected[k]));
+                tempHeidke[k] = heidke[k];               
+                logger.trace("HSS for category " + k + " : " + heidke[k] + " = 100 * ((" + numCorrect[k] + " - " + numExpected[k] + ") / (" + count[k] + " - " + numExpected[k] + "))");
 			}
 			// If there are not fcst-obs pairs, score is undefined
 			else {
 				heidke[k] = Float.NaN;
+                tempHeidke[k] = 0;
 			}
-			logger.trace("heidke for category " + category[k] + " = " + heidke[k]);
-			logger.trace("numCorrect " + numCorrect[k]);
-			logger.trace("# of good pairs " + count[k]);
-			logger.trace("Total fcsts (obs may be NaN) " + Total[k]);
-			logger.trace("numExpected " + numExpected[k]);
-		}
+		} // End calculate HSS by category
+
+        // Get total count of forecast-obs pairs
+        count[0] = count[1] + count[2] + count[3];
+        logger.trace("# Forecast points for each category is " + count[1] + " , " + count[2] + " , " + count[3] + " | total points : " + count[0]);
+
+        // Calculate total cats HSS for non-even terciles (e.g. extremes)
+        // This only includes the lower and upper categories
+        if (isEvenTerciles == false) {
+            logger.debug("Calculating the total cats HSS for 2 categories (lower and upper) for non-even terciles.");
+            // Calculate score if there is at least one valid fcst-ob pair in the lower OR upper category
+            if ((count[1] > 0) || (count[3] > 0)) { 
+	            heidke[0] = (tempHeidke[1]*count[1] + tempHeidke[3]*count[3])/(count[1] + count[3]);
+                logger.trace("HSS for total cats (only including lower and upper cats) : " + heidke[0] + " = (" + tempHeidke[1] + " * " + count[1] + " + " + tempHeidke[3] + " * " + count[3] + ")/(" + count[1] + " + " + count[3] + ")");
+            }
+            // If there are not fcst-obs pairs, score is undefined
+            else {
+                logger.warn("Total categories HSS not calculated because there are no non-NaN forecasts in either the lower or upper category.");
+	            heidke[0] = Float.NaN;
+            }      
+        }
+        // Calculate total cats HSS for even terciles - includes all 3 cats
+        else {
+            logger.debug("Calculating the total cats HSS for 3 even tercile categories.");
+            // Calculate score if there is at least one valid fcst-ob pair in the lower OR upper category
+            if ((count[1] > 0) || (count[2] > 0) || (count[3] > 0)) { 
+	            heidke[0] = (tempHeidke[1]*count[1] + tempHeidke[2]*count[2] + tempHeidke[3]*count[3])/(count[1] + count[2] + count[3]);
+                logger.trace("HSS for total cats (all 3 cats) : " + heidke[0] + " = (" + tempHeidke[1] + " * " + count[1] + " + " + tempHeidke[2] + " * " + count[2] + " + " + tempHeidke[3] + " * " + count[3] + ")/(" + count[1] + " + " + count[2] + " + " + count[3] + ")");
+            }
+            // If there are not fcst-obs pairs, score is undefined
+            else {
+                logger.warn("Total categories HSS not calculated because there are no non-NaN forecasts in any category.");
+	            heidke[0] = Float.NaN;
+            }      
+        }
+	    logger.trace("heidke for all cats = " + heidke[0]);
 		return heidke;
 	}  // end calcHeidkeNoEc 1-D
 
@@ -140,7 +176,7 @@ public class StatsLibrary {
     *
     * @return  float value of score calculated over 2 dimensions
 	*/
-	public static float calcHeidkeNoEc(float fcstCat[][], float obsCat[][]) {
+	public static float calcHeidkeNoEc(float fcstCat[][], float obsCat[][], String variable) {
 		logger = Logger.getLogger(StatsLibrary.class.getName());
 		logger.trace("In calcHeidkeNoEc scalculating heidke non EC 2-d");
 

@@ -761,8 +761,8 @@ public class Data {
 					        fcstCat = 3;
 				        }
 				    }
-                    logger.trace("Fcst prob for B: " + fcstProb[0] + " AL " + fcstProb[2]);
-                    logger.trace("Favored category is (1=B,2=N,3=A,0=EC(long range only)" + fcstCat);
+                    logger.trace("Fcst prob for B: " + fcstProb[0] + " A: " + fcstProb[2]);
+                    logger.trace("Favored category is (1=B,2=N,3=A,0=EC(long range only))" + fcstCat);
                 }
 				// Else, assume terciles are being processed. If both A and B are below 1/3, pick N
                 else {

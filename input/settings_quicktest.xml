@@ -6,7 +6,7 @@
 	<leadTime>08d</leadTime>
 	<aveWindow>05d</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-	<datesValid>20120201,20120210</datesValid>
+	<datesValid>20140101,20140130</datesValid>
 	<regionType>climateRegion</regionType>
 	<regions>All</regions>
 	<spatialType>station</spatialType>

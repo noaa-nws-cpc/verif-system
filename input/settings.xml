@@ -6,11 +6,11 @@
 	<leadTime>08d</leadTime>
 	<aveWindow>01d</aveWindow>
 	<datesValidType>dateRange</datesValidType>
-    <datesValid>20140101,20140131</datesValid>
+    <datesValid>20140801,20140831</datesValid>
 	<regionType>climateDivision</regionType> 
 	<regions>All</regions>
 	<spatialType>gridded</spatialType>
-	<outputType>ascii</outputType>
+	<outputType>chart</outputType>
 	<outputDimension>time</outputDimension>
 	<scoreType>heidke</scoreType>
 	<categoryType>separate</categoryType>

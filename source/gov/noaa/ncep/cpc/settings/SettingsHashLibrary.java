@@ -198,6 +198,63 @@ public class SettingsHashLibrary {
         return possibleCategoryUnitsList;
     }
 
+    /**
+    Returns a 1-D array containing the 2 thresholds associated with the forecast categories. 
+    @param variable Variable from the settings object    
+    @return 1-D array containing the 2 thresholds associated with the forecast categories. The first (0th) array index is the lower category threshold, and the second is the upper.
+    */
+    public static String[] getCategoryThresholds(String variable) throws Exception {
+		Pattern pattern;
+		Matcher matcher;
+		String[] thresholds = new String[2]; 
+		// Try to create category labels based off of the variable
+		try {
+			// Get the category label unit
+			// Get percentile from the variable
+            String possibleCategoryUnitsList = getPossibleCategoryUnitsList();
+            String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
+            logger.trace("regex is " + regex);
+			pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+			matcher = pattern.matcher(variable);
+			matcher.find();
+            variable = matcher.group(1);
+			// If there is a valid threshold unit found for categories in the variable
+			if (matcher.matches() == true) {
+				logger.trace("Getting category thresholds from the variable name.");
+				thresholds[0] = matcher.group(2);
+				thresholds[1] = matcher.group(3);
+                logger.trace("Thresholds are : " + thresholds[0] +  " and " + thresholds[1]);
+            }
+            else throw new Exception("Couldn't get the thresholds associated with variable " + variable);
+        } catch(Exception e) {
+				logger.fatal("Couldn't get the thresholds associated with variable " + variable);
+				throw e;
+		}
+        return thresholds;
+    }
+
+    /** 
+    Returns boolean of whether the forecast being processed is even terciles (with even probabilities for each category).
+    @param String variable
+    @return boolean value, True if the variable being processed is even terciles, False if not.
+    */
+    public static boolean isEvenTerciles(String variable) {
+        boolean isEvenTerciles = true; // Default set to True
+		Pattern pattern;
+		Matcher matcher;
+		// Get the category label unit
+        String possibleCategoryUnitsList = getPossibleCategoryUnitsList();
+        String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
+        logger.trace("regex is " + regex);
+        pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        matcher = pattern.matcher(variable);
+        matcher.find();
+        if (matcher.matches() == true) {
+            isEvenTerciles = false;
+        }
+        return isEvenTerciles;
+    }
+
 	/**
 	Returns the appropriate category label. Not the same as category type which is currently still constrained in the internal code to be either 'B','N', or 'A'. These labels would be associated with these 3 category types and would display in output. These should not be too long, since they are also used for column headers in the ASCII output.
 	@param category Category type from the settings object
