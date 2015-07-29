@@ -1,19 +1,115 @@
 <?xml version="1.0"?>
 <data>
 <settings>
-	<variable>tmax-ptile-15-and-85</variable>
+	<variable>tmin-ptile-15-and-85</variable>
 	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
 	<leadTime>08d</leadTime>
 	<aveWindow>01d</aveWindow>
-	<datesValidType>dateRange</datesValidType>
-    <datesValid>20140801,20140831</datesValid>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
 	<regionType>climateDivision</regionType> 
 	<regions>All</regions>
 	<spatialType>gridded</spatialType>
-	<outputType>ascii</outputType>
-	<outputDimension>space</outputDimension>
-	<scoreType>heidke</scoreType>
-	<categoryType>separate</categoryType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>09d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>10d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>11d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>12d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>13d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
+	<ECType>default</ECType>
+</settings>
+<settings>
+	<variable>tmin-ptile-15-and-85</variable>
+	<fcstSources>rfcstCalProb_gefs_00z</fcstSources>
+	<leadTime>14d</leadTime>
+	<aveWindow>01d</aveWindow>
+	<datesValidType>selectMonths</datesValidType>
+    <datesValid>12,01,02</datesValid>
+	<regionType>climateDivision</regionType> 
+	<regions>All</regions>
+	<spatialType>gridded</spatialType>
+	<outputType>chart</outputType>
+	<outputDimension>probability</outputDimension>
+	<scoreType>reliability</scoreType>
+	<categoryType>B</categoryType>
 	<ECType>default</ECType>
 </settings>
 </data>

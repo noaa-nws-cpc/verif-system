@@ -231,7 +231,8 @@
 		<!-- Run Jar file -->
 		<java jar="${build}/verif_client.jar"
 		      fork="true"
-		      failonerror="true">
+		      failonerror="true"
+              maxmemory="256m">
 			<arg value="-finput/settings.xml"/>
 			<arg value="-linput/logConfig.txt"/>
 	        <classpath>

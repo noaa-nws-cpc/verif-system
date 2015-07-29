@@ -338,12 +338,14 @@ public class PlotChart extends JPanel {
 	/**
 	Updates the labels on the chart, typically associated with updated data for the chart. Replots the header, x-axis, and y-axis titles and tick mark labels, title label, and legend.
 	*/
-	public void updateLabels() {
+	public void updateLabels() throws Exception {
 		// Remove ALL chart labels before updating them
 		chart.getChartLabelManager().removeAllChartLabels();
 		setSize(chartWidth,chartHeight);
 		chart.setPreferredSize(new Dimension(chartWidth,chartHeight));
 		String scoreType = settingsObj.getScoreType();
+        String variable = settingsObj.getVariable();
+        String categoryType = settingsObj.getCategoryType();
 		// Get chart labels
 		String[] chartLabelArray = getDisplayLabels();
 		// Assign variables to chart labels returned
@@ -615,7 +617,68 @@ public class PlotChart extends JPanel {
 			yAxis.setAnnotationMethod(JCAxis.VALUE);
 			yaxis.setNumSpacingIsDefault(true);
 			yAxis.setMax(110.0);
-			yAxis.setMin(-60.0);
+            // If it is NOT an even tercile, calculate min HSS value
+            // Get min, depends on percentile used. Pad with an extra 10 from the minimum possible value.
+            if (SettingsHashLibrary.isEvenTerciles(variable) == false) {
+                float thresholdLower;
+                float thresholdUpper;
+                float probWindows[] = new float[3];
+                // Get category thresholds
+                try {
+                    thresholdLower = Float.parseFloat(SettingsHashLibrary.getCategoryThresholds(variable)[0]);
+                    thresholdUpper = Float.parseFloat(SettingsHashLibrary.getCategoryThresholds(variable)[1]);
+                    // Get windows of probability/percentiles based on lower and upper thresholds
+                    probWindows = SettingsHashLibrary.getPercentileWindows(thresholdLower,thresholdUpper);
+                } catch(Exception e) {
+                    logger.warn("Can't get category percentile windows." + e);
+                    throw e;
+                }
+
+                logger.trace("Prob windows are : " + probWindows[0] + " ,  " + probWindows[1] + " , " + probWindows[2]);
+                // If Heidke separate categories OR If total categories 
+                //(not exactly sure of specific way to determine for total cats) is selected, 
+                // set the min value depending on whether the lower/upper categories or the
+                //middle category has the lowest possible minimum value (upper and lower cats d)
+                // OR If total categories selected (use min of greatest category for now)
+                // Does not assume symmetric thresholds for upper and lower cats
+                // min possible Heidke value is -p/(1-p). An additional 10 is subtracted for padding in the plot.
+                if ((categoryType.compareToIgnoreCase("total") == 0) || (categoryType.compareToIgnoreCase("separate") == 0)) {
+                    float largest = probWindows[0];
+                    int largestIndex = 0;
+                    // Find the index of the max value of the probWindows
+                    for (int i = 1; i < probWindows.length; i++) {
+                      if ( probWindows[i] > largest ) {
+                          largest = probWindows[i];
+                          largestIndex = i;
+                       }
+                    }
+                    try {
+                        
+                        float minValue = (float) (100.0f * ((-1.0f * largest)/(100.0f-largest))) - 10.0f;
+                        logger.trace("minValue is " + minValue);
+                        yAxis.setMin(minValue);
+                    } catch(Exception e) {
+				        logger.fatal("Couldn't calculate the minimum possible Heidke value based on provided percentile. " + e);
+		            }                  
+                }
+                else {
+                    // Else assume a single category selected
+                    try {
+                        // Get category Index
+                        int categoryIndex = Integer.parseInt(SettingsHashLibrary.getCategoryIndex(categoryType));
+                        float minValue = (float) (100.0f * ((-1.0f * probWindows[categoryIndex-1])/(100.0f-probWindows[categoryIndex-1]))) - 10.0f;
+                        logger.trace("minValue is " + minValue);
+                        yAxis.setMin(minValue);
+                    } catch(Exception e) {
+				        logger.fatal("Couldn't calculate the minimum possible Heidke value based on provided percentile. " + e);
+		            }
+                } // End else single cat
+            }
+            else {
+                // Else, assume a min value of -60 for even terciles
+
+			    yAxis.setMin(-60.0);
+            }
 		}
 		// Set num spacing of interval if rpss
 		else if (scoreType.compareToIgnoreCase("rpss") == 0) {
@@ -950,7 +1013,7 @@ public class PlotChart extends JPanel {
 	/**
 	Updates chart using event dispatcher methods/applications, including Applet usage of PlotChart. The web application version of the verification web tool accesses this method to update the chart dynamically. This optimizes updating of the chart without recreating the entire chart object each time selections are changed by the user in the web tool. This method calls other methods to recalculate and redisplay parts of the chart with updated information and data.
 	*/
-	public static class UpdateChart implements Runnable {
+	public static class UpdateChart implements Runnable{
 		protected static PlotChart plotChart;
 
 		UpdateChart(PlotChart plotChart) {
@@ -960,7 +1023,12 @@ public class PlotChart extends JPanel {
 		public void run() {
 			plotChart.updateChartData(ChartApplet.xmlString);
 			plotChart.chart.recalc();
-			plotChart.updateLabels();
+            try {
+    			plotChart.updateLabels();
+            }
+            catch (Exception e) {
+                logger.warn(e);
+            }
 			plotChart.chart.recalc();
 			plotChart.chart.revalidate();
 		}
@@ -1170,7 +1238,12 @@ public class PlotChart extends JPanel {
 			plotChart.updateChartData(staticXmlString);
 			plotChart.chart.recalc();
 			// Pass labels
-			plotChart.updateLabels();
+            try {
+			    plotChart.updateLabels();
+            }
+            catch (Exception e) {
+                logger.warn(e);
+            }    
 			plotChart.chart.recalc();
 			plotChart.chart.revalidate();
 			// Get the image filename

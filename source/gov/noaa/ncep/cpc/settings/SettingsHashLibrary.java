@@ -233,6 +233,25 @@ public class SettingsHashLibrary {
         return thresholds;
     }
 
+    /**
+    Returns a 1-D array of size 3, containing the 3 percentile windows associated with the forecast categories. The windows represent the lower, middle, and upper categories in the 0th, 1st, and 2nd indices of the returned array, respectively. The category thresholds are extracted from the passed variable name.
+    @param thresholdLower Threshold of lower category. Forecasts lower than this value is considered the lower category.
+    @param thresholdUpper Threshold of upper category. Forecasts greater than this value is considered the upper category.
+    @return 1-D float array of size 3, containing the 3 percentile windows associated with the lower, middle, and upper forecast categories.
+    */
+    public static float[] getPercentileWindows(float thresholdLower, float thresholdUpper) throws Exception {
+        float[] percentileWindows = new float[3];
+        try {   
+            percentileWindows[0] = thresholdLower; // lower window
+            percentileWindows[1] = 100.0f - ((100.0f - thresholdUpper) + thresholdLower); // middle window
+            percentileWindows[2] = 100.0f - thresholdUpper;
+        } catch(Exception e) {
+            logger.warn("Could not get percentile windows associated with lower and upper thresholds : " + thresholdLower + " , " + thresholdUpper);
+            throw e;
+        }
+        return percentileWindows;
+    }
+
     /** 
     Returns boolean of whether the forecast being processed is even terciles (with even probabilities for each category).
     @param String variable
@@ -445,9 +464,9 @@ public class SettingsHashLibrary {
 		if (stringHash.containsKey(categoryType)) {
 			return stringHash.get(categoryType);
 		} else {
-			Log.error("Could not find an associated score array index for category type for " + categoryType , "#errorPanelText");
-			logger.warn("Could not find an associated score array index for category type for " + categoryType);
-			return categoryType;
+			Log.fatal("Could not find an associated score array index for category type for " + categoryType , "#errorPanelText");
+			logger.fatal("Could not find an associated score array index for category type for " + categoryType);
+			return null;
 		}
 	}
 
