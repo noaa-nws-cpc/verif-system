@@ -726,11 +726,12 @@ public class StatsLibrary {
      * @param fcstCat  1-d float array of forecast categories
      * @param fcstProb  2-d float array of forecast probabilities
      * @param obsCat   1-d float array of observed categories
+     * @param variable String of variable, should include thresholds if non-even tercile forecasts are being processed
      *
      * @return  1-d float array of score calculated over 1 dimension for Total,B,N,A
 	 * where all is a weighted average of all categories 
 	 */
-	public static float[] calcBrier(float fcstCat[], float fcstProb[][], float obsCat[]) {
+	public static float[] calcBrier(float fcstCat[], float fcstProb[][], float obsCat[], String variable) throws Exception {
 		logger = Logger.getLogger(StatsLibrary.class.getName());
 		logger.trace("In calcBrier calculating Brier non EC");
 
@@ -746,7 +747,35 @@ public class StatsLibrary {
 		float brierSSTotal = (float) 0;
 		int numCats = 3;
 		int numFcstsTotal = 0;
-		float climProb=(float) 1/numCats;
+        float[] climProb = new float[3];
+        // If non-even terciles, get climProb from the percentile thresholds
+        // See if an extreme is being processed
+	    boolean isEvenTerciles = SettingsHashLibrary.isEvenTerciles(variable);
+        if (isEvenTerciles == false) {
+            float thresholdLower;
+            float thresholdUpper;
+            float probWindows[] = new float[3];
+            // Get category thresholds
+            try {
+                thresholdLower = Float.parseFloat(SettingsHashLibrary.getCategoryThresholds(variable)[0]);
+                thresholdUpper = Float.parseFloat(SettingsHashLibrary.getCategoryThresholds(variable)[1]);
+                // Get windows of probability/percentiles based on lower and upper thresholds
+                probWindows = SettingsHashLibrary.getPercentileWindows(thresholdLower,thresholdUpper);
+            } catch(Exception e) {
+                logger.warn("Can't get category percentile windows." + e);
+                throw e;
+            }
+            climProb[0] = probWindows[0]/100.0f;
+            climProb[1] = probWindows[1]/100.0f;
+            climProb[2] = probWindows[2]/100.0f;
+        }
+        // Else even terciles
+        else {
+            climProb[0] = (float) 1/numCats;
+            climProb[1] = (float) 1/numCats;
+            climProb[2] = (float) 1/numCats;
+        }
+        logger.trace("climProb for 3 cats : " + climProb[0] + " , " + climProb[1] + " , " + climProb[2]);
 		int r = fcstCat.length;
 		String[] category = SettingsHashLibrary.getCategoryNames();
 
@@ -774,17 +803,17 @@ public class StatsLibrary {
 					case 1:     // fcst of B
 						numFcsts[0] = numFcsts[0]+1;
 						brier[0]    = brier[0]    + (float) Math.pow(fcstProb[i][0]-obs,2);
-						brierRef[0] = brierRef[0] + (float) Math.pow(climProb-obs,2);
+						brierRef[0] = brierRef[0] + (float) Math.pow(climProb[0]-obs,2);
 						break;
 					case 2:     // fcst of N
 						numFcsts[1] = numFcsts[1]+1;
 						brier[1]    = brier[1]    + (float) Math.pow(fcstProb[i][1]-obs,2);
-						brierRef[1] = brierRef[1] + (float) Math.pow(climProb-obs,2);
+						brierRef[1] = brierRef[1] + (float) Math.pow(climProb[1]-obs,2);
 						break;
 					case 3:     // fcst of A
 						numFcsts[2] = numFcsts[2]+1;
 						brier[2]    = brier[2]    + (float) Math.pow(fcstProb[i][2]-obs,2);
-						brierRef[2] = brierRef[2] + (float) Math.pow(climProb-obs,2);
+						brierRef[2] = brierRef[2] + (float) Math.pow(climProb[2]-obs,2);
 						break;
 					default:
 						break;

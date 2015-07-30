@@ -509,12 +509,17 @@ public class Stats {
 						scoreCatFloatArray[k][3][i] = Float.NaN;
 					} // end rpss if
 					else if (settingsObj.getScoreType().compareToIgnoreCase("brier") == 0) {
-						// ecType is set to noEC for this score by settings class
-							tmpScore=StatsLibrary.calcBrier(fcstCat1d, fcstProb2d, obsCat1d);
+					    // ecType is set to noEC for this score by settings class
+                        try {     
+							tmpScore=StatsLibrary.calcBrier(fcstCat1d, fcstProb2d, obsCat1d, settingsObj.getVariable());
 							scoreCatFloatArray[k][0][i] = tmpScore[0];  // weighted category ave
 							scoreCatFloatArray[k][1][i] = tmpScore[1];  // BrierSS for Below
 							scoreCatFloatArray[k][2][i] = tmpScore[2];  // BrierSS for Normal
 							scoreCatFloatArray[k][3][i] = tmpScore[3];  // BrierSS for Above
+                        } catch (Exception e) {
+                            logger.fatal("Could not calculate brier score.");
+                            throw e;
+                        }
 					} // end brier if
 
 
