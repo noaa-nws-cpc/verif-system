@@ -92,7 +92,8 @@ public class StatsLibrary {
 				} // end if to check cat
 			}
 
-            // For non even terciles get the num expected for each category    
+            // For non even terciles get the num expected for each category
+            // The numExpected is count * window size in probability (ie. including cases for extremes)
             if (isEvenTerciles == false) {
 
                 logger.trace("Calculating num expected for non even tercile for category : " + k);
@@ -108,7 +109,6 @@ public class StatsLibrary {
             }
             // Else assume even terciles
             else {
-                // The numExpected is count * window size in probability (ie. including cases for extremes, where
 			    numExpected[k] = (float) count[k]/numCats;    // Number of random fcsts expected to be correct
             }   
 
