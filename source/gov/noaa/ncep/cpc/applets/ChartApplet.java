@@ -409,7 +409,14 @@ specifications are separated by a semi-colon.:
 			logger.trace(dataString);
 			plotChart.updateChartData(dataString);
 			plotChart.chart.recalc();
-			plotChart.updateLabels();
+            try
+            {
+			    plotChart.updateLabels();
+            }
+            catch (Exception e)
+            {
+                logger.warn("Couldn't update labels: ");
+            }
 			plotChart.chart.recalc();
 			plotChart.chart.revalidate();
 			logger.debug("Run flag is ********* " + runFlag);
