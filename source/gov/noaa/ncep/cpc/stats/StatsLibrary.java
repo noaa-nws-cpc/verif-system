@@ -147,7 +147,7 @@ public class StatsLibrary {
         }
         // Calculate total cats HSS for even terciles - includes all 3 cats
         else {
-            logger.debug("Calculating the total cats HSS for 3 even tercile categories.");
+            logger.trace("Calculating the total cats HSS for 3 even tercile categories.");
             // Calculate score if there is at least one valid fcst-ob pair in the lower OR upper category
             if ((count[1] > 0) || (count[2] > 0) || (count[3] > 0)) { 
 	            heidke[0] = (tempHeidke[1]*count[1] + tempHeidke[2]*count[2] + tempHeidke[3]*count[3])/(count[1] + count[2] + count[3]);

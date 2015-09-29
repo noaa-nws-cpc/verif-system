@@ -766,7 +766,7 @@ public class Data {
                 }
 				// Else, assume terciles are being processed. If both A and B are below 1/3, pick N
                 else {
-                    logger.debug("Getting favored category based on terciles.");
+                    logger.trace("Getting favored category based on terciles.");
 				    if (Float.compare(fcstProb[0],0.3333f) < 0 && Float.compare(fcstProb[2],0.3333f) < 0) {
 					    fcstCat = 2;
 				    }
