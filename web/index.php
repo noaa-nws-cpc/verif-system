@@ -146,7 +146,7 @@
 	<!--               Import Google Maps libraries               -->
 	<!-- ======================================================== -->
 	<!-- Load Google Maps API for spatial plotting -->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"> </script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&client=gme-noaa&sensor=false&channel=NWS.NCEP.CPC.VWT"> </script>
 	<!-- Load Google Earth Javascript functions -->
 	<script type="text/javascript" src="library/GoogleEarth.js"> </script>
 	<!-- ======================================================== -->
@@ -552,7 +552,7 @@
 						// Disable autoblend
 						$('#settingsForm input[name=fcstSource][value=auto]').attr('disabled',"disabled");
 						// Disabled the Tool Selector link
-						$('a[name=toolSelectorLink]').data('enabled',false);
+						//$('a[name=toolSelectorLink]').data('enabled',false);
 					}
 				// If changed to anything else
 				} else {
