@@ -23,11 +23,11 @@
 			<section id="regionsPanel" class="panel">
 				<p class="panelNumber">2</p>
 				<h2>Select region(s) to verify</h2>
-				<p>To unselect, you must clear all regions by clicking "Revert to all regions".  All regions are verified by default.</p>
+				<p>To unselect, you must clear all regions by clicking "Revert to CONUS".  All regions within the CONUS are verified by default.</p>
 				<div id="canvas">
-					<img id="regionMapImage" class="highlightedMap" alt="Map of U.S." src="images/map_climateRegions.png" usemap="#imageMap_climateRegions" />
+					<img id="regionMapImage" class="highlightedMap" alt="Map of U.S." src="images/map_climateRegions.jpg" usemap="#imageMap_climateRegions" />
 				</div>
-				<button onClick="Verification.clearRegions(); return false">Revert to all regions</button>
+				<button onClick="Verification.clearRegions(); return false">Revert to CONUS</button>
 			</section>
 		</form>
 		<!-- Results Panel -->

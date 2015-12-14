@@ -171,7 +171,7 @@
 						<li data-setting=\"regions\" class=\"setting\">
 							<span class=\"settingLabel\">Region(s) [<span data-label=\"Region(s)\" data-tooltip=\"This field will be filled in when you select regions on the map. You can also list regions separated by commas or enter 'All' to verify all regions.\"> ? </span>]</span>
 							<div>
-								<input type=\"text\" name=\"region\" id=\"regionSelect\" value=\"All\" size=\"10\"/>
+								<input type=\"text\" name=\"region\" id=\"regionSelect\" value=\"CONUS\" size=\"10\"/>
 							</div>
 						</li>
 						";

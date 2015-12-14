@@ -30,9 +30,9 @@ var MAX_SELECTED_DATES = 365;
 var map_climateRegions   = new Image();
 var map_states           = new Image();
 var map_climateDivisions = new Image();
-map_climateRegions.src   = "images/map_climateRegions.png";
-map_states.src           = "images/map_states.png";
-map_climateDivisions.src = "images/map_climateDivisions.png";
+map_climateRegions.src   = "images/map_climateRegions.jpg";
+map_states.src           = "images/map_states.jpg";
+map_climateDivisions.src = "images/map_climateDivisions.jpg";
 
 /**
 @namespace A collection of functions related to the VWT.
@@ -59,8 +59,8 @@ Verification = {
 		</tr>
 	</table>
 
-	Note: By default, the text box contains the word "All", which is converted to
-	a list of all the possible regions by the Java code. If the word "All" is in the
+	Note: By default, the text box contains the word "CONUS", which is converted to
+	a list of all the possible regions by the Java code. If the word "CONUS" is in the
 	text box when this function is called, it is cleared before settings the region.
 
 	@param {String}  clickedRegion  Region clicked by the user
@@ -70,8 +70,8 @@ Verification = {
 		// Get the current region
 		regionObj = document.getElementById("regionSelect");
 		oldRegion = regionObj.value;
-		// If region is set to "All", then clear it first
-		if (oldRegion=="All" || oldRegion=="") {
+		// If region is set to "CONUS", then clear it first
+		if (oldRegion=="CONUS" || oldRegion=="") {
 			regionObj.value = clickedRegion;
 		} else {
 			regionObj.value = oldRegion + "," + clickedRegion;
@@ -154,6 +154,11 @@ Verification = {
 			settings['leadTime']  = $('#settingsForm li[data-setting=leadtime] select:visible').val();
 			settings['aveWindow'] = "03m";
 		}
+
+		///////////////////////////////////////////////////////
+		// Spatial type
+		//
+		settings['spatialType'] = $('#settingsPanel select[name=spatialType]').val();
 
 		///////////////////////////////////////////////////////
 		// Forecast source
@@ -333,9 +338,21 @@ Verification = {
 			if (settings['regions'] == "") {
 				alert("Please select a region.");
 				return;
+			// Currently we only have AK temp
+			} else if (/\b(AK|103)\b/.test(settings['regions']) && settings['variable'] !== "temp") {
+				alert("Currently only temperature can be verified for Alaska");
+				return;
+			// Currently we only have AK stations
+			} else if (/\b(AK|103)\b/.test(settings['regions']) && settings['spatialType'] !== "station") {
+				alert("Currently only station verification is available for Alaska");
+				return;
+			// Currently we only have AK 6-10day and 8-14day
+			} else if (/\b(AK|103)\b/.test(settings['regions']) && !(settings['fcstType'] === '6-10day' || settings['fcstType'] === '8-14day')) {
+				alert("Currently only Alaska forecasts can only be verified for the 6-10day and 8-14day periods");
+				return;
 			}
 		} else {
-			settings['regions'] = "All";
+			settings['regions'] = "CONUS";
 		}
 
 		///////////////////////////////////////////////////////
@@ -528,8 +545,8 @@ Verification = {
 		if (jg!=null) {
 			// Clear all polygons
 			jg.clear();
-			// Set the region select box to the default ("All")
-			$('#regionSelect').val("All");
+			// Set the region select box to the default ("CONUS")
+			$('#regionSelect').val("CONUS");
 		}
 	},
 
