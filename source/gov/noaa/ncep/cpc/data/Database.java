@@ -665,7 +665,13 @@ public class Database {
 
 		// Try to execute an SQL query
 		try {
-			sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + regionType + " RLIKE '(" + regionList + ")'";
+			// For ClimateDivisions, use the id column in the WHERE clause
+			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
+				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE id RLIKE '(" + regionList + ")'";
+			// For station or gridded, use the column specified by the regionType variable
+			} else {
+				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + regionType + " RLIKE '(" + regionList + ")'";
+			}
 			logger.debug("Query to retrieve the location ID array: " + sqlQuery);
 			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
