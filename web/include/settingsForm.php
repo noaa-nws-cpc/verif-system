@@ -27,22 +27,22 @@
 						</li>
 						<!-- Lead time -->
 						<li data-setting="leadtime">
-							<div data-fcsttype="6-10day">
+							<div data-fcsttype="6-10day" data-spatialtype="station, gridded" >
 								<span class="settingLabel">Lead time [<span data-label="Lead time" data-tooltip="Time to the start of the valid period."> ? </span>]</span>
 								<input type="radio" name="leadTime_6-10day" value="08d" checked/><span class="inputLabel">8 days</span>
 							</div>
-							<div data-fcsttype="8-14day" style="display:none">
+							<div data-fcsttype="8-14day" data-spatialtype="station, gridded" style="display:none">
 								<span class="settingLabel">Lead time [<span data-label="Lead time" data-tooltip="Time to the start of the valid period."> ? </span>]</span>
 								<input type="radio" name="leadTime_8-14day" value="11d" checked/><span class="inputLabel">11 days</span>
 							</div>
-							<div data-fcsttype="monthly" style="display:none">
+							<div data-fcsttype="monthly" data-spatialtype="climateDivision, gridded" style="display:none">
 								<span class="settingLabel">Lead time [<span data-label="Lead time" data-tooltip="Time to the start of the valid period."> ? </span>]</span>
 								<div>
 									<input type="radio" name="leadTime_monthly" value="01m" checked/><span class="inputLabel">0.5 Month (Official)</span><br>
 									<input type="radio" name="leadTime_monthly" value="0pt5m"/><span class="inputLabel">0 Month (Revised)</span>
 								</div>
 							</div>
-							<div data-fcsttype="seasonal" data-spatialtype="climateDivision" style="display:none">
+							<div data-fcsttype="seasonal" data-spatialtype="climateDivision, gridded" style="display:none">
 								<span class="settingLabel">Lead time [<span data-label="Lead time" data-tooltip="Time to the start of the valid period."> ? </span>]</span>
 								<select name="leadTime_seasonal">
 									<option value="02m">0.5 Month</option>
