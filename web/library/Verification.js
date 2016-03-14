@@ -425,6 +425,9 @@ Verification = {
 		$('#settingsForm .runStatus').html("Processing, please wait...");
 		$('#settingsForm .runStatus').show();
 
+        // Convert the settings to XML to be sent to the servlet
+        servlet_request = settings_to_servlet_request(settings);
+
 		// Update the plot (use setTimeout to return control to the
 		// window for a moment to allow the previous processing
 		// message to appear above the plot.
@@ -482,50 +485,10 @@ Verification = {
 		"ECType=" + settings['ECType'];
 		$('#printSettingsPanel p.content').html(str);
 
-		///////////////////////////////////////////////////////
-		// Run the update() method in the applet
-		//
-        var xml_string = "<?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'><soapenv:Body><getResults xmlns='http://VerificationSystemTool/xsd'><item0 xmlns=''>temp</item0><item0 xmlns=''>rfcstCalProb_gefs_00z,rfcstCalProb_ecens_00z</item0><item0 xmlns=''>08d</item0><item0 xmlns=''>05d</item0><item0 xmlns=''>dateRange</item0><item0 xmlns=''>20160101,20160105</item0><item0 xmlns=''>climateRegion</item0><item0 xmlns=''>CONUS</item0><item0 xmlns=''>gridded</item0><item0 xmlns=''>chart</item0><item0 xmlns=''>time</item0><item0 xmlns=''>heidke</item0><item0 xmlns=''>total</item0><item0 xmlns=''>default</item0></getResults></soapenv:Body></soapenv:Envelope>'";
-        $.ajax({
-            url: settings.servlet_url,
-            headers: { 'Access-Control-Allow-Origin': '*' },
-            crossDomain: true,
-            type: "POST",
-            dataType: "text",
-            contentType: "text/xml; charset=\"utf-8\"",
-            headers: {
-                SOAPAction: settings.servlet_url+'/'+settings.servlet_function
-            },
-            data: xml_string,
-            success: function(data) {
-                // Clear the results panel title if this is a chart (map page
-    			// gets a title from GoogleEarth.js)
-    			if (settings['outputType'] === "chart") {
-    				$("#resultsPanel > h2").html("<br>");
-    			}
-
-    			// Display a message reminding users to scroll down when completed
-    			$('#settingsForm .runStatus').css('color','#090');
-    			$('#settingsForm .runStatus').html("Finished, please scroll down");
-    			$('#settingsForm .runStatus').show();
-
-    			//-------------------------------------------------------
-    			// Add information on how to customize the chart
-    			//
-    			// Show the resultsInteractionPanel
-    			$('#resultsInteractionPanel').show();
-
-                // Display plot
-                $('#resultsPanel').text(data);
-            },
-            error: function (request, status, error) {
-                updatePlotTitle("There was a problem generating the score, see Warnings and Errors below");
-    			// Hide the resultsInteractionPanel
-    			$('#resultsInteractionPanel').hide();
-    			// Hide the "Processing, please wait... in the options box
-    			$('#settingsForm .runStatus').hide();
-            }
-        });
+		// -----------------------------------------------------------------------------------------
+        // Call the servlet
+        //
+        call_servlet(servlet_request);
 
 		//------------------------------------------------------------------------------------------
 		// Remove the "Processing, please wait..."
@@ -855,4 +818,25 @@ Verification = {
 		hash["dec"] = "12";
 		return hash[month.toLowerCase()];
 	}
+}
+
+/**
+Report verification failure
+
+This function is called if the AJAX fails, or the response from the servlet indicates an error
+occurred.
+*/
+function report_failure(error, error_type) {
+    if (error_type === 'ajax') {
+        title_error = 'There was a problem communicating with the server, please report this error';
+    } else if (error_type === 'servlet') {
+        title_error = 'There was a problem generating the score, see Warnings and Errors below';
+    }
+    Verification.updatePlotTitle(title_error);
+    // Hide the resultsInteractionPanel
+    $('#resultsInteractionPanel').hide();
+    // Hide the "Processing, please wait... in the options box
+    $('#settingsForm .runStatus').hide();
+    // Display the error on the error panel
+    $('#errorPanelText').append("<span class=\"error\">[ x ] " + error + "</span><br>");
 }
