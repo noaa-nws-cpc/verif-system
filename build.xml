@@ -148,7 +148,7 @@
 		<!-- Compile Java sources -->
 		<compile_java_sources />
 		<!-- Create a client jar file -->
-		<compile_jar config-file-name="${input}/verif_direct_access.conf" jar-file-name="${build}/verif_client.jar" sign-jar="false"/>
+		<compile_jar config-file-name="${input}/verif_direct_access.conf" jar-file-name="${build}/verif_client.jar"/>
 		<!-- Copy dependency jars into build directory -->
 		<mkdir dir="${build}/library/java"/>
 		<copy todir="${build}/library/java">
@@ -190,7 +190,7 @@
 		<!-- Compile Java sources -->
 		<compile_java_sources />
 		<!-- Create a client jar file -->
-		<compile_jar config-file-name="${input}/verif_client.conf" jar-file-name="${build}/verif_client.jar" sign-jar="true" />
+		<compile_jar config-file-name="${input}/verif_client.conf" jar-file-name="${build}/verif_client.jar"/>
 		<!-- Copy dependency jars into web directory -->
 		<mkdir dir="${web}/library/java"/>
 		<copy todir="${web}/library/java">
@@ -198,12 +198,6 @@
 				<include name="**/*.jar"/>
 			</fileset>
 		</copy>
-		<!-- Sign dependency jar files -->
-		<for list="${classpathstr.commas}" param="file">
-			<sequential>
-				<signjar jar="${web}/@{file}" alias="ncep" storepass="cycl0nes"/>
-			</sequential>
-		</for>
 		<!-- Copy the client jar file into the web directory -->
 		<copy file="${build}/verif_client.jar" tofile="${web}/verif_client.jar"/>
 		<!-- Create a server jar file -->
@@ -333,13 +327,6 @@
 		</sequential>
 	</macrodef>
 
-	<!-- Sign Jarfile -->
-	<macrodef name="sign_jar">
-		<sequential>
-			<signjar jar="${build}/verif_client.jar" alias="ncep" storepass="cycl0nes"/>
-		</sequential>
-	</macrodef>
-
 	<!-- Macro to compile the source Java files -->
 	<macrodef name="compile_java_sources">
 		<sequential>
@@ -356,7 +343,6 @@
 	<macrodef name="compile_jar">
 		<attribute name="config-file-name" default="verif_client.conf" />
 		<attribute name="jar-file-name" default="verif_client.jar" />
-		<attribute name="sign-jar" default="false" />
 		<sequential>
 			<!-- Copy client config file into resources package -->
 			<copy file="@{config-file-name}" tofile="${classes}/gov/noaa/ncep/cpc/resources/verif.conf" failonerror="true" />
@@ -384,13 +370,6 @@
 			</jar>
 			<!-- Delete the temporary jar file -->
 			<delete file="${build}/temp.jar" />
-			<!-- Sign the jar file -->
-			<if >
-				<equals arg1="@{sign-jar}" arg2="true"/>
-				<then>
-					<sign_jar/>
-				</then>
-			</if>
 		</sequential>
 	</macrodef>
 
@@ -440,4 +419,3 @@
 		</sequential>
     </macrodef>
 </project>
-
