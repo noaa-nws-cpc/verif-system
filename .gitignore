@@ -6,3 +6,5 @@
 /web/verif_client.jar
 # Config files
 /input/verif_*.conf
+/web/library/web_settings.php
+/input/web_settings.php

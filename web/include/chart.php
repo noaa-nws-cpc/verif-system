@@ -43,11 +43,6 @@
 					</li>
 				</ul>
 			</div>
-			<object id="applet" type="application/x-java-applet" width="820" height="600">
-				<param name="codebase" value="."/>
-				<param name="code" value="gov/noaa/ncep/cpc/applets/ChartApplet.class"/>
-				<param name="archive" value="verif_client.jar"/>
-			</object>
 		</section>
 		<!-- Error Panel -->
 		<section id="errorPanel" class="panel">

@@ -185,6 +185,8 @@
 
 	<!-- Compile for Web Tool Web Services Mode -->
 	<target name="compile_web_tool" description="Builds the Verification System in 'Web Tool' Mode (see README)" depends="makeDirs">
+        <!-- Copy web settings file into web directory -->
+        <copy todir="${web}/library" file="${input}/web_settings.php"/>
 		<!-- Set classpath -->
 		<set_classpath />
 		<!-- Compile Java sources -->

@@ -52,6 +52,9 @@
 //	}
 //	// Close the MySQL connection
 //	mysql_close();
+
+    // Read settings from a config file
+    require('library/web_settings.php');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -116,6 +119,8 @@
 		var settings = [];
 		settings['outputType'] = "<?php echo $outputType?>";
 		settings['page'] = "<?php echo $page?>";
+        settings['servlet_url'] = "<?php echo $settings['servlet_url']?>";
+        settings['servlet_function'] = "<?php echo $settings['servlet_function']?>";
 	</script>
 
 	<!-- ======================================================== -->
