@@ -1,0 +1,8 @@
+# Root-level files/dirs
+/build
+/classes
+# Temp dirs
+/web/library/java
+/web/verif_client.jar
+# Config files
+/input/verif_*.conf
