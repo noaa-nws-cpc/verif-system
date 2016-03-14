@@ -83,33 +83,6 @@
 	<!-- ======================================================== -->
 	<!--             Check for browser compatibility              -->
 	<!-- ======================================================== -->
-	<!-- Check for Java -->
-	<script type="text/javascript" src="library/deployJava.js"> </script>
-	<script type="text/javascript">
-	function checkForJava()
-	{
-		// If Java web plugin is not installed
-		if (deployJava.getJREs().length == 0) {
-			Messaging.popup("The Java web plugin is not installed, please <a href='http://java.com/en/download/index.jsp' target='_blank'>download</a> and install it, then restart your browser.");
-		}
-		// If Java web plugin is installed and is new enough
-		else if (deployJava.versionCheck("1.6.0+")) {
-	    	// Do nothing, since everything's correct
-	    }
-	    // If Java web plugin is installed, but is outdated
-	    else {
-	    	Messaging.popup("The Java web plugin version installed is outdated, please <a href='http://java.com/en/download/index.jsp' target='_blank'>download</a> and install a newer version (>= version 6) and restart your browser. See http://java.com/en/download/index.jsp");
-	    }
-	}
-	</script>
-	<script type="text/javascript" src="library/BrowserCompatibility.js"> </script>
-	<script type="text/javascript">
-		// If the browser doesn't meet requirements, then redirect
-		if (BrowserCompatibility.checkCompatibility() == 0) {
-			$(location).attr('href',"include/incompatibleBrowser.php?browser="+BrowserCompatibility.getBrowserName()+"&requiredVersion="+BrowserCompatibility.getRequiredBrowserVersion());
-		}
-	</script>
-
 	<!-- Make older browsers recognize HTML5 tags -->
 <!-- 	<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script> -->
 	<script>document.createElement('section');</script>
@@ -626,7 +599,7 @@
 //		require_once '/var/www/cpcvwt/htdocs/ncep_common/csrf-magic.php';
 	?>
 </head>
-<body class="center" onload="checkForJava();">
+<body class="center">
 	<div id="outerContainer">
 		<header id="banner">
 			<h1>CPC Verification Web Tool (VWT)</h1>
