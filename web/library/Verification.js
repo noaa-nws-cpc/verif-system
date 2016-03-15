@@ -428,17 +428,10 @@ Verification = {
         // Convert the settings to XML to be sent to the servlet
         servlet_request = settings_to_servlet_request(settings);
 
-		// Update the plot (use setTimeout to return control to the
-		// window for a moment to allow the previous processing
-		// message to appear above the plot.
-		//window.setTimeout('Verification.updatePlot()',100);
-
 		//------------------------------------------------------------------------------------------
-		// Call the servlet
+		// Update the plot
 		//
-//  		result = this.updatePlot();
-		window.setTimeout('Verification.updatePlot()',200);
-// 		window.setTimeout('alert("Still working...")',2000);
+ 		result = this.updatePlot();
 	},
 
 	/**
