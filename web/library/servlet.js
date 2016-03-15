@@ -32,8 +32,6 @@ function call_servlet(xml_string) {
             report_failure(error, 'ajax');
         }),
     });
-    // Unblock submit button
-    $('#submit-button').parent().unblock();
 };
 
 function process_servlet_response(xml) {
