@@ -608,19 +608,6 @@
 		</header>
 		<section id="newsPanel">
 		</section>
-		<!-- Message informing users how to deal with Java confirmation boxes -->
-		<p id="user_tip-Java_confirmation_boxes"></p>
-		<script>
-			// Start a message to show users at the top of the page
-			var message = "Before you can use the tool, 1 or 2 Java-related windows will popup. For the 1st window, check the box and click \"Run\". If there's a 2nd window, click \"Allow\" or \"Don't Block\". <i>Note that sometimes the popup window is hidden behind the browser.</i><br><br>If you have any issues or suggestions, please click the \"Feedback\" button on the bottom right.";
-			// If not firefox, prepend a message about using Firefox
-			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-			if ( !is_firefox )
-			{
-				message = "The VWT has currently only been fully tested in <b>Firefox</b>, and is not guaranteed to work in any other browser. <a href=\"http://www.mozilla.org/en-US/firefox/new\" target=\"_blank\">Click here</a> to download Firefox.<br><br>" + message;
-			}
-			$('#user_tip-Java_confirmation_boxes').message(message,'note')
-		</script>
 		<div id="overviewContainer">
 			<section id="overviewPanel" class="panel">
 				<div class="content">
