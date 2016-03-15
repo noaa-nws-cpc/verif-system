@@ -77,6 +77,9 @@
 	<script type="text/javascript" src="library/jquery.message.js"></script>
 	<!-- jQuery plugin to display a feedback form -->
 	<script type="text/javascript" src="library/jquery.feedback_me.js"></script>
+    <!-- Ploting -->
+    <script src="library/plotly-latest.min.js"></script>
+    <script src="library/plotting.js"></script>
 
 	<script>document.createElement('section');</script>
 
@@ -94,6 +97,7 @@
 	<!-- ======================================================== -->
     <!-- Functions related to the servlet -->
     <script type="text/javascript" src="library/servlet.js"></script>
+    <script type="text/javascript" src="library/soap.js"></script>
 	<!-- Main VWT library (form validation, applet-calling, etc.) -->
 	<script type="text/javascript" src="library/Verification.js"> </script>
 	<script type="text/javascript" src="library/Messaging.js"> </script>

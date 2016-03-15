@@ -43,6 +43,8 @@
 					</li>
 				</ul>
 			</div>
+            <div id='plotly' style='height: 400px ; background-color: #DDF'>
+            </div>
 		</section>
 		<!-- Error Panel -->
 		<section id="errorPanel" class="panel">
