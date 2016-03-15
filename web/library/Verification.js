@@ -434,25 +434,6 @@ Verification = {
 		//window.setTimeout('Verification.updatePlot()',100);
 
 		//------------------------------------------------------------------------------------------
-		// Display a "Processing, please wait..." message before calling the servlet
-		//
-		$.blockUI({
-			css:
-			{
-				border: 'none',
-				padding: '15px',
-				backgroundColor: '#000',
-				'-webkit-border-radius': '10px',
-				'-moz-border-radius': '10px',
-				opacity: .9,
-				color: '#fff',
-				fadeIn: 0,
-				fadeOut: 0,
-			},
-			message: '<span style="font-size:1.5em; font-weight:bold">Processing, please wait...</span>',
-		});
-
-		//------------------------------------------------------------------------------------------
 		// Call the servlet
 		//
 //  		result = this.updatePlot();
@@ -489,11 +470,6 @@ Verification = {
         // Call the servlet
         //
         call_servlet(servlet_request);
-
-		//------------------------------------------------------------------------------------------
-		// Remove the "Processing, please wait..."
-		//
- 		$.unblockUI();
 	},
 
 	/**
