@@ -206,7 +206,7 @@
 						</li>
 						<!-- Submit button -->
 						<li>
-							<input type=button value='Get scores' onClick='Verification.processForm();'>
+							<input id='submit-button' type=button value='Get scores' onClick='Verification.processForm();'>
 							<!-- Reminder to scroll down for results -->
 							<span class="runStatus"></span>
 						</li>

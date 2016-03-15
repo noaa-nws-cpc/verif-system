@@ -75,16 +75,9 @@
 	<script type="text/javascript" src="library/jquery-ui/js/jquery-ui-1.8.15.custom.min.js"></script>
 	<!-- Custom messaging (using jQuery) -->
 	<script type="text/javascript" src="library/jquery.message.js"></script>
-	<!-- jQuery plugin to display a "please wait" message -->
-	<script type="text/javascript" src="library/jquery.blockUI.js"></script>
 	<!-- jQuery plugin to display a feedback form -->
 	<script type="text/javascript" src="library/jquery.feedback_me.js"></script>
 
-	<!-- ======================================================== -->
-	<!--             Check for browser compatibility              -->
-	<!-- ======================================================== -->
-	<!-- Make older browsers recognize HTML5 tags -->
-<!-- 	<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script> -->
 	<script>document.createElement('section');</script>
 
 	<!-- Pass some variables from PHP to Javascript -->

@@ -7,6 +7,9 @@ String.prototype.format = function () {
 };
 
 function call_servlet(xml_string) {
+    // Block submit button
+    $('#submit-button').attr('disabled', 'disabled');
+    // Call servlet with an AJAX request
     $.ajax({
         url: settings.servlet_url,
         headers: { 'Access-Control-Allow-Origin': '*' },
@@ -19,12 +22,18 @@ function call_servlet(xml_string) {
         },
         data: servlet_request,
         success: (function(servlet_request) {
+            // Unblock submit button
+            $('#submit-button').removeAttr('disabled');
             process_servlet_response(servlet_request)
         }),
         error: (function(xhr, status, error) {
+            // Unblock submit button
+            $('#submit-button').removeAttr('disabled');
             report_failure(error, 'ajax');
         }),
     });
+    // Unblock submit button
+    $('#submit-button').parent().unblock();
 };
 
 function process_servlet_response(xml) {
