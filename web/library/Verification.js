@@ -426,7 +426,7 @@ Verification = {
 		$('#settingsForm .runStatus').show();
 
         // Convert the settings to XML to be sent to the servlet
-        servlet_request = settings_to_servlet_request(settings);
+        servlet_request = servlet.settings_to_servlet_request(settings);
 
 		//------------------------------------------------------------------------------------------
 		// Update the plot
@@ -462,7 +462,7 @@ Verification = {
 		// -----------------------------------------------------------------------------------------
         // Call the servlet
         //
-        call_servlet(servlet_request);
+        servlet.call(servlet_request);
 	},
 
 	/**
