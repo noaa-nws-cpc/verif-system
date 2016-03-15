@@ -29,6 +29,23 @@ var servlet = (function() {
             });
         },
 
+        response_to_json: function(xml) {
+            var soap = new Soap(xml);
+            var json = [];
+            if (settings['outputType'] === 'chart') {
+
+                for (i = 0; i < soap.num_fcst_sources; i++) {
+                    json.push({
+                        x: soap.dates,
+                        y: soap.scores.total[i],
+                        type: 'scatter'
+                    });
+                }
+            }
+            // return JSON.stringify(json);
+            return json;
+        },
+
         process_servlet_response: function(xml) {
             // See if the response contains an error string. If so, there was an error
             error_message = $(xml).find('ax21\\:errorMessage, errorMessage').text();
@@ -53,20 +70,20 @@ var servlet = (function() {
             // Show the resultsInteractionPanel
             $('#resultsInteractionPanel').show();
 
+            // Create plot layout
+            layout = {
+                autosize: true,
+                yaxis: {
+                    range: [-50, 100],
+                }
+            };
+
+            // Get plot data json
+            data = this.response_to_json(xml);
+
             // Display plot
-            $('#resultsPanel').text(xml);
+            plotting.make_plot(data, layout);
         },
-
-        servlet_response_to_json: function(xml_doc, output_type) {
-            var json = new Object();
-            if (output_type === 'chart') {
-                json['dates'] = soap.get_dates(xml_doc);
-                json['scores'] = soap.get_scores(xml_doc);
-            }
-            // return JSON.stringify(json);
-            return json;
-        },
-
         /**
         Convert settings to a servlet request (SOAP XML)
         */
