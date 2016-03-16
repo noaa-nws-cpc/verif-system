@@ -17,6 +17,8 @@ var servlet = (function() {
                 },
                 data: servlet_request,
                 success: (function(servlet_request) {
+                    console.log(settings);
+                    console.log(servlet_request);
                     // Unblock submit button
                     $('#submit-button').removeAttr('disabled');
                     self.process_servlet_response(servlet_request)
@@ -75,7 +77,8 @@ var servlet = (function() {
             data = this.response_to_json(xml);
 
             // Display plot
-            plotting.make_plot(data, settings);
+            plot = new Plot(data, settings);
+            plot.make_plot();
         },
         /**
         Convert settings to a servlet request (SOAP XML)

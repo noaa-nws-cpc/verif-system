@@ -7,6 +7,7 @@ function Soap(xml) {
     // Create a parsed XML doc
     //
     this.xml_doc = $.parseXML(xml);
+    console.log($(this.xml_doc).find('ax22\\:aveFcstProbArray, aveFcstProbArray'));
     // ---------------------------------------------------------------------------------------------
     // Save 'this' in a new variable so it's available to all scopes below
     //
