@@ -806,8 +806,11 @@ function report_failure(error, error_type) {
     $('#resultsInteractionPanel').hide();
     // Hide the "Processing, please wait... in the options box
     $('#settingsForm .runStatus').hide();
-    // Display the error on the error panel
-    $('#errorPanelText').append("<span class=\"error\">[ x ] " + error + "</span><br>");
+    // Display the error on the error panel and in a popup window
+    error_html = "<span class=\"error\">[ x ] " + error + "</span><br>";
+    $('#errorPanelText').append(error_html);
+    // Display the error in a popup window
+    Messaging.popup(error_html);
 }
 
 /**
