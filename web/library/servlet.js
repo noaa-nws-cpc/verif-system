@@ -72,7 +72,6 @@ var servlet = (function() {
 
             // Create plot layout
             layout = {
-                autosize: true,
                 yaxis: {
                     range: [-50, 100],
                 }
