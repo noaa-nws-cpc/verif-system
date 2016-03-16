@@ -34,15 +34,6 @@
 		<section id="resultsPanel" class="panel">
 			<p class="panelNumber">3</p>
 			<h2>Please select options from the form</h2>
-			<div id="resultsInteractionPanel" style="display:none">
-				<h3>Interacting With the Chart</h3>
-				<ul>
-					<li>Click on chart and then hover over points for values</li>
-					<li>
-						<a href="include/chartCustomizer.php" target="popup" onClick="open('include/chartCustomizer.php', 'popup', 'width=800, height=600, scrollbars=yes'); return false;">Customizing the chart</a>
-					</li>
-				</ul>
-			</div>
             <div id='plotly' style='height: 400px ; background-color: #DDF'>
             </div>
 		</section>

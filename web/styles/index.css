@@ -433,29 +433,6 @@ p.panelNumber {
 	background-color: #C33;
 	color: white
 }
-/* Chart Interaction Panel (describes to users how to interact with the chart) */
-#resultsInteractionPanel {
-	text-align: left;
-	float: right;
-	margin-top: 15px;
-	margin-bottom: 10px;
-	border: 1px solid black;
-	padding: 5px;
-}
-#resultsInteractionPanel p.content {
-	padding: 0px;
-	margin: 0px;
-}
-#resultsInteractionPanel h3 {
-	text-align: center;
-	font-size: 1em;
-	margin: 0px 0px 5px 0px;
-	text-decoration: underline;
-}
-#resultsInteractionPanel ul {
-	margin: 0px;
-	padding: 0px 5px 0px 20px;
-}
 
 /*
 ---------------------------------------------------------------------
