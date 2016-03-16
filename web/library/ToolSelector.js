@@ -173,7 +173,7 @@ $(function() {
 	});
 	// When someone changes the variable, leadTime, or fcstType unselect all the tools (or just set "manual"
 	// as selected if we're on the Map Page).
-	$('select[name=variable], (input, select)[name ^= leadTime], select[name=fcstType]').change(function() {
+	$('select[name=variable], input[name ^= leadTime], select[name ^= leadTime], select[name=fcstType]').change(function() {
 		settingChanged = 1;
 		if (settings['page'] == "chart") {
 			ToolSelector.unselectAllTools();
