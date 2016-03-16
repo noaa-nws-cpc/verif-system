@@ -816,15 +816,3 @@ function report_failure(error, error_type) {
         $('#errorPanelText').append("<span class=\"error\">[ x ] " + error + "</span><br>");
     }
 }
-
-/**
-Format function similar to Python's
-
-Example: 'My name is {}'.format('Mike')
-*/
-String.prototype.format = function () {
-  var i = 0, args = arguments;
-  return this.replace(/{}/g, function () {
-    return typeof args[i] != 'undefined' ? args[i++] : '';
-  });
-};
