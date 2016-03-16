@@ -60,6 +60,22 @@
 <html>
 <!-- HTML Header -->
 <head>
+    <!-- Pass some variables from PHP to Javascript -->
+	<script type="text/javascript">
+		var settings = [];
+		settings['outputType'] = "<?php echo $outputType?>";
+		settings['page'] = "<?php echo $page?>";
+        settings['servlet_url'] = "<?php echo $settings['servlet_url']?>";
+        settings['servlet_function'] = "<?php echo $settings['servlet_function']?>";
+	</script>
+
+    <!-- Import CSS style sheets -->
+    <link rel=StyleSheet href="styles/index.css" type="text/css" />
+    <link type="text/css" href="library/jquery-ui/css/custom/jquery-ui-1.8.15.custom.css" rel="Stylesheet" />
+    <link type="text/css" href="styles/jquery.qtip.css" rel="Stylesheet" />
+    <link type="text/css" href="styles/jquery.feedback_me.css" rel="Stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
 	<!-- ======================================================== -->
 	<!--           Import JQuery and related libraries            -->
 	<!-- ======================================================== -->
@@ -80,17 +96,6 @@
     <!-- Ploting -->
     <script src="library/plotly-latest.min.js"></script>
     <script src="library/plotting.js"></script>
-
-	<script>document.createElement('section');</script>
-
-	<!-- Pass some variables from PHP to Javascript -->
-	<script type="text/javascript">
-		var settings = [];
-		settings['outputType'] = "<?php echo $outputType?>";
-		settings['page'] = "<?php echo $page?>";
-        settings['servlet_url'] = "<?php echo $settings['servlet_url']?>";
-        settings['servlet_function'] = "<?php echo $settings['servlet_function']?>";
-	</script>
 
 	<!-- ======================================================== -->
 	<!--                  Import custom libraries                 -->
@@ -130,12 +135,6 @@
 
 	<!-- Set the title -->
 	<title>CPC Verification Web Tool (VWT)</title>
-	<!-- Import CSS style sheets -->
-	<link rel=StyleSheet href="styles/index.css" type="text/css" />
-	<link type="text/css" href="library/jquery-ui/css/custom/jquery-ui-1.8.15.custom.css" rel="Stylesheet" />
-	<link type="text/css" href="styles/jquery.qtip.css" rel="Stylesheet" />
-	<link type="text/css" href="styles/jquery.feedback_me.css" rel="Stylesheet" />
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	<!-- jQuery -->
 	<script>
