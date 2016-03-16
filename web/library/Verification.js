@@ -811,6 +811,10 @@ function report_failure(error, error_type) {
     $('#errorPanelText').append(error_html);
     // Display the error in a popup window
     Messaging.popup(error_html);
+    // Display the error on the error panel if this wasn't an AJAX errorPanelText
+    if (error_type !== 'ajax') {
+        $('#errorPanelText').append("<span class=\"error\">[ x ] " + error + "</span><br>");
+    }
 }
 
 /**
