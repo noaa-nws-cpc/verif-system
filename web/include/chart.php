@@ -34,7 +34,7 @@
 		<section id="resultsPanel" class="panel">
 			<p class="panelNumber">3</p>
 			<h2>Please select options from the form</h2>
-            <div id='plotly' style='height: 400px ; background-color: #DDF'>
+            <div id='plotly'>
             </div>
 		</section>
 		<!-- Error Panel -->
