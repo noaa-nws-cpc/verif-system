@@ -1,10 +1,15 @@
 plotting = (function() {
     return {
-        make_plot: function(data, layout) {
+        make_plot: function(data, settings) {
+            // -------------------------------------------------------------------------------------
+            // Setup layout
+            //
+            layout = {
+                yaxis: {
+                    range: [-50, 100],
+                }
+            };
             plot_element = document.getElementById('plotly');
-            console.log(data);
-            console.log(JSON.stringify(data));
-            console.log(layout);
             Plotly.newPlot(plot_element, data, layout);
         },
     }

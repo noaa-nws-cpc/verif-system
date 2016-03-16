@@ -32,12 +32,13 @@ var servlet = (function() {
         response_to_json: function(xml) {
             var soap = new Soap(xml);
             var json = [];
+            var fcst_sources = settings['fcstSources'].split(',');
             if (settings['outputType'] === 'chart') {
-
                 for (i = 0; i < soap.num_fcst_sources; i++) {
                     json.push({
                         x: soap.dates,
                         y: soap.scores.total[i],
+                        name: fcst_sources[i],
                         type: 'scatter'
                     });
                 }
@@ -70,18 +71,11 @@ var servlet = (function() {
             // Show the resultsInteractionPanel
             $('#resultsInteractionPanel').show();
 
-            // Create plot layout
-            layout = {
-                yaxis: {
-                    range: [-50, 100],
-                }
-            };
-
             // Get plot data json
             data = this.response_to_json(xml);
 
             // Display plot
-            plotting.make_plot(data, layout);
+            plotting.make_plot(data, settings);
         },
         /**
         Convert settings to a servlet request (SOAP XML)
