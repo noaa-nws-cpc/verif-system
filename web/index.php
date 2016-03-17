@@ -109,6 +109,8 @@
     <!-- Ploting -->
     <script src="library/plotly-latest.min.js"></script>
     <script src="library/plotting.js"></script>
+    <!-- XML to JSON converter -->
+    <script type="text/javascript" src="library/xml-to-json.js"></script>
 
 	<!-- ======================================================== -->
 	<!--                  Import custom libraries                 -->
