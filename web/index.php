@@ -139,14 +139,6 @@
 	<script type="text/javascript" src="library/wz_jsgraphics.js"> </script>
 	<!-- On-hover region coloring -->
 	<script type="text/javascript" src="library/jquery.maphilight.min.js"> </script>
-	<!-- ======================================================== -->
-	<!--               Import Google Maps libraries               -->
-	<!-- ======================================================== -->
-	<!-- Load Google Maps API for spatial plotting -->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&client=gme-noaa&sensor=false&channel=NWS.NCEP.CPC.VWT"> </script>
-	<!-- Load Google Earth Javascript functions -->
-	<script type="text/javascript" src="library/GoogleEarth.js"> </script>
-	<!-- ======================================================== -->
 
 	<!-- Set the title -->
 	<title>CPC Verification Web Tool (VWT)</title>
@@ -263,11 +255,6 @@
 			MIN_DATE['monthly']  = '199501';
 			MIN_DATE['seasonal'] = '199501';
 			MIN_DATE['default']  = MIN_DATE['6-10day'];
-
-			//-------------------------------------------------------------------------------
-			// Run initializeGoogleEarth()
-			//
-			GoogleEarth.initializeGoogleEarth(settings['page']);
 
 			//-------------------------------------------------------------------------------
 			// Code to collapse/uncollapse sections
