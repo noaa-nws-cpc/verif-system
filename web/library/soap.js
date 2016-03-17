@@ -56,34 +56,6 @@ function Soap(xml) {
             }
         }
     }
-    alert(self.scores['total']);
-
-    /**
-    ---------------------------------------------------------------------------------------------
-    Convert an XML element to an array
-
-    Example
-    -------
-
-    before:
-
-      <element>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-      </element>
-
-    after:
-
-      [1, 2, 3]
-    */
-    function xml_element_to_array(xml_element) {
-        var array = [];
-        $(xml_element).each(function() {
-            array.push($(this).text())
-        })
-        return array;
-    }
 
     function remove_empty(target) {
         Object.keys( target ).map( function ( key ) {
