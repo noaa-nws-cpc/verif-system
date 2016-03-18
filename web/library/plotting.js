@@ -22,7 +22,14 @@ function Plot(data, settings) {
                 yaxis: {
                     title: settings['scoreType'],
                     range: [-50, 100],
-                }
+                },
+                showlegend: true,
+                legend: {
+                    x: 0,
+                    y: 0.3,
+                    yanchor: 'top',
+                    xanchor: 'left',
+                },
             };
             plot_element = document.getElementById('plotly');
             Plotly.newPlot(plot_element, data, layout);
