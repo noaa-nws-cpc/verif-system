@@ -19,6 +19,11 @@ function Plot(data, settings) {
             layout = {
                 height: 500,
                 title: title,
+                xaxis: {
+                    type: 'date',
+                    title: 'Date (center of valid period)',
+                    tickformat: '%m/%d/%Y',
+                },
                 yaxis: {
                     title: settings['scoreType'],
                     range: [-50, 100],
