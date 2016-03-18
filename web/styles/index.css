@@ -358,7 +358,7 @@ p.panelNumber {
 #resultsPanel {
 	text-align: center;
 	width: 840px;
-    height: 500px;
+    height: 534px;
 }
 #resultsPanel h2 {
 	margin-bottom: 10px; /* Fix for bug in ticket #995 */

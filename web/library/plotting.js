@@ -17,6 +17,7 @@ function Plot(data, settings) {
             // Setup layout
             //
             layout = {
+                height: 500,
                 title: title,
                 yaxis: {
                     title: settings['scoreType'],
