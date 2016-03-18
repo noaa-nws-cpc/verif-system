@@ -17,7 +17,7 @@ function Plot(data, settings) {
             // Setup layout
             //
             layout = {
-                height: 500,
+                height: 540,
                 title: title,
                 xaxis: {
                     type: 'date',
@@ -27,13 +27,17 @@ function Plot(data, settings) {
                 yaxis: {
                     title: title_str_convert[settings['scoreType']],
                     range: [-50, 100],
+                    domain:[0.35, 1],
                 },
                 showlegend: true,
                 legend: {
                     x: 0,
-                    y: 0.3,
+                    y: 0.22,
                     yanchor: 'top',
                     xanchor: 'left',
+                },
+                margin: {
+                    b: 20,
                 },
             };
             plot_element = document.getElementById('plotly');
