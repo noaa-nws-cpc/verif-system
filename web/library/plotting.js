@@ -4,6 +4,7 @@ function Plot(data, settings) {
         'temp': 'Temperature',
         'precip': 'Precipitation',
         'heidke': 'Heidke Skill Score',
+        'rpss': 'Ranked Probability Skill Score',
     }
     // Set the plot title
     title = '{} {} {} (Combined Categories)'.format(
@@ -11,6 +12,12 @@ function Plot(data, settings) {
         title_str_convert[settings.variable],
         title_str_convert[settings.scoreType]
     );
+    // Set the yaxis range
+    if (settings.scoreType === 'heidke') {
+        yaxis_range = [-50, 100];
+    } else if (settings.scoreType === 'rpss') {
+        yaxis_range = [-0.5, 1];
+    }
     return {
         make_plot: function() {
             // -------------------------------------------------------------------------------------
@@ -26,7 +33,7 @@ function Plot(data, settings) {
                 },
                 yaxis: {
                     title: title_str_convert[settings['scoreType']],
-                    range: [-50, 100],
+                    range: yaxis_range,
                     domain:[0.35, 1],
                 },
                 showlegend: true,
