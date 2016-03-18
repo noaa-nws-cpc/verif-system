@@ -25,7 +25,7 @@ function Plot(data, settings) {
                     tickformat: '%m/%d/%Y',
                 },
                 yaxis: {
-                    title: settings['scoreType'],
+                    title: title_str_convert[settings['scoreType']],
                     range: [-50, 100],
                 },
                 showlegend: true,
