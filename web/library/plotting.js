@@ -5,6 +5,7 @@ function Plot(data, settings) {
         'precip': 'Precipitation',
         'heidke': 'Heidke Skill Score',
         'rpss': 'Ranked Probability Skill Score',
+        'brier': 'Brier Skill Score',
     }
     // Set the plot title
     title = '{} {} {} (Combined Categories)'.format(
@@ -17,6 +18,8 @@ function Plot(data, settings) {
         yaxis_range = [-50, 100];
     } else if (settings.scoreType === 'rpss') {
         yaxis_range = [-0.5, 1];
+    } else if (settings.scoreType === 'brier') {
+        yaxis_range = [-1, 1];
     }
     return {
         make_plot: function() {
