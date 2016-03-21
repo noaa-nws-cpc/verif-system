@@ -39,7 +39,8 @@ var servlet = (function() {
                         x: soap.dates,
                         y: soap.scores.total[i],
                         name: fcst_sources[i],
-                        type: 'scatter'
+                        type: 'scatter',
+                        average: soap.averages.total[i],
                     });
                 }
             }

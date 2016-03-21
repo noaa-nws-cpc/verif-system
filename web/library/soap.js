@@ -41,19 +41,26 @@ function Soap(xml) {
     // Set the scores of the Soap object
     //
     // Initialize scores object and empty arrays for each category
-    this.scores = [];
-    this.scores['total'] = [];
-    this.scores['below'] = [];
-    this.scores['near'] = [];
-    this.scores['above'] = [];
+    var scores;
+    scores = [], scores['total'] = [], scores['below'] = [], scores['near'] = [], scores['above'] = [];
+    this.scores = scores;
     cat_num_to_str = ['total', 'below', 'near', 'above'];
-    // Loop over each fcst source
+    // Get array of scores for each fcst source
     for (var f in this.json.stats.scoreCatFloatArray) {
         for (var c in this.json.stats.scoreCatFloatArray[f].array) {
             self.scores[cat_num_to_str[c]][f] = [];
             for (var d in this.json.stats.scoreCatFloatArray[f].array[c].array) {
                 self.scores[cat_num_to_str[c]][f].push(this.json.stats.scoreCatFloatArray[f].array[c].array[d]._text);
             }
+        }
+    }
+    var averages;
+    averages = [], averages['total'] = [], averages['below'] = [], averages['near'] = [], averages['above'] = [];
+    this.averages = averages;
+    // Get the average score for each fcst source
+    for (var f in this.json.stats.aveFloatArray) {
+        for (var c in this.json.stats.aveFloatArray[f].array) {
+            self.averages[cat_num_to_str[c]].push(this.json.stats.aveFloatArray[f].array[c].array[0]._text);
         }
     }
 
