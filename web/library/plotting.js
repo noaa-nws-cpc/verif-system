@@ -21,6 +21,22 @@ function Plot(data, settings) {
     } else if (settings.scoreType === 'brier') {
         yaxis_range = [-1, 1];
     }
+    // Create table of skill averages
+    fcst_sources = settings.fcstSources.split(',');
+    averages_html = '<b>Average Scores</b><br><br>';
+    for (i = 0; i < fcst_sources.length; i++) {
+        averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
+    }
+    console.log(averages_html);
+
+    function ave(array) {
+        var total = 0;
+        for (var i = 0; i < array.length; i++) {
+            total += array[i];
+        }
+        return total / array.length;
+    }
+
     return {
         make_plot: function() {
             // -------------------------------------------------------------------------------------
@@ -51,9 +67,23 @@ function Plot(data, settings) {
                 margin: {
                     b: 20,
                 },
+                annotations: [
+                    {
+                        showarrow: false,
+                        text: averages_html,
+                        x: 1, y: 0.22,
+                        borderwidth: 0.5, bordercolor: '#DDD', borderpad: 5,
+                        yanchor: 'top', xanchor: 'right',
+                        xref: 'paper', yref: 'paper',
+                        align: 'left',
+                        font: {
+                            color: '#333',
+                        },
+                    },
+                ],
             };
-            plot_element = document.getElementById('plotly');
-            Plotly.newPlot(plot_element, data, layout);
+            plot_id = document.getElementById('plotly');
+            var plot = Plotly.newPlot(plot_id, data, layout);
         },
     }
 }
