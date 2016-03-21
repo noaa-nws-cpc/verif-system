@@ -27,7 +27,7 @@ function Plot(data, settings) {
             // Setup layout
             //
             layout = {
-                height: 540,
+                height: 550,
                 title: title,
                 xaxis: {
                     type: 'date',
@@ -37,7 +37,7 @@ function Plot(data, settings) {
                 yaxis: {
                     title: title_str_convert[settings['scoreType']],
                     range: yaxis_range,
-                    domain:[0.35, 1],
+                    domain:[0.38, 1],
                 },
                 showlegend: true,
                 legend: {
@@ -45,6 +45,8 @@ function Plot(data, settings) {
                     y: 0.22,
                     yanchor: 'top',
                     xanchor: 'left',
+                    borderwidth: 0.5,
+                    bordercolor: '#EEE',
                 },
                 margin: {
                     b: 20,
