@@ -6,6 +6,7 @@ function Plot(data, settings) {
         'heidke': 'Heidke Skill Score',
         'rpss': 'Ranked Probability Skill Score',
         'brier': 'Brier Skill Score',
+        'reliability': 'Reliability',
     }
     // Set the plot title
     title = '{} {} {} (Combined Categories)'.format(
@@ -20,6 +21,29 @@ function Plot(data, settings) {
         yaxis_range = [-0.5, 1];
     } else if (settings.scoreType === 'brier') {
         yaxis_range = [-1, 1];
+    } else if (settings.scoreType === 'reliability') {
+        yaxis_range = [0, 1];
+    }
+    // Setup the axes
+    if (settings.scoreType !== 'reliability') {
+        xaxis = {
+            title: 'Date (center of valid period)',
+            tickformat: '%m/%d/%Y',
+        };
+        yaxis = {
+            title: title_str_convert[settings['scoreType']],
+            range: yaxis_range,
+            domain:[0.38, 1],
+        };
+    } else {
+        xaxis = {
+            title: 'Forecast Probability',
+        };
+        yaxis = {
+            title: 'Observed Frequency',
+            range: yaxis_range,
+            domain:[0.38, 1],
+        };
     }
     // Create table of skill averages
     fcst_sources = settings.fcstSources.split(',');
@@ -44,16 +68,8 @@ function Plot(data, settings) {
             layout = {
                 height: 550,
                 title: title,
-                xaxis: {
-                    type: 'date',
-                    title: 'Date (center of valid period)',
-                    tickformat: '%m/%d/%Y',
-                },
-                yaxis: {
-                    title: title_str_convert[settings['scoreType']],
-                    range: yaxis_range,
-                    domain:[0.38, 1],
-                },
+                xaxis: xaxis,
+                yaxis: yaxis,
                 showlegend: true,
                 legend: {
                     x: 0,
