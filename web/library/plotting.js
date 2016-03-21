@@ -60,7 +60,25 @@ function Plot(data, settings) {
         data[i].line.color = line_colors[color_count];
         color_count++;
     }
-    // Create table of skill averages
+    // Create table of skill averages (only for non-reliabilty plots)
+    if (settings.scoreType !== 'reliability') {
+        annotations = [
+            {
+                showarrow: false,
+                text: averages_html,
+                x: 1, y: 0.22,
+                borderwidth: 0.5, bordercolor: '#DDD', borderpad: 5,
+                yanchor: 'top', xanchor: 'right',
+                xref: 'paper', yref: 'paper',
+                align: 'left',
+                font: {
+                    color: '#333',
+                },
+            },
+        ];
+    } else {
+        annotations = [];
+    }
     averages_html = '<b>Average Scores</b><br><br>';
     for (i = 0; i < fcst_sources.length; i++) {
         averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
@@ -96,20 +114,7 @@ function Plot(data, settings) {
                 margin: {
                     b: 20,
                 },
-                annotations: [
-                    {
-                        showarrow: false,
-                        text: averages_html,
-                        x: 1, y: 0.22,
-                        borderwidth: 0.5, bordercolor: '#DDD', borderpad: 5,
-                        yanchor: 'top', xanchor: 'right',
-                        xref: 'paper', yref: 'paper',
-                        align: 'left',
-                        font: {
-                            color: '#333',
-                        },
-                    },
-                ],
+                annotations: annotations,
             };
             plot_id = document.getElementById('plotly');
             var plot = Plotly.newPlot(plot_id, data, layout);
