@@ -36,7 +36,7 @@ var servlet = (function() {
             if (settings['outputType'] === 'chart') {
                 for (i = 0; i < soap.num_fcst_sources; i++) {
                     json.push({
-                        x: soap.dates,
+                        x: soap.xvals,
                         y: soap.scores.total[i],
                         name: fcst_sources[i],
                         type: 'scatter',
