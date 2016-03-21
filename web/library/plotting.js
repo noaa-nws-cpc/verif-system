@@ -1,4 +1,6 @@
 function Plot(data, settings) {
+    // Get array of fcst sources
+    fcst_sources = settings.fcstSources.split(',');
     // Array of strings and the corresponding version of those strings for the title
     title_str_convert = {
         'temp': 'Temperature',
@@ -45,8 +47,20 @@ function Plot(data, settings) {
             domain:[0.38, 1],
         };
     }
+    // Set line colors
+    line_colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)', 'rgb(214, 39, 40)', 'rgb(148, 103, 189)'];
+    if (settings.scoreType === 'reliability') {
+        start_index = 1;
+    } else {
+        start_index = 0
+    }
+    color_count = 0;
+    for (var i = start_index; i < data.length; i++) {
+        data[i].line = {};
+        data[i].line.color = line_colors[color_count];
+        color_count++;
+    }
     // Create table of skill averages
-    fcst_sources = settings.fcstSources.split(',');
     averages_html = '<b>Average Scores</b><br><br>';
     for (i = 0; i < fcst_sources.length; i++) {
         averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
