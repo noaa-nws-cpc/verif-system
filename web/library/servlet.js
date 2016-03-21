@@ -17,8 +17,6 @@ var servlet = (function() {
                 },
                 data: servlet_request,
                 success: (function(servlet_request) {
-                    console.log(settings);
-                    console.log(servlet_request);
                     // Unblock submit button
                     $('#submit-button').removeAttr('disabled');
                     self.process_servlet_response(servlet_request)
