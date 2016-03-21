@@ -62,6 +62,10 @@ function Plot(data, settings) {
     }
     // Create table of skill averages (only for non-reliabilty plots)
     if (settings.scoreType !== 'reliability') {
+        averages_html = '<b>Average Scores</b><br><br>';
+        for (i = 0; i < fcst_sources.length; i++) {
+            averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
+        }
         annotations = [
             {
                 showarrow: false,
@@ -78,10 +82,6 @@ function Plot(data, settings) {
         ];
     } else {
         annotations = [];
-    }
-    averages_html = '<b>Average Scores</b><br><br>';
-    for (i = 0; i < fcst_sources.length; i++) {
-        averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
     }
 
     function ave(array) {
