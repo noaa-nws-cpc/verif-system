@@ -26,16 +26,20 @@ function Soap(xml) {
     //
     this.num_fcst_sources = this.json.stats.scoreCatFloatArray.length;
     // ---------------------------------------------------------------------------------------------
-    // Set the dates of the Soap object
+    // Set the xvals of the Soap object
     //
-    this.dates = [];
-    for (var i in this.json.formattedReferenceDatesArray) {
-        var temp_date = this.json.formattedReferenceDatesArray[i]._text.split('/')
-        m = temp_date[0]
-        d = temp_date[1]
-        y = temp_date[2]
-        date = '{}-{}-{}'.format(y, m, d);
-        self.dates.push(date);
+    this.xvals = [];
+    for (var i in this.json.referenceArray) {
+        if (settings['scoreType'] !== 'reliability') {
+            var temp_var = this.json.referenceArray[i]._text.split('/');
+            m = temp_var[0];
+            d = temp_var[1];
+            y = temp_var[2];
+            val = '{}-{}-{}'.format(y, m, d);
+        } else {
+            val = this.json.referenceArray[i]._text;
+        }
+        self.xvals.push(val);
     }
     // ---------------------------------------------------------------------------------------------
     // Set the scores of the Soap object
