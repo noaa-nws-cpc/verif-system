@@ -43,6 +43,20 @@ var servlet = (function() {
                         average: soap.averages.total[i],
                     });
                 }
+                // For reliability, insert a 'perfect reliability' line
+                if (settings.scoreType === 'reliability') {
+                    json.splice(0, 0, {
+                        x: soap.xvals,
+                        y: [0.05, .15, 0.2667, 0.3667, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95],
+                        type: 'scatter',
+                        showlegend: false,
+                        line: {
+                            color: 'black',
+                            width: 3,
+                        },
+                        hoverinfo: 'none',
+                    })
+                }
             }
             // return JSON.stringify(json);
             return json;
