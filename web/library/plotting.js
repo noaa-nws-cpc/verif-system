@@ -71,7 +71,7 @@ function Plot(data, settings) {
                 showarrow: false,
                 text: averages_html,
                 x: 1, y: 0.22,
-                borderwidth: 0.5, bordercolor: '#DDD', borderpad: 5,
+                bordercolor: '#EEE', borderpad: 5,
                 yanchor: 'top', xanchor: 'right',
                 xref: 'paper', yref: 'paper',
                 align: 'left',
@@ -108,7 +108,7 @@ function Plot(data, settings) {
                     y: 0.22,
                     yanchor: 'top',
                     xanchor: 'left',
-                    borderwidth: 0.5,
+                    borderwidth: 1,
                     bordercolor: '#EEE',
                 },
                 margin: {
