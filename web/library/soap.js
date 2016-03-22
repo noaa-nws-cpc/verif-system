@@ -17,6 +17,35 @@ function Soap(xml) {
     json = remove_empty(json);
     // Remove all the pointless top levels
     json = json.Envelope.Body.getResultsResponse.return;
+    // For multi-fcst-source runs, some stats objects will contain an array of objects:
+    //
+    // scoreCatFloatArray // for example
+    //   [
+    //     { // This is the object for fcst-source 1
+    //     array
+    //       ...
+    //     },
+    //     { // This is the object for fcst-source 2
+    //     array
+    //       ...
+    //     }
+    //   ]
+    //
+    // For single-fcst-source runs, json.stats.scoreCatFloatArray will be missing that array:
+    //
+    // scoreCatFloatArray
+    //   { // This is the object for the single fcst-source
+    //     array
+    //       ...
+    //   }
+    // For single-fcst-source runs, add in that array level so the rest of the code will work the same way
+    if ('array' in json.stats.scoreCatFloatArray) {
+        json.stats.scoreCatFloatArray = [json.stats.scoreCatFloatArray];
+    }
+    if ('array' in json.stats.aveFloatArray) {
+        json.stats.aveFloatArray = [json.stats.aveFloatArray];
+    }
+
     // ---------------------------------------------------------------------------------------------
     // Make the json object accessible throughout this Soap object
     //
