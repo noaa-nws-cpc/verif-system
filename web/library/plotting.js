@@ -64,7 +64,7 @@ function Plot(data, settings) {
     if (settings.scoreType !== 'reliability') {
         averages_html = '<b>Average Scores</b><br><br>';
         for (i = 0; i < fcst_sources.length; i++) {
-            averages_html += '<span style="float: right">{}</span>: {}<br>'.format(fcst_sources[i], data[i].average);
+            averages_html += '{}:   <i>{}</i><br>'.format(fcst_sources[i], data[i].average);
         }
         annotations = [
             {
