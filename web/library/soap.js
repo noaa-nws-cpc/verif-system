@@ -39,11 +39,13 @@ function Soap(xml) {
     //       ...
     //   }
     // For single-fcst-source runs, add in that array level so the rest of the code will work the same way
-    if ('array' in json.stats.scoreCatFloatArray) {
-        json.stats.scoreCatFloatArray = [json.stats.scoreCatFloatArray];
+    objects_to_fix = ['json.stats.scoreCatFloatArray', 'json.stats.aveFloatArray'];
+    for (var i = 0; i < objects_to_fix.length; i++) {
+        eval('if (\'array\' in {}) {} = [{}]'.format(objects_to_fix[i], objects_to_fix[i], objects_to_fix[i]));
     }
-    if ('array' in json.stats.aveFloatArray) {
-        json.stats.aveFloatArray = [json.stats.aveFloatArray];
+    // Also fix json.referenceArray, which is slightly different than the above
+    if ('_text' in json.referenceArray) { // Must be a single day
+        json.referenceArray = [json.referenceArray];
     }
 
     // ---------------------------------------------------------------------------------------------
