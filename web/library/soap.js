@@ -57,22 +57,6 @@ function Soap(xml) {
     //
     this.num_fcst_sources = this.json.stats.scoreCatFloatArray.length;
     // ---------------------------------------------------------------------------------------------
-    // Set the xvals of the Soap object
-    //
-    this.xvals = [];
-    for (var i in this.json.referenceArray) {
-        if (settings['scoreType'] !== 'reliability') {
-            var temp_var = this.json.referenceArray[i]._text.split('/');
-            m = temp_var[0];
-            d = temp_var[1];
-            y = temp_var[2];
-            val = '{}-{}-{}'.format(y, m, d);
-        } else {
-            val = this.json.referenceArray[i]._text;
-        }
-        self.xvals.push(val);
-    }
-    // ---------------------------------------------------------------------------------------------
     // Set the scores of the Soap object
     //
     // Initialize scores object and empty arrays for each category
@@ -87,6 +71,53 @@ function Soap(xml) {
             for (var d in this.json.stats.scoreCatFloatArray[f].array[c].array) {
                 self.scores[cat_num_to_str[c]][f].push(this.json.stats.scoreCatFloatArray[f].array[c].array[d]._text);
             }
+        }
+    }
+    // ---------------------------------------------------------------------------------------------
+    // Process for chart
+    //
+    if (settings['outputType'] === 'chart') {
+        // ---------------------------------------------------------------------------------------------
+        // Set the xvals of the Soap object
+        //
+        this.xvals = [];
+        for (var i in this.json.referenceArray) {
+            if (settings['scoreType'] !== 'reliability') {
+                var temp_var = this.json.referenceArray[i]._text.split('/');
+                m = temp_var[0];
+                d = temp_var[1];
+                y = temp_var[2];
+                val = '{}-{}-{}'.format(y, m, d);
+            } else {
+                val = this.json.referenceArray[i]._text;
+            }
+            self.xvals.push(val);
+        }
+    // ---------------------------------------------------------------------------------------------
+    // Process for map
+    //
+    } else {
+        // ---------------------------------------------------------------------------------------------
+        // Build an array of GeoJSON features for ESRI maps
+        //
+        this.features = [];
+        for (var i = 0; i < this.json.referenceArray.length ; i++) {
+            this.features.push({
+                geometry: {
+                    x: this.json.locationLonArray[i]._text,
+                    y: this.json.locationLatArray[i]._text
+                },
+                attributes: {
+                    id: i,
+                    name: this.json.locationNameArray[i]._text,
+                    score: {
+                        total: this.scores.total[0][i],
+                        below: this.scores.below[0][i],
+                        near: this.scores.near[0][i],
+                        above: this.scores.above[0][i],
+                    }
+                }
+            });
         }
     }
     var averages;

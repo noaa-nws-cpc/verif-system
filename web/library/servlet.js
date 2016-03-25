@@ -33,6 +33,7 @@ var servlet = (function() {
             var soap = new Soap(xml);
             var json = [];
             var fcst_sources = settings['fcstSources'].split(',');
+            // Process response for chart
             if (settings['outputType'] === 'chart') {
                 for (i = 0; i < soap.num_fcst_sources; i++) {
                     json.push({
@@ -56,6 +57,16 @@ var servlet = (function() {
                         },
                         hoverinfo: 'none',
                     })
+                }
+            // Process response for map
+            } else {
+                var soap = new Soap(xml);
+                var json = [];
+                var fcst_source = settings['fcstSources'].split(',')[0];
+                json = {
+                    geometryType: 'esriGeometryPoint',
+                    spatialReference : {wkid : 4326},
+                    features: soap.features
                 }
             }
             // return JSON.stringify(json);
