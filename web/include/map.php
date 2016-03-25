@@ -30,12 +30,6 @@
 		<section id="resultsPanel" class="panel">
 			<p class="panelNumber">3</p>
 			<h2>Please select options from the form</h2>
-			<div id="resultsInteractionPanel" style="display:none">
-				<h3>Interacting With the Map</h3>
-				<ul>
-					<li>Click on any colored circle for the position of that point and the score</li>
-				</ul>
-			</div>
 			<div id="GoogleEarthMap">
 			</div>
 			<div id='GoogleEarthLegend'>
