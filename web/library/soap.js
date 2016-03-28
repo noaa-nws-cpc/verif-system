@@ -97,27 +97,34 @@ function Soap(xml) {
     // Process for map
     //
     } else {
-        // ---------------------------------------------------------------------------------------------
-        // Build an array of GeoJSON features for ESRI maps
+        // -----------------------------------------------------------------------------------------
+        // Build a JSON for Plotly maps
         //
-        this.features = [];
+        this.map_data = {};
+        this.map_data.names = [];
+        this.map_data.lat = [];
+        this.map_data.lon = [];
+        this.map_data.scores = {};
+        this.map_data.scores.total = [];
+        this.map_data.scores.below = [];
+        this.map_data.scores.near = [];
+        this.map_data.scores.above = [];
+        this.map_data.scores.total_norm = [];
+        this.map_data.scores.below_norm = [];
+        this.map_data.scores.near_norm = [];
+        this.map_data.scores.above_norm = [];
         for (var i = 0; i < this.json.referenceArray.length ; i++) {
-            this.features.push({
-                geometry: {
-                    x: this.json.locationLonArray[i]._text,
-                    y: this.json.locationLatArray[i]._text
-                },
-                attributes: {
-                    id: i,
-                    name: this.json.locationNameArray[i]._text,
-                    score: {
-                        total: this.scores.total[0][i],
-                        below: this.scores.below[0][i],
-                        near: this.scores.near[0][i],
-                        above: this.scores.above[0][i],
-                    }
-                }
-            });
+            this.map_data.names.push(this.json.locationNameArray[i]._text);
+            this.map_data.lat.push(this.json.locationLatArray[i]._text);
+            this.map_data.lon.push(this.json.locationLonArray[i]._text);
+            this.map_data.scores.total.push(this.scores.total[0][i]);
+            this.map_data.scores.below.push(this.scores.below[0][i]);
+            this.map_data.scores.near.push(this.scores.near[0][i]);
+            this.map_data.scores.above.push(this.scores.above[0][i]);
+            this.map_data.scores.total_norm.push(normalize_score(this.scores.total[0][i], settings['scoreType']));
+            this.map_data.scores.below_norm.push(normalize_score(this.scores.below[0][i], settings['scoreType']));
+            this.map_data.scores.near_norm.push(normalize_score(this.scores.near[0][i], settings['scoreType']));
+            this.map_data.scores.above_norm.push(normalize_score(this.scores.above[0][i], settings['scoreType']));
         }
     }
     var averages;
@@ -145,5 +152,21 @@ function Soap(xml) {
             }
         } );
         return target;
+    }
+
+    function normalize_score(val, type) {
+        if (type === 'heidke') {
+            if      ( val < -20 ) { norm_val = 0   }
+            else if ( val < -10 ) { norm_val = 0.1 }
+            else if ( val <  -0 ) { norm_val = 0.2 }
+            else if ( val <  10 ) { norm_val = 0.3 }
+            else if ( val <  20 ) { norm_val = 0.4 }
+            else if ( val <  30 ) { norm_val = 0.5 }
+            else if ( val <  40 ) { norm_val = 0.6 }
+            else if ( val <  50 ) { norm_val = 0.7 }
+            else if ( val <  70 ) { norm_val = 0.8 }
+            else                  { norm_val = 0.9 }
+        }
+        return norm_val;
     }
 }

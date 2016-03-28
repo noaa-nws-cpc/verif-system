@@ -30,9 +30,7 @@
 		<section id="resultsPanel" class="panel">
 			<p class="panelNumber">3</p>
 			<h2>Please select options from the form</h2>
-			<div id="GoogleEarthMap">
-			</div>
-			<div id='GoogleEarthLegend'>
+			<div id="plotly">
 			</div>
 		</section>
 	</form>

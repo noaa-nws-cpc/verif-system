@@ -61,13 +61,24 @@ var servlet = (function() {
             // Process response for map
             } else {
                 var soap = new Soap(xml);
-                var json = [];
                 var fcst_source = settings['fcstSources'].split(',')[0];
-                json = {
-                    geometryType: 'esriGeometryPoint',
-                    spatialReference : {wkid : 4326},
-                    features: soap.features
-                }
+                json.push({
+                    type:'scattergeo',
+                    locationmode: 'USA-states',
+                    lon: soap.map_data.lon,
+                    lat: soap.map_data.lat,
+                    hoverinfo: soap.map_data.scores.total,
+                    text: soap.map_data.scores.total,
+                    mode: 'markers',
+                    colorbar: true,
+                    marker: {
+                        color: soap.map_data.scores.total_norm,
+                        size: 8,
+                        opacity: 0.8,
+                        autocolorscale: true,
+                        symbol: 'circle',
+                    }
+                });
             }
             // return JSON.stringify(json);
             return json;
@@ -80,22 +91,14 @@ var servlet = (function() {
                 report_failure(error_message, 'servlet');
                 return;
             }
-            // Clear the results panel title if this is a chart (map page
-            // gets a title from GoogleEarth.js)
-            if (settings['outputType'] === "chart") {
-                $("#resultsPanel > h2").html("<br>");
-            }
+
+            // Clear the results panel title
+            $("#resultsPanel > h2").html("<br>");
 
             // Display a message reminding users to scroll down when completed
             $('#settingsForm .runStatus').css('color','#090');
             $('#settingsForm .runStatus').html("Finished, please scroll down");
             $('#settingsForm .runStatus').show();
-
-            //-------------------------------------------------------
-            // Add information on how to customize the chart
-            //
-            // Show the resultsInteractionPanel
-            $('#resultsInteractionPanel').show();
 
             // Get plot data json
             data = this.response_to_json(xml);
