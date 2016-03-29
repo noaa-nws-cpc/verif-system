@@ -29,61 +29,6 @@ var servlet = (function() {
             });
         },
 
-        response_to_json: function(xml) {
-            var soap = new Soap(xml);
-            var json = [];
-            var fcst_sources = settings['fcstSources'].split(',');
-            // Process response for chart
-            if (settings['outputType'] === 'chart') {
-                for (i = 0; i < soap.num_fcst_sources; i++) {
-                    json.push({
-                        x: soap.xvals,
-                        y: soap.scores.total[i],
-                        name: fcst_sources[i],
-                        type: 'scatter',
-                        average: soap.averages.total[i],
-                    });
-                }
-                // For reliability, insert a 'perfect reliability' line
-                if (settings.scoreType === 'reliability') {
-                    json.splice(0, 0, {
-                        x: soap.xvals,
-                        y: [0.05, .15, 0.2667, 0.3667, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95],
-                        type: 'scatter',
-                        showlegend: false,
-                        line: {
-                            color: 'black',
-                            width: 3,
-                        },
-                        hoverinfo: 'none',
-                    })
-                }
-            // Process response for map
-            } else {
-                var soap = new Soap(xml);
-                var fcst_source = settings['fcstSources'].split(',')[0];
-                json.push({
-                    type:'scattergeo',
-                    locationmode: 'USA-states',
-                    lon: soap.map_data.lon,
-                    lat: soap.map_data.lat,
-                    hoverinfo: soap.map_data.scores.total,
-                    text: soap.map_data.scores.total,
-                    mode: 'markers',
-                    colorbar: true,
-                    marker: {
-                        color: soap.map_data.scores.total_norm,
-                        size: 8,
-                        opacity: 0.8,
-                        autocolorscale: true,
-                        symbol: 'circle',
-                    }
-                });
-            }
-            // return JSON.stringify(json);
-            return json;
-        },
-
         process_servlet_response: function(xml) {
             // See if the response contains an error string. If so, there was an error
             error_message = $(xml).find('ax21\\:errorMessage, errorMessage').text();
@@ -100,11 +45,12 @@ var servlet = (function() {
             $('#settingsForm .runStatus').html("Finished, please scroll down");
             $('#settingsForm .runStatus').show();
 
-            // Get plot data json
-            data = this.response_to_json(xml);
+            // Create a soap object - this object will process the XML and produce a JSON file
+            // containing everything necessary to plot
+            var soap = new Soap(xml);
 
-            // Display plot
-            plot = new Plot(data, settings);
+            // Display plot (pass the soap JSON to the plot object)
+            plot = new Plot(soap.json, settings);
             plot.make_plot();
         },
         /**
