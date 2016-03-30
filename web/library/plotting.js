@@ -202,6 +202,7 @@ function Plot(json, settings) {
                 };
             } else {
                 layout = {
+                    title: title,
                     height: 550,
                     width: 840,
                     colorbar: true,
