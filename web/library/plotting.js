@@ -87,6 +87,7 @@ function Plot(json, settings) {
                         autocolorscale: false,
                         colorscale: 'picnic',
                         symbol: 'circle',
+                        showscale: true,
                     }
                 });
             }
