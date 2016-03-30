@@ -103,10 +103,6 @@ function Soap(xml) {
         json.map_data.scores.below = [];
         json.map_data.scores.near = [];
         json.map_data.scores.above = [];
-        json.map_data.scores.total_norm = [];
-        json.map_data.scores.below_norm = [];
-        json.map_data.scores.near_norm = [];
-        json.map_data.scores.above_norm = [];
         for (var i = 0; i < json_temp.referenceArray.length ; i++) {
             json.map_data.names.push(json_temp.locationNameArray[i]._text);
             json.map_data.lat.push(json_temp.locationLatArray[i]._text);
@@ -115,10 +111,6 @@ function Soap(xml) {
             json.map_data.scores.below.push(json.scores.below[0][i]);
             json.map_data.scores.near.push(json.scores.near[0][i]);
             json.map_data.scores.above.push(json.scores.above[0][i]);
-            json.map_data.scores.total_norm.push(normalize_score(json.scores.total[0][i], settings['scoreType']));
-            json.map_data.scores.below_norm.push(normalize_score(json.scores.below[0][i], settings['scoreType']));
-            json.map_data.scores.near_norm.push(normalize_score(json.scores.near[0][i], settings['scoreType']));
-            json.map_data.scores.above_norm.push(normalize_score(json.scores.above[0][i], settings['scoreType']));
         }
     }
     json.averages = {};
@@ -145,22 +137,6 @@ function Soap(xml) {
             }
         } );
         return target;
-    }
-
-    function normalize_score(val, type) {
-        if (type === 'heidke') {
-            if      ( val < -20 ) { norm_val = 0   }
-            else if ( val < -10 ) { norm_val = 0.1 }
-            else if ( val <  -0 ) { norm_val = 0.2 }
-            else if ( val <  10 ) { norm_val = 0.3 }
-            else if ( val <  20 ) { norm_val = 0.4 }
-            else if ( val <  30 ) { norm_val = 0.5 }
-            else if ( val <  40 ) { norm_val = 0.6 }
-            else if ( val <  50 ) { norm_val = 0.7 }
-            else if ( val <  70 ) { norm_val = 0.8 }
-            else                  { norm_val = 0.9 }
-        }
-        return norm_val;
     }
 
     return {

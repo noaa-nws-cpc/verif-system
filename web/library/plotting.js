@@ -57,10 +57,10 @@ function Plot(json, settings) {
                     if (/^nan$/i.test(json.map_data.scores.total[i])) {
                         var fields = [
                             'lon', 'lat', 'names',
-                            'scores.total', 'scores.total_norm',
-                            'scores.below', 'scores.below_norm',
-                            'scores.near', 'scores.near_norm',
-                            'scores.above', 'scores.above_norm',
+                            'scores.total',
+                            'scores.below',
+                            'scores.near',
+                            'scores.above',
                         ];
                         for (var f=0; f < fields.length; f++) {
                             eval('json.map_data.{}.splice({}, 1)'.format(fields[f], i));
@@ -81,7 +81,7 @@ function Plot(json, settings) {
                     mode: 'markers',
                     colorbar: true,
                     marker: {
-                        color: json.map_data.scores.total_norm,
+                        color: json.map_data.scores.total,
                         size: 12,
                         opacity: 0.8,
                         autocolorscale: false,
