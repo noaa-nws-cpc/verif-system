@@ -51,6 +51,23 @@ function Plot(json, settings) {
             // Process response for map
             } else {
                 var fcst_source = settings['fcstSources'].split(',')[0];
+                // Remove stations with a missing score
+                for (var i=(json.map_data.scores.total.length - 1); i >= 0; i--) {
+                    // var regex = new RegExp();
+                    if (/^nan$/i.test(json.map_data.scores.total[i])) {
+                        var fields = [
+                            'lon', 'lat', 'names',
+                            'scores.total', 'scores.total_norm',
+                            'scores.below', 'scores.below_norm',
+                            'scores.near', 'scores.near_norm',
+                            'scores.above', 'scores.above_norm',
+                        ];
+                        for (var f=0; f < fields.length; f++) {
+                            eval('json.map_data.{}.splice({}, 1)'.format(fields[f], i));
+                        }
+                    }
+                }
+                // Create text for hover info
                 var text = [];
                 for (var i=0; i < json.map_data.scores.total.length; i++) {
                     text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
