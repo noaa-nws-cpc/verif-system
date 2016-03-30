@@ -65,7 +65,7 @@ function Plot(json, settings) {
                     colorbar: true,
                     marker: {
                         color: json.map_data.scores.total_norm,
-                        size: 8,
+                        size: 12,
                         opacity: 0.8,
                         autocolorscale: false,
                         colorscale: 'picnic',
@@ -189,16 +189,22 @@ function Plot(json, settings) {
                     width: 840,
                     colorbar: true,
                     geo: {
-                        scope: 'usa',
-                        projection: {
-                            type: 'albers usa'
-                        },
                         showland: true,
-                        landcolor: 'rgb(250,250,250)',
-                        subunitcolor: 'rgb(217,217,217)',
-                        countrycolor: 'rgb(217,217,217)',
+                        countrycolor: "rgb(217,217,217)",
+                        projection: { type: "albers usa" },
+                        subunitwidth: 1,
                         countrywidth: 0.5,
-                        subunitwidth: 0.5
+                        landcolor: "rgb(204, 204, 204)",
+                        subunitcolor: "rgb(255, 255, 255)",
+                        scope: "usa",
+                        showlakes: true,
+                        lakecolor: "rgb(255, 255, 255)"
+                    },
+                    margin: {
+                        l: 0,
+                        r: 0,
+                        b: 0,
+                        t: 100
                     }
                 }
             }
