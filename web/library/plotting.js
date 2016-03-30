@@ -10,6 +10,10 @@ function Plot(json, settings) {
         return total / array.length;
     }
 
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
     return {
         make_plot: function() {
             var json = self.json;
@@ -47,13 +51,16 @@ function Plot(json, settings) {
             // Process response for map
             } else {
                 var fcst_source = settings['fcstSources'].split(',')[0];
+                var text = [];
+                for (var i=0; i < json.map_data.scores.total.length; i++) {
+                    text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
+                }
                 data.push({
                     type:'scattergeo',
                     locationmode: 'USA-states',
                     lon: json.map_data.lon,
                     lat: json.map_data.lat,
-                    hoverinfo: json.map_data.scores.total,
-                    text: json.map_data.scores.total,
+                    text: text,
                     mode: 'markers',
                     colorbar: true,
                     marker: {
