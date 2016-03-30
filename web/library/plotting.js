@@ -207,9 +207,8 @@ function Plot(json, settings) {
                     colorbar: true,
                     geo: {
                         showland: true,
-                        countrycolor: "rgb(217,217,217)",
                         projection: { type: "albers usa" },
-                        subunitwidth: 1,
+                        subunitwidth: 1.5,
                         countrywidth: 0.5,
                         landcolor: "rgb(204, 204, 204)",
                         subunitcolor: "rgb(255, 255, 255)",
