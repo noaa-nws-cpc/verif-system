@@ -72,14 +72,50 @@ function Plot(json, settings) {
                 for (var i=0; i < json.map_data.scores.total.length; i++) {
                     text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
                 }
-                // Determine cmin and cmax
-                var cmin, cmax;
+                // Determine cmin and cmax, as well as the colorscale
+                var cmin, cmax, colorscale;
                 if (settings.scoreType === 'heidke') {
                     cmin = -50, cmax = 100;
+                    colorscale = [
+                        [0.0000, 'rgb(136, 86, 167)'],
+                        [0.1333, 'rgb(136, 86, 167)'],
+                        [0.2666, 'rgb(  4, 90, 141)'],
+                        [0.3333, 'white'],
+                        [0.4000, 'rgb(254,204,92)'],
+                        [0.4666, 'rgb(253,141,60)'],
+                        [0.5333, 'rgb(240,59,32)'],
+                        [0.6000, 'rgb(189,0,38)'],
+                        [0.6666, 'rgb(127,0,0)'],
+                        [1.0000, 'rgb(127,0,0)'],
+                    ];
                 } else if (settings.scoreType === 'rpss') {
                     cmin = -1, cmax = 1;
+                    colorscale = [
+                        [0.0000, 'rgb(136, 86, 167)'],
+                        [0.3000, 'rgb(136, 86, 167)'],
+                        [0.4000, 'rgb(  4, 90, 141)'],
+                        [0.5000, 'white'],
+                        [0.5500, 'rgb(254,204,92)'],
+                        [0.6000, 'rgb(253,141,60)'],
+                        [0.6500, 'rgb(240,59,32)'],
+                        [0.7000, 'rgb(189,0,38)'],
+                        [0.7500, 'rgb(127,0,0)'],
+                        [1.0000, 'rgb(127,0,0)'],
+                    ];
                 } else if (settings.scoreType === 'brier') {
                     cmin = -1, cmax = 1;
+                    colorscale = [
+                        [0.0000, 'rgb(136, 86, 167)'],
+                        [0.3000, 'rgb(136, 86, 167)'],
+                        [0.4000, 'rgb(  4, 90, 141)'],
+                        [0.5000, 'white'],
+                        [0.5500, 'rgb(254,204,92)'],
+                        [0.6000, 'rgb(253,141,60)'],
+                        [0.6500, 'rgb(240,59,32)'],
+                        [0.7000, 'rgb(189,0,38)'],
+                        [0.7500, 'rgb(127,0,0)'],
+                        [1.0000, 'rgb(127,0,0)'],
+                    ];
                 }
                 // Create the data object
                 data.push({
@@ -93,9 +129,9 @@ function Plot(json, settings) {
                     marker: {
                         color: json.map_data.scores.total,
                         size: 12,
-                        opacity: 0.8,
+                        opacity: 0.9,
                         autocolorscale: false,
-                        colorscale: 'picnic',
+                        colorscale: colorscale,
                         cmin: cmin,
                         cmax: cmax,
                         symbol: 'circle',
