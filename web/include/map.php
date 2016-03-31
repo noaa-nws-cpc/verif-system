@@ -30,20 +30,7 @@
 		<section id="resultsPanel" class="panel">
 			<p class="panelNumber">3</p>
 			<h2>Please select options from the form</h2>
-			<div id="resultsInteractionPanel" style="display:none">
-				<h3>Interacting With the Map</h3>
-				<ul>
-					<li>Click on any colored circle for the position of that point and the score</li>
-				</ul>
-			</div>
-			<object id="applet" type="application/x-java-applet" width="0" height="0">
-				<param name="codebase" value="."/>
-				<param name="code" value="gov/noaa/ncep/cpc/applets/SpatialApplet.class"/>
-				<param name="archive" value="verif_client.jar"/>
-			</object>
-			<div id="GoogleEarthMap">
-			</div>
-			<div id='GoogleEarthLegend'>
+			<div id="plotly">
 			</div>
 		</section>
 	</form>

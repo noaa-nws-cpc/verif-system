@@ -29,39 +29,6 @@ var servlet = (function() {
             });
         },
 
-        response_to_json: function(xml) {
-            var soap = new Soap(xml);
-            var json = [];
-            var fcst_sources = settings['fcstSources'].split(',');
-            if (settings['outputType'] === 'chart') {
-                for (i = 0; i < soap.num_fcst_sources; i++) {
-                    json.push({
-                        x: soap.xvals,
-                        y: soap.scores.total[i],
-                        name: fcst_sources[i],
-                        type: 'scatter',
-                        average: soap.averages.total[i],
-                    });
-                }
-                // For reliability, insert a 'perfect reliability' line
-                if (settings.scoreType === 'reliability') {
-                    json.splice(0, 0, {
-                        x: soap.xvals,
-                        y: [0.05, .15, 0.2667, 0.3667, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95],
-                        type: 'scatter',
-                        showlegend: false,
-                        line: {
-                            color: 'black',
-                            width: 3,
-                        },
-                        hoverinfo: 'none',
-                    })
-                }
-            }
-            // return JSON.stringify(json);
-            return json;
-        },
-
         process_servlet_response: function(xml) {
             // See if the response contains an error string. If so, there was an error
             error_message = $(xml).find('ax21\\:errorMessage, errorMessage').text();
@@ -69,28 +36,21 @@ var servlet = (function() {
                 report_failure(error_message, 'servlet');
                 return;
             }
-            // Clear the results panel title if this is a chart (map page
-            // gets a title from GoogleEarth.js)
-            if (settings['outputType'] === "chart") {
-                $("#resultsPanel > h2").html("<br>");
-            }
+
+            // Clear the results panel title
+            $("#resultsPanel > h2").html("<br>");
 
             // Display a message reminding users to scroll down when completed
             $('#settingsForm .runStatus').css('color','#090');
             $('#settingsForm .runStatus').html("Finished, please scroll down");
             $('#settingsForm .runStatus').show();
 
-            //-------------------------------------------------------
-            // Add information on how to customize the chart
-            //
-            // Show the resultsInteractionPanel
-            $('#resultsInteractionPanel').show();
+            // Create a soap object - this object will process the XML and produce a JSON file
+            // containing everything necessary to plot
+            var soap = new Soap(xml);
 
-            // Get plot data json
-            data = this.response_to_json(xml);
-
-            // Display plot
-            plot = new Plot(data, settings);
+            // Display plot (pass the soap JSON to the plot object)
+            plot = new Plot(soap.json, settings);
             plot.make_plot();
         },
         /**

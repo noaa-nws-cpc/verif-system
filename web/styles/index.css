@@ -506,27 +506,6 @@ section.panel div h2 {
 #chartCustomizer section.tableOfContents li {
 	list-style-type: none;
 }
-/*
----------------------------------------------------------------------
-Google Earth
----------------------------------------------------------------------
-*/
-/* Google Earth div */
-#GoogleEarthMap {
-	width: 840px;
-	height: 500px;
-}
-/* Google Earth popup */
-table.googleTable td {
-	text-align: left;
-	font-size: 1em;
-}
-/* Google Earth Legend */
-#GoogleEarthLegend table {
-    border: thin solid black;
-    border-spacing: 0;
-	border-collapse:collapse;
-}
 #legend tr {
     border: thin solid black;
 	text-align:center;
