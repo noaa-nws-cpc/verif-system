@@ -72,6 +72,16 @@ function Plot(json, settings) {
                 for (var i=0; i < json.map_data.scores.total.length; i++) {
                     text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
                 }
+                // Determine cmin and cmax
+                var cmin, cmax;
+                if (settings.scoreType === 'heidke') {
+                    cmin = -50, cmax = 100;
+                } else if (settings.scoreType === 'rpss') {
+                    cmin = -1, cmax = 1;
+                } else if (settings.scoreType === 'brier') {
+                    cmin = -1, cmax = 1;
+                }
+                // Create the data object
                 data.push({
                     type:'scattergeo',
                     locationmode: 'USA-states',
@@ -86,6 +96,8 @@ function Plot(json, settings) {
                         opacity: 0.8,
                         autocolorscale: false,
                         colorscale: 'picnic',
+                        cmin: cmin,
+                        cmax: cmax,
                         symbol: 'circle',
                         showscale: true,
                     }
