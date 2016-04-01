@@ -50,23 +50,23 @@ The VWT Web GUI is divided into several distinct pages: Chart, Map, and the Tuto
 
 ### High Level Diagrams
 
-Here are high level process flow diagrams for the VWT pages
+Here are high level process flow diagrams for the VWT front- and back-ends
 
-Chart Page
+#### Front-end
 
-![alt](WEB-GUI-README-CHART-FLOW.svg)
+![alt](FRONT-END-FLOW.svg)
 
-Map Page
+#### Back-end
 
-![alt](WEB-GUI-README-MAP-FLOW.svg)
+![alt](BACK-END-FLOW.svg)
 
 Here are overviews of the panels contained on the VWT pages:
 
-Chart Page
+#### Chart Page
 
 ![alt](WEB-GUI-README-CHART-PAGE.svg)
 
-Map Page
+#### Map Page
 
 ![alt](WEB-GUI-README-MAP-PAGE.svg)
 
