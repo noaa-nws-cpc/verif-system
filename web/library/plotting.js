@@ -209,14 +209,13 @@ function Plot(json, settings) {
                 if (settings.scoreType !== 'reliability') {
                     averages_html = '<b>Average Scores</b><br><br>';
                     for (i = 0; i < fcst_sources.length; i++) {
-                        averages_html += '{}:   <i>{}</i><br>'.format(fcst_sources[i], data[i].average);
+                        averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
                     }
                     annotations = [
                         {
                             showarrow: false,
                             text: averages_html,
                             x: 1, y: 0.22,
-                            bordercolor: '#EEE', borderpad: 5,
                             yanchor: 'top', xanchor: 'right',
                             xref: 'paper', yref: 'paper',
                             align: 'left',
@@ -241,8 +240,6 @@ function Plot(json, settings) {
                         y: 0.22,
                         yanchor: 'top',
                         xanchor: 'left',
-                        borderwidth: 1,
-                        bordercolor: '#EEE',
                     },
                     margin: {
                         b: 20,
