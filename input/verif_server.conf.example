@@ -59,7 +59,7 @@ db_obs      = cpc_observations
 ;
 ;   format:   db_name, dbName, etc.
 ;   example:  cpc_climatologies
-db_obs      = cpc_climatologies
+db_clim      = cpc_climatologies
 ;------------------
 ; db_ref:     Name of the database storing reference data (station list, etc.)
 ;
