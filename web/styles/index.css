@@ -29,7 +29,7 @@ body {
 	width: 100%;
 	text-align: center;
 	font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
 }
 html {
@@ -93,11 +93,11 @@ span[data-tooltip] {
 	background-color: red;
 }
 .ui-tooltip-content {
-    font-size: 1.5em !important;
+    font-size: 1.3em !important;
     line-height: 1.1em !important;
 }
 .ui-tooltip-title {
-    font-size: 1.3em !important;
+    font-size: 1.1em !important;
 }
 
 /*
@@ -369,13 +369,13 @@ p.panelNumber {
 }
 /* settingsPanel select, input */
 #settingsPanel select {
-    font-size: 1em;
+    font-size: 0.9em;
 }
 #settingsPanel input {
     font-size: 0.8em !important;
 }
 #settingsPanel input[type="button"] {
-    font-size: 1em !important;
+    font-size: 0.9em !important;
 }
 /* Results Panel */
 #resultsPanel {
