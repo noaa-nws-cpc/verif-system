@@ -58,7 +58,7 @@ img.ui-datepicker-trigger {
 	font-size: 0.9em;
 }
 .ui-datepicker-title {
-	color: black;
+	color: #333;
     font-weight: bold;
 }
 
@@ -122,6 +122,7 @@ Headers
 	margin: 0px auto 10px auto;
 	font-size: 2.2em;
 	text-shadow: 5px 5px 10px #777;
+    color: black;
 }
 
 /*
@@ -292,7 +293,7 @@ p.panelNumber {
 	font-size: 1.3em;
 	color: red;
 	background-color: white;
-	border: 2px solid black;
+	border: 2px solid #333;
 	font-weight: bold;
 	float: left;
 	margin: 0px;
@@ -347,9 +348,9 @@ p.panelNumber {
 }
 /* Settings Panel */
 #settingsPanel {
-	color: black;
+	color: #333;
     text-align: left;
-	width: 300px;
+	width: 350px;
 }
 /* settingsPanel ul */
 #settingsPanel ul {
@@ -518,7 +519,7 @@ section.panel div h2 {
 	font-size: 0.9em;
 }
 #chartCustomizer h3 {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #333;
 }
 #chartCustomizer p.tabToClick {
 	background-color: #EEE;
@@ -536,7 +537,7 @@ section.panel div h2 {
 	text-align:center;
 }
 #legend td {
-    border: thin solid black;
+    border: thin solid #333;
 	padding: 2px 5px;
 	text-align:center;
 	font-size: 0.8em;
@@ -552,7 +553,7 @@ Settings Form
 }
 /* settingsForm fieldset */
 #settingsForm fieldset > legend {
-	border-bottom: 1px dashed black;
+	border-bottom: 1px dashed #333;
 	margin: 0px auto 10px auto;
 	text-align: center;
 	width: 100%;
@@ -594,7 +595,7 @@ Collabsible headers
 	background-color: #EEE;
 	text-decoration:underline;
 	font-weight: bold;
-	border: thin solid black;
+	border: thin solid #333;
 }
 .collapsible-heading.expanded {
 	margin: 0px;
@@ -605,12 +606,12 @@ Collabsible headers
 	background-color: #EEE;
 	text-decoration:underline;
 	font-weight: bold;
-	border: thin solid black;
+	border: thin solid #333;
 	border-bottom: none;
 }
 .collapsible-content {
 	background-color:white;
-	border: thin solid black;
+	border: thin solid #333;
 	border-top: none;
 	padding: 5px 10px;
 }
@@ -695,6 +696,6 @@ ul.tabs.regionsPanelTabs li a, ul.tabs.datesValidTypeTabs li a {
 	font-weight: bold;
 }
 ul.tabs.regionsPanelTabs li.selected a, ul.tabs.regionsPanelTabs a:hover, ul.tabs.datesValidTypeTabs li.selected a, ul.tabs.datesValidTypeTabs a:hover {
-	color: black;
+	color: #333;
 	background-color: white;
 }
