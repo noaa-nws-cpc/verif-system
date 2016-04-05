@@ -130,7 +130,7 @@ Help page
 -----------------------------------------------------------
 */
 #help {
-	width: 840px;
+	width: 890px;
 }
 
 /*
@@ -145,7 +145,7 @@ Containers
 	display: inline-block;
 	margin: 0px auto;
 	padding: 20px 40px;
-	width: 900px;
+	width: 950px;
 	text-align: center;
 	margin: 0px auto;
 	-webkit-border-radius:12px;
@@ -180,17 +180,17 @@ Panels
 
 /* Admin Page Form Panel */
 #adminFormPanel {
-	width: 840px;
+	width: 890px;
 }
 
 /* Admin Page data_settings Panel */
 #adminDataSettingsPanel {
-	width: 840px;
+	width: 890px;
 }
 
 /* News Panel Notifications */
 #newsPanel { /* Panel itself */
-	width: 900px;
+	width: 950px;
 }
 div.message { /* News messages */
 	padding: 5px;
@@ -379,7 +379,7 @@ p.panelNumber {
 /* Results Panel */
 #resultsPanel {
 	text-align: center;
-	width: 840px;
+	width: 890px;
     height: 584px;
 }
 #resultsPanel h2 {
@@ -387,7 +387,7 @@ p.panelNumber {
 }
 /* Error Panel */
 #errorPanel {
-	width: 840px;
+	width: 890px;
 }
 #errorPanel {
 	font-weight: bold;
@@ -395,7 +395,7 @@ p.panelNumber {
 /* Info Panel */
 #infoPanel {
 	text-align: left;
-	width: 840px;
+	width: 890px;
 }
 #infoPanel ul {
 	margin-top: 0px;
@@ -426,7 +426,7 @@ p.panelNumber {
 }
 /* Print Settings Panel */
 #printSettingsPanel {
-	width: 840px;
+	width: 890px;
 	background-color: #BBB;
 }
 /* Tool selector */
@@ -568,7 +568,7 @@ Settings Form
 }
 /* settingsForm labels (left column) */
 #settingsForm span.settingLabel {
-	width: 145px;
+	width: 165px;
 	font-weight: bold;
 	font-size: 1em;
 	margin-bottom: 5px;
