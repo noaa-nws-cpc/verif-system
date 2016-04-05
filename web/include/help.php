@@ -13,7 +13,7 @@ By allowing users to investigate the skill of forecasts by various aspects, user
 <ul>
 <li><b>heidke</b> - This criteria compares how often the forecasts correctly match the category actually observed, over and above the number of correct "hits" expected by chance alone.
 <li><b>brier</b> - This criteria considers the strength of the probability given to a specific category (e.g., warmer or cooler). Forecasts made with higher probabilities are penalized heavily if they are wrong, and forecasts made with lower low probabilites are penalized less severely if they are wrong, since they aren't expected to be correct as often. Conversely, forecasts made wither high probabilities are rewarded more heavily if they are correct, and forecasts made with lower probabilities are rewarded less heavily if they are correct.
-<li><b>rank probability skill score (RPSS)</b> - This criteria is similar to the Brier Skill Score, but it takes into account all categories at once. 
+<li><b>rank probability skill score (RPSS)</b> - This criteria is similar to the Brier Skill Score, but it takes into account all categories at once.
 <li><b>reliability</b> - This criteria indicates how often the forecast probabilities match observations. This is expressed as a diagram chart. A diagonal reference line is usually plotted on the chart representing perfect forecasts. The closer the plotted values are to the reference line, the more reliable the forecast.
 </ul>
 <p>
@@ -25,15 +25,16 @@ After results are displayed there are features that users can use to further ana
 <b>On the chart page:</b>
 </p>
 <ul>
-<li> A button will be displayed on the bottom of the chart that allows you to save the results as an image to your desktop.
-<li>Right-clicking on the chart will pop-up a box that allows you to change the format and look and feel of the chart, such as where the legend is located, the type of chart display (scatter plot, area fill in, etc.), axes settings, saving data to desktop, etc. For more details on how to customize the chart, click the "Customizing the chart" link on the top left of the chart. 
-<li>You can select multiple forecast sources (up to 4). Depending on the selected forecast type, you may be able to select different forecast sources. For example, if you select "seasonal" for "Forecast", you will be able to select the official CPC forecast and/or other forecast models to verify.
+    <li>In the top-right portion of the chart there are icons that provide some interactive tools, such as saving/editing the chart and data, zooming in and out, etc. Hover over each for a short description.</li>
+    <li>Hovering over the lines of the chart will show the value of each of the forecast sources (you can see just the value of the closest forecast source to the cursor by clicking one of the icons on the top-right)</li>
+    <li>You can toggle any of the forecast sources on or off by clicking on them in the legend.</li>
+    <li>You can zoom in on a region, and/or pan around the chart, depending on whether <i>zoom</i> or <i>pan</i> is selected on the top-right.</li>
 </ul>
 <b>On the map page: </b>
 <ul>
-<li>Click on any of the colored dots to pop up the score value and more information about that point.
-<li>On the top right of the map display, you can select "Satellite" to show the satellite view in the map.
-<li>You can use your cursor to drag the map and zoom-in and out by clicking on the zoom scale on the left of the map.
+    <li>In the top-right portion of the map there are icons that provide some interactive tools, such as saving/editing the map and data, zooming in and out, etc. Hover over each for a short description.</li>
+    <li>Hovering over the points on the map will show the value at each of the points, along with the station (grid point) name (number).</li>
+    <li>You can zoom in and out using the mouse wheel or the +/- buttons in the top-right, and pan around the map by clicking and dragging.</li>
 </ul>
 <h3>About select options</h3>
 <p>
