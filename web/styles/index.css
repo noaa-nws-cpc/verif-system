@@ -29,6 +29,8 @@ body {
 	width: 100%;
 	text-align: center;
 	font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #333;
 }
 html {
 	margin: 10px auto;
@@ -53,7 +55,7 @@ img.ui-datepicker-trigger {
 	cursor: pointer;
 }
 #ui-datepicker-div {
-	font-size: 0.75em;
+	font-size: 0.9em;
 }
 .ui-datepicker-title {
 	color: black;
@@ -84,11 +86,18 @@ span[data-tooltip] {
 	color: blue;
 }
 #settingsPanel span[data-tooltip] {
-	font-size: 0.9em;
+	font-size: 1em;
 	font-weight: bold;
 }
 .qtip-content {
 	background-color: red;
+}
+.ui-tooltip-content {
+    font-size: 1.5em !important;
+    line-height: 1.1em !important;
+}
+.ui-tooltip-title {
+    font-size: 1.3em !important;
 }
 
 /*
@@ -189,7 +198,7 @@ div.message { /* News messages */
 	text-align: center;
 	display: table;
 	position: relative;
-	font-size: .8em;
+	font-size: .9em;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	border-width: 1px;
@@ -256,20 +265,20 @@ section.panel {
 	float: left;
 	-webkit-border-radius:12px;
 	border-radius:12px;
-	font-size: 0.8em;
+	font-size: 1em;
 	display: block;
 	behavior: url(library/PIE.php); /* Add IE CSS3 support */
 }
 /* All Panel Labels (using <h2>) */
 section.panel > h2 {
 	font-size: 1.3em;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #333;
 	margin: 0px 0px 5px 0px;
 	text-align: center;
 }
 /* All Panel <h3> tags */
 section.panel h3 {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	margin: 0px 0px 5px 0px;
 	text-decoration: underline;
 }
@@ -280,7 +289,7 @@ section.panel h3 {
 }
 /* All Panel numbers */
 p.panelNumber {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	color: red;
 	background-color: white;
 	border: 2px solid black;
@@ -330,6 +339,9 @@ p.panelNumber {
 	margin-top: 0px; /* Forces it to line up with tabs above */
 	width: 500px;
 }
+#regionsPanel button {
+    font-size: 0.8em;
+}
 #regionsPanel p {
 	margin-right: 0px;
 }
@@ -353,6 +365,16 @@ p.panelNumber {
 #settingsPanel span.runStatus {
 	float: right;
 	font-weight: bold;
+}
+/* settingsPanel select, input */
+#settingsPanel select {
+    font-size: 1em;
+}
+#settingsPanel input {
+    font-size: 0.8em !important;
+}
+#settingsPanel input[type="button"] {
+    font-size: 1em !important;
 }
 /* Results Panel */
 #resultsPanel {
@@ -409,10 +431,10 @@ p.panelNumber {
 }
 /* Tool selector */
 #toolSelector {
-	font-size: 0.8em;
+	font-size: 1em;
 }
 #toolSelector span {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	font-weight: bold;
 }
 #toolSelector .rowHeader {
@@ -487,6 +509,9 @@ section.panel div h2 {
 }
 #datesValidPanel div[data-type=years] table td {
 	vertical-align: top;
+}
+#datesValidPanel input {
+    font-size: 0.8em !important;
 }
 #chartCustomizer {
 	text-align: left;
@@ -666,7 +691,7 @@ ul.tabs.regionsPanelTabs li a, ul.tabs.datesValidTypeTabs li a {
 	color: #444;
 	background: #B4B6B8;
 	padding: 2px 8px;
-	font-size: 0.75em;
+    font-size: 0.9em;
 	font-weight: bold;
 }
 ul.tabs.regionsPanelTabs li.selected a, ul.tabs.regionsPanelTabs a:hover, ul.tabs.datesValidTypeTabs li.selected a, ul.tabs.datesValidTypeTabs a:hover {
