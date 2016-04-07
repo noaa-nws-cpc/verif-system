@@ -54,7 +54,7 @@ function Plot(json, settings) {
                 // Remove stations with a missing score
                 for (var i=(json.map_data.scores.total.length - 1); i >= 0; i--) {
                     // var regex = new RegExp();
-                    if (/^nan$/i.test(json.map_data.scores.total[i])) {
+                    if (json.map_data.scores.total[i] === '') {
                         var fields = [
                             'lon', 'lat', 'names',
                             'scores.total',
