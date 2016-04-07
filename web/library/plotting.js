@@ -173,9 +173,14 @@ function Plot(json, settings) {
                 }
                 // Setup the axes
                 if (settings.scoreType !== 'reliability') {
+                    if (settings.aveWindow.match(/\d+m/)) {
+                        tickformat = '%m/%Y';
+                    } else {
+                        tickformat = '%m/%d/%Y';
+                    }
                     xaxis = {
                         title: 'Date (center of valid period)',
-                        tickformat: '%m/%d/%Y',
+                        tickformat: tickformat,
                     };
                     yaxis = {
                         title: title_str_convert[settings['scoreType']],
