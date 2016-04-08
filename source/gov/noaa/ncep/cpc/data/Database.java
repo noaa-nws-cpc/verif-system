@@ -667,10 +667,10 @@ public class Database {
 		try {
 			// For ClimateDivisions, use the id column in the WHERE clause
 			if (spatialType.compareToIgnoreCase("climateDivision") == 0) {
-				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE id RLIKE '(" + regionList + ")'";
+				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE id RLIKE '(" + regionList + ")' ORDER BY id";
 			// For station or gridded, use the column specified by the regionType variable
 			} else {
-				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + regionType + " RLIKE '(" + regionList + ")'";
+				sqlQuery = "SELECT id AS locationId FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + regionType + " RLIKE '(" + regionList + ")' ORDER BY id";
 			}
 			logger.debug("Query to retrieve the location ID array: " + sqlQuery);
 			rs = dbConnection.createStatement().executeQuery(sqlQuery);
@@ -718,7 +718,7 @@ public class Database {
 		regionList = Sql.regionsToRegex(regions, regionType);
 		// Try to execute an SQL query
 		try {
-			sqlQuery = "SELECT name AS locationName FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")'";
+			sqlQuery = "SELECT name AS locationName FROM (SELECT id, name FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")' ORDER BY id) AS tempList";
 			logger.debug("Query to retrieve the location name array: " + sqlQuery);
 			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
@@ -754,6 +754,7 @@ public class Database {
 		String spatialType = settingsObj.getSpatialType();
 		String regionType  = settingsObj.getRegionType();
 		String refDBName   = settingsObj.getRefDBName();
+		String sqlQuery;
 		ResultSet rs = null;
 		String spatialTypeStr = null;
 		String regionList = null;
@@ -764,7 +765,9 @@ public class Database {
 
 		// Try to execute an SQL query
 		try {
-			rs = dbConnection.createStatement().executeQuery("SELECT lon,lat FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")'");
+			sqlQuery = "SELECT lon, lat FROM (SELECT id, lon, lat FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")' ORDER BY id) AS tempList";
+			logger.debug("Query to retrieve the location lon array: "+sqlQuery);
+			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
 			rs.last();
 			int numRows = rs.getRow();
@@ -797,6 +800,7 @@ public class Database {
 		String spatialType = settingsObj.getSpatialType();
 		String regionType  = settingsObj.getRegionType();
 		String refDBName   = settingsObj.getRefDBName();
+		String sqlQuery;
 		ResultSet rs = null;
 		String spatialTypeStr = null;
 		String regionList = null;
@@ -807,7 +811,9 @@ public class Database {
 
 		// Try to execute an SQL query
 		try {
-			rs = dbConnection.createStatement().executeQuery("SELECT lon FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")'");
+			sqlQuery = "SELECT lon FROM (SELECT id, lon FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")' ORDER BY id) AS tempList";
+			logger.debug("Query to retrieve the location lat array: "+sqlQuery);
+			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
 			rs.last();
 			int numRows = rs.getRow();
@@ -841,6 +847,7 @@ public class Database {
 		String spatialType = settingsObj.getSpatialType();
 		String regionType  = settingsObj.getRegionType();
 		String refDBName   = settingsObj.getRefDBName();
+		String sqlQuery;
 		ResultSet rs = null;
 		String spatialTypeStr = null;
 		String regionList = null;
@@ -851,7 +858,9 @@ public class Database {
 
 		// Try to execute an SQL query
 		try {
-			rs = dbConnection.createStatement().executeQuery("SELECT lat FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")'");
+			sqlQuery = "SELECT lat FROM (SELECT id, lat FROM " + refDBName + "." + Sql.getRefTableName(spatialType) + " WHERE " + refDBName + "." + Sql.getRefTableName(spatialType) + "." + regionType + " RLIKE '(" + regionList + ")' ORDER BY id) AS tempList";
+			logger.debug("Query to retrieve the location lat array: "+sqlQuery);
+			rs = dbConnection.createStatement().executeQuery(sqlQuery);
 			// Determine the total number of rows
 			rs.last();
 			int numRows = rs.getRow();
