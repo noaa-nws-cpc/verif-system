@@ -593,11 +593,8 @@
 			$('input,textarea,:input').attr('autocomplete', 'off');
 		});
 	</script>
-	<?php
-		// 2014-10-15 / Sherry Jones / CSRF fix
-		// ONLY UNCOMMENT THIS ON THE PUBLIC SERVER, THIS FILE IS NOT YET AVAILABLE INTERNALLY
-//		require_once '/var/www/cpcvwt/htdocs/ncep_common/csrf-magic.php';
-	?>
+	<!-- CSRF fix -->
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/ncep_common/csrf-magic.php');?>
 </head>
 <body class="center">
 	<div id="outerContainer">
