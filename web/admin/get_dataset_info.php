@@ -31,9 +31,9 @@ $data_settings = null;
 // Do this only after the form is submitted
 if (isset($_GET['submit'])) {
 	// Get POST variables from form
-	$data_type         = $_GET['data_type'] ?: NULL;
-	$observation_table = $_GET['observation_table'] ?: NULL;
-	$forecast_table    = $_GET['forecast_table'] ?: NULL;
+	$data_type         = filter_var($_GET['data_type'], FILTER_SANITIZE_STRING) ?: NULL;
+	$observation_table = filter_var($_GET['observation_table'], FILTER_SANITIZE_STRING) ?: NULL;
+	$forecast_table    = filter_var($_GET['forecast_table'], FILTER_SANITIZE_STRING) ?: NULL;
 
 	// Get a list of the column names from the dataSettings table
 	$results = mysql_query("DESC $dataSettings_table");

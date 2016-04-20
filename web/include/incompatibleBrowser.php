@@ -1,6 +1,6 @@
 <?
-$browser = $_GET['browser'];
-$requiredVersion = $_GET['requiredVersion'];
+$browser = filter_var($_GET['browser'], FILTER_SANITIZE_STRING);
+$requiredVersion = filter_var($_GET['requiredVersion'], FILTER_SANITIZE_STRING);
 ?>
 <!DOCTYPE HTML>
 <html>
