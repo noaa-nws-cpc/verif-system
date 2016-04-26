@@ -191,17 +191,6 @@
 		<set_classpath />
 		<!-- Compile Java sources -->
 		<compile_java_sources />
-		<!-- Create a client jar file -->
-		<compile_jar config-file-name="${input}/verif_client.conf" jar-file-name="${build}/verif_client.jar"/>
-		<!-- Copy dependency jars into web directory -->
-		<mkdir dir="${web}/library/java"/>
-		<copy todir="${web}/library/java">
-			<fileset dir="${library}/java">
-				<include name="**/*.jar"/>
-			</fileset>
-		</copy>
-		<!-- Copy the client jar file into the web directory -->
-		<copy file="${build}/verif_client.jar" tofile="${web}/verif_client.jar"/>
 		<!-- Create a server jar file -->
 		<compile_jar config-file-name="${input}/verif_server.conf" jar-file-name="${build}/verif_server.jar" />
 		<!-- Generate web services file -->

@@ -63,7 +63,9 @@ function Soap(xml) {
         for (var c in json_temp.stats.scoreCatFloatArray[f].array) {
             json.scores[cat_num_to_str[c]][f] = [];
             for (var d in json_temp.stats.scoreCatFloatArray[f].array[c].array) {
-                json.scores[cat_num_to_str[c]][f].push(json_temp.stats.scoreCatFloatArray[f].array[c].array[d]._text);
+                var val = json_temp.stats.scoreCatFloatArray[f].array[c].array[d]._text;
+                if (/^nan$/i.test(val)) val = '';
+                json.scores[cat_num_to_str[c]][f].push(val);
             }
         }
     }
@@ -78,10 +80,17 @@ function Soap(xml) {
         for (var i in json_temp.referenceArray) {
             if (settings['scoreType'] !== 'reliability') {
                 var temp_var = json_temp.referenceArray[i]._text.split('/');
-                m = temp_var[0];
-                d = temp_var[1];
-                y = temp_var[2];
-                val = '{}-{}-{}'.format(y, m, d);
+                // Long-leads only have a y and m
+                if (settings.aveWindow.match(/\d+m/)) {
+                    m = temp_var[0];
+                    y = temp_var[1];
+                    val = '{}-{}-{}'.format(y, m, 1); // Fake a day so plotly accepts the dates
+                } else {
+                    m = temp_var[0];
+                    d = temp_var[1];
+                    y = temp_var[2];
+                    val = '{}-{}-{}'.format(y, m, d);
+                }
             } else {
                 val = json_temp.referenceArray[i]._text;
             }

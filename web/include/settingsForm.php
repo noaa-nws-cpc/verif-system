@@ -195,8 +195,8 @@
 						-->
 						<li data-setting="categorytype">
 							<div data-scoretype="heidke, brier, reliability">
-								<span class="settingLabel">Forecast categories <br>[<span data-label="Forecast categories" data-tooltip="How to treat forecast categories (above normal, normal, below normal) when calculating the skill score. You can calculate the skill score for all the categories combined or calculate the score for each category separately."> ? </span>]</span>
-								<select name="categoryType">
+								<span class="settingLabel">Forecast categories <br>[<span data-label="Forecast categories" data-tooltip="How to treat forecast categories (above normal, normal, below normal) when calculating the skill score. You can calculate the skill score for all the categories combined or calculate the score for each category separately."> ? </span>] (<i>available soon</i>)</span>
+								<select name="categoryType" disabled="disabled">
 									<option value="total">include all</option>
 									<?php if ($page === "chart") {print "<option value=\"separate\">all separately</option> <option value=\"B\">Below normal</option> <option value=\"N\">Normal</option> <option value=\"A\">Above normal</option>";} ?>
 									<?php if ($page === "map") {print "<option value=\"B\">Below normal</option> <option value=\"N\">Normal</option> <option value=\"A\">Above normal</option>";} ?>

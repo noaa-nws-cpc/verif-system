@@ -351,7 +351,7 @@ Verification = {
 				return;
 			}
 		} else {
-			settings['regions'] = "CONUS";
+			settings['regions'] = "All";
 		}
 
 		///////////////////////////////////////////////////////

@@ -54,7 +54,7 @@ function Plot(json, settings) {
                 // Remove stations with a missing score
                 for (var i=(json.map_data.scores.total.length - 1); i >= 0; i--) {
                     // var regex = new RegExp();
-                    if (/^nan$/i.test(json.map_data.scores.total[i])) {
+                    if (json.map_data.scores.total[i] === '') {
                         var fields = [
                             'lon', 'lat', 'names',
                             'scores.total',
@@ -173,9 +173,14 @@ function Plot(json, settings) {
                 }
                 // Setup the axes
                 if (settings.scoreType !== 'reliability') {
+                    if (settings.aveWindow.match(/\d+m/)) {
+                        tickformat = '%m/%Y';
+                    } else {
+                        tickformat = '%m/%d/%Y';
+                    }
                     xaxis = {
                         title: 'Date (center of valid period)',
-                        tickformat: '%m/%d/%Y',
+                        tickformat: tickformat,
                     };
                     yaxis = {
                         title: title_str_convert[settings['scoreType']],
@@ -209,14 +214,13 @@ function Plot(json, settings) {
                 if (settings.scoreType !== 'reliability') {
                     averages_html = '<b>Average Scores</b><br><br>';
                     for (i = 0; i < fcst_sources.length; i++) {
-                        averages_html += '{}:   <i>{}</i><br>'.format(fcst_sources[i], data[i].average);
+                        averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
                     }
                     annotations = [
                         {
                             showarrow: false,
                             text: averages_html,
                             x: 1, y: 0.22,
-                            bordercolor: '#EEE', borderpad: 5,
                             yanchor: 'top', xanchor: 'right',
                             xref: 'paper', yref: 'paper',
                             align: 'left',
@@ -241,8 +245,6 @@ function Plot(json, settings) {
                         y: 0.22,
                         yanchor: 'top',
                         xanchor: 'left',
-                        borderwidth: 1,
-                        bordercolor: '#EEE',
                     },
                     margin: {
                         b: 20,

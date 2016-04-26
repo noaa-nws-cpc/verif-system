@@ -29,6 +29,8 @@ body {
 	width: 100%;
 	text-align: center;
 	font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #333;
 }
 html {
 	margin: 10px auto;
@@ -53,10 +55,10 @@ img.ui-datepicker-trigger {
 	cursor: pointer;
 }
 #ui-datepicker-div {
-	font-size: 0.75em;
+	font-size: 0.9em;
 }
 .ui-datepicker-title {
-	color: black;
+	color: #333;
     font-weight: bold;
 }
 
@@ -84,11 +86,18 @@ span[data-tooltip] {
 	color: blue;
 }
 #settingsPanel span[data-tooltip] {
-	font-size: 0.9em;
+	font-size: 1em;
 	font-weight: bold;
 }
 .qtip-content {
 	background-color: red;
+}
+.ui-tooltip-content {
+    font-size: 1.3em !important;
+    line-height: 1.1em !important;
+}
+.ui-tooltip-title {
+    font-size: 1.1em !important;
 }
 
 /*
@@ -113,6 +122,7 @@ Headers
 	margin: 0px auto 10px auto;
 	font-size: 2.2em;
 	text-shadow: 5px 5px 10px #777;
+    color: black;
 }
 
 /*
@@ -121,7 +131,7 @@ Help page
 -----------------------------------------------------------
 */
 #help {
-	width: 840px;
+	width: 890px;
 }
 
 /*
@@ -136,7 +146,7 @@ Containers
 	display: inline-block;
 	margin: 0px auto;
 	padding: 20px 40px;
-	width: 900px;
+	width: 950px;
 	text-align: center;
 	margin: 0px auto;
 	-webkit-border-radius:12px;
@@ -171,17 +181,17 @@ Panels
 
 /* Admin Page Form Panel */
 #adminFormPanel {
-	width: 840px;
+	width: 890px;
 }
 
 /* Admin Page data_settings Panel */
 #adminDataSettingsPanel {
-	width: 840px;
+	width: 890px;
 }
 
 /* News Panel Notifications */
 #newsPanel { /* Panel itself */
-	width: 900px;
+	width: 950px;
 }
 div.message { /* News messages */
 	padding: 5px;
@@ -189,7 +199,7 @@ div.message { /* News messages */
 	text-align: center;
 	display: table;
 	position: relative;
-	font-size: .8em;
+	font-size: .9em;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	border-width: 1px;
@@ -256,20 +266,20 @@ section.panel {
 	float: left;
 	-webkit-border-radius:12px;
 	border-radius:12px;
-	font-size: 0.8em;
+	font-size: 1em;
 	display: block;
 	behavior: url(library/PIE.php); /* Add IE CSS3 support */
 }
 /* All Panel Labels (using <h2>) */
 section.panel > h2 {
 	font-size: 1.3em;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #333;
 	margin: 0px 0px 5px 0px;
 	text-align: center;
 }
 /* All Panel <h3> tags */
 section.panel h3 {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	margin: 0px 0px 5px 0px;
 	text-decoration: underline;
 }
@@ -280,10 +290,10 @@ section.panel h3 {
 }
 /* All Panel numbers */
 p.panelNumber {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	color: red;
 	background-color: white;
-	border: 2px solid black;
+	border: 2px solid #333;
 	font-weight: bold;
 	float: left;
 	margin: 0px;
@@ -330,14 +340,17 @@ p.panelNumber {
 	margin-top: 0px; /* Forces it to line up with tabs above */
 	width: 500px;
 }
+#regionsPanel button {
+    font-size: 0.8em;
+}
 #regionsPanel p {
 	margin-right: 0px;
 }
 /* Settings Panel */
 #settingsPanel {
-	color: black;
+	color: #333;
     text-align: left;
-	width: 300px;
+	width: 350px;
 }
 /* settingsPanel ul */
 #settingsPanel ul {
@@ -354,10 +367,20 @@ p.panelNumber {
 	float: right;
 	font-weight: bold;
 }
+/* settingsPanel select, input */
+#settingsPanel select {
+    font-size: 0.9em;
+}
+#settingsPanel input {
+    font-size: 0.8em !important;
+}
+#settingsPanel input[type="button"] {
+    font-size: 0.9em !important;
+}
 /* Results Panel */
 #resultsPanel {
 	text-align: center;
-	width: 840px;
+	width: 890px;
     height: 584px;
 }
 #resultsPanel h2 {
@@ -365,7 +388,7 @@ p.panelNumber {
 }
 /* Error Panel */
 #errorPanel {
-	width: 840px;
+	width: 890px;
 }
 #errorPanel {
 	font-weight: bold;
@@ -373,7 +396,7 @@ p.panelNumber {
 /* Info Panel */
 #infoPanel {
 	text-align: left;
-	width: 840px;
+	width: 890px;
 }
 #infoPanel ul {
 	margin-top: 0px;
@@ -404,15 +427,15 @@ p.panelNumber {
 }
 /* Print Settings Panel */
 #printSettingsPanel {
-	width: 840px;
+	width: 890px;
 	background-color: #BBB;
 }
 /* Tool selector */
 #toolSelector {
-	font-size: 0.8em;
+	font-size: 1em;
 }
 #toolSelector span {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	font-weight: bold;
 }
 #toolSelector .rowHeader {
@@ -488,12 +511,15 @@ section.panel div h2 {
 #datesValidPanel div[data-type=years] table td {
 	vertical-align: top;
 }
+#datesValidPanel input {
+    font-size: 0.8em !important;
+}
 #chartCustomizer {
 	text-align: left;
 	font-size: 0.9em;
 }
 #chartCustomizer h3 {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #333;
 }
 #chartCustomizer p.tabToClick {
 	background-color: #EEE;
@@ -511,7 +537,7 @@ section.panel div h2 {
 	text-align:center;
 }
 #legend td {
-    border: thin solid black;
+    border: thin solid #333;
 	padding: 2px 5px;
 	text-align:center;
 	font-size: 0.8em;
@@ -527,7 +553,7 @@ Settings Form
 }
 /* settingsForm fieldset */
 #settingsForm fieldset > legend {
-	border-bottom: 1px dashed black;
+	border-bottom: 1px dashed #333;
 	margin: 0px auto 10px auto;
 	text-align: center;
 	width: 100%;
@@ -543,7 +569,7 @@ Settings Form
 }
 /* settingsForm labels (left column) */
 #settingsForm span.settingLabel {
-	width: 145px;
+	width: 165px;
 	font-weight: bold;
 	font-size: 1em;
 	margin-bottom: 5px;
@@ -569,7 +595,7 @@ Collabsible headers
 	background-color: #EEE;
 	text-decoration:underline;
 	font-weight: bold;
-	border: thin solid black;
+	border: thin solid #333;
 }
 .collapsible-heading.expanded {
 	margin: 0px;
@@ -580,12 +606,12 @@ Collabsible headers
 	background-color: #EEE;
 	text-decoration:underline;
 	font-weight: bold;
-	border: thin solid black;
+	border: thin solid #333;
 	border-bottom: none;
 }
 .collapsible-content {
 	background-color:white;
-	border: thin solid black;
+	border: thin solid #333;
 	border-top: none;
 	padding: 5px 10px;
 }
@@ -666,10 +692,10 @@ ul.tabs.regionsPanelTabs li a, ul.tabs.datesValidTypeTabs li a {
 	color: #444;
 	background: #B4B6B8;
 	padding: 2px 8px;
-	font-size: 0.75em;
+    font-size: 0.9em;
 	font-weight: bold;
 }
 ul.tabs.regionsPanelTabs li.selected a, ul.tabs.regionsPanelTabs a:hover, ul.tabs.datesValidTypeTabs li.selected a, ul.tabs.datesValidTypeTabs a:hover {
-	color: black;
+	color: #333;
 	background-color: white;
 }

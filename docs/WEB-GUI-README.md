@@ -50,25 +50,31 @@ The VWT Web GUI is divided into several distinct pages: Chart, Map, and the Tuto
 
 ### High Level Diagrams
 
-Here are high level process flow diagrams for the VWT pages:
+Here are high level process flow diagrams for the VWT front- and back-ends
 
-* [Chart Page](https://docs.google.com/a/noaa.gov/drawings/d/1IeRezqS7tJJDRo2FqQbdH4ZJQ-uo0J_NZrs34pWzxPY/edit)
+#### Front-end
 
-* [Map Page](https://docs.google.com/a/noaa.gov/drawings/d/1_kYfmIhFgDm0dK6jhXKU5KuYEP8ioP0T6453jgLdNxg/edit)
+![alt](FRONT-END-FLOW.svg)
+
+#### Back-end
+
+![alt](BACK-END-FLOW.svg)
 
 Here are overviews of the panels contained on the VWT pages:
 
-* [Chart Page](https://docs.google.com/a/noaa.gov/drawings/d/1W7HOSKgJysml7HXlRzDVTYQG7Dp8FiJU-txcVxEq6Es/edit)
+#### Chart Page
 
-* [Map Page](https://docs.google.com/a/noaa.gov/drawings/d/1ucm2azKhUIf3-6HOuKfMEc2m7Wcw0c2ELFTCbmIka20/edit)
+![alt](WEB-GUI-README-CHART-PAGE.svg)
 
-**<span style='color: #D00'>THIS INFORMATION NEEDS TO BE UPDATED</span>**
+#### Map Page
+
+![alt](WEB-GUI-README-MAP-PAGE.svg)
 
 ## Using the Web GUI
 
 ### Chart Page
 
-Follow these steps to generate verification results (see the [Chart Page Panels Overview](https://docs.google.com/a/noaa.gov/drawings/d/1W7HOSKgJysml7HXlRzDVTYQG7Dp8FiJU-txcVxEq6Es/edit) for help locating a panel):
+Follow these steps to generate verification results:
 
 #### Step 1 – Select options
 
@@ -100,7 +106,7 @@ The Info Panel will contain a summary of the results, information about reading 
 
 ### Map Page
 
-Follow these steps to generate verification results (see the [Map Page Panels Overview](https://docs.google.com/a/noaa.gov/drawings/d/1ucm2azKhUIf3-6HOuKfMEc2m7Wcw0c2ELFTCbmIka20/edit) for help locating a panel):
+Follow these steps to generate verification results:
 
 #### Step 1 – Select options
 
