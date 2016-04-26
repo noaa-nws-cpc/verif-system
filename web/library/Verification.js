@@ -351,7 +351,12 @@ Verification = {
 				return;
 			}
 		} else {
-			settings['regions'] = "All";
+			// For temp set to All, otherwise set to CONUS
+			if (settings['variable'] == "temp") {
+				settings['regions'] = "All";
+			} else {
+				settings['regions'] = "CONUS";
+			}
 		}
 
 		///////////////////////////////////////////////////////
