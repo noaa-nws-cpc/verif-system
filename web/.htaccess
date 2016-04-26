@@ -1,3 +1,14 @@
+Order Deny,Allow
+#Deny from all
+
+Allow from 10.90.191.
+Allow from 10.90.195.
+Allow from 10.90.196.
+Allow from 192.168.57.
+
+# MAKE PUBLIC
+Allow from all
+
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
