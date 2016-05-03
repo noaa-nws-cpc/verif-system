@@ -117,7 +117,9 @@ When running in Command Line Direct Access Mode, the config files `input/verif_d
 1. Copy the example config files to real config files:  
 
     ```sh
-    cd input    cp verif_direct_access.conf.example verif_direct_access.conf    cp verif_data.conf.example verif_data.conf
+    cd input
+    cp verif_direct_access.conf.example verif_direct_access.conf
+    cp verif_data.conf.example verif_data.conf
     ```
 
 2. Edit the config files, following the instructions in the file.
@@ -166,7 +168,8 @@ More detailed instructions for running the system can be found in the[ Verificat
 
 2. The Verification System reads in settings (eg. variable, date range, score type, etc.) from an XML file in the ./input directory. Copy the quicktest settings XML file over the existing settings XML file:
 
-**cd inputcp settings_quicktest.xml settings.xml**
+**cd input
+cp settings_quicktest.xml settings.xml**
 
 1. Run the following command to run the Verification System using settings from this XML file:
 
@@ -186,7 +189,10 @@ When running in Command Line Web Services Mode, the config files input/verif_cli
 
 1. Copy the example config file to a real config file:
 
-**cd inputcp verif_client.conf.example verif_client.confcp verif_server.conf.example verif_server.confcp verif_data.conf.example verif_data.conf**
+**cd input
+cp verif_client.conf.example verif_client.conf
+cp verif_server.conf.example verif_server.conf
+cp verif_data.conf.example verif_data.conf**
 
 1. Edit the config files, following the instructions in the files.
 
@@ -255,7 +261,8 @@ More detailed instructions for running the system can be found in the[ Verificat
 
 2. The Verification System reads in settings (eg. variable, date range, score type, etc.) from an XML file in the ./input directory. Copy the quicktest settings XML file over the existing settings XML file:
 
-**cd inputcp settings_quicktest.xml settings.xml**
+**cd input
+cp settings_quicktest.xml settings.xml**
 
 1. Run the following command to run the Verification System using settings from this XML file:
 
@@ -274,7 +281,9 @@ When running in Web Tool mode, the config files `input/verif_server.conf` and `i
 1. Copy the example config files to real config files:
 
     ```sh
-    cd input    cp verif_server.conf.example verif_server.conf    cp web_settings.example.php web_settings.php
+    cd input
+    cp verif_server.conf.example verif_server.conf
+    cp web_settings.example.php web_settings.php
     ```
 
 2. Edit the config files, following the instructions in the files.
@@ -340,7 +349,7 @@ In order to view the VWT in a web browser, the webpage files need to be placed o
 
         scp build/vwt.tar.gz <user>@wwwdev1.ncep.noaa.gov:/usr2/cpc/cpcintradev/htdocs/apps
 
-  where user is a user account with write permission to the web area (/usr2/cpc/cpcintradev/htdocs)
+  where user is a user account with write permission to the web area (/usr2/cpc/cpcintradev/htdocs). If this is for the public VWT, scp the file to `cpc@cpcrzdm.ncep.noaa.gov:/home/people/cpc/cpcvwt/web-files`
 
 2. Log into the web server:
 
