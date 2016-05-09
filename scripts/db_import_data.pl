@@ -24,7 +24,7 @@ db_import_data - A Perl script to import ascii forecast and observation data int
      -m, -model            Specific model tool is based on             gfs, gefs, cmce, ecm, ecens, cdcgfs, naefs
      -c, -cycle            Specific model cycle                        00z, 06z, 12z, 18z, al
 
-   Note: -cycle not required for model = (obs, manual, auto, or cdcgfs)
+   Note: -cycle not required for model = (obs, manual, auto, or naefs)
 
  Optional arguments:
    -h, -help         Print this help message
@@ -635,8 +635,8 @@ sub mysql_getDataTableName {
 	my $dataTableName;
 	if ($args{'dataType'} eq "forecast") {
 		if ($args{'fcstSource'} eq "tool") {
-			# If the model for this tool is manual, auto, or obs, then there's no cycle
-			if ($args{'model'} eq "manual" or $args{'model'} eq "auto" or $args{'model'} eq "obs" or $args{model} eq "cdcgfs") {
+			# If the model for this tool is manual, auto, naefs obs, then there's no cycle
+			if ($args{'model'} eq "manual" or $args{'model'} eq "auto" or $args{'model'} eq "obs" or $args{model} eq "naefs") {
 				$newFcstSource = "$args{'tool'}_$args{'model'}";
 			} else {
 				$newFcstSource = "$args{'tool'}_$args{'model'}_$args{'cycle'}";
@@ -1192,10 +1192,10 @@ sub validateArgs {
 			# cycle
 			#--------------------------------------------------------------------
 			# Cycle not required for the following models:
-			#   - cdcgfs
+			#   - naefs
 			#   - manual
 			#   - auto
-			unless ($args{model} =~ m/\b(cdcgfs|manual|auto)\b/) {
+			unless ($args{model} =~ m/\b(naefs|manual|auto)\b/) {
 				$regex = '\d{2}z|al';
 				unless (defined($args{cycle}) and $args{cycle} =~ m/\b($regex)\b/) { pod2usage("\nThe -cycle option was not set properly. Must match the following regex: $regex\n"); }
 			}
