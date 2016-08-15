@@ -8,10 +8,10 @@ File name
 
 Data files can be named however you'd like, but they need a few pieces of information in the name:
 
-1. Variable (temp or precip)
-2. Model/tool name (eg. gfs-00z, kleins, ecca, etc. - attach the cycle if the source is a model with a cycle)
-3. Lead (eg. 6-10day, 02m_03m [seasonal - <lead>_<window>], etc.)
-4. Spatial type (eg. stn, gridded, cd, etc.)
+1. Variable (`temp` or `precip`)
+2. Model/tool name (eg. `gfs-00z`, `kleins`, `ecca`, etc. - attach the cycle if the source is a model with a cycle)
+3. Lead (eg. `6-10day`, `02m_03m` [seasonal - `<lead>_<window>`], etc.)
+4. Spatial type (eg. `stn`, `gridded`, `cd`, etc.)
 
 Also, it's best to use a `.txt` extension.
 
