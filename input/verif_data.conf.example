@@ -15,6 +15,57 @@
 ;
 
 ;--------------------------------------------------------------------
+; Climatology settings
+;
+[clim]
+;------------------
+; percent-dry-file-template: Jinja2 template for percent-dry climo files - the following Jinja2
+; template variables are supported:
+;   - {{ window }}
+;   - {{ mmdd }}
+;
+;   format:   string containing Jinja2 template variables and/or environment variables
+;   example:  $DATA_IN/climatologies/land_air/short_range/global/precip_percent_dry/1deg/{{ window }}/precip_percent_dry_{{ window }}_{{ mmdd }}.bin
+percent-dry-file-template = $DATA_IN/climatologies/land_air/short_range/global/precip_percent_dry/1deg/{{ window }}/precip_percent_dry_{{ window }}_{{ mmdd }}.bin
+
+;------------------
+; windows: windows to loop over and import climatologies for
+;
+;   format:   comma-delimited list of strings, formatted as NNd or NNm, where NN is a zero-padded
+;             number of days (months) when followed by a d (m)
+;   example:  03d, 05d, 07d
+windows = 03d, 05d, 07d
+
+;------------------
+; input-geogrid: Geogrid name that applies to the climatology files - to get a list of all built-in
+;                Geogrid names, type this on the command line:
+;
+;                python -c "from cpc.geogrids import list_builtin_geogrids ; print(list_builtin_geogrids())"
+;
+;   format:   string
+;   example:  1deg-global
+input-geogrid = 1deg-global
+
+;------------------
+; output-geogrid: Geogrid name that applies to the climatology that will be written to the
+;                 database - climatology data will be interpolated from 'input-geogrid' to
+;                 'output-geogrid' before data insertion -  to get a list of all built-in Geogrid
+;                 names, type this on the command line:
+;
+;                 python -c "from cpc.geogrids import list_builtin_geogrids ; print(list_builtin_geogrids())"
+;
+;   format:   string
+;   example:  1deg-global
+output-geogrid = 2deg-conus
+
+;------------------
+; dates: Dates that the climatology to insert applies to
+;
+;   format:   string in the format YYYY_YYYY
+;   example:  1981_2010
+dates = 1981_2010
+
+;--------------------------------------------------------------------
 ; MySQL Settings
 ;
 [mysql]
