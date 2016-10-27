@@ -1,6 +1,8 @@
 # Root-level files/dirs
 /build
 /classes
+/logs
+/output
 # Temp dirs
 /web/library/java
 /web/verif_client.jar
@@ -8,3 +10,6 @@
 /input/verif_*.conf
 /web/library/web_settings.php
 /input/web_settings.php
+# File types
+*.swp
+*.log
