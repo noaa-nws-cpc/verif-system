@@ -1,0 +1,4 @@
+pymysql
+jinja2
+pandas
+cpc.geofiles

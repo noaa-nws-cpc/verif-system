@@ -1,4 +1,5 @@
 # Root-level files/dirs
+/.idea
 /build
 /classes
 /logs
