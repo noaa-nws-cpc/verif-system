@@ -375,7 +375,10 @@ dateStringArray - Array of Strings of the dates associated with the data points 
         */
         public boolean getDryLocationCorrection() {
 			if (this.getVariable().equals("precip") && this.getScoreType().equals("heidke") && 
-			this.getLeadTimeUnit().compareToIgnoreCase("d")==0 && (this.getSpatialType().equals("station") || this.getSpatialType().equals("gridded"))) {
+			    this.getLeadTimeUnit().compareToIgnoreCase("d")==0 &&
+			    (this.getSpatialType().equals("station") || this.getSpatialType().equals("gridded")) &&
+			    Arrays.asList("extendedRange").contains(this.getFcstType())
+			) {
 				return true;
 			}
 			else {
