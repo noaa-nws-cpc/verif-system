@@ -300,11 +300,10 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	@return String of the forecast type
 	*/
 	public String getFcstType() {
-		String regex = SettingsHashLibrary.getPossibleCategoryUnitsList() + "\\d+and\\d+";
+		String regex = ".*(" + SettingsHashLibrary.getPossibleCategoryUnitsList() + ")-([0-9pt]+)-and-([0-9pt]+).*";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher match = pattern.matcher(this.getForecastToolName(getFcstSources()));
 		if (match.find()) {
-			logger.debug("PROBHAZ!!!!!");
 			return "extremes";
 		} else if (this.getLeadTimeUnit().compareToIgnoreCase("d")==0) {
 			return "extendedRange";
