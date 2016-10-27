@@ -1290,15 +1290,10 @@ public class Data {
 		//-----------------------------------------------------------
 		// Determine the climatology period(s) spanned by the valid dates
 		//
-		// This is really a future feature. Currently Scott's verification
-		// system uses the 1971-2000 dry location climo for all forecasts,
-		// including those made after the switch to the 1981-2010 climos.
-		// The first stage of adding dry location correction is to match
-		// Scott's methods, so we don't need to care if the VWT selection
-		// spans multiple climo periods. In the future, we will want to
-		// add this feature though, so the partially completed method
-		// gov.noaa.ncep.cpc.utils.Date.climPeriods() will be the future
-		// method used to get the climo periods.
+		// This is really a future feature. Currently we use 1981-2010.
+		// In the future, we will want to add this feature though, so the
+		// partially completed method gov.noaa.ncep.cpc.utils.Date.climPeriods()
+		// will be the future method used to get the climo periods.
 		//-----------------------------------------------------------
 		// Get the first and last valid forecast dates to bound observation data by
 		String[] dateBounds = getFcstDateValidBounds();
@@ -1309,7 +1304,7 @@ public class Data {
 		// Determine table
 		//-----------------------------------------------------------
 		// Data table name
-		dataTableName = "`" + Sql.getDataTableName("percentDry", aveWindow, "1971-2000", spatialType) + "`";
+		dataTableName = "`" + Sql.getDataTableName("percentDry", aveWindow, "1981-2010", spatialType) + "`";
 
 		// Reference table name
 		refTableName = Sql.getRefTableName(spatialType);
