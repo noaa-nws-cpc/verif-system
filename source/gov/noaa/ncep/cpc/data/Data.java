@@ -129,7 +129,7 @@ public class Data {
 
 		// In the case of the extended range forecast, get the number of weekdays in the retrieved dataset
 		// This is so that a number can be retrieved for expected # forecasts, and extended range forecasts are only issued on the weekends
-		if (settingsObj.getFcstType().equals("extendedRange")) {
+		if (Arrays.asList("extendedRange", "extremes").contains(settingsObj.getFcstType())) {
 			numWeekdays = gov.noaa.ncep.cpc.utils.Date.numWeekdays(issuedDatesArray);
 		}
 		// Try to load observation data
@@ -216,7 +216,7 @@ public class Data {
 			referenceArray = locationNameArray;
 		}
 		else if (outputDimension.compareToIgnoreCase("probability") == 0) {
-			if (settingsObj.getFcstType().equals("extendedRange")) {
+			if (Arrays.asList("extendedRange", "extremes").contains(settingsObj.getFcstType())) {
 				referenceArray = Stats.getProbabilityBinLabelsExtRange();
 			}
 			else if (settingsObj.getFcstType().equals("longRange")) {

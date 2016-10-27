@@ -4,6 +4,7 @@ package gov.noaa.ncep.cpc.settings;
 // Import classes needed for date manipulation
 //-------------------------------------------------------------------
 import gov.noaa.ncep.cpc.exception.InvalidSettingException;
+import gov.noaa.ncep.cpc.settings.SettingsHashLibrary;
 import gov.noaa.ncep.cpc.format.FormatLibrary;
 import gov.noaa.ncep.cpc.qc.Log;
 import java.util.Arrays;
@@ -13,6 +14,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.apache.log4j.Logger;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
 Contains methods responsible for loading
 and storing the settings as well as get methods to retrieve the settings values.
@@ -295,7 +300,13 @@ dateStringArray - Array of Strings of the dates associated with the data points 
 	@return String of the forecast type
 	*/
 	public String getFcstType() {
-		if (this.getLeadTimeUnit().compareToIgnoreCase("d")==0) {
+		String regex = SettingsHashLibrary.getPossibleCategoryUnitsList() + "\\d+and\\d+";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher match = pattern.matcher(this.getForecastToolName(getFcstSources()));
+		if (match.find()) {
+			logger.debug("PROBHAZ!!!!!");
+			return "extremes";
+		} else if (this.getLeadTimeUnit().compareToIgnoreCase("d")==0) {
 			return "extendedRange";
 		} else if (this.getLeadTimeUnit().compareToIgnoreCase("m")==0) {
 			return "longRange";
@@ -569,7 +580,7 @@ scores by categories B,N,A, in that order.
 	@return Name of forecast tool. If there is no tool associated with this forecast source, an empty space value is returned.
 	
     */ 
-    public static String getForecastToolName(String forecastSource) throws Exception
+    public static String getForecastToolName(String forecastSource)
     {
     	String[] fcstSourceNameArray;
 	String name = null;
