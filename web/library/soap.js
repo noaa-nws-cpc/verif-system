@@ -148,6 +148,23 @@ function Soap(xml) {
         return target;
     }
 
+    function mean(array) {
+        // Remove empty values
+        for (var i=array.length-1; i>=0; i--) {
+            if (array[i] === "") {
+                array.splice(i, 1);
+            }
+        }
+        // Calculate sum
+        var sum = 0;
+        for (var i=0; i<array.length; i++) {
+            sum += array[i];
+        }
+        // Calculate mean
+        var mean = sum / array.length;
+        return mean;
+    }
+
     return {
         json
     }
