@@ -1,6 +1,12 @@
 function Plot(json, settings) {
     self.json = json;
     self.settings = settings;
+    var line_colors = [
+        'rgba( 32, 121, 176, 0.9)',  // blue
+        'rgba(253, 127, 48,  0.9)',  // orange
+        'rgba( 56, 157, 58,  0.9)',  // green
+        'rgba(211,  44, 49,  0.9)',  // red
+    ];
 
     function ave(array) {
         var total = 0;
@@ -32,6 +38,9 @@ function Plot(json, settings) {
                         name: fcst_sources[i],
                         type: 'scatter',
                         average: json.averages.total[i],
+                        line: {
+                            color: line_colors[i]
+                        }
                     });
                 }
                 // For reliability, insert a 'perfect reliability' line
@@ -42,7 +51,7 @@ function Plot(json, settings) {
                         type: 'scatter',
                         showlegend: false,
                         line: {
-                            color: 'black',
+                            color: 'rgba(50, 50, 50, 0.8)',
                             width: 3,
                         },
                         hoverinfo: 'none',
