@@ -397,6 +397,11 @@ Verification = {
 		} else {
 			settings['categoryType'] = $('#settingsForm li[data-setting=categorytype] select:visible').val();
 		}
+        // Make sure there's only one fcstSource if categoryType is 'separate'
+        if (settings['categoryType'] === "separate" && fcstSourceArray.length > 1) {
+            alert('Can only plot separate categories for a single forecast source');
+            return;
+        }
 
 		///////////////////////////////////////////////////////
 		// EC Type
