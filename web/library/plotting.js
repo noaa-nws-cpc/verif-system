@@ -194,7 +194,7 @@ function Plot(json, settings) {
                     yaxis = {
                         title: title_str_convert[settings['scoreType']],
                         range: yaxis_range,
-                        domain:[0.38, 1],
+                        domain:[0.3, 1],
                     };
                 } else {
                     xaxis = {
@@ -203,7 +203,9 @@ function Plot(json, settings) {
                     yaxis = {
                         title: 'Observed Frequency',
                         range: yaxis_range,
-                        domain:[0.38, 1],
+                        domain:[0.20, 1],
+                        tick0: 0,
+                        dtick: 0.1,
                     };
                 }
                 // Set line colors
@@ -243,28 +245,47 @@ function Plot(json, settings) {
                 }
             }
             if (settings['page'] === 'chart') {
-                layout = {
-                    height: 550,
-                    title: title,
-                    xaxis: xaxis,
-                    yaxis: yaxis,
-                    showlegend: true,
-                    legend: {
+                var height;
+                var legend;
+                if (settings['scoreType'] === 'reliability') {
+                    height = 800;
+                    legend = {
+                        x: 0,
+                        y: 0.16,
+                        yanchor: 'top',
+                        xanchor: 'left',
+                    }
+                } else {
+                    height = 550;
+                    legend = {
                         x: 0,
                         y: 0.22,
                         yanchor: 'top',
                         xanchor: 'left',
-                    },
+                    }
+                }
+                layout = {
+                    autosize: false,
+                    height: height,
+                    width: 870,
+                    title: title,
+                    xaxis: xaxis,
+                    yaxis: yaxis,
+                    showlegend: true,
+                    legend: legend,
+                    autoexpand: false,
                     margin: {
-                        b: 20,
+                        b: 0,
+                        r: 0,
                     },
                     annotations: annotations,
                 };
             } else {
                 layout = {
+                    autosize: false,
                     title: title,
                     height: 550,
-                    width: 840,
+                    width: 870,
                     colorbar: true,
                     geo: {
                         showland: true,
