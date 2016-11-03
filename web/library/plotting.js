@@ -27,21 +27,70 @@ function Plot(json, settings) {
             // -------------------------------------------------------------------------------------
             // Setup data
             //
+            var categoryType;
+            if (settings.categoryType === 'B') {
+                categoryType = 'below';
+            } else if (settings.categoryType === 'N') {
+                categoryType = 'near';
+            } else if (settings.categoryType === 'A') {
+                categoryType = 'above';
+            } else if (settings.categoryType === 'total') {
+                categoryType = 'total';
+            } else if (settings.categoryType === 'separate') {
+                categoryType = 'separate';
+            }
             var data = [];
             var fcst_sources = settings['fcstSources'].split(',');
             // Process json for chart
             if (settings['outputType'] === 'chart') {
-                for (i = 0; i < json.num_fcst_sources; i++) {
+                if (settings.categoryType === 'separate') {
+                    // Below
                     data.push({
                         x: json.xvals,
-                        y: json.scores.total[i],
-                        name: fcst_sources[i],
+                        y: json.scores.below[0],
+                        name: 'below',
                         type: 'scatter',
-                        average: json.averages.total[i],
+                        average: json.averages.below[0],
                         line: {
-                            color: line_colors[i]
+                            color: 'rgba(32, 121, 176, 0.9)',
                         }
                     });
+                    // Near
+                    data.push({
+                        x: json.xvals,
+                        y: json.scores.near[0],
+                        name: 'near',
+                        type: 'scatter',
+                        // showlegend: false,
+                        average: json.averages.near[0],
+                        line: {
+                            color: 'rgba(127, 127, 127, 0.9)',
+                        },
+                    });
+                    // Above
+                    data.push({
+                        x: json.xvals,
+                        y: json.scores.above[0],
+                        name: 'above',
+                        type: 'scatter',
+                        average: json.averages.above[0],
+                        line: {
+                            color: 'rgba(211, 44, 49, 0.9)'
+                        },
+                    });
+                } else {
+                    for (i = 0; i < json.num_fcst_sources; i++) {
+                        data.push({
+                            x: json.xvals,
+                            y: json.scores[categoryType][i],
+                            name: fcst_sources[i],
+                            type: 'scatter',
+                            average: json.averages[categoryType][i],
+                            line: {
+                                color: line_colors[i]
+                            }
+                        });
+                    }
                 }
                 // For reliability, insert a 'perfect reliability' line
                 if (settings.scoreType === 'reliability') {
@@ -51,7 +100,7 @@ function Plot(json, settings) {
                         type: 'scatter',
                         showlegend: false,
                         line: {
-                            color: 'rgba(50, 50, 50, 0.8)',
+                            color: 'black',
                             width: 3,
                         },
                         hoverinfo: 'none',
@@ -224,8 +273,14 @@ function Plot(json, settings) {
                 // Create table of skill averages (only for non-reliabilty charts)
                 if (settings.scoreType !== 'reliability') {
                     averages_html = '<b>Average Scores</b><br><br>';
-                    for (i = 0; i < fcst_sources.length; i++) {
-                        averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
+                    if (settings.categoryType === 'separate') {
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('below', data[0].average);
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('near', data[1].average);
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('above', data[2].average);
+                    } else {
+                        for (i = 0; i < fcst_sources.length; i++) {
+                            averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
+                        }
                     }
                     annotations = [
                         {
