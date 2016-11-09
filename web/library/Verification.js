@@ -436,7 +436,9 @@ Verification = {
 		$('#settingsForm .runStatus').show();
 
         // Convert the settings to XML to be sent to the servlet
+        $.blockUI();
         servlet_request = servlet.settings_to_servlet_request(settings);
+        $(document).ajaxStop($.unblockUI);
 
 		//------------------------------------------------------------------------------------------
 		// Update the plot
