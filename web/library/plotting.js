@@ -110,9 +110,9 @@ function Plot(json, settings) {
             } else {
                 var fcst_source = settings['fcstSources'].split(',')[0];
                 // Remove stations with a missing score
-                for (var i=(json.map_data.scores.total.length - 1); i >= 0; i--) {
+                for (var i=(json.map_data.scores[categoryType].length - 1); i >= 0; i--) {
                     // var regex = new RegExp();
-                    if (json.map_data.scores.total[i] === '') {
+                    if (json.map_data.scores[categoryType][i] === '') {
                         var fields = [
                             'lon', 'lat', 'names',
                             'scores.total',
@@ -127,8 +127,8 @@ function Plot(json, settings) {
                 }
                 // Create text for hover info
                 var text = [];
-                for (var i=0; i < json.map_data.scores.total.length; i++) {
-                    text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
+                for (var i=0; i < json.map_data.scores[categoryType].length; i++) {
+                    text.push(toTitleCase([json.map_data.names[i], json.map_data.scores[categoryType][i]].join('<br>').replace('_', ' ')));
                 }
                 // Determine cmin and cmax, as well as the colorscale
                 var cmin, cmax, colorscale;
@@ -185,7 +185,7 @@ function Plot(json, settings) {
                     mode: 'markers',
                     colorbar: true,
                     marker: {
-                        color: json.map_data.scores.total,
+                        color: json.map_data.scores[categoryType],
                         size: 12,
                         opacity: 0.9,
                         autocolorscale: false,
