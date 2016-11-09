@@ -149,19 +149,20 @@ function Soap(xml) {
     }
 
     function mean(array) {
+        var tempArray = array.slice(0);
         // Remove empty values
-        for (var i=array.length-1; i>=0; i--) {
-            if (array[i] === "") {
-                array.splice(i, 1);
+        for (var i=tempArray.length-1; i>=0; i--) {
+            if (tempArray[i] === "") {
+                tempArray.splice(i, 1);
             }
         }
         // Calculate sum
         var sum = 0;
-        for (var i=0; i<array.length; i++) {
-            sum += array[i];
+        for (var i=0; i<tempArray.length; i++) {
+            sum += tempArray[i];
         }
         // Calculate mean
-        var mean = sum / array.length;
+        var mean = sum / tempArray.length;
         return mean;
     }
 
