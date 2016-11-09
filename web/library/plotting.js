@@ -182,6 +182,7 @@ function Plot(json, settings) {
                     lon: json.map_data.lon,
                     lat: json.map_data.lat,
                     text: text,
+                    hoverinfo: 'text',
                     mode: 'markers',
                     colorbar: true,
                     marker: {
