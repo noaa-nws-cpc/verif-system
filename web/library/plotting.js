@@ -274,12 +274,12 @@ function Plot(json, settings) {
                 if (settings.scoreType !== 'reliability') {
                     averages_html = '<b>Average Scores</b><br><br>';
                     if (settings.categoryType === 'separate') {
-                        averages_html += '{}:   <i>{}</i>          <br>'.format('below', data[0].average);
-                        averages_html += '{}:   <i>{}</i>          <br>'.format('near', data[1].average);
-                        averages_html += '{}:   <i>{}</i>          <br>'.format('above', data[2].average);
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('below', data[0].average.toFixed(3));
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('near', data[1].average.toFixed(3));
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('above', data[2].average.toFixed(3));
                     } else {
                         for (i = 0; i < fcst_sources.length; i++) {
-                            averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
+                            averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average.toFixed(3));
                         }
                     }
                     annotations = [
