@@ -106,6 +106,7 @@
 	<script type="text/javascript" src="library/jquery.message.js"></script>
 	<!-- jQuery plugin to display a feedback form -->
 	<script type="text/javascript" src="library/jquery.feedback_me.js"></script>
+	<script type="text/javascript" src="library/jquery.blockUI.js"></script>
     <!-- Ploting -->
     <script src="library/plotly-latest.min.js"></script>
     <script src="library/plotting.js"></script>

@@ -78,11 +78,11 @@ public class Sql {
 			}
 		} else if (oldList.matches("(?i)all")) {
 			if (regionType.compareToIgnoreCase("climateRegion") == 0) {
-				return CONUSClimateRegions+", AK";
+				return CONUSClimateRegions+", 'AK'";
 			} else if (regionType.compareToIgnoreCase("climateDivision") == 0) { 
 				return CONUSClimateDivisions+", 103";
 			} else if (regionType.compareToIgnoreCase("state") == 0) {
-				return CONUSStates+", AK";
+				return CONUSStates+", 'AK'";
 			} else {
 				return ".*";
 			}

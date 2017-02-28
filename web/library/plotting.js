@@ -1,6 +1,12 @@
 function Plot(json, settings) {
     self.json = json;
     self.settings = settings;
+    var line_colors = [
+        'rgba( 32, 121, 176, 0.9)',  // blue
+        'rgba(253, 127, 48,  0.9)',  // orange
+        'rgba( 56, 157, 58,  0.9)',  // green
+        'rgba(211,  44, 49,  0.9)',  // red
+    ];
 
     function ave(array) {
         var total = 0;
@@ -21,18 +27,70 @@ function Plot(json, settings) {
             // -------------------------------------------------------------------------------------
             // Setup data
             //
+            var categoryType;
+            if (settings.categoryType === 'B') {
+                categoryType = 'below';
+            } else if (settings.categoryType === 'N') {
+                categoryType = 'near';
+            } else if (settings.categoryType === 'A') {
+                categoryType = 'above';
+            } else if (settings.categoryType === 'total') {
+                categoryType = 'total';
+            } else if (settings.categoryType === 'separate') {
+                categoryType = 'separate';
+            }
             var data = [];
             var fcst_sources = settings['fcstSources'].split(',');
             // Process json for chart
             if (settings['outputType'] === 'chart') {
-                for (i = 0; i < json.num_fcst_sources; i++) {
+                if (settings.categoryType === 'separate') {
+                    // Below
                     data.push({
                         x: json.xvals,
-                        y: json.scores.total[i],
-                        name: fcst_sources[i],
+                        y: json.scores.below[0],
+                        name: 'below',
                         type: 'scatter',
-                        average: json.averages.total[i],
+                        average: json.averages.below[0],
+                        line: {
+                            color: 'rgba(32, 121, 176, 0.9)',
+                        }
                     });
+                    // Near
+                    data.push({
+                        x: json.xvals,
+                        y: json.scores.near[0],
+                        name: 'near',
+                        type: 'scatter',
+                        // showlegend: false,
+                        average: json.averages.near[0],
+                        line: {
+                            color: 'rgba(127, 127, 127, 0.9)',
+                        },
+                    });
+                    // Above
+                    data.push({
+                        x: json.xvals,
+                        y: json.scores.above[0],
+                        name: 'above',
+                        type: 'scatter',
+                        average: json.averages.above[0],
+                        line: {
+                            color: 'rgba(211, 44, 49, 0.9)'
+                        },
+                    });
+                } else {
+                    for (i = 0; i < json.num_fcst_sources; i++) {
+                        data.push({
+                            x: json.xvals,
+                            y: json.scores[categoryType][i],
+                            name: fcst_sources[i],
+                            type: 'scatter',
+                            average: json.averages[categoryType][i],
+                            line: {
+                                color: line_colors[i]
+                            }
+                        });
+                    }
                 }
                 // For reliability, insert a 'perfect reliability' line
                 if (settings.scoreType === 'reliability') {
@@ -52,9 +110,9 @@ function Plot(json, settings) {
             } else {
                 var fcst_source = settings['fcstSources'].split(',')[0];
                 // Remove stations with a missing score
-                for (var i=(json.map_data.scores.total.length - 1); i >= 0; i--) {
+                for (var i=(json.map_data.scores[categoryType].length - 1); i >= 0; i--) {
                     // var regex = new RegExp();
-                    if (json.map_data.scores.total[i] === '') {
+                    if (json.map_data.scores[categoryType][i] === '') {
                         var fields = [
                             'lon', 'lat', 'names',
                             'scores.total',
@@ -69,8 +127,8 @@ function Plot(json, settings) {
                 }
                 // Create text for hover info
                 var text = [];
-                for (var i=0; i < json.map_data.scores.total.length; i++) {
-                    text.push(toTitleCase([json.map_data.names[i], json.map_data.scores.total[i]].join('<br>').replace('_', ' ')));
+                for (var i=0; i < json.map_data.scores[categoryType].length; i++) {
+                    text.push(toTitleCase([json.map_data.names[i], json.map_data.scores[categoryType][i]].join('<br>').replace('_', ' ')));
                 }
                 // Determine cmin and cmax, as well as the colorscale
                 var cmin, cmax, colorscale;
@@ -124,10 +182,11 @@ function Plot(json, settings) {
                     lon: json.map_data.lon,
                     lat: json.map_data.lat,
                     text: text,
+                    hoverinfo: 'text',
                     mode: 'markers',
                     colorbar: true,
                     marker: {
-                        color: json.map_data.scores.total,
+                        color: json.map_data.scores[categoryType],
                         size: 12,
                         opacity: 0.9,
                         autocolorscale: false,
@@ -185,7 +244,7 @@ function Plot(json, settings) {
                     yaxis = {
                         title: title_str_convert[settings['scoreType']],
                         range: yaxis_range,
-                        domain:[0.38, 1],
+                        domain:[0.3, 1],
                     };
                 } else {
                     xaxis = {
@@ -194,7 +253,9 @@ function Plot(json, settings) {
                     yaxis = {
                         title: 'Observed Frequency',
                         range: yaxis_range,
-                        domain:[0.38, 1],
+                        domain:[0.20, 1],
+                        tick0: 0,
+                        dtick: 0.1,
                     };
                 }
                 // Set line colors
@@ -213,8 +274,14 @@ function Plot(json, settings) {
                 // Create table of skill averages (only for non-reliabilty charts)
                 if (settings.scoreType !== 'reliability') {
                     averages_html = '<b>Average Scores</b><br><br>';
-                    for (i = 0; i < fcst_sources.length; i++) {
-                        averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average);
+                    if (settings.categoryType === 'separate') {
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('below', data[0].average.toFixed(3));
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('near', data[1].average.toFixed(3));
+                        averages_html += '{}:   <i>{}</i>          <br>'.format('above', data[2].average.toFixed(3));
+                    } else {
+                        for (i = 0; i < fcst_sources.length; i++) {
+                            averages_html += '{}:   <i>{}</i>          <br>'.format(fcst_sources[i], data[i].average.toFixed(3));
+                        }
                     }
                     annotations = [
                         {
@@ -234,28 +301,47 @@ function Plot(json, settings) {
                 }
             }
             if (settings['page'] === 'chart') {
-                layout = {
-                    height: 550,
-                    title: title,
-                    xaxis: xaxis,
-                    yaxis: yaxis,
-                    showlegend: true,
-                    legend: {
+                var height;
+                var legend;
+                if (settings['scoreType'] === 'reliability') {
+                    height = 800;
+                    legend = {
+                        x: 0,
+                        y: 0.16,
+                        yanchor: 'top',
+                        xanchor: 'left',
+                    }
+                } else {
+                    height = 550;
+                    legend = {
                         x: 0,
                         y: 0.22,
                         yanchor: 'top',
                         xanchor: 'left',
-                    },
+                    }
+                }
+                layout = {
+                    autosize: false,
+                    height: height,
+                    width: 870,
+                    title: title,
+                    xaxis: xaxis,
+                    yaxis: yaxis,
+                    showlegend: true,
+                    legend: legend,
+                    autoexpand: false,
                     margin: {
-                        b: 20,
+                        b: 0,
+                        r: 0,
                     },
                     annotations: annotations,
                 };
             } else {
                 layout = {
+                    autosize: false,
                     title: title,
                     height: 550,
-                    width: 840,
+                    width: 870,
                     colorbar: true,
                     geo: {
                         showland: true,

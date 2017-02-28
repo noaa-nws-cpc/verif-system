@@ -122,12 +122,12 @@ function Soap(xml) {
             json.map_data.scores.above.push(json.scores.above[0][i]);
         }
     }
-    json.averages = {};
-    json.averages = [], json.averages['total'] = [], json.averages['below'] = [], json.averages['near'] = [], json.averages['above'] = [];
     // Get the average score for each fcst source
-    for (var f in json_temp.stats.aveFloatArray) {
-        for (var c in json_temp.stats.aveFloatArray[f].array) {
-            json.averages[cat_num_to_str[c]].push(json_temp.stats.aveFloatArray[f].array[c].array[0]._text);
+    json.averages = {};
+    json.averages['total'] = [], json.averages['below'] = [], json.averages['near'] = [], json.averages['above'] = [];
+    for (var f = 0; f < json.scores['total'].length; f++) {
+        for (var c = 0; c < cat_num_to_str.length; c++) {
+            json.averages[cat_num_to_str[c]].push(mean(json.scores[cat_num_to_str[c]][f]));
         }
     }
 
@@ -146,6 +146,24 @@ function Soap(xml) {
             }
         } );
         return target;
+    }
+
+    function mean(array) {
+        var tempArray = array.slice(0);
+        // Remove empty values
+        for (var i=tempArray.length-1; i>=0; i--) {
+            if (tempArray[i] === "") {
+                tempArray.splice(i, 1);
+            }
+        }
+        // Calculate sum
+        var sum = 0;
+        for (var i=0; i<tempArray.length; i++) {
+            sum += tempArray[i];
+        }
+        // Calculate mean
+        var mean = sum / tempArray.length;
+        return mean;
     }
 
     return {

@@ -351,7 +351,12 @@ Verification = {
 				return;
 			}
 		} else {
-			settings['regions'] = "All";
+			// For temp set to All, otherwise set to CONUS
+			if (settings['variable'] == "temp") {
+				settings['regions'] = "All";
+			} else {
+				settings['regions'] = "CONUS";
+			}
 		}
 
 		///////////////////////////////////////////////////////
@@ -392,6 +397,11 @@ Verification = {
 		} else {
 			settings['categoryType'] = $('#settingsForm li[data-setting=categorytype] select:visible').val();
 		}
+        // Make sure there's only one fcstSource if categoryType is 'separate'
+        if (settings['categoryType'] === "separate" && fcstSourceArray.length > 1) {
+            alert('Can only plot separate categories for a single forecast source');
+            return;
+        }
 
 		///////////////////////////////////////////////////////
 		// EC Type
@@ -426,7 +436,9 @@ Verification = {
 		$('#settingsForm .runStatus').show();
 
         // Convert the settings to XML to be sent to the servlet
+        $.blockUI();
         servlet_request = servlet.settings_to_servlet_request(settings);
+        $(document).ajaxStop($.unblockUI);
 
 		//------------------------------------------------------------------------------------------
 		// Update the plot

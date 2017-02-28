@@ -264,7 +264,7 @@ public class SettingsHashLibrary {
 		// Get the category label unit
         String possibleCategoryUnitsList = getPossibleCategoryUnitsList();
         String regex = ".*(" + possibleCategoryUnitsList + ")-([0-9pt]+)-and-([0-9pt]+).*";
-        logger.trace("regex is " + regex);
+        logger.trace("isEvenTerciles regex is " + regex + " and variable is " + variable);
         pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(variable);
         matcher.find();

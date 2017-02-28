@@ -154,7 +154,7 @@ public class Stats {
 		// Set the variables for reliability diagram that depend on forecast type
 		// They are set based on fcstType since the bins differ depending on if there are EC forecasts or not.
 		if (settingsObj.getScoreType().compareToIgnoreCase("reliability") == 0) {
-			if (settingsObj.getFcstType().compareToIgnoreCase("extendedRange") == 0) {
+			if (Arrays.asList("extendedRange", "extremes").contains(settingsObj.getFcstType())) {
 				// There is no bin for EC
 	    		bins = getBinsExtRange();
 	    		probabilityBinLowerThreshold = getProbabilityBinLowerThresholdExtRange();
@@ -222,7 +222,7 @@ public class Stats {
 
 
 		// QC that depends on the fcstType (includes removing EC forecasts if necessary)
-		if ( settingsObj.getFcstType().compareToIgnoreCase("extendedRange") == 0) {
+		if (Arrays.asList("extendedRange", "extremes").contains(settingsObj.getFcstType())) {
 			// There should be no EC forecasts for extended range so zeros are bad data.
 			// Remove probabilities (if score type uses them) corresponding to a forecast
 			// category of zero and replace with NaN.
@@ -323,7 +323,7 @@ public class Stats {
 			logger.trace("k = " + k);
 			logger.trace("fcsttype = " + settingsObj.getFcstType() + " fcstSource = " + fcstSourceArray[k]);
 			// Get # expected dates. If the source ends with "manual", don't count weekend forecasts as missing
-			if ( settingsObj.getFcstType().compareToIgnoreCase("extendedRange") == 0 && fcstSourceArray[k].matches("(.*_manual|manual)$")) {
+			if (Arrays.asList("extendedRange", "extremes").contains(settingsObj.getFcstType()) && fcstSourceArray[k].matches("(.*_manual|manual)$")) {
 				logger.trace("Only using # of weekdays for # expected dates to calculate % good scores (case fcstType='extendedRange' and fcstSource is manual or a tool ran off the manual (_manual).'");
 				numExpectedDates[k] = dataObj.getNumWeekdays();
 			}
