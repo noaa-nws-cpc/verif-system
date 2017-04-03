@@ -67,10 +67,12 @@ img.ui-datepicker-trigger {
 Div for drawing region highlighting
 ---------------------------------------------------------------------
 */
-#canvas {
-	position: relative;
+#region-selector-canvas {
+	/*position: relative;
 	height: auto;
-	width: auto;
+	width: auto;*/
+    width: 100%;
+    height: 400px;
 }
 
 /*

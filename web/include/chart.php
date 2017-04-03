@@ -1,7 +1,4 @@
 	<!-- Import image maps -->
-	<?php include('include/imgMap_climateRegions.php');?>
-	<?php include('include/imgMap_states.php');?>
-	<?php include('include/imgMap_climateDivisions.php');?>
 		<!-- Line telling the user to scroll down for more info -->
 		<p style="margin-top: 10px; margin-bottom: 25px;"><b>Scroll down the page to see the results, error messages, and information panel.</b></p>
 
@@ -23,11 +20,9 @@
 			<section id="regionsPanel" class="panel">
 				<p class="panelNumber">2</p>
 				<h2>Select region(s) to verify</h2>
-				<p>To unselect, you must clear all regions by clicking "Revert to CONUS".  All regions within the CONUS are verified by default.</p>
-				<div id="canvas">
-					<img id="regionMapImage" class="highlightedMap" alt="Map of U.S." src="images/map_climateRegions.jpg" usemap="#imageMap_climateRegions" />
-				</div>
-				<button onClick="Verification.clearRegions(); return false">Revert to CONUS</button>
+				<p>You can click on any region to select/unselect it for verification. To just verify the default regions (CONUS) click "Revert to CONUS".</p>
+				<div id="region-selector-canvas"></div>
+				<button onClick="resetSelectedRegions(); return false">Revert to CONUS</button>
 			</section>
 		</form>
 		<!-- Results Panel -->

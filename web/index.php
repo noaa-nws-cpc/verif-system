@@ -129,17 +129,22 @@
 	<!-- Date-related functions -->
 	<script type="text/javascript" src="library/Dates.js"> </script>
 	<!-- ======================================================== -->
+	<!--             Import mapping-related libraries             -->
+	<!-- ======================================================== -->
+    <!-- GeoJSON2SVG -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/geojson2svg/1.0.2/geojson2svg.min.js"></script>
+    <!-- amCharts includes -->
+    <script src="//www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="//www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+    <script src="//www.amcharts.com/lib/3/themes/light.js"></script>
+    <!-- Region selector -->
+    <script src="library/region_selector.js"></script>
+	<!-- ======================================================== -->
 	<!--    Import libraries that set up certain page elements    -->
 	<!-- ======================================================== -->
 	<!-- Set up the jQuery tooltips -->
 	<script type="text/javascript" src="library/setup_tooltips.js"> </script>
-	<!-- ======================================================== -->
-	<!--             Import mapping-related libraries             -->
-	<!-- ======================================================== -->
-	<!-- Persistent region coloring -->
-	<script type="text/javascript" src="library/wz_jsgraphics.js"> </script>
-	<!-- On-hover region coloring -->
-	<script type="text/javascript" src="library/jquery.maphilight.min.js"> </script>
+
 
 	<!-- Set the title -->
 	<title>CPC Verification Web Tool (VWT)</title>
@@ -266,15 +271,6 @@
 			$('p.collapsible-heading').click(function() {
 				$(this).next('div.collapsible-content').slideToggle(500);
 				$(this).toggleClass('expanded');
-			});
-
-			//-------------------------------------------------------------------------------
-			// Set up highlighting for region chooser
-			//
-			$('.highlightedMap').maphilight({
-				fill: true,
-				fillColor: 'FF0000',
-				fade: false,
 			});
 
 			//-------------------------------------------------------------------------------
