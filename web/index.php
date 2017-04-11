@@ -138,7 +138,7 @@
     <script src="//www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
     <script src="//www.amcharts.com/lib/3/themes/light.js"></script>
     <!-- Region selector -->
-    <script src="library/region_selector.js"></script>
+    <script src="library/regionSelector.js"></script>
 	<!-- ======================================================== -->
 	<!--    Import libraries that set up certain page elements    -->
 	<!-- ======================================================== -->
@@ -588,6 +588,9 @@
 			// elements that we weren't expecting and don't make sense.
 			//
 			$('input,textarea,:input').attr('autocomplete', 'off');
+
+            // Create a region selector default map with Climate Regions
+            RegionSelector.makeRegionSelector('library/climate-regions.geojson');
 		});
 	</script>
 	<!-- CSRF fix -->
