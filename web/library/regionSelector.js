@@ -75,7 +75,8 @@ RegionSelector = {
             var area = map.dataProvider.areas[i];
             area.showAsSelected = false;
         }
-        map.write("region-selector-canvas")
+        map.write("region-selector-canvas");
+        $('#regionSelect').val('');
     },
 
     /**

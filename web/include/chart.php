@@ -22,7 +22,7 @@
 				<h2>Select region(s) to verify</h2>
 				<p>You can click on any region to select/unselect it for verification. To just verify the default regions (CONUS) click "Revert to CONUS".</p>
 				<div id="region-selector-canvas"></div>
-				<button onClick="resetSelectedRegions(); return false">Revert to CONUS</button>
+				<button onClick="RegionSelector.resetSelectedRegions(); return false">Revert to CONUS</button>
 			</section>
 		</form>
 		<!-- Results Panel -->
