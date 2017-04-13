@@ -75,6 +75,8 @@ RegionSelector = {
                 }
             });
         });
+        // Set regionsType in the settings array
+        settings['regionType'] = regionType.substring(0, regionType.length - 1);
     },
 
     resetSelectedRegions: function() {
