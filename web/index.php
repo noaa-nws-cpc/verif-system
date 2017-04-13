@@ -217,9 +217,9 @@
             // and disable all other regionType tabs
             if (e === "climateDivision") {
                 // Select the climate division tab
-                Verification.clearMapper();
+                RegionSelector.resetSelectedRegions();
                 Verification.selectTab('#tabs_regionType',2);
-                Verification.changeMap('climateDivisions');
+                RegionSelector.makeRegionSelector('climateDivisions');
                 // Disable clicks on the other regionType tabs
                 Verification.disableClick('#tabs_regionType li:not(.selected)','Only climate divisions can be selected when the data format is set to "climate division"');
             // Else enable clicks
@@ -590,7 +590,7 @@
 			$('input,textarea,:input').attr('autocomplete', 'off');
 
             // Create a region selector default map with Climate Regions
-            RegionSelector.makeRegionSelector('library/climate-regions.geojson');
+            RegionSelector.makeRegionSelector('climateRegions');
 		});
 	</script>
 	<!-- CSRF fix -->

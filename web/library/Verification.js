@@ -568,47 +568,6 @@ Verification = {
 	},
 
 	/**
-	Changes the region chooser map depending on the tab that's clicked.
-	<br><br>
-	The possible map types are:
-	<ul>
-		<li>climateRegions</li>
-		<li>states</li>
-		<li>climateDivisions</li>
-	</ul>
-	@param {String}  newRegionType  Region type selected
-	*/
-	changeMap: function(newRegionType) {
-		// Get the region map image
-		var image = document.getElementById("regionMapImage");
-		var now   = new Date();
-		// Set the new image properties
-		if (newRegionType === "climateRegions") {
-			image.src    = map_climateRegions.src;
-			image.useMap = "#imageMap_climateRegions";
-		} else if (newRegionType === "states") {
-			image.src    = map_states.src;
-			image.useMap = "#imageMap_states";
-		} else if (newRegionType === "climateDivisions") {
-			image.src    = map_climateDivisions.src;
-			image.useMap = "#imageMap_climateDivisions";
-		}
-		// Set the new properties of the <img>
-		$('#regionMapImage').attr("src",image.src);
-		$('#regionMapImage').attr("useMap",image.useMap);
-		// Set the correct background-image in the parent <div> (for the jQuery maphilight class)
-		$('div#canvas > div').css('background-image',"url(" + image.src + ")");
-		// Set up highlighting for the new region map
-		$('.highlightedMap').maphilight({
-			fill: true,
-			fillColor: 'FF0000',
-			fade: false,
-		});
-		// Set the regionType to the new region
-		settings['regionType'] = newRegionType;
-	},
-
-	/**
 	Disables clicks on all elements in a given group. The group is defined by a selector (CSS3).
 	<br><br>
 

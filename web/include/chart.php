@@ -12,9 +12,9 @@
 			</section>
 			<!-- Regions Panel Tabs -->
 			<ul id="tabs_regionType" class="tabs regionsPanelTabs">
-				<li class="tab selected">  <a data-regionType="climateRegions" href="javascript:Verification.selectTab('#tabs_regionType',0);RegionSelector.makeRegionSelector('library/climate-regions.geojson');">Climate Regions</a></li>
-				<li class="tab"><a data-regionType="states" href="javascript:Verification.selectTab('#tabs_regionType',1);RegionSelector.makeRegionSelector('library/states.geojson');">States</a></li>
-				<li class="tab"><a data-regionType="climateDivisions" href="javascript:Verification.selectTab('#tabs_regionType',2);RegionSelector.makeRegionSelector('library/climate-divisions.geojson');">Climate Divisions</a></li>
+				<li class="tab selected">  <a data-regionType="climateRegions" href="javascript:Verification.selectTab('#tabs_regionType',0);RegionSelector.makeRegionSelector('climateRegions');">Climate Regions</a></li>
+				<li class="tab"><a data-regionType="states" href="javascript:Verification.selectTab('#tabs_regionType',1);RegionSelector.makeRegionSelector('states');">States</a></li>
+				<li class="tab"><a data-regionType="climateDivisions" href="javascript:Verification.selectTab('#tabs_regionType',2);RegionSelector.makeRegionSelector('climateDivisions');">Climate Divisions</a></li>
 			</ul>
 			<!-- Regions Panel -->
 			<section id="regionsPanel" class="panel">

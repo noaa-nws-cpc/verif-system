@@ -3,7 +3,16 @@ var map;
 
 RegionSelector = {
 
-    makeRegionSelector: function(jsonFile) {
+    makeRegionSelector: function(regionType) {
+
+        // Determine the json file to load based on the regions type
+        if (regionType === "climateRegions") {
+            jsonFile = "library/climate-regions.geojson"
+        } else if (regionType === "states") {
+            jsonFile = "library/states.geojson"
+        } else if (regionType === "climateDivisions") {
+            jsonFile = "library/climate-divisions.geojson"
+        }
 
         jQuery.getJSON(jsonFile, function(data) {
 
