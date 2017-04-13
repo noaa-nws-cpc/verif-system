@@ -328,6 +328,7 @@ Verification = {
 			settings['regionType'] = "climateDivision";
 		}
 
+
 		///////////////////////////////////////////////////////
 		// Region(s)
 		//
@@ -341,13 +342,9 @@ Verification = {
 			} else if (/\b(AK|103)\b/.test(settings['regions']) && settings['variable'] !== "temp") {
 				alert("Currently only temperature can be verified for Alaska");
 				return;
-			// Currently we only have AK stations
-			} else if (/\b(AK|103)\b/.test(settings['regions']) && settings['spatialType'] !== "station") {
+			// Currently we only have AK stations and climate divisions
+            } else if (/\b(AK|103)\b/.test(settings['regions']) && settings['spatialType'] == "gridded") {
 				alert("Currently only station verification is available for Alaska");
-				return;
-			// Currently we only have AK 6-10day and 8-14day
-			} else if (/\b(AK|103)\b/.test(settings['regions']) && !(settings['fcstType'] === '6-10day' || settings['fcstType'] === '8-14day')) {
-				alert("Currently only Alaska forecasts can only be verified for the 6-10day and 8-14day periods");
 				return;
 			}
 		} else {

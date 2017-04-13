@@ -74,7 +74,6 @@ RegionSelector = {
                     "enabled": true
                 }
             });
-            map.setProjection("eckert3");
         });
     },
 
