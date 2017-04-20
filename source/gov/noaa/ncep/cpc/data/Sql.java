@@ -80,7 +80,7 @@ public class Sql {
 			if (regionType.compareToIgnoreCase("climateRegion") == 0) {
 				return CONUSClimateRegions+", 'AK'";
 			} else if (regionType.compareToIgnoreCase("climateDivision") == 0) { 
-				return CONUSClimateDivisions+", 103";
+				return CONUSClimateDivisions+", 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114";
 			} else if (regionType.compareToIgnoreCase("state") == 0) {
 				return CONUSStates+", 'AK'";
 			} else {

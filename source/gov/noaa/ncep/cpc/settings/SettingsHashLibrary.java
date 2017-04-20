@@ -553,9 +553,9 @@ public class SettingsHashLibrary {
 		// For climateDivision data, regions must be numbers
 		//
 		if (settingsObj.getRegionType().equals("climateDivision")) {
-			settingsValidationHash.put("regions",new String[] {"(\\d+)(,\\s*\\d+)*|(?i)CONUS","You chose a regionType that requires a list of numbered regions."});
+			settingsValidationHash.put("regions",new String[] {"(\\d+)(,\\s*\\d+)*|(?i)CONUS|(?i)ALL","You chose a regionType that requires a list of numbered regions."});
 		} else {
-			settingsValidationHash.put("regions",new String[] {"([a-zA-Z]+)(,\\s*[a-zA-Z]+)*|(?i)CONUS","You chose a regionType that requires a list of 1-3 character regions."});
+			settingsValidationHash.put("regions",new String[] {"([a-zA-Z]+)(,\\s*[a-zA-Z]+)*|(?i)CONUS|(?i)ALL","You chose a regionType that requires a list of 1-3 character regions."});
 		}
 		//-----------------------------------------------------------
 		// outputType
