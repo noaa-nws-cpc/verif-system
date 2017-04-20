@@ -1,0 +1,12 @@
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(103, 'North Slope', 'AK', 69.29, -154.28, 'N Slope');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(104, 'West Coast', 'AK', 63.99, -162.14, 'W Coast');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(105, 'Central Interior', 'AK', 64.67, -154.42, 'C Interior');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(106, 'Northeast Interior', 'AK', 67.08, -144.80, 'NE Interior');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(107, 'Southeast Interior', 'AK', 63.25, -145.00, 'SE Interior');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(108, 'Cook Inlet', 'AK', 61.47, -150.65, 'Cook Inlet');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(109, 'Bristol Bay', 'AK', 59.48, -156.68, 'Bristol Bay');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(110, 'Northwest Gulf', 'AK', 58.43, -153.19, 'NW Gulf');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(111, 'Northeast Gulf', 'AK', 59.66, -140.49, 'NE Gulf');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(112, 'North Panhandle', 'AK', 58.38, -134.32, 'N Panhandle');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(113, 'South Panhandle', 'AK', 56.00, -132.06, 'S Panhandle');
+INSERT INTO cd (id, name, climateRegion, lat, lon, shortName) VALUES(114, 'Aleutians', 'AK', 53.60, -167.31, 'Aleutians');
