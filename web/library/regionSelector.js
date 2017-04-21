@@ -86,7 +86,7 @@ RegionSelector = {
             area.showAsSelected = false;
         }
         map.write("region-selector-canvas");
-        $('#regionSelect').val('');
+        $('#regionSelect').val('CONUS');
     },
 
     /**
