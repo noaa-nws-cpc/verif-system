@@ -167,37 +167,16 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d";
-		# Klein (cat)
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool kleinCat -skip-header";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gfs -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gfs -cycle 06z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle 06z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle al";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecm -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecens -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cmce -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model manual";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model auto";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gfs -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gfs -cycle 06z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle 06z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle al";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model ecens -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model cmce -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model manual";
-		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model auto";
 		# Klein (prob)
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool kleinProb -skip-header";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool kleins -skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cmce -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecens -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model cmce -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model ecens -cycle 00z";
-		# Analogs
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool analog -skip-header";
+		# analogss
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool analogs -skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gfs -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gfs -cycle 06z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle 00z";
@@ -229,7 +208,7 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -cycle 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model cmce -cycle 00z";
 		# Calibrated (prob)
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool calibratedProb -skip-header";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool BC -skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecens -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cmce -cycle 00z";
@@ -244,18 +223,8 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model naefs -cycle 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model naefs -cycle 00z";
-		# Calibrated (cat)
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool calibratedCat -skip-header";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfs -cycle 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gfs -cycle 06z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -cycle 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -cycle 06z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfs -cycle 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gfs -cycle 06z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -cycle 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -cycle 06z";
 		# Uncalibrated (prob)
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool uncalibratedProb -skip-header";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool raw -skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecens -cycle 00z";
@@ -263,7 +232,7 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cmce -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model cmce -cycle 00z";
 		# Reforecast-Calibrated Forecast
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCalProb";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCal";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gefs -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gefs -c 00z";
@@ -272,7 +241,7 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCalProb";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstCal";
 		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gefs -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gefs -c 00z";
@@ -281,21 +250,6 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
-		# Reforecast-Uncalibrated Forecast
-		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstUncalProb";
-		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool rfcstUncalProb";
-		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d -model ecens -c 00z";
-		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
 
 		#------------------------------------------------------------
 		# Gridded
@@ -521,4 +475,3 @@ sub compareDates() {
 
     return Date_Cmp($dateObj1,$dateObj2);
 }
-
