@@ -76,6 +76,7 @@ use Log::Log4perl;
 #use Log::Dispatch::Email::MailSend;
 use strict;
 use warnings;
+use Scalar::Util qw(looks_like_number);
 
 #--------------------------------------------------------------------
 # Get command line arguments
@@ -1029,8 +1030,12 @@ sub data_qc {
 	# Force EC values to have probs of 0.3333 for all cats
 	my $ecProbThresh = 0.0002;
 	# If all three cats have probs within a certain threshold, set all probs to 0.3333
-	if (abs($_[0]{'prob_below'}-$_[0]{'prob_normal'}) <= $ecProbThresh and
-		abs($_[0]{'prob_above'}-$_[0]{'prob_normal'}) <= $ecProbThresh) {
+	if (
+		looks_like_number($_[0]{'prob_below'}) and (
+			abs($_[0]{'prob_below'}-$_[0]{'prob_normal'}) <= $ecProbThresh and
+			abs($_[0]{'prob_above'}-$_[0]{'prob_normal'}) <= $ecProbThresh
+	   	)
+	) {
 		$_[0]{'prob_below'} = 0.3333;
 		$_[0]{'prob_normal'} = 0.3333;
 		$_[0]{'prob_above'} = 0.3333;
