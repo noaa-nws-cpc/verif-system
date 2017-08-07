@@ -8,20 +8,17 @@ $models = array(
 	"cmce_00z",
 	"ecm_00z",
 	"ecens_00z",
-	"manual",
-	"auto",
 	"naefs_00z","naefs_06z"
 );
 #--------------------------------------------------------------------
 # Define all possible tools
 #
 $tools = array(
-	"kleinCat",
-	"kleinProb",
-	"analog",
-	"calibratedProb",
-	"rfcstCalProb",
-	"uncalibratedProb",
+	"kleins",
+	"analogs",
+    "BC",
+	"rfcstCal",
+	"raw",
 );
 ?>
 
