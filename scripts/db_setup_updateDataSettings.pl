@@ -20,7 +20,7 @@ use Time::Local;
 use Date::Manip;
 use Cwd 'abs_path';
 use lib "$HOME/library/perl";
-use ConfigFile;
+use CPC::Config_File;
 
 #--------------------------------------------------------------------
 # Get command line arguments

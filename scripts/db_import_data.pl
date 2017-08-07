@@ -337,8 +337,8 @@ if ($args{'aveWindow'} =~ /m/) {
 	my $startmo = substr($startDate, -2);
 	my $endyr   = substr($endDate, 0, -2);
 	my $endmo   = substr($endDate, -2);
-	$sdate1     = Month->new($startmo, $startyr);
-	$sdate2     = Month->new($endmo, $endyr);
+	$sdate1     = CPC::Month->new($startmo, $startyr);
+	$sdate2     = CPC::Month->new($endmo, $endyr);
 	$dateInt    = 1;
 
 	if($validDateOpt) {
@@ -386,7 +386,7 @@ for (my $date=$sdate1; $date<=$sdate2; $date=$date+$dateInt) {
 	my $windowSize = 0;
 	my $dateStr;
 
-	if(ref($date) eq 'Month') {  # We're dealing with a monthly or seasonal update
+	if(ref($date) eq 'CPC::Month') {  # We're dealing with a monthly or seasonal update
 		$yyyy = $date->Year();
 		$mm   = $date->Number();
 		# YYYYMM format, append 01 at the end so YYYYMMDD can go into Unixdate...

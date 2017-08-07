@@ -77,7 +77,7 @@ use Time::Local;
 use Date::Manip;
 use Switch;
 use Log::Log4perl;
-use ConfigFile;
+use CPC::Config_File;
 use Log::Dispatch::Email::MailSend;
 use POSIX;
 use strict;
