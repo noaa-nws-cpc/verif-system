@@ -744,7 +744,7 @@ public class Data {
 			    matcher = pattern.matcher(variable);
 			    matcher.find();        
                 if (matcher.matches() == true) {
-                    logger.debug("Getting favored category based on an extreme for " + matcher.group(1));
+                    logger.trace("Getting favored category based on an extreme for " + matcher.group(1));
                     // If both A and B are below 0.20 (the minimum forecast probability expected to consider as a usable probability), pick N
                    if (Float.compare(fcstProb[0],0.2f) < 0 && Float.compare(fcstProb[2],0.2f) < 0) {
 					    fcstCat = 2;

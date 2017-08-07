@@ -340,6 +340,8 @@ if ($args{'aveWindow'} =~ /m/) {
 	$sdate1     = CPC::Month->new($startmo, $startyr);
 	$sdate2     = CPC::Month->new($endmo, $endyr);
 	$dateInt    = 1;
+	print "$sdate1\n";
+	print "$sdate2\n";
 
 	if($validDateOpt) {
 		if($args{'leadTime'} !~ /m/) { die "Unmatched units: -leadTime and -aveWindow"; }
@@ -996,6 +998,7 @@ applying the QC.
 sub data_qc {
 	# Set missing data to NULL
 	if ($_[0]{'prob_below'} <= -99 || $_[0]{'prob_normal'} <= -99 || $_[0]{'prob_above'} <= -99) {
+		$logger->debug("QC 1\n");
 		$_[0]{'prob_below'} = "NULL";
 		$_[0]{'prob_normal'} = "NULL";
 		$_[0]{'prob_above'} = "NULL";
@@ -1006,6 +1009,7 @@ sub data_qc {
 	}
 	# Set observations of '0' to NULL
 	if ($args{'dataType'} eq "observation" && !($_[0]{category} =~ m/1|2|3/)) {
+		$logger->debug("QC 2\n");
 		$_[0]{category} = "NULL";
 	}
 	# Convert probabilities of 0-100 to probabilities of 0-1. Here I'm just
@@ -1013,6 +1017,7 @@ sub data_qc {
 	# worth of slack for our poor probability-calculating routine), then
 	# these probabilities must be 0-100
 	if ($_[0]{'prob_below'}+$_[0]{'prob_normal'}+$_[0]{'prob_above'} > 1.1) {
+		$logger->debug("QC 3\n");
 		$_[0]{'prob_below'}   = $_[0]{'prob_below'}  / 100;
 		$_[0]{'prob_normal'}  = $_[0]{'prob_normal'} / 100;
 		$_[0]{'prob_above'}   = $_[0]{'prob_above'}  / 100;
@@ -1021,9 +1026,11 @@ sub data_qc {
 	#
 	# See http://cpc-devtools/trac/projects/ERF/ticket/30 for more details on this bug
 	if ($_[0]{'prob_below'} < 0) {
+		$logger->debug("QC 4\n");
 		$_[0]{'prob_normal'} = $_[0]{'prob_normal'} + $_[0]{'prob_below'};
 		$_[0]{'prob_below'} = 0;
 	} elsif ($_[0]{'prob_above'} < 0) {
+		$logger->debug("QC 4.5\n");
 		$_[0]{'prob_normal'} = $_[0]{'prob_normal'} + $_[0]{'prob_above'};
 		$_[0]{'prob_above'} = 0;
 	}
@@ -1036,18 +1043,21 @@ sub data_qc {
 			abs($_[0]{'prob_above'}-$_[0]{'prob_normal'}) <= $ecProbThresh
 	   	)
 	) {
+		$logger->debug("QC 5\n");
 		$_[0]{'prob_below'} = 0.3333;
 		$_[0]{'prob_normal'} = 0.3333;
 		$_[0]{'prob_above'} = 0.3333;
 	}
 	# Check the bounds on all probabilites one last time
 	if (($_[0]{prob_below} < 0 || $_[0]{prob_below} > 1) || ($_[0]{prob_normal} < 0 || $_[0]{prob_normal} > 1) || ($_[0]{prob_above} < 0 || $_[0]{prob_above} > 1)) {
+		$logger->debug("QC 6\n");
 		$_[0]{prob_below}  = "NULL";
 		$_[0]{prob_normal} = "NULL";
 		$_[0]{prob_above}  = "NULL";
 	}
 	# Set the normal category if it's not provided
 	if ($_[0]{prob_normal} == 0 and $_[0]{prob_below} != 0) {
+		$logger->debug("QC 7\n");
 		$_[0]{prob_normal} = 1 - ($_[0]{prob_below} + $_[0]{prob_above});
 	}
 }

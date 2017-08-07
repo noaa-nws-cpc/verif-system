@@ -133,7 +133,7 @@ public class StatsLibrary {
         // Calculate total cats HSS for non-even terciles (e.g. extremes)
         // This only includes the lower and upper categories
         if (isEvenTerciles == false) {
-            logger.debug("Calculating the total cats HSS for 2 categories (lower and upper) for non-even terciles.");
+            logger.trace("Calculating the total cats HSS for 2 categories (lower and upper) for non-even terciles.");
             // Calculate score if there is at least one valid fcst-ob pair in the lower OR upper category
             if ((count[1] > 0) || (count[3] > 0)) { 
 	            heidke[0] = (tempHeidke[1]*count[1] + tempHeidke[3]*count[3])/(count[1] + count[3]);
@@ -141,7 +141,7 @@ public class StatsLibrary {
             }
             // If there are not fcst-obs pairs, score is undefined
             else {
-                logger.warn("Total categories HSS not calculated because there are no non-NaN forecasts in either the lower or upper category.");
+//                logger.warn("Total categories HSS not calculated because there are no non-NaN forecasts in either the lower or upper category.");
 	            heidke[0] = Float.NaN;
             }      
         }
