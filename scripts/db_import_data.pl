@@ -174,7 +174,7 @@ $mysqlSettings{'database'} = mysql_getDatabaseName();
 $mysqlSettings{'settingsTable'} = "$mysqlSettings{db_ref}.dataSettings";
 $mysqlSettings{'dataTable'} = mysql_getDataTableName();
 # Determine fcstType based on the leadTime
-if ($args{'aveWindow'} eq '01d') {
+if ($args{'aveWindow'} =~ /01d|03d/) {
 	$args{fcstType} = "probabilisticHazards";
 } elsif ($args{'aveWindow'} =~ /m$/) {
 	$args{fcstType} = "longRange";
