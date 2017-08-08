@@ -8,7 +8,7 @@ $models = array(
 	"cmce_00z",
 	"ecm_00z",
 	"ecens_00z",
-	"naefs_00z","naefs_06z"
+	"naefs"
 );
 #--------------------------------------------------------------------
 # Define all possible tools
