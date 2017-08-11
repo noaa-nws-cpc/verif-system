@@ -131,8 +131,8 @@ RegionSelector = {
             "attributes": {"class": "land"},
             "mapExtent": bounds,
             "viewportSize": {
-                "width": 800,
-                "height": 800
+                "width": 500,
+                "height": 400
             }
         });
         var svg = converter.convert(geojson, {});
