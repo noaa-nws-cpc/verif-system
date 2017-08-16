@@ -250,6 +250,10 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d -model ecens -c 00z";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model ecens -c 00z";
+		# ERF Con
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d";
 
 		#------------------------------------------------------------
 		# Gridded
@@ -260,6 +264,10 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d";
+		# ERF Con
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource con";
+		system "$importScript $staticArgs -variable temp   -leadtime 08d -avewindow 05d";
+		system "$importScript $staticArgs -variable temp   -leadtime 11d -avewindow 07d";
 	} elsif ($args{fcstType} eq "longRange") {
 	#----------------------------------------------------------------
 	# LLF
