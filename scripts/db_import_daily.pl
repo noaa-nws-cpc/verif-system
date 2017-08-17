@@ -212,16 +212,18 @@ my $logger = Log::Log4perl::get_logger("");
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model ecens -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model cmce -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model naefs -cycle 00z";
-		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model naefs -cycle 06z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model ecens -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model cmce -cycle 00z";
+		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -cycle al";
+		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -cycle al";
+		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool BC";
+		
+		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model naefs -cycle 00z";
+		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d -model naefs -cycle 06z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model naefs -cycle 00z";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d -model naefs -cycle 06z";
-		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d -model naefs -cycle 00z";
-		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model gefs -cycle al";
 		system "$importScript $staticArgs -variable precip -leadtime 11d -avewindow 07d -model naefs -cycle 00z";
 		# Uncalibrated (prob)
 		$staticArgs = "$options -spatialtype stn -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource tool -tool raw -skip-header";
@@ -259,7 +261,7 @@ my $logger = Log::Log4perl::get_logger("");
 		# Gridded
 
 		# Manual
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 08d -avewindow 05d";
 		system "$importScript $staticArgs -variable temp -leadtime 11d -avewindow 07d";
 		system "$importScript $staticArgs -variable precip -leadtime 08d -avewindow 05d";
@@ -277,47 +279,47 @@ my $logger = Log::Log4perl::get_logger("");
 		# Gridded
 		#
 		# Manual
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable temp -leadtime 0pt5m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 0pt5m -avewindow 01m";
-		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
+		$staticArgs = "$options -spatialtype grid2deg -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual --skip-header";
 		runSeasonal($staticArgs, 2, 2); # Only lead 1 for now
 		#------------------------------------------------------------
 		# ClimateDivision
 		#
 		# Manual
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable temp -leadtime 0pt5m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 0pt5m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource manual --skip-header";
 		runSeasonal($staticArgs, 2, 14);
 		# SMLR
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource smlr";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource smlr --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource smlr";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource smlr --skip-header";
 		runSeasonal($staticArgs, 2, 14);
 		# OCN
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource ocn";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource ocn --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource ocn";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource ocn --skip-header";
 		runSeasonal($staticArgs, 2, 14);
 		# CFS
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cfs";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cfs --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cfs";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cfs --skip-header";
 		runSeasonal($staticArgs, 2, 14);
 		# CCA
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cca";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cca --skip-header";
 		system "$importScript $staticArgs -variable temp -leadtime 01m -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -leadtime 01m -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cca";
+		$staticArgs = "$options -spatialtype cd -startdate $args{startDate} -enddate $args{endDate} -datatype forecast -fcstsource cca --skip-header";
 		runSeasonal($staticArgs, 2, 14);
 	}
 
@@ -331,7 +333,7 @@ my $logger = Log::Log4perl::get_logger("");
 		#------------------------------------------------------------
 		# Station
 		#
-		$staticArgs = "$options -spatialtype stn -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype stn -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
 		system "$importScript $staticArgs -variable temp -avewindow 05d";
 		system "$importScript $staticArgs -variable temp -avewindow 07d";
 		system "$importScript $staticArgs -variable precip -avewindow 05d";
@@ -339,7 +341,7 @@ my $logger = Log::Log4perl::get_logger("");
 		#------------------------------------------------------------
 		# Gridded
 		#
-		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
 		system "$importScript $staticArgs -variable temp -avewindow 05d";
 		system "$importScript $staticArgs -variable temp -avewindow 07d";
 		system "$importScript $staticArgs -variable precip -avewindow 05d";
@@ -351,21 +353,21 @@ my $logger = Log::Log4perl::get_logger("");
 		#------------------------------------------------------------
 		# Gridded
 		#
-		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
 		system "$importScript $staticArgs -variable temp -avewindow 01m";
 		system "$importScript $staticArgs -variable temp -avewindow 0pt5m";
 		system "$importScript $staticArgs -variable precip -avewindow 01m";
 		system "$importScript $staticArgs -variable precip -avewindow 0pt5m";
-		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype grid2deg -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
 		system "$importScript $staticArgs -variable precip -avewindow 03m";
 		system "$importScript $staticArgs -variable temp -avewindow 03m";
 		#------------------------------------------------------------
 		# ClimateDivision
 		#
-		$staticArgs = "$options -spatialtype cd -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype cd -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
  		system "$importScript $staticArgs -variable temp -avewindow 01m";
  		system "$importScript $staticArgs -variable precip -avewindow 01m";
-		$staticArgs = "$options -spatialtype cd -datatype observation -startdate $args{startDate} -enddate $args{endDate}";
+		$staticArgs = "$options -spatialtype cd -datatype observation -startdate $args{startDate} -enddate $args{endDate} --skip-header";
 		system "$importScript $staticArgs -variable temp -avewindow 03m";
 		system "$importScript $staticArgs -variable precip -avewindow 03m";
 	}
