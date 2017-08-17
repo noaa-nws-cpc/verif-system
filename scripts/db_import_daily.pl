@@ -467,19 +467,21 @@ sub compareDates() {
     # Read in dates provided
     my $dateStr1 = $_[0];
     my $dateStr2 = $_[1];
+    my $newDateStr1;
+    my $newDateStr2;
     my $dateFormat;
     # Validate dates
     if ($dateStr1 =~ m/\b\d{8}\b/ and $dateStr2 =~ m/\b\d{8}\b/) {
-        $dateFormat = "%Y%m%d"
+        $newDateStr = substr($dateStr1, 0, 4) . "/" . substr($dateStr1, 4, 2) . "/" . substr($dateStr1, 6, 2);
     } elsif ($dateStr1 =~ m/\b\d{6}\b/ and $dateStr2 =~ m/\b\d{6}\b/) {
-        $dateFormat = "%Y%m"
+        $newDateStr = substr($dateStr1, 0, 4) . "/" . substr($dateStr1, 4, 2);
     } else {
         warn "compareDates() Cannot compare these two dates";
         return;
     }
     # Create new Date objects
-    my $dateObj1 = ParseDate($dateStr1);
-    my $dateObj2 = ParseDate($dateStr2);
+    my $dateObj1 = ParseDate($newDateStr1);
+    my $dateObj2 = ParseDate($newDateStr2);
 
     return Date_Cmp($dateObj1,$dateObj2);
 }
