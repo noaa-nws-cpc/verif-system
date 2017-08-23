@@ -101,6 +101,7 @@
 								<div>
 									<input type=<?php print "\"$inputType\""?> name="fcstSource" value="manual" title="CPC Official (Manual)" checked/><span>CPC Official (Manual)</span><br>
 									<input type=<?php print "\"$inputType\""?> name="fcstSource" value="auto" title="CPC Official (Auto)" /><span>CPC Official (Auto)</span><br>
+									<input type=<?php print "\"$inputType\""?> name="fcstSource" value="con" title="CPC Consolidation" /><span>CPC Consolidation</span><br>
 									<a href="javascript:void(0)" name="toolSelectorLink" data-enabled=true>Select forecast models</a>
 								</div>
 							</div>
