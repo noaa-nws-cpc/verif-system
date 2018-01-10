@@ -108,7 +108,7 @@
 	<script type="text/javascript" src="library/jquery.feedback_me.js"></script>
 	<script type="text/javascript" src="library/jquery.blockUI.js"></script>
     <!-- Ploting -->
-    <script src="library/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="library/plotting.js"></script>
     <!-- XML to JSON converter -->
     <script type="text/javascript" src="library/xml-to-json.js"></script>
