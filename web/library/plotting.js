@@ -93,6 +93,14 @@ function Plot(json, settings) {
                     }
                 }
                 // For reliability, insert a 'perfect reliability' line
+                var index = json.xvals.indexOf(0.3333);
+                if (index > -1) {
+                    json.xvals.splice(index, 1);
+                    json.scores.above.splice(index, 1);
+                    json.scores.below.splice(index, 1);
+                    json.scores.near.splice(index, 1);
+                    json.scores.total.splice(index, 1);
+                }
                 if (settings.scoreType === 'reliability') {
                     data.splice(0, 0, {
                         x: json.xvals,
