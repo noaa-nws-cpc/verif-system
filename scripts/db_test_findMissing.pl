@@ -408,6 +408,8 @@ if ($args{emailOpt}) {
 #--------------------------------------------------------------------
 # Keeps track of whether the welcome message has been printed
 my $welcome_message_printed = 0;
+# Keep track of whether any missing data exceeds the threshold
+my $missing_data = 0;
 # Loop over each table
 foreach my $table (keys %daysMissing) {
 	# See if this table has any days missing more than the threshold
@@ -417,6 +419,7 @@ foreach my $table (keys %daysMissing) {
 	# Make this an error-level log if this table contains any days
 	# missing all points
 	if ($missingAllPoints > 0) {
+		$missing_data = 1;
 		# Print welcome message (only the first time)
 		unless ($welcome_message_printed) {
 			$logger->error("$welcomeMessage");
@@ -448,6 +451,10 @@ if ($args{logLevel} =~ /ERROR|FATAL/ ) {
 		print "$welcomeMessage\n";
 	}
 	print "\n  Some missing data was found, but the number of missing points was less than the threshold of $errorThreshold. To see more detailed information, run the script again with -loglevel WARN\n";
+}
+
+if ($missing_data == 1) {
+	exit 1;
 }
 
 
