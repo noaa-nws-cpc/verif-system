@@ -259,15 +259,15 @@ Verification = {
 				alert("The end date must occur after the start date.");
 				return false;
 			}
-			// Make sure the end date is less than or equal to today
+			// Make sure the end date is less than or equal to yesterday
 			if (settings['fcstType'] === '6-10day' || settings['fcstType'] === '8-14day') {
 				var testDate = new Date();
-				testDate.setDate(testDate.getDate());
+				testDate.setDate(testDate.getDate() - 1);
 				var month = testDate.getMonth() + 1;
 				var day = testDate.getDate();
 				var year = testDate.getFullYear();
 				if (new Date(yyyy_end, mm_end-1, dd_end, 0, 0, 0) > testDate) {
-					alert("The end date must be today or earlier (see the \"help\" section)");
+					alert("The end date must be yesterday or earlier (see the \"help\" section)");
 					return false;
 				}
 			}
