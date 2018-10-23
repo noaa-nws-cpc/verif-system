@@ -317,10 +317,11 @@ while (my $table = $results->fetchrow()) {
 		# Calculate the number of spatial points missing
 		$logger->debug("Calling calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt})");
 		my $numMissing = calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt});
-		if ($numMissing > 0) {
+		my $numExpectedLocations = mysql_getNumExpectedLocations($table);
+		if ($numMissing > 0 && $numExpectedLocations && $numExpectedLocations > 0) {
 			push(@tempDaysArray,$sqlDateStr);
 			push(@tempNumArray,$numMissing);
-			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/mysql_getNumExpectedLocations($table))));
+			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/$numExpectedLocations)));
 		}
 		# Increment the date
 		my $dateIncrement;
