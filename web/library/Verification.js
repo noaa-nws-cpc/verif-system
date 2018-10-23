@@ -338,10 +338,6 @@ Verification = {
 			if (settings['regions'] == "") {
 				alert("Please select a region.");
 				return;
-			// Currently we only have AK temp
-			} else if (/\b(AK|103)\b/.test(settings['regions']) && settings['variable'] !== "temp") {
-				alert("Currently only temperature can be verified for Alaska");
-				return;
 			// Currently we only have AK stations and climate divisions
             } else if (/\b(AK|103)\b/.test(settings['regions']) && settings['spatialType'] == "gridded") {
 				alert("Currently only station verification is available for Alaska");
