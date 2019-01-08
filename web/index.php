@@ -87,7 +87,7 @@
     <link type="text/css" href="library/jquery-ui/css/custom/jquery-ui-1.8.15.custom.css" rel="Stylesheet" />
     <link type="text/css" href="styles/jquery.qtip.css" rel="Stylesheet" />
     <link type="text/css" href="styles/jquery.feedback_me.css" rel="Stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	<!-- ======================================================== -->
 	<!--           Import JQuery and related libraries            -->
