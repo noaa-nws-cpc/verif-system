@@ -95,39 +95,39 @@
 	<!-- jQuery itself -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"> </script>
 	<!-- jQuery regex selector -->
-	<script type="text/javascript" src="library/jquery.regex.js"> </script>
+	<script type="text/javascript" src="./library/jquery.regex.js"> </script>
 	<!-- jQuery tooltips -->
-	<script type="text/javascript" src="library/jquery.qtip.min.js"> </script>
+	<script type="text/javascript" src="./library/jquery.qtip.min.js"> </script>
 	<!-- jQuery-based HTML5-like input placeholders -->
-	<script type="text/javascript" src="library/jquery.placeholder.js"> </script>
+	<script type="text/javascript" src="./library/jquery.placeholder.js"> </script>
 	<!-- jQuery UI (used by popup calendars, dialogs, etc.) -->
-	<script type="text/javascript" src="library/jquery-ui/js/jquery-ui-1.8.15.custom.min.js"></script>
+	<script type="text/javascript" src="./library/jquery-ui/js/jquery-ui-1.8.15.custom.min.js"></script>
 	<!-- Custom messaging (using jQuery) -->
-	<script type="text/javascript" src="library/jquery.message.js"></script>
+	<script type="text/javascript" src="./library/jquery.message.js"></script>
 	<!-- jQuery plugin to display a feedback form -->
-	<script type="text/javascript" src="library/jquery.feedback_me.js"></script>
-	<script type="text/javascript" src="library/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="./library/jquery.feedback_me.js"></script>
+	<script type="text/javascript" src="./library/jquery.blockUI.js"></script>
     <!-- Ploting -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="library/plotting.js"></script>
+    <script src="./library/plotting.js"></script>
     <!-- XML to JSON converter -->
-    <script type="text/javascript" src="library/xml-to-json.js"></script>
+    <script type="text/javascript" src="./library/xml-to-json.js"></script>
 
 	<!-- ======================================================== -->
 	<!--                  Import custom libraries                 -->
 	<!-- ======================================================== -->
     <!-- Functions related to the servlet -->
-    <script type="text/javascript" src="library/servlet.js"></script>
-    <script type="text/javascript" src="library/soap.js"></script>
+    <script type="text/javascript" src="./library/servlet.js"></script>
+    <script type="text/javascript" src="./library/soap.js"></script>
 	<!-- Main VWT library (form validation, applet-calling, etc.) -->
-	<script type="text/javascript" src="library/Verification.js"> </script>
-	<script type="text/javascript" src="library/Messaging.js"> </script>
+	<script type="text/javascript" src="./library/Verification.js"> </script>
+	<script type="text/javascript" src="./library/Messaging.js"> </script>
 	<!-- Tool Selector library -->
-	<script type="text/javascript" src="library/ToolSelector.js"></script>
+	<script type="text/javascript" src="./library/ToolSelector.js"></script>
 	<!-- List of existing forecast sources (used to generate the tool selector) -->
-	<script type="text/javascript" src="library/existingFcstSources.js"> </script>
+	<script type="text/javascript" src="./library/existingFcstSources.js"> </script>
 	<!-- Date-related functions -->
-	<script type="text/javascript" src="library/Dates.js"> </script>
+	<script type="text/javascript" src="./library/Dates.js"> </script>
 	<!-- ======================================================== -->
 	<!--             Import mapping-related libraries             -->
 	<!-- ======================================================== -->
@@ -138,12 +138,12 @@
     <script src="//www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
     <script src="//www.amcharts.com/lib/3/themes/light.js"></script>
     <!-- Region selector -->
-    <script src="library/regionSelector.js"></script>
+    <script src="./library/regionSelector.js"></script>
 	<!-- ======================================================== -->
 	<!--    Import libraries that set up certain page elements    -->
 	<!-- ======================================================== -->
 	<!-- Set up the jQuery tooltips -->
-	<script type="text/javascript" src="library/setup_tooltips.js"> </script>
+	<script type="text/javascript" src="./library/setup_tooltips.js"> </script>
 
 
 	<!-- Set the title -->
