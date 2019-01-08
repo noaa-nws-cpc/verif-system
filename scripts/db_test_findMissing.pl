@@ -317,10 +317,11 @@ while (my $table = $results->fetchrow()) {
 		# Calculate the number of spatial points missing
 		$logger->debug("Calling calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt})");
 		my $numMissing = calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt});
-		if ($numMissing > 0) {
+		my $numExpectedLocations = mysql_getNumExpectedLocations($table);
+		if ($numMissing > 0 && $numExpectedLocations && $numExpectedLocations > 0) {
 			push(@tempDaysArray,$sqlDateStr);
 			push(@tempNumArray,$numMissing);
-			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/mysql_getNumExpectedLocations($table))));
+			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/$numExpectedLocations)));
 		}
 		# Increment the date
 		my $dateIncrement;
@@ -408,6 +409,8 @@ if ($args{emailOpt}) {
 #--------------------------------------------------------------------
 # Keeps track of whether the welcome message has been printed
 my $welcome_message_printed = 0;
+# Keep track of whether any missing data exceeds the threshold
+my $missing_data = 0;
 # Loop over each table
 foreach my $table (keys %daysMissing) {
 	# See if this table has any days missing more than the threshold
@@ -417,6 +420,7 @@ foreach my $table (keys %daysMissing) {
 	# Make this an error-level log if this table contains any days
 	# missing all points
 	if ($missingAllPoints > 0) {
+		$missing_data = 1;
 		# Print welcome message (only the first time)
 		unless ($welcome_message_printed) {
 			$logger->error("$welcomeMessage");
@@ -448,6 +452,10 @@ if ($args{logLevel} =~ /ERROR|FATAL/ ) {
 		print "$welcomeMessage\n";
 	}
 	print "\n  Some missing data was found, but the number of missing points was less than the threshold of $errorThreshold. To see more detailed information, run the script again with -loglevel WARN\n";
+}
+
+if ($missing_data == 1) {
+	exit 1;
 }
 
 
@@ -492,17 +500,17 @@ sub calcNumMissing {
 	#
 	# Manual weekends - Don't count NULLs as missing, because there are always NULLs
 	if ($args{dataType} eq "forecast" && (mysql_getSettingFromTableName($table,"fcstSource") eq "manual" or mysql_getSettingFromTableName($table,"model") eq "manual") && mysql_getSettingFromTableName($table,"fcstType") eq "extendedRange" && ($dayOfTheWeek == 6 || $dayOfTheWeek == 7)) {
-		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $database.$table WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
+		$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM `$database`.`$table` WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
 	# Everything else - Counting NULLs or not is left up to the user
 	} else {
 		if (! $dontCountNullsOpt) {
 			if ($args{dataType} eq "forecast") {
-				$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $database.$table WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE (partial.id IS NULL OR partial.prob_below IS NULL OR partial.prob_normal IS NULL OR partial.prob_above IS NULL)) AS missing";
+				$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM `$database`.`$table` WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE (partial.id IS NULL OR partial.prob_below IS NULL OR partial.prob_normal IS NULL OR partial.prob_above IS NULL)) AS missing";
 			} elsif ($args{dataType} eq "observation") {
-				$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $database.$table WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE (partial.id IS NULL OR partial.category IS NULL)) AS missing";
+				$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM `$database`.`$table` WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE (partial.id IS NULL OR partial.category IS NULL)) AS missing";
 			}
 		} else {
-			$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM $database.$table WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
+			$sqlQuery = "SELECT fullId FROM (SELECT full.id AS fullId, partial.id AS partialID, partial.$dateColumn FROM $mysqlSettings{db_ref}.$args{spatialType} AS full LEFT JOIN (SELECT * FROM `$database`.`$table` WHERE $dateColumn='$sqlDate') AS partial ON full.id=partial.id WHERE partial.id IS NULL) AS missing";
 		}
 	}
 	$logger->debug("Query to find missing data: $sqlQuery");
