@@ -20,7 +20,7 @@ db_test_findMissing.pl - A Perl script to find missing forecast and/or obs data 
    -n, -dontcountnulls   If this option is used, then rows containing NULL values will
                          *not* count as missing. Since missing ASCII data files result
                          in NULL rows being inserted into the database when the import
-                         script runs, this option will will reveal when the script 
+                         script runs, this option will will reveal when the script
                          itself hasn't run properly.
    -tableinclude         Regexp string of what tables to include. For example,
                          '-tableinclude ^temp_.*_grid2deg$' will check all tables
@@ -165,22 +165,6 @@ my %loggerConfig = (
 	'log4perl.appender.Screen.layout.ConversionPattern'	=> "\%m\%n",
 	'log4perl.appender.Screen.Threshold'				=> "$args{logLevel}"
 );
-# If the email option is turned on
-if (defined($args{emailOpt})) {
-	# Add "Mailer" to the root logger
-	$loggerConfig{'log4perl.rootLogger'} .= ", Mailer";
-	# Add a Mailer appender (will send out email when an ERROR-level log call occurs)
-	%loggerConfig = (%loggerConfig, (
-'log4perl.appender.Mailer'							=> "Log::Dispatch::Email::MailSend",
-'log4perl.appender.Mailer.to'						=> "$emailSettings{toEmail}",
-'log4perl.appender.Mailer.from'						=> "\"$emailSettings{fromName}\" <$emailSettings{fromEmail}>",
-'log4perl.appender.Mailer.subject'					=> "$emailSettings{subject}",
-'log4perl.appender.Mailer.layout'					=> "Log::Log4perl::Layout::PatternLayout",
-'log4perl.appender.Mailer.layout.ConversionPattern'	=> "\%m\%n",
-'log4perl.appender.Mailer.Threshold'				=> "$emailSettings{logLevel}",
-'log4perl.appender.Mailer.buffered' => 1
-));
-}
 # Initialize the logger
 Log::Log4perl::init( \%loggerConfig ) or die "Cannot initialize logger: $!";
 my $logger = Log::Log4perl::get_logger("");
@@ -314,15 +298,23 @@ while (my $table = $results->fetchrow()) {
 			$sqlDate = UnixDate($epochDate, "%Y-%m-15"); # Date used in SQL query
 			$sqlDateStr = UnixDate($epochDate, "%Y-%m"); # Date that gets printed for user
 		}
-		# Calculate the number of spatial points missing
-		$logger->debug("Calling calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt})");
-		my $numMissing = calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt});
-		my $numExpectedLocations = mysql_getNumExpectedLocations($table);
-		if ($numMissing > 0 && $numExpectedLocations && $numExpectedLocations > 0) {
-			push(@tempDaysArray,$sqlDateStr);
-			push(@tempNumArray,$numMissing);
-			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/$numExpectedLocations)));
-		}
+    # If all values are EC, insert values into the arrays below
+    if (isAllEC($mysqlSettings{'database'}, $table, $sqlDate)) {
+      my $numExpectedLocations = mysql_getNumExpectedLocations($table);
+      push(@tempDaysArray, $sqlDateStr);
+      push(@tempNumArray, $numExpectedLocations);
+      push(@tempPercentArray, 100);
+    } else {
+  		# Calculate the number of spatial points missing
+  		$logger->debug("Calling calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt})");
+  		my $numMissing = calcNumMissing($mysqlSettings{'database'},$table,$sqlDate,$args{dontCountNullsOpt});
+  		my $numExpectedLocations = mysql_getNumExpectedLocations($table);
+  		if ($numMissing > 0 && $numExpectedLocations && $numExpectedLocations > 0) {
+  			push(@tempDaysArray,$sqlDateStr);
+  			push(@tempNumArray,$numMissing);
+  			push(@tempPercentArray,100*(1-((getTotalSpatialPoints()-$numMissing)/$numExpectedLocations)));
+  		}
+    }
 		# Increment the date
 		my $dateIncrement;
 		if ($args{fcstType} eq "extendedRange") {
@@ -381,6 +373,7 @@ if ($args{emailOpt}) {
 	# data owner to a list of emails to receive the log message
 	#--------------------------------------------------------------------
 	# Loop over each table
+  my $toAddresses = "";
 	foreach my $table (keys %daysMissing) {
 		# Get the owner of the data in this table
 		my $dataOwner = "";
@@ -388,12 +381,9 @@ if ($args{emailOpt}) {
 			$dataOwner = mysql_getDataOwner($table);
 		}
 		# Add the data owner unless they were already added
-		unless ($loggerConfig{'log4perl.appender.Mailer.to'} =~ m/$dataOwner/) {
-			$loggerConfig{'log4perl.appender.Mailer.to'} .= ", $dataOwner";
-			$logger->debug("Mailer appender changed to $loggerConfig{'log4perl.appender.Mailer.to'}");
-			# Reinitialize the logger
-			Log::Log4perl::init( \%loggerConfig ) or die "Cannot initialize logger: $!";
-		}
+    if (index($toAddresses, $dataOwner) == -1) {
+      $toAddresses .= ", $dataOwner";
+    }
 	}
 	# Now that we've established the final list of emailees, anything we
 	# log will be seen in the email message that everyone receives (if
@@ -407,6 +397,7 @@ if ($args{emailOpt}) {
 #--------------------------------------------------------------------
 # Loop over hash array and print missing days
 #--------------------------------------------------------------------
+my $emailBody = "";
 # Keeps track of whether the welcome message has been printed
 my $welcome_message_printed = 0;
 # Keep track of whether any missing data exceeds the threshold
@@ -424,9 +415,11 @@ foreach my $table (keys %daysMissing) {
 		# Print welcome message (only the first time)
 		unless ($welcome_message_printed) {
 			$logger->error("$welcomeMessage");
+      $emailBody .= "$welcomeMessage";
 			$welcome_message_printed = 1;
 		}
 		$logger->error("\n    $table\n\n");
+    $emailBody .= "\n    $table\n\n";
 	} else {
 		$logger->warn("\n    $table\n\n");
 	}
@@ -438,6 +431,7 @@ foreach my $table (keys %daysMissing) {
 		my $string  = sprintf("      %s: Missing %d %s points (%d%%)\n",$day,$num,$args{spatialType},$percent);
 		if ($percent >= $errorThreshold) {
 			$logger->error("$string");
+      $emailBody .= "$string";
 		} else {
 			$logger->warn("$string");
 		}
@@ -454,6 +448,14 @@ if ($args{logLevel} =~ /ERROR|FATAL/ ) {
 	print "\n  Some missing data was found, but the number of missing points was less than the threshold of $errorThreshold. To see more detailed information, run the script again with -loglevel WARN\n";
 }
 
+#--------------------------------------------------------------------
+# Send an email
+#--------------------------------------------------------------------
+if ($args{emailOpt} && $missing_data == 1) {
+  system "echo \"$emailBody\" > /tmp/vwt-data-email.txt && mutt -s 'VWT Data Issue' mike.charles\@noaa.gov < /tmp/vwt-data-email.txt && rm -f /tmp/vwt-data-email.txt";
+}
+
+
 if ($missing_data == 1) {
 	exit 1;
 }
@@ -462,6 +464,24 @@ if ($missing_data == 1) {
 #====================================================================
 #                           SUBROUTINES
 #====================================================================
+
+sub isAllEC {
+  # Get input arguments
+  my $database = $_[0];
+	my $table    = $_[1];
+	my $sqlDate  = $_[2];
+  # Execute query to see if all values in all columns are the same
+  my $sqlQuery = "SELECT COUNT(DISTINCT prob_below + prob_normal + prob_above) AS distinct_values FROM `$database`.`$table` WHERE date_issued='$sqlDate'";
+  $logger->debug("Query to see if all data is EC: $sqlQuery");
+  my $results = $db->prepare($sqlQuery) ; $results->execute();
+  # Get the number of locations missing
+  my $distinct_values = $results->fetchrow_array();
+  if ($distinct_values == 1) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
 
 =head1 SUBROUTINES
 
