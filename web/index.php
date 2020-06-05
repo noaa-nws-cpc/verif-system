@@ -1,7 +1,7 @@
 <?php
 	// Turn on error reporting
- 	error_reporting(E_ALL);
- 	ini_set("display_errors", 1);
+ 	//error_reporting(E_ALL);
+ 	//ini_set("display_errors", 1);
  	// Start the session if it's not already started
 // 	if (! isset($_SESSION)) {
 // 	 	session_start();
@@ -68,7 +68,8 @@
 <!-- HTML Header -->
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: *.googleapis.com *.plot.ly; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.jquery.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com; img-src 'self' data:">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.googleapis.com *.plot.ly *.ncep.noaa.gov *.gstatic.com; connect-src 'self' *.ncep.noaa.gov *.jquery.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.jquery.com *.ncep.noaa.gov *.gstatic.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.ncep.noaa.gov *.gstatic.com; font-src *.gstatic.com; img-src 'self' data:">
+
     <script type='text/javascript'>
         /**
         Format function similar to Python's
@@ -581,14 +582,14 @@
 			//
 			// The notes and warnings are stored in a MySQL database on the server
 			//
-			<?php
-			if ($message_note) {
-				echo "$('#newsPanel').message('$message_note','note');\n";
-			}
-			if ($message_warning) {
-				echo "$('#newsPanel').message('$message_warning','warning');\n";
-			}
-			?>
+			// <?php
+			// if ($message_note) {
+			// 	echo "$('#newsPanel').message('$message_note','note');\n";
+			// }
+			// if ($message_warning) {
+			// 	echo "$('#newsPanel').message('$message_warning','warning');\n";
+			// }
+			// ?>
 
 			//-------------------------------------------------------------------------------
 			// Set autocomplete to off for all form elements. This way when the page is
