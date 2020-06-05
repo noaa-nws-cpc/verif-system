@@ -1,18 +1,23 @@
 <?php
 	// Turn on error reporting
-// 	error_reporting(E_ALL);
-// 	ini_set("display_errors", 1);
+ 	error_reporting(E_ALL);
+ 	ini_set("display_errors", 1);
  	// Start the session if it's not already started
 // 	if (! isset($_SESSION)) {
 // 	 	session_start();
 // 	}
-	// Get the page
-	if (! empty($_GET['page'])) {
-		$page = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
+
+  // Array of all possible pages (tabs) for whitelist
+  $pages = array("chart", "map", "help");
+
+  // Get the whitelisted page parameter from the URL
+	if (!empty($_GET['page']) && in_array($_GET['page'], $pages)) {
+		$page = urlencode(filter_var($_GET['page'], FILTER_SANITIZE_STRING));
 	} else {
 		// Default to chart
 		$page = "chart";
 	}
+
 	// Get the output type (set it to page, unless page is "help"
 	if ($page === "help") {
 		$outputType = "none";
@@ -22,7 +27,9 @@
 	// Set the session outputType variable
 	$_SESSION['page'] = $page;
 	// Construct URL
-	$thisPage = $_SERVER['PHP_SELF'];
+	$thisPage = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+
+	//$thisPage = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] = 'index.php';
 
 	//-------------------------------------------------------------------------
 	// Get any messages for the user
@@ -56,10 +63,12 @@
     // Read settings from a config file
     require('library/web_settings.php');
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <!-- HTML Header -->
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: *.googleapis.com *.plot.ly; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.jquery.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com; img-src 'self' data:">
     <script type='text/javascript'>
         /**
         Format function similar to Python's
@@ -611,11 +620,12 @@
 				</div>
 			</section>
 		</div>
+
 		<!-- Tabs to switch between chart and map verification and the help page -->
 		<ul id="pageTabs" class="tabs pageTabs">
-			<li class="<?php if ($page === "chart") {print "selected";} else {print "unselected";}?>"><a href="<?php print "$thisPage?page=chart"?>">Chart</a></li>
-			<li class="<?php if ($page === "map") {print "selected";} else {print "unselected";}?>"><a href="<?php print "$thisPage?page=map"?>">Map</a></li>
-			<li class="<?php if ($page === "help") {print "selected";} else {print "unselected";}?>"><a href="<?php print "$thisPage?page=help"?>">Tutorial</a></li>
+			<li class="<?php if ($page === "chart") {print "selected";} else {print "unselected";}?>"><a href="<?php print htmlspecialchars(strip_tags(trim($thisPage)))."?page=chart"?>">Chart</a></li>
+			<li class="<?php if ($page === "map") {print "selected";} else {print "unselected";}?>"><a href="<?php print htmlspecialchars(strip_tags(trim($thisPage)))."?page=map"?>">Map</a></li>
+			<li class="<?php if ($page === "help") {print "selected";} else {print "unselected";}?>"><a href="<?php print htmlspecialchars(strip_tags(trim($thisPage)))."?page=help"?>">Tutorial</a></li>
 		</ul>
 		<div id="innerContainer">
 			<!-- Insert the inner page, either chart.php or map.php -->
