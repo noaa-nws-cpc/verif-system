@@ -59,7 +59,7 @@ public class VerificationSystemServices
     	  String dateFormat = ini.get("mysql","dateFormat");
 
     	  // Make connection
-    	  String dbURL = "jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword;
+          String dbURL = "jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword+"&characterEncoding=utf8";
     	  logger.info("Connecting to database with URL jdbc:mysql://"+dbHost+"/?user="+dbUser);
     	  dbConnection = DriverManager.getConnection(dbURL);
 
