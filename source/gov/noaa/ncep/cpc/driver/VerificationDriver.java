@@ -326,7 +326,7 @@ Notes:<p>
 		logger.info("Connecting to MySQL...\n");
 		try {
 			// Create connection
-			dbConnection = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword);
+			dbConnection = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword+"&characterEncoding=utf8");
 		} catch (SQLException e) {
 			// handle any errors
 			logger.fatal("SQLException: " + e.getMessage());

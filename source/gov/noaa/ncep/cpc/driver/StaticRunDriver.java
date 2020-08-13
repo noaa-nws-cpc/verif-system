@@ -97,7 +97,7 @@ public class StaticRunDriver {
 			logger.error("Threw an expcetion : ", e);
 		}
 		// Create a connection to MySQL
-		String connectionURL = "jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword;
+		String connectionURL = "jdbc:mysql://"+dbHost+"/?user="+dbUser+"&password="+dbPassword+"&characterEncoding=utf8";
 		logger.info("Connecting to MySQL: jdbc:mysql://"+dbHost+"/?user="+dbUser);
 		try {
 			// Create connection
