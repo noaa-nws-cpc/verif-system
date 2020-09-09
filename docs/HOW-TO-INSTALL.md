@@ -92,11 +92,11 @@ Refer to the [Data Handbook](https://docs.google.com/a/noaa.gov/document/d/1wnD4
 
 The Verification System is located in a Git repository at the following URL:
 
-    gitlab@gitlab.ncep.noaa.gov:cpc/verif-system.git
+    git@github.ncep.noaa.gov:cpc/verif-system.git
 
 To get the latest version, clone the repository:
 
-    git clone gitlab@gitlab.ncep.noaa.gov:cpc/verif-system.git
+    git clone git@github.ncep.noaa.gov:cpc/verif-system.git
 
 This will create a directory called verif-system containing all the Verification System code.
 
