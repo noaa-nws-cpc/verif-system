@@ -68,8 +68,6 @@
 <!-- HTML Header -->
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.googleapis.com *.plot.ly *.ncep.noaa.gov *.gstatic.com; connect-src 'self' *.ncep.noaa.gov *.jquery.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.jquery.com *.ncep.noaa.gov *.gstatic.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.plot.ly *.amcharts.com *.cloudflare.com *.ncep.noaa.gov *.gstatic.com; font-src *.gstatic.com; img-src 'self' data:">
-
     <script type='text/javascript'>
         /**
         Format function similar to Python's
