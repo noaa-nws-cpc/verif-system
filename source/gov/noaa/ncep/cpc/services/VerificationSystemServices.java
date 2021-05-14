@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import org.apache.log4j.Logger;
 import org.ini4j.Wini;
 
@@ -69,8 +71,16 @@ public class VerificationSystemServices
 
         VerificationDriver driverObj = new VerificationDriver();
         driverObj.setDbConnection(dbConnection);
-        driverObj.runDriver(settings,webFlag);
 
+        // Sanitize strings in the Settings object to avoid SQL injection
+        int i = 0;
+        while (i < settings.length) {
+            settings[i] = StringEscapeUtils.escapeXml(settings[i]);
+            settings[i] = settings[i].replaceAll("[-*\'\"]","");
+            i++;
+        }
+
+        driverObj.runDriver(settings,webFlag);
         results = driverObj.getResultsObj();
 
       } catch (Exception e) {
